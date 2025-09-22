@@ -16,9 +16,7 @@
 
 
 	<ItemGroup>
-    <Folder Include="Controls\" />
     <Folder Include="Models\" />
-    <Folder Include="images\" />
     <Folder Include="Utils\" />
     <Folder Include="Services\" />
   </ItemGroup>

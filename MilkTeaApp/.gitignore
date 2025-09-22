@@ -1,0 +1,27 @@
+# Visual Studio cache folder
+.vs/
+
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+
+# Logs
+*.log
+
+# NuGet packages
+*.nupkg
+*.snupkg
+packages/
+
+# Backup & temp
+*.tmp
+*.bak
+*.swp
+
+# Other
+*.dbmdl
+*.jfm

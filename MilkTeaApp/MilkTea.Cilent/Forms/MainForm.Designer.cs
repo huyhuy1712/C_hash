@@ -27,9 +27,10 @@
             panelMain = new Panel();
             panelContent = new Panel();
             panelFooter = new Panel();
+            signature = new Label();
             Infopanel = new Panel();
-            avatarUser = new PictureBox();
             username = new Label();
+            avatarUser = new PictureBox();
             panelMenu = new Panel();
             layoutMenu = new TableLayoutPanel();
             btnOrder = new Button();
@@ -39,7 +40,6 @@
             btnPhieuNhap = new Button();
             btnTaiKhoan = new Button();
             btnDangXuat = new Button();
-            signature = new Label();
             panelMain.SuspendLayout();
             panelFooter.SuspendLayout();
             Infopanel.SuspendLayout();
@@ -55,40 +55,66 @@
             panelMain.Dock = DockStyle.Fill;
             panelMain.Location = new Point(176, 0);
             panelMain.Name = "panelMain";
-            panelMain.Size = new Size(1101, 531);
+            panelMain.Size = new Size(1271, 531);
             panelMain.TabIndex = 1;
             // 
             // panelContent
             // 
-            panelContent.BackColor = SystemColors.Window;
+            panelContent.BackColor = SystemColors.Menu;
             panelContent.Dock = DockStyle.Fill;
             panelContent.Location = new Point(0, 0);
             panelContent.Name = "panelContent";
             panelContent.Padding = new Padding(0, 0, 30, 0);
-            panelContent.Size = new Size(1101, 472);
+            panelContent.Size = new Size(1271, 472);
             panelContent.TabIndex = 1;
             // 
             // panelFooter
             // 
-            panelFooter.BackColor = SystemColors.MenuHighlight;
+            panelFooter.BackColor = Color.DodgerBlue;
             panelFooter.Controls.Add(signature);
             panelFooter.Controls.Add(Infopanel);
             panelFooter.Dock = DockStyle.Bottom;
             panelFooter.Location = new Point(0, 472);
             panelFooter.Name = "panelFooter";
             panelFooter.Padding = new Padding(10);
-            panelFooter.Size = new Size(1101, 59);
+            panelFooter.Size = new Size(1271, 59);
             panelFooter.TabIndex = 0;
+            // 
+            // signature
+            // 
+            signature.BackColor = Color.DodgerBlue;
+            signature.Dock = DockStyle.Fill;
+            signature.Font = new Font("Segoe UI Semibold", 17F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            signature.ForeColor = SystemColors.ButtonHighlight;
+            signature.Location = new Point(10, 10);
+            signature.Name = "signature";
+            signature.Size = new Size(1036, 39);
+            signature.TabIndex = 1;
+            signature.Text = "Chào mừng đến với wibu world";
+            signature.TextAlign = ContentAlignment.MiddleCenter;
+            signature.Click += signature_Click;
             // 
             // Infopanel
             // 
             Infopanel.Controls.Add(username);
             Infopanel.Controls.Add(avatarUser);
             Infopanel.Dock = DockStyle.Right;
-            Infopanel.Location = new Point(876, 10);
+            Infopanel.Location = new Point(1046, 10);
             Infopanel.Name = "Infopanel";
             Infopanel.Size = new Size(215, 39);
             Infopanel.TabIndex = 0;
+            // 
+            // username
+            // 
+            username.Dock = DockStyle.Fill;
+            username.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            username.ForeColor = SystemColors.ButtonHighlight;
+            username.Location = new Point(0, 0);
+            username.Name = "username";
+            username.Size = new Size(153, 39);
+            username.TabIndex = 1;
+            username.Text = "Anh Huy";
+            username.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // avatarUser
             // 
@@ -103,21 +129,9 @@
             avatarUser.TabStop = false;
             avatarUser.Click += pictureBox1_Click;
             // 
-            // username
-            // 
-            username.Dock = DockStyle.Fill;
-            username.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            username.ForeColor = SystemColors.ButtonHighlight;
-            username.Location = new Point(0, 0);
-            username.Name = "username";
-            username.Size = new Size(153, 39);
-            username.TabIndex = 1;
-            username.Text = "Anh Huy";
-            username.TextAlign = ContentAlignment.MiddleCenter;
-            // 
             // panelMenu
             // 
-            panelMenu.BackColor = SystemColors.Highlight;
+            panelMenu.BackColor = Color.DodgerBlue;
             panelMenu.Controls.Add(layoutMenu);
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 0);
@@ -269,24 +283,11 @@
             btnDangXuat.Text = "   Đăng xuất";
             btnDangXuat.UseVisualStyleBackColor = true;
             // 
-            // signature
-            // 
-            signature.Dock = DockStyle.Fill;
-            signature.Font = new Font("Segoe UI Semibold", 17F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            signature.ForeColor = SystemColors.ButtonHighlight;
-            signature.Location = new Point(10, 10);
-            signature.Name = "signature";
-            signature.Size = new Size(866, 39);
-            signature.TabIndex = 1;
-            signature.Text = "Chào mừng đến với wibu world";
-            signature.TextAlign = ContentAlignment.MiddleCenter;
-            signature.Click += signature_Click;
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1277, 531);
+            ClientSize = new Size(1447, 531);
             Controls.Add(panelMain);
             Controls.Add(panelMenu);
             Name = "MainForm";
