@@ -56,5 +56,79 @@ namespace MilkTea.Client.Forms
         {
 
         }
+
+        private void roundedComboBox4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label17_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label25_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnXuatDon_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SL_textBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void section_table_panel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel4_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label29_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void flowLayoutPanel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void popup_Opening(object sender, CancelEventArgs e)
+        {
+
+        }
+
+        private void three_dots_label_click(object sender, EventArgs e)
+        {
+            // Lấy vị trí Label trên màn hình
+            var location = three_dots_label.PointToScreen(new Point(0, three_dots_label.Height));
+
+            // Hiển thị menu ngay dưới label
+            popup.Show(location);
+        }
+
+        private void Hủy_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

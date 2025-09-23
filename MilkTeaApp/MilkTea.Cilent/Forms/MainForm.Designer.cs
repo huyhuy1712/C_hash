@@ -55,7 +55,7 @@
             panelMain.Dock = DockStyle.Fill;
             panelMain.Location = new Point(176, 0);
             panelMain.Name = "panelMain";
-            panelMain.Size = new Size(1271, 531);
+            panelMain.Size = new Size(1676, 625);
             panelMain.TabIndex = 1;
             // 
             // panelContent
@@ -65,7 +65,7 @@
             panelContent.Location = new Point(0, 0);
             panelContent.Name = "panelContent";
             panelContent.Padding = new Padding(0, 0, 30, 0);
-            panelContent.Size = new Size(1271, 472);
+            panelContent.Size = new Size(1676, 566);
             panelContent.TabIndex = 1;
             // 
             // panelFooter
@@ -74,10 +74,10 @@
             panelFooter.Controls.Add(signature);
             panelFooter.Controls.Add(Infopanel);
             panelFooter.Dock = DockStyle.Bottom;
-            panelFooter.Location = new Point(0, 472);
+            panelFooter.Location = new Point(0, 566);
             panelFooter.Name = "panelFooter";
             panelFooter.Padding = new Padding(10);
-            panelFooter.Size = new Size(1271, 59);
+            panelFooter.Size = new Size(1676, 59);
             panelFooter.TabIndex = 0;
             // 
             // signature
@@ -88,7 +88,7 @@
             signature.ForeColor = SystemColors.ButtonHighlight;
             signature.Location = new Point(10, 10);
             signature.Name = "signature";
-            signature.Size = new Size(1036, 39);
+            signature.Size = new Size(1441, 39);
             signature.TabIndex = 1;
             signature.Text = "Chào mừng đến với wibu world";
             signature.TextAlign = ContentAlignment.MiddleCenter;
@@ -99,7 +99,7 @@
             Infopanel.Controls.Add(username);
             Infopanel.Controls.Add(avatarUser);
             Infopanel.Dock = DockStyle.Right;
-            Infopanel.Location = new Point(1046, 10);
+            Infopanel.Location = new Point(1451, 10);
             Infopanel.Name = "Infopanel";
             Infopanel.Size = new Size(215, 39);
             Infopanel.TabIndex = 0;
@@ -136,7 +136,7 @@
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 0);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(176, 531);
+            panelMenu.Size = new Size(176, 625);
             panelMenu.TabIndex = 0;
             // 
             // layoutMenu
@@ -162,7 +162,7 @@
             layoutMenu.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2857141F));
             layoutMenu.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2857141F));
             layoutMenu.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            layoutMenu.Size = new Size(176, 531);
+            layoutMenu.Size = new Size(176, 625);
             layoutMenu.TabIndex = 0;
             // 
             // btnOrder
@@ -176,7 +176,7 @@
             btnOrder.ImageAlign = ContentAlignment.MiddleLeft;
             btnOrder.Location = new Point(3, 3);
             btnOrder.Name = "btnOrder";
-            btnOrder.Size = new Size(170, 69);
+            btnOrder.Size = new Size(170, 83);
             btnOrder.TabIndex = 1;
             btnOrder.Text = "    Order";
             btnOrder.UseVisualStyleBackColor = true;
@@ -191,9 +191,9 @@
             btnHoaDon.ForeColor = SystemColors.ButtonHighlight;
             btnHoaDon.Image = Properties.Resources.invoice;
             btnHoaDon.ImageAlign = ContentAlignment.MiddleLeft;
-            btnHoaDon.Location = new Point(3, 78);
+            btnHoaDon.Location = new Point(3, 92);
             btnHoaDon.Name = "btnHoaDon";
-            btnHoaDon.Size = new Size(170, 69);
+            btnHoaDon.Size = new Size(170, 83);
             btnHoaDon.TabIndex = 2;
             btnHoaDon.Text = "    Hóa đơn";
             btnHoaDon.UseVisualStyleBackColor = true;
@@ -208,9 +208,9 @@
             btnThongKe.ForeColor = SystemColors.ButtonHighlight;
             btnThongKe.Image = Properties.Resources.report;
             btnThongKe.ImageAlign = ContentAlignment.MiddleLeft;
-            btnThongKe.Location = new Point(3, 153);
+            btnThongKe.Location = new Point(3, 181);
             btnThongKe.Name = "btnThongKe";
-            btnThongKe.Size = new Size(170, 69);
+            btnThongKe.Size = new Size(170, 83);
             btnThongKe.TabIndex = 3;
             btnThongKe.Text = "    Thống kê";
             btnThongKe.UseVisualStyleBackColor = true;
@@ -225,9 +225,9 @@
             btnKhuyenMai.ForeColor = SystemColors.ButtonHighlight;
             btnKhuyenMai.Image = Properties.Resources.discount;
             btnKhuyenMai.ImageAlign = ContentAlignment.MiddleLeft;
-            btnKhuyenMai.Location = new Point(3, 228);
+            btnKhuyenMai.Location = new Point(3, 270);
             btnKhuyenMai.Name = "btnKhuyenMai";
-            btnKhuyenMai.Size = new Size(170, 69);
+            btnKhuyenMai.Size = new Size(170, 83);
             btnKhuyenMai.TabIndex = 4;
             btnKhuyenMai.Text = "    Khuyến mãi";
             btnKhuyenMai.UseVisualStyleBackColor = true;
@@ -242,9 +242,9 @@
             btnPhieuNhap.ForeColor = SystemColors.ButtonHighlight;
             btnPhieuNhap.Image = Properties.Resources.import;
             btnPhieuNhap.ImageAlign = ContentAlignment.MiddleLeft;
-            btnPhieuNhap.Location = new Point(3, 303);
+            btnPhieuNhap.Location = new Point(3, 359);
             btnPhieuNhap.Name = "btnPhieuNhap";
-            btnPhieuNhap.Size = new Size(170, 69);
+            btnPhieuNhap.Size = new Size(170, 83);
             btnPhieuNhap.TabIndex = 5;
             btnPhieuNhap.Text = "    Phiếu nhập";
             btnPhieuNhap.UseVisualStyleBackColor = true;
@@ -259,9 +259,9 @@
             btnTaiKhoan.ForeColor = SystemColors.ButtonHighlight;
             btnTaiKhoan.Image = Properties.Resources.user;
             btnTaiKhoan.ImageAlign = ContentAlignment.MiddleLeft;
-            btnTaiKhoan.Location = new Point(3, 378);
+            btnTaiKhoan.Location = new Point(3, 448);
             btnTaiKhoan.Name = "btnTaiKhoan";
-            btnTaiKhoan.Size = new Size(170, 69);
+            btnTaiKhoan.Size = new Size(170, 83);
             btnTaiKhoan.TabIndex = 6;
             btnTaiKhoan.Text = "   Tài khoản";
             btnTaiKhoan.UseVisualStyleBackColor = true;
@@ -276,9 +276,9 @@
             btnDangXuat.ForeColor = SystemColors.ButtonHighlight;
             btnDangXuat.Image = Properties.Resources.logout;
             btnDangXuat.ImageAlign = ContentAlignment.MiddleLeft;
-            btnDangXuat.Location = new Point(3, 453);
+            btnDangXuat.Location = new Point(3, 537);
             btnDangXuat.Name = "btnDangXuat";
-            btnDangXuat.Size = new Size(170, 75);
+            btnDangXuat.Size = new Size(170, 85);
             btnDangXuat.TabIndex = 7;
             btnDangXuat.Text = "   Đăng xuất";
             btnDangXuat.UseVisualStyleBackColor = true;
@@ -287,7 +287,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1447, 531);
+            ClientSize = new Size(1852, 625);
             Controls.Add(panelMain);
             Controls.Add(panelMenu);
             Name = "MainForm";

@@ -28,40 +28,56 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             OrderPanel = new Panel();
             RightPanel = new Panel();
+            Section_Right_Panel = new Panel();
+            Panel = new Panel();
+            section_table_panel = new Panel();
+            item_right_panel = new Panel();
+            tableLayoutPanel3 = new TableLayoutPanel();
+            label19 = new Label();
+            label26 = new Label();
+            label27 = new Label();
+            SL_dc_label = new Label();
+            label31 = new Label();
+            pictureBox9 = new PictureBox();
+            size_comboBox1 = new ComboBox();
+            panel8 = new Panel();
+            textBox1 = new TextBox();
+            three_dots_label = new Label();
+            Header_Table_panel = new Panel();
+            tableLayoutPanel2 = new TableLayoutPanel();
+            label25 = new Label();
+            label24 = new Label();
+            label23 = new Label();
+            label22 = new Label();
+            label21 = new Label();
+            label20 = new Label();
+            label18 = new Label();
+            panel7 = new Panel();
+            panel9 = new Panel();
+            TongTien_label = new Label();
+            label29 = new Label();
+            Ten_NV_Label = new Label();
+            label17 = new Label();
+            Footer_Right_Panel = new Panel();
+            comboBox2 = new ComboBox();
+            comboBox1 = new ComboBox();
+            btnXuatDon = new MilkTea.Client.Controls.RoundedButton();
+            Header_Right_Panel = new Panel();
+            label16 = new Label();
             LeftPanel = new Panel();
             Middle_Left_Panel = new Panel();
             panel_Bottom = new Panel();
             flowLayoutPanel1 = new FlowLayoutPanel();
-            panel3 = new Panel();
-            label4 = new Label();
-            label5 = new Label();
-            pictureBox3 = new PictureBox();
-            item_panel = new Panel();
-            label3 = new Label();
-            label2 = new Label();
-            pictureBox2 = new PictureBox();
+            product_panel = new Panel();
             panel1 = new Panel();
-            label6 = new Label();
-            label7 = new Label();
-            pictureBox4 = new PictureBox();
-            panel2 = new Panel();
-            label8 = new Label();
-            label9 = new Label();
-            pictureBox5 = new PictureBox();
-            panel4 = new Panel();
-            label10 = new Label();
-            label11 = new Label();
-            pictureBox6 = new PictureBox();
-            panel5 = new Panel();
-            label12 = new Label();
-            label13 = new Label();
-            pictureBox7 = new PictureBox();
-            panel6 = new Panel();
-            label14 = new Label();
-            label15 = new Label();
-            pictureBox8 = new PictureBox();
+            flowLayoutPanel2 = new FlowLayoutPanel();
+            label2 = new Label();
+            label3 = new Label();
+            label4 = new Label();
+            pictureBox3 = new PictureBox();
             panel_Top = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
             roundedTextBox1 = new MilkTea.Client.Controls.RoundedTextBox();
@@ -77,31 +93,39 @@
             Header_Left_Panel = new Panel();
             pictureBox1 = new PictureBox();
             label1 = new Label();
+            popup = new ContextMenuStrip(components);
+            Hủy = new ToolStripMenuItem();
+            Topping = new ToolStripMenuItem();
             OrderPanel.SuspendLayout();
+            RightPanel.SuspendLayout();
+            Section_Right_Panel.SuspendLayout();
+            Panel.SuspendLayout();
+            section_table_panel.SuspendLayout();
+            item_right_panel.SuspendLayout();
+            tableLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox9).BeginInit();
+            panel8.SuspendLayout();
+            Header_Table_panel.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
+            panel7.SuspendLayout();
+            panel9.SuspendLayout();
+            Footer_Right_Panel.SuspendLayout();
+            Header_Right_Panel.SuspendLayout();
             LeftPanel.SuspendLayout();
             Middle_Left_Panel.SuspendLayout();
             panel_Bottom.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
-            panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            item_panel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            product_panel.SuspendLayout();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
-            panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
-            panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
-            panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
-            panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
+            flowLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             panel_Top.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             Footer_Left_Panel.SuspendLayout();
             Layout_Footer_Left_Panel.SuspendLayout();
             Header_Left_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            popup.SuspendLayout();
             SuspendLayout();
             // 
             // OrderPanel
@@ -113,17 +137,486 @@
             OrderPanel.ForeColor = SystemColors.Highlight;
             OrderPanel.Location = new Point(0, 0);
             OrderPanel.Name = "OrderPanel";
-            OrderPanel.Size = new Size(1253, 425);
+            OrderPanel.Size = new Size(1641, 425);
             OrderPanel.TabIndex = 0;
             // 
             // RightPanel
             // 
             RightPanel.BackColor = SystemColors.ControlLight;
+            RightPanel.Controls.Add(Section_Right_Panel);
+            RightPanel.Controls.Add(Footer_Right_Panel);
+            RightPanel.Controls.Add(Header_Right_Panel);
             RightPanel.Dock = DockStyle.Fill;
             RightPanel.Location = new Point(636, 0);
             RightPanel.Name = "RightPanel";
-            RightPanel.Size = new Size(617, 425);
+            RightPanel.Size = new Size(1005, 425);
             RightPanel.TabIndex = 1;
+            // 
+            // Section_Right_Panel
+            // 
+            Section_Right_Panel.BorderStyle = BorderStyle.FixedSingle;
+            Section_Right_Panel.Controls.Add(Panel);
+            Section_Right_Panel.Controls.Add(panel7);
+            Section_Right_Panel.Dock = DockStyle.Fill;
+            Section_Right_Panel.Location = new Point(0, 57);
+            Section_Right_Panel.Name = "Section_Right_Panel";
+            Section_Right_Panel.Size = new Size(1005, 296);
+            Section_Right_Panel.TabIndex = 2;
+            // 
+            // Panel
+            // 
+            Panel.Controls.Add(section_table_panel);
+            Panel.Controls.Add(Header_Table_panel);
+            Panel.Dock = DockStyle.Fill;
+            Panel.Location = new Point(0, 0);
+            Panel.Name = "Panel";
+            Panel.Size = new Size(1003, 246);
+            Panel.TabIndex = 1;
+            // 
+            // section_table_panel
+            // 
+            section_table_panel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            section_table_panel.AutoScroll = true;
+            section_table_panel.Controls.Add(item_right_panel);
+            section_table_panel.Location = new Point(0, 44);
+            section_table_panel.Name = "section_table_panel";
+            section_table_panel.Size = new Size(1005, 172);
+            section_table_panel.TabIndex = 1;
+            section_table_panel.Paint += section_table_panel_Paint;
+            // 
+            // item_right_panel
+            // 
+            item_right_panel.BackColor = SystemColors.Window;
+            item_right_panel.Controls.Add(tableLayoutPanel3);
+            item_right_panel.Dock = DockStyle.Top;
+            item_right_panel.Location = new Point(0, 0);
+            item_right_panel.Name = "item_right_panel";
+            item_right_panel.Size = new Size(1005, 67);
+            item_right_panel.TabIndex = 0;
+            // 
+            // tableLayoutPanel3
+            // 
+            tableLayoutPanel3.ColumnCount = 9;
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.802187F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 22.3775749F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.963151F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.963151F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.041333F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.963151F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.963151F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.963151F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.963151F));
+            tableLayoutPanel3.Controls.Add(label19, 7, 0);
+            tableLayoutPanel3.Controls.Add(label26, 6, 0);
+            tableLayoutPanel3.Controls.Add(label27, 5, 0);
+            tableLayoutPanel3.Controls.Add(SL_dc_label, 4, 0);
+            tableLayoutPanel3.Controls.Add(label31, 1, 0);
+            tableLayoutPanel3.Controls.Add(pictureBox9, 0, 0);
+            tableLayoutPanel3.Controls.Add(size_comboBox1, 2, 0);
+            tableLayoutPanel3.Controls.Add(panel8, 3, 0);
+            tableLayoutPanel3.Controls.Add(three_dots_label, 8, 0);
+            tableLayoutPanel3.Dock = DockStyle.Fill;
+            tableLayoutPanel3.Location = new Point(0, 0);
+            tableLayoutPanel3.Name = "tableLayoutPanel3";
+            tableLayoutPanel3.RowCount = 1;
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel3.Size = new Size(1005, 67);
+            tableLayoutPanel3.TabIndex = 1;
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Dock = DockStyle.Fill;
+            label19.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label19.ForeColor = SystemColors.ControlText;
+            label19.Location = new Point(825, 0);
+            label19.Name = "label19";
+            label19.Size = new Size(84, 67);
+            label19.TabIndex = 8;
+            label19.Text = "30.000";
+            label19.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.Dock = DockStyle.Fill;
+            label26.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label26.ForeColor = SystemColors.ControlText;
+            label26.Location = new Point(735, 0);
+            label26.Name = "label26";
+            label26.Size = new Size(84, 67);
+            label26.TabIndex = 7;
+            label26.Text = "10.000";
+            label26.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label27
+            // 
+            label27.AutoSize = true;
+            label27.Dock = DockStyle.Fill;
+            label27.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label27.ForeColor = SystemColors.ControlText;
+            label27.Location = new Point(645, 0);
+            label27.Name = "label27";
+            label27.Size = new Size(84, 67);
+            label27.TabIndex = 6;
+            label27.Text = "8/8";
+            label27.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // SL_dc_label
+            // 
+            SL_dc_label.AutoSize = true;
+            SL_dc_label.Dock = DockStyle.Fill;
+            SL_dc_label.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            SL_dc_label.ForeColor = SystemColors.ControlText;
+            SL_dc_label.Location = new Point(555, 0);
+            SL_dc_label.Name = "SL_dc_label";
+            SL_dc_label.Size = new Size(84, 67);
+            SL_dc_label.TabIndex = 5;
+            SL_dc_label.Text = "10";
+            SL_dc_label.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.Dock = DockStyle.Fill;
+            label31.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label31.ForeColor = SystemColors.ControlText;
+            label31.Location = new Point(151, 0);
+            label31.Name = "label31";
+            label31.Size = new Size(218, 67);
+            label31.TabIndex = 0;
+            label31.Text = "Trà sữa chân châu (40.000)";
+            label31.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // pictureBox9
+            // 
+            pictureBox9.Dock = DockStyle.Fill;
+            pictureBox9.Image = Properties.Resources.Hình_ảnh_trà_sữa_hoạt_hình_cute_nhất___Ảnh_đẹp_Free;
+            pictureBox9.Location = new Point(3, 3);
+            pictureBox9.Name = "pictureBox9";
+            pictureBox9.Size = new Size(142, 61);
+            pictureBox9.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox9.TabIndex = 9;
+            pictureBox9.TabStop = false;
+            // 
+            // size_comboBox1
+            // 
+            size_comboBox1.Anchor = AnchorStyles.None;
+            size_comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            size_comboBox1.FlatStyle = FlatStyle.Flat;
+            size_comboBox1.FormattingEnabled = true;
+            size_comboBox1.Location = new Point(376, 19);
+            size_comboBox1.Name = "size_comboBox1";
+            size_comboBox1.Size = new Size(81, 28);
+            size_comboBox1.TabIndex = 10;
+            // 
+            // panel8
+            // 
+            panel8.Controls.Add(textBox1);
+            panel8.Location = new Point(465, 3);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(84, 61);
+            panel8.TabIndex = 11;
+            // 
+            // textBox1
+            // 
+            textBox1.BorderStyle = BorderStyle.None;
+            textBox1.Cursor = Cursors.IBeam;
+            textBox1.Location = new Point(0, 16);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(84, 20);
+            textBox1.TabIndex = 0;
+            textBox1.Text = "5";
+            textBox1.TextAlign = HorizontalAlignment.Center;
+            // 
+            // three_dots_label
+            // 
+            three_dots_label.AutoSize = true;
+            three_dots_label.Dock = DockStyle.Fill;
+            three_dots_label.Image = Properties.Resources.three_dots;
+            three_dots_label.Location = new Point(915, 0);
+            three_dots_label.Name = "three_dots_label";
+            three_dots_label.Size = new Size(87, 67);
+            three_dots_label.TabIndex = 12;
+            three_dots_label.TextAlign = ContentAlignment.MiddleCenter;
+            three_dots_label.Click += three_dots_label_click;
+            // 
+            // Header_Table_panel
+            // 
+            Header_Table_panel.Controls.Add(tableLayoutPanel2);
+            Header_Table_panel.Dock = DockStyle.Top;
+            Header_Table_panel.Location = new Point(0, 0);
+            Header_Table_panel.Name = "Header_Table_panel";
+            Header_Table_panel.Size = new Size(1003, 44);
+            Header_Table_panel.TabIndex = 0;
+            // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.ColumnCount = 9;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.802187F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 22.3775749F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.963151F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.963151F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.041333F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.963151F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.963151F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.963151F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.963151F));
+            tableLayoutPanel2.Controls.Add(label25, 7, 0);
+            tableLayoutPanel2.Controls.Add(label24, 6, 0);
+            tableLayoutPanel2.Controls.Add(label23, 5, 0);
+            tableLayoutPanel2.Controls.Add(label22, 4, 0);
+            tableLayoutPanel2.Controls.Add(label21, 3, 0);
+            tableLayoutPanel2.Controls.Add(label20, 2, 0);
+            tableLayoutPanel2.Controls.Add(label18, 1, 0);
+            tableLayoutPanel2.Dock = DockStyle.Fill;
+            tableLayoutPanel2.Location = new Point(0, 0);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 1;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel2.Size = new Size(1003, 44);
+            tableLayoutPanel2.TabIndex = 0;
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Dock = DockStyle.Fill;
+            label25.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label25.ForeColor = SystemColors.ControlText;
+            label25.Location = new Point(821, 0);
+            label25.Name = "label25";
+            label25.Size = new Size(83, 44);
+            label25.TabIndex = 8;
+            label25.Text = "Thành tiền";
+            label25.TextAlign = ContentAlignment.MiddleCenter;
+            label25.Click += label25_Click;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Dock = DockStyle.Fill;
+            label24.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label24.ForeColor = SystemColors.ControlText;
+            label24.Location = new Point(732, 0);
+            label24.Name = "label24";
+            label24.Size = new Size(83, 44);
+            label24.TabIndex = 7;
+            label24.Text = "Tiền giảm";
+            label24.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Dock = DockStyle.Fill;
+            label23.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label23.ForeColor = SystemColors.ControlText;
+            label23.Location = new Point(643, 0);
+            label23.Name = "label23";
+            label23.Size = new Size(83, 44);
+            label23.TabIndex = 6;
+            label23.Text = "Khuyến mãi";
+            label23.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Dock = DockStyle.Fill;
+            label22.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label22.ForeColor = SystemColors.ControlText;
+            label22.Location = new Point(553, 0);
+            label22.Name = "label22";
+            label22.Size = new Size(84, 44);
+            label22.TabIndex = 5;
+            label22.Text = "SL mua được";
+            label22.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Dock = DockStyle.Fill;
+            label21.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label21.ForeColor = SystemColors.ControlText;
+            label21.Location = new Point(464, 0);
+            label21.Name = "label21";
+            label21.Size = new Size(83, 44);
+            label21.TabIndex = 4;
+            label21.Text = "SL";
+            label21.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Dock = DockStyle.Fill;
+            label20.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label20.ForeColor = SystemColors.ControlText;
+            label20.Location = new Point(375, 0);
+            label20.Name = "label20";
+            label20.Size = new Size(83, 44);
+            label20.TabIndex = 2;
+            label20.Text = "size";
+            label20.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Dock = DockStyle.Fill;
+            label18.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label18.ForeColor = SystemColors.ControlText;
+            label18.Location = new Point(151, 0);
+            label18.Name = "label18";
+            label18.Size = new Size(218, 44);
+            label18.TabIndex = 0;
+            label18.Text = "Tên sản phẩm";
+            label18.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // panel7
+            // 
+            panel7.BorderStyle = BorderStyle.FixedSingle;
+            panel7.Controls.Add(panel9);
+            panel7.Controls.Add(Ten_NV_Label);
+            panel7.Controls.Add(label17);
+            panel7.Dock = DockStyle.Bottom;
+            panel7.Location = new Point(0, 246);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(1003, 48);
+            panel7.TabIndex = 0;
+            // 
+            // panel9
+            // 
+            panel9.Controls.Add(TongTien_label);
+            panel9.Controls.Add(label29);
+            panel9.Dock = DockStyle.Right;
+            panel9.Location = new Point(552, 0);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(449, 46);
+            panel9.TabIndex = 2;
+            // 
+            // TongTien_label
+            // 
+            TongTien_label.Dock = DockStyle.Fill;
+            TongTien_label.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            TongTien_label.ForeColor = SystemColors.ControlText;
+            TongTien_label.Location = new Point(203, 0);
+            TongTien_label.Name = "TongTien_label";
+            TongTien_label.Size = new Size(246, 46);
+            TongTien_label.TabIndex = 1;
+            TongTien_label.Text = "30.000";
+            TongTien_label.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label29
+            // 
+            label29.Dock = DockStyle.Left;
+            label29.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label29.ForeColor = SystemColors.ControlText;
+            label29.Location = new Point(0, 0);
+            label29.Name = "label29";
+            label29.Size = new Size(203, 46);
+            label29.TabIndex = 0;
+            label29.Text = "Tổng Tiền:";
+            label29.TextAlign = ContentAlignment.MiddleRight;
+            label29.Click += label29_Click;
+            // 
+            // Ten_NV_Label
+            // 
+            Ten_NV_Label.AutoSize = true;
+            Ten_NV_Label.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            Ten_NV_Label.ForeColor = SystemColors.ActiveCaptionText;
+            Ten_NV_Label.Location = new Point(141, 12);
+            Ten_NV_Label.Name = "Ten_NV_Label";
+            Ten_NV_Label.Size = new Size(70, 20);
+            Ten_NV_Label.TabIndex = 1;
+            Ten_NV_Label.Text = "Anh Huy";
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.ForeColor = SystemColors.ActiveCaptionText;
+            label17.Location = new Point(48, 11);
+            label17.Name = "label17";
+            label17.Size = new Size(87, 20);
+            label17.TabIndex = 0;
+            label17.Text = "NV phục vụ:";
+            label17.Click += label17_Click;
+            // 
+            // Footer_Right_Panel
+            // 
+            Footer_Right_Panel.BackColor = SystemColors.ActiveBorder;
+            Footer_Right_Panel.BorderStyle = BorderStyle.FixedSingle;
+            Footer_Right_Panel.Controls.Add(comboBox2);
+            Footer_Right_Panel.Controls.Add(comboBox1);
+            Footer_Right_Panel.Controls.Add(btnXuatDon);
+            Footer_Right_Panel.Dock = DockStyle.Bottom;
+            Footer_Right_Panel.Location = new Point(0, 353);
+            Footer_Right_Panel.Name = "Footer_Right_Panel";
+            Footer_Right_Panel.Size = new Size(1005, 72);
+            Footer_Right_Panel.TabIndex = 1;
+            // 
+            // comboBox2
+            // 
+            comboBox2.BackColor = SystemColors.ActiveBorder;
+            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox2.FlatStyle = FlatStyle.Flat;
+            comboBox2.ForeColor = SystemColors.WindowText;
+            comboBox2.FormattingEnabled = true;
+            comboBox2.Location = new Point(591, 22);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(258, 28);
+            comboBox2.TabIndex = 4;
+            // 
+            // comboBox1
+            // 
+            comboBox1.BackColor = SystemColors.ActiveBorder;
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.FlatStyle = FlatStyle.Flat;
+            comboBox1.ForeColor = SystemColors.WindowText;
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(38, 22);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(148, 28);
+            comboBox1.TabIndex = 3;
+            // 
+            // btnXuatDon
+            // 
+            btnXuatDon.BackColor = Color.DodgerBlue;
+            btnXuatDon.BorderColor = Color.DodgerBlue;
+            btnXuatDon.BorderRadius = 20;
+            btnXuatDon.BorderSize = 0;
+            btnXuatDon.FlatAppearance.BorderSize = 0;
+            btnXuatDon.FlatStyle = FlatStyle.Flat;
+            btnXuatDon.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnXuatDon.ForeColor = Color.White;
+            btnXuatDon.Location = new Point(882, 17);
+            btnXuatDon.Name = "btnXuatDon";
+            btnXuatDon.Size = new Size(110, 42);
+            btnXuatDon.TabIndex = 2;
+            btnXuatDon.Text = "Xuất đơn";
+            btnXuatDon.UseVisualStyleBackColor = false;
+            btnXuatDon.Click += btnXuatDon_Click;
+            // 
+            // Header_Right_Panel
+            // 
+            Header_Right_Panel.BackColor = Color.DodgerBlue;
+            Header_Right_Panel.Controls.Add(label16);
+            Header_Right_Panel.Dock = DockStyle.Top;
+            Header_Right_Panel.ForeColor = Color.DodgerBlue;
+            Header_Right_Panel.Location = new Point(0, 0);
+            Header_Right_Panel.Name = "Header_Right_Panel";
+            Header_Right_Panel.Size = new Size(1005, 57);
+            Header_Right_Panel.TabIndex = 0;
+            // 
+            // label16
+            // 
+            label16.BackColor = SystemColors.ActiveBorder;
+            label16.BorderStyle = BorderStyle.FixedSingle;
+            label16.Dock = DockStyle.Fill;
+            label16.Font = new Font("Segoe UI", 20F);
+            label16.ForeColor = Color.FloralWhite;
+            label16.Location = new Point(0, 0);
+            label16.Name = "label16";
+            label16.Size = new Size(1005, 57);
+            label16.TabIndex = 0;
+            label16.Text = "Món đang được gọi";
+            label16.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // LeftPanel
             // 
@@ -160,55 +653,78 @@
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.AutoScroll = true;
-            flowLayoutPanel1.Controls.Add(panel3);
-            flowLayoutPanel1.Controls.Add(item_panel);
-            flowLayoutPanel1.Controls.Add(panel1);
-            flowLayoutPanel1.Controls.Add(panel2);
-            flowLayoutPanel1.Controls.Add(panel4);
-            flowLayoutPanel1.Controls.Add(panel5);
-            flowLayoutPanel1.Controls.Add(panel6);
+            flowLayoutPanel1.Controls.Add(product_panel);
             flowLayoutPanel1.Dock = DockStyle.Fill;
             flowLayoutPanel1.Location = new Point(0, 0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(636, 228);
             flowLayoutPanel1.TabIndex = 0;
             // 
-            // panel3
+            // product_panel
             // 
-            panel3.BorderStyle = BorderStyle.FixedSingle;
-            panel3.Controls.Add(label4);
-            panel3.Controls.Add(label5);
-            panel3.Controls.Add(pictureBox3);
-            panel3.Location = new Point(3, 3);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(205, 102);
-            panel3.TabIndex = 3;
+            product_panel.BorderStyle = BorderStyle.FixedSingle;
+            product_panel.Controls.Add(panel1);
+            product_panel.Controls.Add(pictureBox3);
+            product_panel.Location = new Point(3, 3);
+            product_panel.Name = "product_panel";
+            product_panel.Size = new Size(205, 129);
+            product_panel.TabIndex = 3;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(flowLayoutPanel2);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(121, 127);
+            panel1.TabIndex = 1;
+            // 
+            // flowLayoutPanel2
+            // 
+            flowLayoutPanel2.Controls.Add(label2);
+            flowLayoutPanel2.Controls.Add(label3);
+            flowLayoutPanel2.Controls.Add(label4);
+            flowLayoutPanel2.Dock = DockStyle.Fill;
+            flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanel2.Location = new Point(0, 0);
+            flowLayoutPanel2.Name = "flowLayoutPanel2";
+            flowLayoutPanel2.Size = new Size(121, 127);
+            flowLayoutPanel2.TabIndex = 0;
+            flowLayoutPanel2.Paint += flowLayoutPanel2_Paint;
+            // 
+            // label2
+            // 
+            label2.BackColor = Color.Transparent;
+            label2.FlatStyle = FlatStyle.Flat;
+            label2.ForeColor = SystemColors.ControlText;
+            label2.Location = new Point(3, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(118, 37);
+            label2.TabIndex = 0;
+            label2.Text = "40.000";
+            label2.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            label3.BackColor = Color.Transparent;
+            label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label3.ForeColor = SystemColors.Desktop;
+            label3.Location = new Point(3, 37);
+            label3.Name = "label3";
+            label3.Size = new Size(118, 62);
+            label3.TabIndex = 1;
+            label3.Text = "Trà sữa trân châu đường đen";
+            label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label4
             // 
-            label4.BackColor = SystemColors.Info;
-            label4.BorderStyle = BorderStyle.FixedSingle;
-            label4.Dock = DockStyle.Fill;
-            label4.ForeColor = SystemColors.HotTrack;
-            label4.Location = new Point(0, 0);
+            label4.Image = Properties.Resources.recycle_bin1;
+            label4.ImageAlign = ContentAlignment.MiddleLeft;
+            label4.Location = new Point(3, 99);
             label4.Name = "label4";
-            label4.Size = new Size(121, 46);
+            label4.Size = new Size(118, 22);
             label4.TabIndex = 2;
-            label4.Text = "40.000d";
-            label4.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label5
-            // 
-            label5.BackColor = SystemColors.Window;
-            label5.BorderStyle = BorderStyle.FixedSingle;
-            label5.Dock = DockStyle.Bottom;
-            label5.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.ForeColor = SystemColors.ControlText;
-            label5.Location = new Point(0, 46);
-            label5.Name = "label5";
-            label5.Size = new Size(121, 54);
-            label5.TabIndex = 1;
-            label5.Text = "Trà sữa chân trâu đường đen";
+            label4.TextAlign = ContentAlignment.TopRight;
             // 
             // pictureBox3
             // 
@@ -216,299 +732,10 @@
             pictureBox3.Image = Properties.Resources.Hình_ảnh_trà_sữa_hoạt_hình_cute_nhất___Ảnh_đẹp_Free;
             pictureBox3.Location = new Point(121, 0);
             pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(82, 100);
+            pictureBox3.Size = new Size(82, 127);
             pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox3.TabIndex = 0;
             pictureBox3.TabStop = false;
-            // 
-            // item_panel
-            // 
-            item_panel.BorderStyle = BorderStyle.FixedSingle;
-            item_panel.Controls.Add(label3);
-            item_panel.Controls.Add(label2);
-            item_panel.Controls.Add(pictureBox2);
-            item_panel.Location = new Point(214, 3);
-            item_panel.Name = "item_panel";
-            item_panel.Size = new Size(205, 102);
-            item_panel.TabIndex = 0;
-            // 
-            // label3
-            // 
-            label3.BackColor = SystemColors.Info;
-            label3.BorderStyle = BorderStyle.FixedSingle;
-            label3.Dock = DockStyle.Fill;
-            label3.ForeColor = SystemColors.HotTrack;
-            label3.Location = new Point(0, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(121, 46);
-            label3.TabIndex = 2;
-            label3.Text = "40.000d";
-            label3.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label2
-            // 
-            label2.BackColor = SystemColors.Window;
-            label2.BorderStyle = BorderStyle.FixedSingle;
-            label2.Dock = DockStyle.Bottom;
-            label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.ForeColor = SystemColors.ControlText;
-            label2.Location = new Point(0, 46);
-            label2.Name = "label2";
-            label2.Size = new Size(121, 54);
-            label2.TabIndex = 1;
-            label2.Text = "Trà sữa chân trâu đường đen";
-            label2.Click += label2_Click_2;
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.Dock = DockStyle.Right;
-            pictureBox2.Image = Properties.Resources.Hình_ảnh_trà_sữa_hoạt_hình_cute_nhất___Ảnh_đẹp_Free;
-            pictureBox2.Location = new Point(121, 0);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(82, 100);
-            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.TabIndex = 0;
-            pictureBox2.TabStop = false;
-            // 
-            // panel1
-            // 
-            panel1.BorderStyle = BorderStyle.FixedSingle;
-            panel1.Controls.Add(label6);
-            panel1.Controls.Add(label7);
-            panel1.Controls.Add(pictureBox4);
-            panel1.Location = new Point(425, 3);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(205, 102);
-            panel1.TabIndex = 4;
-            // 
-            // label6
-            // 
-            label6.BackColor = SystemColors.Info;
-            label6.BorderStyle = BorderStyle.FixedSingle;
-            label6.Dock = DockStyle.Fill;
-            label6.ForeColor = SystemColors.HotTrack;
-            label6.Location = new Point(0, 0);
-            label6.Name = "label6";
-            label6.Size = new Size(121, 46);
-            label6.TabIndex = 2;
-            label6.Text = "40.000d";
-            label6.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label7
-            // 
-            label7.BackColor = SystemColors.Window;
-            label7.BorderStyle = BorderStyle.FixedSingle;
-            label7.Dock = DockStyle.Bottom;
-            label7.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.ForeColor = SystemColors.ControlText;
-            label7.Location = new Point(0, 46);
-            label7.Name = "label7";
-            label7.Size = new Size(121, 54);
-            label7.TabIndex = 1;
-            label7.Text = "Trà sữa chân trâu đường đen";
-            // 
-            // pictureBox4
-            // 
-            pictureBox4.Dock = DockStyle.Right;
-            pictureBox4.Image = Properties.Resources.Hình_ảnh_trà_sữa_hoạt_hình_cute_nhất___Ảnh_đẹp_Free;
-            pictureBox4.Location = new Point(121, 0);
-            pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(82, 100);
-            pictureBox4.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox4.TabIndex = 0;
-            pictureBox4.TabStop = false;
-            // 
-            // panel2
-            // 
-            panel2.BorderStyle = BorderStyle.FixedSingle;
-            panel2.Controls.Add(label8);
-            panel2.Controls.Add(label9);
-            panel2.Controls.Add(pictureBox5);
-            panel2.Location = new Point(3, 111);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(205, 102);
-            panel2.TabIndex = 5;
-            // 
-            // label8
-            // 
-            label8.BackColor = SystemColors.Info;
-            label8.BorderStyle = BorderStyle.FixedSingle;
-            label8.Dock = DockStyle.Fill;
-            label8.ForeColor = SystemColors.HotTrack;
-            label8.Location = new Point(0, 0);
-            label8.Name = "label8";
-            label8.Size = new Size(121, 46);
-            label8.TabIndex = 2;
-            label8.Text = "40.000d";
-            label8.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label9
-            // 
-            label9.BackColor = SystemColors.Window;
-            label9.BorderStyle = BorderStyle.FixedSingle;
-            label9.Dock = DockStyle.Bottom;
-            label9.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label9.ForeColor = SystemColors.ControlText;
-            label9.Location = new Point(0, 46);
-            label9.Name = "label9";
-            label9.Size = new Size(121, 54);
-            label9.TabIndex = 1;
-            label9.Text = "Trà sữa chân trâu đường đen";
-            // 
-            // pictureBox5
-            // 
-            pictureBox5.Dock = DockStyle.Right;
-            pictureBox5.Image = Properties.Resources.Hình_ảnh_trà_sữa_hoạt_hình_cute_nhất___Ảnh_đẹp_Free;
-            pictureBox5.Location = new Point(121, 0);
-            pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(82, 100);
-            pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox5.TabIndex = 0;
-            pictureBox5.TabStop = false;
-            // 
-            // panel4
-            // 
-            panel4.BorderStyle = BorderStyle.FixedSingle;
-            panel4.Controls.Add(label10);
-            panel4.Controls.Add(label11);
-            panel4.Controls.Add(pictureBox6);
-            panel4.Location = new Point(214, 111);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(205, 102);
-            panel4.TabIndex = 6;
-            // 
-            // label10
-            // 
-            label10.BackColor = SystemColors.Info;
-            label10.BorderStyle = BorderStyle.FixedSingle;
-            label10.Dock = DockStyle.Fill;
-            label10.ForeColor = SystemColors.HotTrack;
-            label10.Location = new Point(0, 0);
-            label10.Name = "label10";
-            label10.Size = new Size(121, 46);
-            label10.TabIndex = 2;
-            label10.Text = "40.000d";
-            label10.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label11
-            // 
-            label11.BackColor = SystemColors.Window;
-            label11.BorderStyle = BorderStyle.FixedSingle;
-            label11.Dock = DockStyle.Bottom;
-            label11.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label11.ForeColor = SystemColors.ControlText;
-            label11.Location = new Point(0, 46);
-            label11.Name = "label11";
-            label11.Size = new Size(121, 54);
-            label11.TabIndex = 1;
-            label11.Text = "Trà sữa chân trâu đường đen";
-            // 
-            // pictureBox6
-            // 
-            pictureBox6.Dock = DockStyle.Right;
-            pictureBox6.Image = Properties.Resources.Hình_ảnh_trà_sữa_hoạt_hình_cute_nhất___Ảnh_đẹp_Free;
-            pictureBox6.Location = new Point(121, 0);
-            pictureBox6.Name = "pictureBox6";
-            pictureBox6.Size = new Size(82, 100);
-            pictureBox6.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox6.TabIndex = 0;
-            pictureBox6.TabStop = false;
-            // 
-            // panel5
-            // 
-            panel5.BorderStyle = BorderStyle.FixedSingle;
-            panel5.Controls.Add(label12);
-            panel5.Controls.Add(label13);
-            panel5.Controls.Add(pictureBox7);
-            panel5.Location = new Point(425, 111);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(205, 102);
-            panel5.TabIndex = 7;
-            // 
-            // label12
-            // 
-            label12.BackColor = SystemColors.Info;
-            label12.BorderStyle = BorderStyle.FixedSingle;
-            label12.Dock = DockStyle.Fill;
-            label12.ForeColor = SystemColors.HotTrack;
-            label12.Location = new Point(0, 0);
-            label12.Name = "label12";
-            label12.Size = new Size(121, 46);
-            label12.TabIndex = 2;
-            label12.Text = "40.000d";
-            label12.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label13
-            // 
-            label13.BackColor = SystemColors.Window;
-            label13.BorderStyle = BorderStyle.FixedSingle;
-            label13.Dock = DockStyle.Bottom;
-            label13.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label13.ForeColor = SystemColors.ControlText;
-            label13.Location = new Point(0, 46);
-            label13.Name = "label13";
-            label13.Size = new Size(121, 54);
-            label13.TabIndex = 1;
-            label13.Text = "Trà sữa chân trâu đường đen";
-            // 
-            // pictureBox7
-            // 
-            pictureBox7.Dock = DockStyle.Right;
-            pictureBox7.Image = Properties.Resources.Hình_ảnh_trà_sữa_hoạt_hình_cute_nhất___Ảnh_đẹp_Free;
-            pictureBox7.Location = new Point(121, 0);
-            pictureBox7.Name = "pictureBox7";
-            pictureBox7.Size = new Size(82, 100);
-            pictureBox7.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox7.TabIndex = 0;
-            pictureBox7.TabStop = false;
-            // 
-            // panel6
-            // 
-            panel6.BorderStyle = BorderStyle.FixedSingle;
-            panel6.Controls.Add(label14);
-            panel6.Controls.Add(label15);
-            panel6.Controls.Add(pictureBox8);
-            panel6.Location = new Point(3, 219);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(205, 102);
-            panel6.TabIndex = 8;
-            // 
-            // label14
-            // 
-            label14.BackColor = SystemColors.Info;
-            label14.BorderStyle = BorderStyle.FixedSingle;
-            label14.Dock = DockStyle.Fill;
-            label14.ForeColor = SystemColors.HotTrack;
-            label14.Location = new Point(0, 0);
-            label14.Name = "label14";
-            label14.Size = new Size(121, 46);
-            label14.TabIndex = 2;
-            label14.Text = "40.000d";
-            label14.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label15
-            // 
-            label15.BackColor = SystemColors.Window;
-            label15.BorderStyle = BorderStyle.FixedSingle;
-            label15.Dock = DockStyle.Bottom;
-            label15.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label15.ForeColor = SystemColors.ControlText;
-            label15.Location = new Point(0, 46);
-            label15.Name = "label15";
-            label15.Size = new Size(121, 54);
-            label15.TabIndex = 1;
-            label15.Text = "Trà sữa chân trâu đường đen";
-            // 
-            // pictureBox8
-            // 
-            pictureBox8.Dock = DockStyle.Right;
-            pictureBox8.Image = Properties.Resources.Hình_ảnh_trà_sữa_hoạt_hình_cute_nhất___Ảnh_đẹp_Free;
-            pictureBox8.Location = new Point(121, 0);
-            pictureBox8.Name = "pictureBox8";
-            pictureBox8.Size = new Size(82, 100);
-            pictureBox8.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox8.TabIndex = 0;
-            pictureBox8.TabStop = false;
             // 
             // panel_Top
             // 
@@ -545,6 +772,7 @@
             roundedTextBox1.BackColor = Color.White;
             roundedTextBox1.BorderColor = Color.Gray;
             roundedTextBox1.BorderRadius = 20;
+            roundedTextBox1.Cursor = Cursors.IBeam;
             roundedTextBox1.FocusBorderColor = Color.DeepSkyBlue;
             roundedTextBox1.Location = new Point(3, 3);
             roundedTextBox1.Name = "roundedTextBox1";
@@ -609,7 +837,7 @@
             // 
             // Footer_Left_Panel
             // 
-            Footer_Left_Panel.BackColor = Color.DodgerBlue;
+            Footer_Left_Panel.BackColor = SystemColors.ActiveBorder;
             Footer_Left_Panel.BorderStyle = BorderStyle.FixedSingle;
             Footer_Left_Panel.Controls.Add(Layout_Footer_Left_Panel);
             Footer_Left_Panel.Dock = DockStyle.Bottom;
@@ -642,7 +870,7 @@
             // 
             Size_S_label.AllowDrop = true;
             Size_S_label.AutoSize = true;
-            Size_S_label.BackColor = Color.DodgerBlue;
+            Size_S_label.BackColor = SystemColors.ActiveBorder;
             Size_S_label.Dock = DockStyle.Fill;
             Size_S_label.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             Size_S_label.ForeColor = SystemColors.ButtonFace;
@@ -669,6 +897,7 @@
             // Size_L_Label
             // 
             Size_L_Label.AutoSize = true;
+            Size_L_Label.BackColor = SystemColors.ActiveBorder;
             Size_L_Label.Dock = DockStyle.Fill;
             Size_L_Label.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             Size_L_Label.ForeColor = Color.Brown;
@@ -706,7 +935,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.BackColor = Color.DodgerBlue;
+            pictureBox1.BackColor = SystemColors.ActiveBorder;
             pictureBox1.BackgroundImageLayout = ImageLayout.None;
             pictureBox1.Enabled = false;
             pictureBox1.Image = Properties.Resources.beverage;
@@ -718,7 +947,7 @@
             // 
             // label1
             // 
-            label1.BackColor = Color.DodgerBlue;
+            label1.BackColor = SystemColors.ActiveBorder;
             label1.Dock = DockStyle.Fill;
             label1.Font = new Font("Segoe UI", 20F);
             label1.ForeColor = Color.Transparent;
@@ -731,33 +960,68 @@
             label1.TextAlign = ContentAlignment.MiddleCenter;
             label1.Click += label1_Click_1;
             // 
+            // popup
+            // 
+            popup.BackColor = SystemColors.ActiveBorder;
+            popup.ImageScalingSize = new Size(20, 20);
+            popup.Items.AddRange(new ToolStripItem[] { Hủy, Topping });
+            popup.Name = "popup";
+            popup.Size = new Size(160, 64);
+            popup.Opening += popup_Opening;
+            // 
+            // Hủy
+            // 
+            Hủy.Alignment = ToolStripItemAlignment.Right;
+            Hủy.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            Hủy.Image = Properties.Resources.X;
+            Hủy.Name = "Hủy";
+            Hủy.Size = new Size(159, 30);
+            Hủy.Text = "Hủy";
+            // 
+            // Topping
+            // 
+            Topping.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            Topping.ForeColor = SystemColors.ActiveCaptionText;
+            Topping.Image = Properties.Resources.topping;
+            Topping.Name = "Topping";
+            Topping.Size = new Size(159, 30);
+            Topping.Text = "Topping";
+            // 
             // OrderForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1253, 425);
+            ClientSize = new Size(1641, 425);
             Controls.Add(OrderPanel);
             Name = "OrderForm";
             Text = "OrderForm";
             OrderPanel.ResumeLayout(false);
+            RightPanel.ResumeLayout(false);
+            Section_Right_Panel.ResumeLayout(false);
+            Panel.ResumeLayout(false);
+            section_table_panel.ResumeLayout(false);
+            item_right_panel.ResumeLayout(false);
+            tableLayoutPanel3.ResumeLayout(false);
+            tableLayoutPanel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox9).EndInit();
+            panel8.ResumeLayout(false);
+            panel8.PerformLayout();
+            Header_Table_panel.ResumeLayout(false);
+            tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
+            panel7.ResumeLayout(false);
+            panel7.PerformLayout();
+            panel9.ResumeLayout(false);
+            Footer_Right_Panel.ResumeLayout(false);
+            Header_Right_Panel.ResumeLayout(false);
             LeftPanel.ResumeLayout(false);
             Middle_Left_Panel.ResumeLayout(false);
             panel_Bottom.ResumeLayout(false);
             flowLayoutPanel1.ResumeLayout(false);
-            panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            item_panel.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            product_panel.ResumeLayout(false);
             panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
-            panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
-            panel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
-            panel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
-            panel6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
+            flowLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             panel_Top.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             Footer_Left_Panel.ResumeLayout(false);
@@ -765,6 +1029,7 @@
             Layout_Footer_Left_Panel.PerformLayout();
             Header_Left_Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            popup.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -786,38 +1051,56 @@
         private Panel panel_Top;
         private Panel panel_Bottom;
         private FlowLayoutPanel flowLayoutPanel1;
-        private Panel item_panel;
-        private PictureBox pictureBox2;
-        private Label label2;
-        private Label label3;
-        private Panel panel3;
-        private Label label4;
-        private Label label5;
+        private Panel product_panel;
         private PictureBox pictureBox3;
-        private Panel panel1;
-        private Label label6;
-        private Label label7;
-        private PictureBox pictureBox4;
-        private Panel panel2;
-        private Label label8;
-        private Label label9;
-        private PictureBox pictureBox5;
-        private Panel panel4;
-        private Label label10;
-        private Label label11;
-        private PictureBox pictureBox6;
-        private Panel panel5;
-        private Label label12;
-        private Label label13;
-        private PictureBox pictureBox7;
-        private Panel panel6;
-        private Label label14;
-        private Label label15;
-        private PictureBox pictureBox8;
         private TableLayoutPanel tableLayoutPanel1;
         private Controls.RoundedTextBox roundedTextBox1;
         private Controls.RoundedButton roundedButton1;
         private Controls.RoundedComboBox roundedComboBox1;
         private Controls.RoundedComboBox roundedComboBox2;
+        private Panel Header_Right_Panel;
+        private Panel Footer_Right_Panel;
+        private Label label16;
+        private Controls.RoundedButton btnXuatDon;
+        private Panel Section_Right_Panel;
+        private Panel panel7;
+        private Label label17;
+        private Panel Panel;
+        private Label Ten_NV_Label;
+        private Panel Header_Table_panel;
+        private TableLayoutPanel tableLayoutPanel2;
+        private Label label20;
+        private Label label18;
+        private Label label25;
+        private Label label24;
+        private Label label23;
+        private Label label22;
+        private Label label21;
+        private Panel section_table_panel;
+        private Panel item_right_panel;
+        private TableLayoutPanel tableLayoutPanel3;
+        private Label label19;
+        private Label label26;
+        private Label label27;
+        private Label SL_dc_label;
+        private Label label31;
+        private PictureBox pictureBox9;
+        private ComboBox size_comboBox1;
+        private ComboBox comboBox2;
+        private ComboBox comboBox1;
+        private Panel panel8;
+        private TextBox textBox1;
+        private Label three_dots_label;
+        private Panel panel9;
+        private Label label29;
+        private Label TongTien_label;
+        private Panel panel1;
+        private FlowLayoutPanel flowLayoutPanel2;
+        private Label label2;
+        private Label label3;
+        private Label label4;
+        private ContextMenuStrip popup;
+        private ToolStripMenuItem Hủy;
+        private ToolStripMenuItem Topping;
     }
 }
