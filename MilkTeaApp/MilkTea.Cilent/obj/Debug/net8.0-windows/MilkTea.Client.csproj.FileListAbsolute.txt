@@ -41,3 +41,11 @@ D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\
 D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\recycle bin.png
 D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\X.png
 D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\topping.png
+D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\edit.png
+D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\icons8-trash-96.png
+D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\trash.png
+D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ChildForm_Order.InvoiceOrder.resources
+D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ChildForm_Order.ToppingForm.resources
+D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ChildForm_Order.EditProductForm.resources
+D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ChildForm_Order.AddProductForm.resources
+D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ChildForm_Order.AddRecipeForm.resources

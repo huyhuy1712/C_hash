@@ -93,6 +93,16 @@ namespace MilkTea.Client.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap edit {
+            get {
+                object obj = ResourceManager.GetObject("edit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Hình_ảnh_trà_sữa_hoạt_hình_cute_nhất___Ảnh_đẹp_Free {
             get {
                 object obj = ResourceManager.GetObject("Hình ảnh trà sữa hoạt hình cute nhất - Ảnh đẹp Free", resourceCulture);
@@ -126,6 +136,26 @@ namespace MilkTea.Client.Properties {
         internal static System.Drawing.Bitmap home2 {
             get {
                 object obj = ResourceManager.GetObject("home2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_trash_96 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-trash-96", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_trash_961 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-trash-961", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -246,6 +276,16 @@ namespace MilkTea.Client.Properties {
         internal static System.Drawing.Bitmap topping {
             get {
                 object obj = ResourceManager.GetObject("topping", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap trash {
+            get {
+                object obj = ResourceManager.GetObject("trash", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

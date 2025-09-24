@@ -62,28 +62,33 @@
             Ten_NV_Label = new Label();
             label17 = new Label();
             Footer_Right_Panel = new Panel();
-            comboBox2 = new ComboBox();
-            comboBox1 = new ComboBox();
+            panel2 = new Panel();
             btnXuatDon = new MilkTea.Client.Controls.RoundedButton();
+            panel1 = new Panel();
+            comboBox1 = new ComboBox();
+            comboBox2 = new ComboBox();
+            label2 = new Label();
+            label3 = new Label();
             Header_Right_Panel = new Panel();
             label16 = new Label();
             LeftPanel = new Panel();
-            Middle_Left_Panel = new Panel();
-            panel_Bottom = new Panel();
+            Middle_Left_Panel_1 = new Panel();
+            panel_Bottom_1 = new Panel();
             flowLayoutPanel1 = new FlowLayoutPanel();
-            product_panel = new Panel();
-            panel1 = new Panel();
-            flowLayoutPanel2 = new FlowLayoutPanel();
-            label2 = new Label();
-            label3 = new Label();
-            label4 = new Label();
-            pictureBox3 = new PictureBox();
+            product_panel_1 = new Panel();
+            product_bottom_panel_1 = new Panel();
+            product_delete_btn1 = new PictureBox();
+            product_edit_btn1 = new PictureBox();
+            product_top_panel_1 = new Panel();
+            product_top_right_panel_1 = new Panel();
+            product_picture1 = new PictureBox();
+            product_top_left_panel = new Panel();
+            ten_sp_label1 = new Label();
+            gia_label1 = new Label();
             panel_Top = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
             roundedTextBox1 = new MilkTea.Client.Controls.RoundedTextBox();
             roundedButton1 = new MilkTea.Client.Controls.RoundedButton();
-            roundedComboBox1 = new MilkTea.Client.Controls.RoundedComboBox();
-            roundedComboBox2 = new MilkTea.Client.Controls.RoundedComboBox();
             Footer_Left_Panel = new Panel();
             Layout_Footer_Left_Panel = new TableLayoutPanel();
             Size_S_label = new Label();
@@ -96,6 +101,8 @@
             popup = new ContextMenuStrip(components);
             Hủy = new ToolStripMenuItem();
             Topping = new ToolStripMenuItem();
+            sort_comboBox = new ComboBox();
+            comboBox3 = new ComboBox();
             OrderPanel.SuspendLayout();
             RightPanel.SuspendLayout();
             Section_Right_Panel.SuspendLayout();
@@ -110,15 +117,21 @@
             panel7.SuspendLayout();
             panel9.SuspendLayout();
             Footer_Right_Panel.SuspendLayout();
+            panel2.SuspendLayout();
+            panel1.SuspendLayout();
             Header_Right_Panel.SuspendLayout();
             LeftPanel.SuspendLayout();
-            Middle_Left_Panel.SuspendLayout();
-            panel_Bottom.SuspendLayout();
+            Middle_Left_Panel_1.SuspendLayout();
+            panel_Bottom_1.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
-            product_panel.SuspendLayout();
-            panel1.SuspendLayout();
-            flowLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            product_panel_1.SuspendLayout();
+            product_bottom_panel_1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)product_delete_btn1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)product_edit_btn1).BeginInit();
+            product_top_panel_1.SuspendLayout();
+            product_top_right_panel_1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)product_picture1).BeginInit();
+            product_top_left_panel.SuspendLayout();
             panel_Top.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             Footer_Left_Panel.SuspendLayout();
@@ -175,12 +188,12 @@
             // 
             // section_table_panel
             // 
-            section_table_panel.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             section_table_panel.AutoScroll = true;
             section_table_panel.Controls.Add(item_right_panel);
+            section_table_panel.Dock = DockStyle.Fill;
             section_table_panel.Location = new Point(0, 44);
             section_table_panel.Name = "section_table_panel";
-            section_table_panel.Size = new Size(1005, 172);
+            section_table_panel.Size = new Size(1003, 202);
             section_table_panel.TabIndex = 1;
             section_table_panel.Paint += section_table_panel_Paint;
             // 
@@ -188,10 +201,11 @@
             // 
             item_right_panel.BackColor = SystemColors.Window;
             item_right_panel.Controls.Add(tableLayoutPanel3);
+            item_right_panel.Cursor = Cursors.Hand;
             item_right_panel.Dock = DockStyle.Top;
             item_right_panel.Location = new Point(0, 0);
             item_right_panel.Name = "item_right_panel";
-            item_right_panel.Size = new Size(1005, 67);
+            item_right_panel.Size = new Size(1003, 67);
             item_right_panel.TabIndex = 0;
             // 
             // tableLayoutPanel3
@@ -215,12 +229,12 @@
             tableLayoutPanel3.Controls.Add(size_comboBox1, 2, 0);
             tableLayoutPanel3.Controls.Add(panel8, 3, 0);
             tableLayoutPanel3.Controls.Add(three_dots_label, 8, 0);
-            tableLayoutPanel3.Dock = DockStyle.Fill;
+            tableLayoutPanel3.Dock = DockStyle.Top;
             tableLayoutPanel3.Location = new Point(0, 0);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 1;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel3.Size = new Size(1005, 67);
+            tableLayoutPanel3.Size = new Size(1003, 67);
             tableLayoutPanel3.TabIndex = 1;
             // 
             // label19
@@ -229,9 +243,9 @@
             label19.Dock = DockStyle.Fill;
             label19.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             label19.ForeColor = SystemColors.ControlText;
-            label19.Location = new Point(825, 0);
+            label19.Location = new Point(821, 0);
             label19.Name = "label19";
-            label19.Size = new Size(84, 67);
+            label19.Size = new Size(83, 67);
             label19.TabIndex = 8;
             label19.Text = "30.000";
             label19.TextAlign = ContentAlignment.MiddleCenter;
@@ -242,9 +256,9 @@
             label26.Dock = DockStyle.Fill;
             label26.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             label26.ForeColor = SystemColors.ControlText;
-            label26.Location = new Point(735, 0);
+            label26.Location = new Point(732, 0);
             label26.Name = "label26";
-            label26.Size = new Size(84, 67);
+            label26.Size = new Size(83, 67);
             label26.TabIndex = 7;
             label26.Text = "10.000";
             label26.TextAlign = ContentAlignment.MiddleCenter;
@@ -255,9 +269,9 @@
             label27.Dock = DockStyle.Fill;
             label27.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             label27.ForeColor = SystemColors.ControlText;
-            label27.Location = new Point(645, 0);
+            label27.Location = new Point(643, 0);
             label27.Name = "label27";
-            label27.Size = new Size(84, 67);
+            label27.Size = new Size(83, 67);
             label27.TabIndex = 6;
             label27.Text = "8/8";
             label27.TextAlign = ContentAlignment.MiddleCenter;
@@ -268,7 +282,7 @@
             SL_dc_label.Dock = DockStyle.Fill;
             SL_dc_label.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             SL_dc_label.ForeColor = SystemColors.ControlText;
-            SL_dc_label.Location = new Point(555, 0);
+            SL_dc_label.Location = new Point(553, 0);
             SL_dc_label.Name = "SL_dc_label";
             SL_dc_label.Size = new Size(84, 67);
             SL_dc_label.TabIndex = 5;
@@ -313,9 +327,9 @@
             // panel8
             // 
             panel8.Controls.Add(textBox1);
-            panel8.Location = new Point(465, 3);
+            panel8.Location = new Point(464, 3);
             panel8.Name = "panel8";
-            panel8.Size = new Size(84, 61);
+            panel8.Size = new Size(83, 61);
             panel8.TabIndex = 11;
             // 
             // textBox1
@@ -332,11 +346,12 @@
             // three_dots_label
             // 
             three_dots_label.AutoSize = true;
+            three_dots_label.Cursor = Cursors.Hand;
             three_dots_label.Dock = DockStyle.Fill;
             three_dots_label.Image = Properties.Resources.three_dots;
-            three_dots_label.Location = new Point(915, 0);
+            three_dots_label.Location = new Point(910, 0);
             three_dots_label.Name = "three_dots_label";
-            three_dots_label.Size = new Size(87, 67);
+            three_dots_label.Size = new Size(90, 67);
             three_dots_label.TabIndex = 12;
             three_dots_label.TextAlign = ContentAlignment.MiddleCenter;
             three_dots_label.Click += three_dots_label_click;
@@ -542,26 +557,55 @@
             // 
             Footer_Right_Panel.BackColor = SystemColors.ActiveBorder;
             Footer_Right_Panel.BorderStyle = BorderStyle.FixedSingle;
-            Footer_Right_Panel.Controls.Add(comboBox2);
-            Footer_Right_Panel.Controls.Add(comboBox1);
-            Footer_Right_Panel.Controls.Add(btnXuatDon);
+            Footer_Right_Panel.Controls.Add(panel2);
+            Footer_Right_Panel.Controls.Add(panel1);
             Footer_Right_Panel.Dock = DockStyle.Bottom;
             Footer_Right_Panel.Location = new Point(0, 353);
             Footer_Right_Panel.Name = "Footer_Right_Panel";
             Footer_Right_Panel.Size = new Size(1005, 72);
             Footer_Right_Panel.TabIndex = 1;
             // 
-            // comboBox2
+            // panel2
             // 
-            comboBox2.BackColor = SystemColors.ActiveBorder;
-            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox2.FlatStyle = FlatStyle.Flat;
-            comboBox2.ForeColor = SystemColors.WindowText;
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(591, 22);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(258, 28);
-            comboBox2.TabIndex = 4;
+            panel2.Controls.Add(btnXuatDon);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(703, 0);
+            panel2.Name = "panel2";
+            panel2.Padding = new Padding(17);
+            panel2.Size = new Size(300, 70);
+            panel2.TabIndex = 8;
+            // 
+            // btnXuatDon
+            // 
+            btnXuatDon.BackColor = Color.DodgerBlue;
+            btnXuatDon.BorderColor = Color.DodgerBlue;
+            btnXuatDon.BorderRadius = 20;
+            btnXuatDon.BorderSize = 0;
+            btnXuatDon.Cursor = Cursors.Hand;
+            btnXuatDon.Dock = DockStyle.Right;
+            btnXuatDon.FlatAppearance.BorderSize = 0;
+            btnXuatDon.FlatStyle = FlatStyle.Flat;
+            btnXuatDon.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnXuatDon.ForeColor = Color.White;
+            btnXuatDon.Location = new Point(173, 17);
+            btnXuatDon.Name = "btnXuatDon";
+            btnXuatDon.Size = new Size(110, 36);
+            btnXuatDon.TabIndex = 2;
+            btnXuatDon.Text = "Xuất đơn";
+            btnXuatDon.UseVisualStyleBackColor = false;
+            btnXuatDon.Click += btnXuatDon_Click;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(comboBox1);
+            panel1.Controls.Add(comboBox2);
+            panel1.Controls.Add(label2);
+            panel1.Controls.Add(label3);
+            panel1.Dock = DockStyle.Left;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(703, 70);
+            panel1.TabIndex = 7;
             // 
             // comboBox1
             // 
@@ -570,28 +614,46 @@
             comboBox1.FlatStyle = FlatStyle.Flat;
             comboBox1.ForeColor = SystemColors.WindowText;
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(38, 22);
+            comboBox1.Location = new Point(142, 24);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(148, 28);
+            comboBox1.Size = new Size(103, 28);
             comboBox1.TabIndex = 3;
             // 
-            // btnXuatDon
+            // comboBox2
             // 
-            btnXuatDon.BackColor = Color.DodgerBlue;
-            btnXuatDon.BorderColor = Color.DodgerBlue;
-            btnXuatDon.BorderRadius = 20;
-            btnXuatDon.BorderSize = 0;
-            btnXuatDon.FlatAppearance.BorderSize = 0;
-            btnXuatDon.FlatStyle = FlatStyle.Flat;
-            btnXuatDon.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            btnXuatDon.ForeColor = Color.White;
-            btnXuatDon.Location = new Point(882, 17);
-            btnXuatDon.Name = "btnXuatDon";
-            btnXuatDon.Size = new Size(110, 42);
-            btnXuatDon.TabIndex = 2;
-            btnXuatDon.Text = "Xuất đơn";
-            btnXuatDon.UseVisualStyleBackColor = false;
-            btnXuatDon.Click += btnXuatDon_Click;
+            comboBox2.BackColor = SystemColors.ActiveBorder;
+            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox2.FlatStyle = FlatStyle.Flat;
+            comboBox2.ForeColor = SystemColors.WindowText;
+            comboBox2.FormattingEnabled = true;
+            comboBox2.Location = new Point(397, 20);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(258, 28);
+            comboBox2.TabIndex = 4;
+            // 
+            // label2
+            // 
+            label2.Dock = DockStyle.Left;
+            label2.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.ForeColor = SystemColors.ControlText;
+            label2.Location = new Point(0, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(142, 70);
+            label2.TabIndex = 5;
+            label2.Text = "Mã máy buzzer";
+            label2.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = SystemColors.ControlText;
+            label3.Location = new Point(281, 23);
+            label3.Name = "label3";
+            label3.Size = new Size(110, 25);
+            label3.TabIndex = 6;
+            label3.Text = "Thanh toán";
+            label3.Click += label3_Click;
             // 
             // Header_Right_Panel
             // 
@@ -621,7 +683,7 @@
             // LeftPanel
             // 
             LeftPanel.BackColor = SystemColors.ControlLight;
-            LeftPanel.Controls.Add(Middle_Left_Panel);
+            LeftPanel.Controls.Add(Middle_Left_Panel_1);
             LeftPanel.Controls.Add(Footer_Left_Panel);
             LeftPanel.Controls.Add(Header_Left_Panel);
             LeftPanel.Dock = DockStyle.Left;
@@ -630,112 +692,149 @@
             LeftPanel.Size = new Size(636, 425);
             LeftPanel.TabIndex = 0;
             // 
-            // Middle_Left_Panel
+            // Middle_Left_Panel_1
             // 
-            Middle_Left_Panel.BackColor = SystemColors.ControlLight;
-            Middle_Left_Panel.Controls.Add(panel_Bottom);
-            Middle_Left_Panel.Controls.Add(panel_Top);
-            Middle_Left_Panel.Dock = DockStyle.Fill;
-            Middle_Left_Panel.Location = new Point(0, 57);
-            Middle_Left_Panel.Name = "Middle_Left_Panel";
-            Middle_Left_Panel.Size = new Size(636, 296);
-            Middle_Left_Panel.TabIndex = 2;
+            Middle_Left_Panel_1.BackColor = SystemColors.ControlLight;
+            Middle_Left_Panel_1.Controls.Add(panel_Bottom_1);
+            Middle_Left_Panel_1.Controls.Add(panel_Top);
+            Middle_Left_Panel_1.Dock = DockStyle.Fill;
+            Middle_Left_Panel_1.Location = new Point(0, 57);
+            Middle_Left_Panel_1.Name = "Middle_Left_Panel_1";
+            Middle_Left_Panel_1.Size = new Size(636, 296);
+            Middle_Left_Panel_1.TabIndex = 2;
             // 
-            // panel_Bottom
+            // panel_Bottom_1
             // 
-            panel_Bottom.Controls.Add(flowLayoutPanel1);
-            panel_Bottom.Dock = DockStyle.Fill;
-            panel_Bottom.Location = new Point(0, 68);
-            panel_Bottom.Name = "panel_Bottom";
-            panel_Bottom.Size = new Size(636, 228);
-            panel_Bottom.TabIndex = 1;
+            panel_Bottom_1.Controls.Add(flowLayoutPanel1);
+            panel_Bottom_1.Dock = DockStyle.Fill;
+            panel_Bottom_1.Location = new Point(0, 68);
+            panel_Bottom_1.Name = "panel_Bottom_1";
+            panel_Bottom_1.Size = new Size(636, 228);
+            panel_Bottom_1.TabIndex = 1;
             // 
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.AutoScroll = true;
-            flowLayoutPanel1.Controls.Add(product_panel);
+            flowLayoutPanel1.Controls.Add(product_panel_1);
             flowLayoutPanel1.Dock = DockStyle.Fill;
             flowLayoutPanel1.Location = new Point(0, 0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(636, 228);
             flowLayoutPanel1.TabIndex = 0;
             // 
-            // product_panel
+            // product_panel_1
             // 
-            product_panel.BorderStyle = BorderStyle.FixedSingle;
-            product_panel.Controls.Add(panel1);
-            product_panel.Controls.Add(pictureBox3);
-            product_panel.Location = new Point(3, 3);
-            product_panel.Name = "product_panel";
-            product_panel.Size = new Size(205, 129);
-            product_panel.TabIndex = 3;
+            product_panel_1.BorderStyle = BorderStyle.FixedSingle;
+            product_panel_1.Controls.Add(product_bottom_panel_1);
+            product_panel_1.Controls.Add(product_top_panel_1);
+            product_panel_1.Location = new Point(3, 3);
+            product_panel_1.Name = "product_panel_1";
+            product_panel_1.Size = new Size(205, 129);
+            product_panel_1.TabIndex = 3;
             // 
-            // panel1
+            // product_bottom_panel_1
             // 
-            panel1.Controls.Add(flowLayoutPanel2);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(121, 127);
-            panel1.TabIndex = 1;
+            product_bottom_panel_1.BorderStyle = BorderStyle.FixedSingle;
+            product_bottom_panel_1.Controls.Add(product_delete_btn1);
+            product_bottom_panel_1.Controls.Add(product_edit_btn1);
+            product_bottom_panel_1.Dock = DockStyle.Bottom;
+            product_bottom_panel_1.Location = new Point(0, 104);
+            product_bottom_panel_1.Name = "product_bottom_panel_1";
+            product_bottom_panel_1.Size = new Size(203, 23);
+            product_bottom_panel_1.TabIndex = 1;
             // 
-            // flowLayoutPanel2
+            // product_delete_btn1
             // 
-            flowLayoutPanel2.Controls.Add(label2);
-            flowLayoutPanel2.Controls.Add(label3);
-            flowLayoutPanel2.Controls.Add(label4);
-            flowLayoutPanel2.Dock = DockStyle.Fill;
-            flowLayoutPanel2.FlowDirection = FlowDirection.TopDown;
-            flowLayoutPanel2.Location = new Point(0, 0);
-            flowLayoutPanel2.Name = "flowLayoutPanel2";
-            flowLayoutPanel2.Size = new Size(121, 127);
-            flowLayoutPanel2.TabIndex = 0;
-            flowLayoutPanel2.Paint += flowLayoutPanel2_Paint;
+            product_delete_btn1.Cursor = Cursors.Hand;
+            product_delete_btn1.Dock = DockStyle.Right;
+            product_delete_btn1.Image = Properties.Resources.trash;
+            product_delete_btn1.Location = new Point(161, 0);
+            product_delete_btn1.Name = "product_delete_btn1";
+            product_delete_btn1.Size = new Size(40, 21);
+            product_delete_btn1.SizeMode = PictureBoxSizeMode.Zoom;
+            product_delete_btn1.TabIndex = 1;
+            product_delete_btn1.TabStop = false;
+            product_delete_btn1.Click += product_delete_btn1_Click;
             // 
-            // label2
+            // product_edit_btn1
             // 
-            label2.BackColor = Color.Transparent;
-            label2.FlatStyle = FlatStyle.Flat;
-            label2.ForeColor = SystemColors.ControlText;
-            label2.Location = new Point(3, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(118, 37);
-            label2.TabIndex = 0;
-            label2.Text = "40.000";
-            label2.TextAlign = ContentAlignment.MiddleCenter;
+            product_edit_btn1.Cursor = Cursors.Hand;
+            product_edit_btn1.Dock = DockStyle.Left;
+            product_edit_btn1.Image = Properties.Resources.edit;
+            product_edit_btn1.Location = new Point(0, 0);
+            product_edit_btn1.Name = "product_edit_btn1";
+            product_edit_btn1.Size = new Size(28, 21);
+            product_edit_btn1.SizeMode = PictureBoxSizeMode.Zoom;
+            product_edit_btn1.TabIndex = 0;
+            product_edit_btn1.TabStop = false;
+            product_edit_btn1.Click += product_edit_btn1_Click;
             // 
-            // label3
+            // product_top_panel_1
             // 
-            label3.BackColor = Color.Transparent;
-            label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label3.ForeColor = SystemColors.Desktop;
-            label3.Location = new Point(3, 37);
-            label3.Name = "label3";
-            label3.Size = new Size(118, 62);
-            label3.TabIndex = 1;
-            label3.Text = "Trà sữa trân châu đường đen";
-            label3.TextAlign = ContentAlignment.MiddleCenter;
+            product_top_panel_1.Controls.Add(product_top_right_panel_1);
+            product_top_panel_1.Controls.Add(product_top_left_panel);
+            product_top_panel_1.Cursor = Cursors.Hand;
+            product_top_panel_1.Dock = DockStyle.Fill;
+            product_top_panel_1.Location = new Point(0, 0);
+            product_top_panel_1.Name = "product_top_panel_1";
+            product_top_panel_1.Size = new Size(203, 127);
+            product_top_panel_1.TabIndex = 0;
             // 
-            // label4
+            // product_top_right_panel_1
             // 
-            label4.Image = Properties.Resources.recycle_bin1;
-            label4.ImageAlign = ContentAlignment.MiddleLeft;
-            label4.Location = new Point(3, 99);
-            label4.Name = "label4";
-            label4.Size = new Size(118, 22);
-            label4.TabIndex = 2;
-            label4.TextAlign = ContentAlignment.TopRight;
+            product_top_right_panel_1.Controls.Add(product_picture1);
+            product_top_right_panel_1.Dock = DockStyle.Fill;
+            product_top_right_panel_1.Location = new Point(119, 0);
+            product_top_right_panel_1.Name = "product_top_right_panel_1";
+            product_top_right_panel_1.Size = new Size(84, 127);
+            product_top_right_panel_1.TabIndex = 1;
             // 
-            // pictureBox3
+            // product_picture1
             // 
-            pictureBox3.Dock = DockStyle.Right;
-            pictureBox3.Image = Properties.Resources.Hình_ảnh_trà_sữa_hoạt_hình_cute_nhất___Ảnh_đẹp_Free;
-            pictureBox3.Location = new Point(121, 0);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(82, 127);
-            pictureBox3.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox3.TabIndex = 0;
-            pictureBox3.TabStop = false;
+            product_picture1.Dock = DockStyle.Fill;
+            product_picture1.Image = Properties.Resources.Hình_ảnh_trà_sữa_hoạt_hình_cute_nhất___Ảnh_đẹp_Free;
+            product_picture1.Location = new Point(0, 0);
+            product_picture1.Name = "product_picture1";
+            product_picture1.Size = new Size(84, 127);
+            product_picture1.SizeMode = PictureBoxSizeMode.Zoom;
+            product_picture1.TabIndex = 0;
+            product_picture1.TabStop = false;
+            // 
+            // product_top_left_panel
+            // 
+            product_top_left_panel.Controls.Add(ten_sp_label1);
+            product_top_left_panel.Controls.Add(gia_label1);
+            product_top_left_panel.Dock = DockStyle.Left;
+            product_top_left_panel.Location = new Point(0, 0);
+            product_top_left_panel.Name = "product_top_left_panel";
+            product_top_left_panel.Size = new Size(119, 127);
+            product_top_left_panel.TabIndex = 0;
+            // 
+            // ten_sp_label1
+            // 
+            ten_sp_label1.BorderStyle = BorderStyle.FixedSingle;
+            ten_sp_label1.Dock = DockStyle.Fill;
+            ten_sp_label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            ten_sp_label1.ForeColor = SystemColors.ControlText;
+            ten_sp_label1.Location = new Point(0, 25);
+            ten_sp_label1.Name = "ten_sp_label1";
+            ten_sp_label1.Size = new Size(119, 102);
+            ten_sp_label1.TabIndex = 1;
+            ten_sp_label1.Text = "Trà sữa chân trâu đường đen";
+            ten_sp_label1.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // gia_label1
+            // 
+            gia_label1.BorderStyle = BorderStyle.FixedSingle;
+            gia_label1.Dock = DockStyle.Top;
+            gia_label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            gia_label1.ForeColor = SystemColors.ControlText;
+            gia_label1.Location = new Point(0, 0);
+            gia_label1.Name = "gia_label1";
+            gia_label1.Size = new Size(119, 25);
+            gia_label1.TabIndex = 0;
+            gia_label1.Text = "40.000";
+            gia_label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel_Top
             // 
@@ -754,10 +853,10 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 19.1489372F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 19.1489372F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 19.1489372F));
+            tableLayoutPanel1.Controls.Add(comboBox3, 3, 0);
             tableLayoutPanel1.Controls.Add(roundedTextBox1, 0, 0);
             tableLayoutPanel1.Controls.Add(roundedButton1, 1, 0);
-            tableLayoutPanel1.Controls.Add(roundedComboBox1, 2, 0);
-            tableLayoutPanel1.Controls.Add(roundedComboBox2, 3, 0);
+            tableLayoutPanel1.Controls.Add(sort_comboBox, 2, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(10, 10);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -788,6 +887,7 @@
             roundedButton1.BorderColor = Color.DodgerBlue;
             roundedButton1.BorderRadius = 20;
             roundedButton1.BorderSize = 0;
+            roundedButton1.Cursor = Cursors.Hand;
             roundedButton1.FlatAppearance.BorderSize = 0;
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
@@ -798,42 +898,7 @@
             roundedButton1.TabIndex = 1;
             roundedButton1.Text = "Thêm";
             roundedButton1.UseVisualStyleBackColor = false;
-            // 
-            // roundedComboBox1
-            // 
-            roundedComboBox1.BackColor = Color.White;
-            roundedComboBox1.BorderColor = Color.Gray;
-            roundedComboBox1.BorderRadius = 15;
-            roundedComboBox1.BorderSize = 1;
-            roundedComboBox1.DrawMode = DrawMode.OwnerDrawFixed;
-            roundedComboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            roundedComboBox1.FlatStyle = FlatStyle.Flat;
-            roundedComboBox1.FocusBorderColor = Color.DeepSkyBlue;
-            roundedComboBox1.Font = new Font("Segoe UI", 10F);
-            roundedComboBox1.FormattingEnabled = true;
-            roundedComboBox1.ItemHeight = 30;
-            roundedComboBox1.Location = new Point(382, 3);
-            roundedComboBox1.Name = "roundedComboBox1";
-            roundedComboBox1.Size = new Size(111, 36);
-            roundedComboBox1.TabIndex = 2;
-            // 
-            // roundedComboBox2
-            // 
-            roundedComboBox2.BackColor = Color.White;
-            roundedComboBox2.BorderColor = Color.Gray;
-            roundedComboBox2.BorderRadius = 15;
-            roundedComboBox2.BorderSize = 1;
-            roundedComboBox2.DrawMode = DrawMode.OwnerDrawFixed;
-            roundedComboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
-            roundedComboBox2.FlatStyle = FlatStyle.Flat;
-            roundedComboBox2.FocusBorderColor = Color.DeepSkyBlue;
-            roundedComboBox2.Font = new Font("Segoe UI", 10F);
-            roundedComboBox2.FormattingEnabled = true;
-            roundedComboBox2.ItemHeight = 30;
-            roundedComboBox2.Location = new Point(499, 3);
-            roundedComboBox2.Name = "roundedComboBox2";
-            roundedComboBox2.Size = new Size(114, 36);
-            roundedComboBox2.TabIndex = 3;
+            roundedButton1.Click += roundedButton1_Click_1;
             // 
             // Footer_Left_Panel
             // 
@@ -986,6 +1051,31 @@
             Topping.Name = "Topping";
             Topping.Size = new Size(159, 30);
             Topping.Text = "Topping";
+            Topping.Click += Topping_Click;
+            // 
+            // sort_comboBox
+            // 
+            sort_comboBox.Anchor = AnchorStyles.None;
+            sort_comboBox.FormattingEnabled = true;
+            sort_comboBox.Items.AddRange(new object[] { "Sắp xếp" });
+            sort_comboBox.Location = new Point(382, 10);
+            sort_comboBox.Name = "sort_comboBox";
+            sort_comboBox.Size = new Size(111, 28);
+            sort_comboBox.TabIndex = 2;
+            sort_comboBox.TabStop = false;
+            sort_comboBox.Text = "Sắp xếp";
+            // 
+            // comboBox3
+            // 
+            comboBox3.Anchor = AnchorStyles.None;
+            comboBox3.FormattingEnabled = true;
+            comboBox3.Items.AddRange(new object[] { "Loại" });
+            comboBox3.Location = new Point(500, 10);
+            comboBox3.Name = "comboBox3";
+            comboBox3.Size = new Size(111, 28);
+            comboBox3.TabIndex = 3;
+            comboBox3.TabStop = false;
+            comboBox3.Text = "Loại";
             // 
             // OrderForm
             // 
@@ -1013,15 +1103,22 @@
             panel7.PerformLayout();
             panel9.ResumeLayout(false);
             Footer_Right_Panel.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             Header_Right_Panel.ResumeLayout(false);
             LeftPanel.ResumeLayout(false);
-            Middle_Left_Panel.ResumeLayout(false);
-            panel_Bottom.ResumeLayout(false);
+            Middle_Left_Panel_1.ResumeLayout(false);
+            panel_Bottom_1.ResumeLayout(false);
             flowLayoutPanel1.ResumeLayout(false);
-            product_panel.ResumeLayout(false);
-            panel1.ResumeLayout(false);
-            flowLayoutPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            product_panel_1.ResumeLayout(false);
+            product_bottom_panel_1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)product_delete_btn1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)product_edit_btn1).EndInit();
+            product_top_panel_1.ResumeLayout(false);
+            product_top_right_panel_1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)product_picture1).EndInit();
+            product_top_left_panel.ResumeLayout(false);
             panel_Top.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             Footer_Left_Panel.ResumeLayout(false);
@@ -1042,22 +1139,19 @@
         private Label label1;
         private PictureBox pictureBox1;
         private Panel Footer_Left_Panel;
-        private Panel Middle_Left_Panel;
+        private Panel Middle_Left_Panel_1;
         private TableLayoutPanel Layout_Footer_Left_Panel;
         private Label Size_S_label;
         private Label Size_M_label;
         private Label Size_L_Label;
         private Label Size_SL_Label;
         private Panel panel_Top;
-        private Panel panel_Bottom;
+        private Panel panel_Bottom_1;
         private FlowLayoutPanel flowLayoutPanel1;
-        private Panel product_panel;
-        private PictureBox pictureBox3;
+        private Panel product_panel_1;
         private TableLayoutPanel tableLayoutPanel1;
         private Controls.RoundedTextBox roundedTextBox1;
         private Controls.RoundedButton roundedButton1;
-        private Controls.RoundedComboBox roundedComboBox1;
-        private Controls.RoundedComboBox roundedComboBox2;
         private Panel Header_Right_Panel;
         private Panel Footer_Right_Panel;
         private Label label16;
@@ -1086,7 +1180,6 @@
         private Label label31;
         private PictureBox pictureBox9;
         private ComboBox size_comboBox1;
-        private ComboBox comboBox2;
         private ComboBox comboBox1;
         private Panel panel8;
         private TextBox textBox1;
@@ -1094,13 +1187,24 @@
         private Panel panel9;
         private Label label29;
         private Label TongTien_label;
-        private Panel panel1;
-        private FlowLayoutPanel flowLayoutPanel2;
-        private Label label2;
-        private Label label3;
-        private Label label4;
         private ContextMenuStrip popup;
         private ToolStripMenuItem Hủy;
         private ToolStripMenuItem Topping;
+        private Panel product_bottom_panel_1;
+        private Panel product_top_panel_1;
+        private Panel product_top_right_panel_1;
+        private Panel product_top_left_panel;
+        private Label gia_label1;
+        private PictureBox product_picture1;
+        private Label ten_sp_label1;
+        private PictureBox product_edit_btn1;
+        private PictureBox product_delete_btn1;
+        private Label label3;
+        private Label label2;
+        private ComboBox comboBox2;
+        private Panel panel1;
+        private Panel panel2;
+        private ComboBox comboBox3;
+        private ComboBox sort_comboBox;
     }
 }
