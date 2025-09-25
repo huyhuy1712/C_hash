@@ -91,5 +91,10 @@ namespace MilkTea.Client.Forms
         {
 
         }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
