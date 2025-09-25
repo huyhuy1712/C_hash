@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\C#\\đồ án\\C_hash\\MilkTeaApp\\MilkTea.Cilent\\MilkTea.Client.csproj": {}
+    "C:\\D\\New folder (8) C#\\Doan\\MilkTeaApp\\MilkTea.Cilent\\MilkTea.Client.csproj": {}
   },
   "projects": {
-    "D:\\C#\\đồ án\\C_hash\\MilkTeaApp\\MilkTea.Cilent\\MilkTea.Client.csproj": {
+    "C:\\D\\New folder (8) C#\\Doan\\MilkTeaApp\\MilkTea.Cilent\\MilkTea.Client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\C#\\đồ án\\C_hash\\MilkTeaApp\\MilkTea.Cilent\\MilkTea.Client.csproj",
+        "projectUniqueName": "C:\\D\\New folder (8) C#\\Doan\\MilkTeaApp\\MilkTea.Cilent\\MilkTea.Client.csproj",
         "projectName": "MilkTea.Client",
-        "projectPath": "D:\\C#\\đồ án\\C_hash\\MilkTeaApp\\MilkTea.Cilent\\MilkTea.Client.csproj",
-        "packagesPath": "C:\\Users\\anhhu\\.nuget\\packages\\",
-        "outputPath": "D:\\C#\\đồ án\\C_hash\\MilkTeaApp\\MilkTea.Cilent\\obj\\",
+        "projectPath": "C:\\D\\New folder (8) C#\\Doan\\MilkTeaApp\\MilkTea.Cilent\\MilkTea.Client.csproj",
+        "packagesPath": "C:\\Users\\ADMIN\\.nuget\\packages\\",
+        "outputPath": "C:\\D\\New folder (8) C#\\Doan\\MilkTeaApp\\MilkTea.Cilent\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\anhhu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ADMIN\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -45,7 +45,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net8.0-windows7.0": {
@@ -61,6 +61,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.20, 8.0.20]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[8.0.20, 8.0.20]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.20, 8.0.20]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.20, 8.0.20]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
@@ -69,7 +87,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100-rc.1.25451.107/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

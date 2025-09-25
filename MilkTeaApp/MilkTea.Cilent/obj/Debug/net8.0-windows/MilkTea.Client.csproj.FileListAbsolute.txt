@@ -41,3 +41,48 @@ D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\
 D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\recycle bin.png
 D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\X.png
 D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\topping.png
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\beverage.png
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\circle-user.png
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\discount.png
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\home.png
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\import.png
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\invoice.png
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\login.png
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\logout.png
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\order.png
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\recycle bin.png
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\report.png
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\search.png
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\three-dots.png
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\topping.png
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\user.png
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\X.png
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\MilkTea.Client.exe
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\MilkTea.Client.deps.json
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\MilkTea.Client.runtimeconfig.json
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\MilkTea.Client.dll
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\MilkTea.Client.pdb
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Controls.RoundedTextBox.resources
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.AccountForm.resources
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.DiscountForm.resources
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ImportForm.resources
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.InvoiceForm.resources
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.LoginForm.resources
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.MainForm.resources
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.OrderForm.resources
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.RegisterForm.resources
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ReportForm.resources
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Properties.Resources.resources
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.csproj.GenerateResource.cache
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.GeneratedMSBuildEditorConfig.editorconfig
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.AssemblyInfoInputs.cache
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.AssemblyInfo.cs
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.csproj.CoreCompileInputs.cache
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.sourcelink.json
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.dll
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\refint\MilkTea.Client.dll
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.pdb
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.genruntimeconfig.cache
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\ref\MilkTea.Client.dll
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Controls.RoundedButton.resources
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Controls.RoundedComboBox.resources

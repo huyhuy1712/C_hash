@@ -78,5 +78,10 @@ namespace MilkTea.Client.Forms
         {
 
         }
+
+        private void panelContent_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

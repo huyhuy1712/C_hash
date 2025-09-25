@@ -67,6 +67,7 @@
             panelContent.Padding = new Padding(0, 0, 30, 0);
             panelContent.Size = new Size(1676, 566);
             panelContent.TabIndex = 1;
+            panelContent.Paint += panelContent_Paint;
             // 
             // panelFooter
             // 
