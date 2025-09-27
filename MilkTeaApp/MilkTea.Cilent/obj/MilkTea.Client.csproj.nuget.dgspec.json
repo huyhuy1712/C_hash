@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\C#\\đồ án\\C_hash\\MilkTeaApp\\MilkTea.Cilent\\MilkTea.Client.csproj": {}
+    "D:\\Games\\tailieu\\nam 4\\hk1\\C#\\DoAn\\MilkTeaApp\\MilkTea.Cilent\\MilkTea.Client.csproj": {}
   },
   "projects": {
-    "D:\\C#\\đồ án\\C_hash\\MilkTeaApp\\MilkTea.Cilent\\MilkTea.Client.csproj": {
+    "D:\\Games\\tailieu\\nam 4\\hk1\\C#\\DoAn\\MilkTeaApp\\MilkTea.Cilent\\MilkTea.Client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\C#\\đồ án\\C_hash\\MilkTeaApp\\MilkTea.Cilent\\MilkTea.Client.csproj",
+        "projectUniqueName": "D:\\Games\\tailieu\\nam 4\\hk1\\C#\\DoAn\\MilkTeaApp\\MilkTea.Cilent\\MilkTea.Client.csproj",
         "projectName": "MilkTea.Client",
-        "projectPath": "D:\\C#\\đồ án\\C_hash\\MilkTeaApp\\MilkTea.Cilent\\MilkTea.Client.csproj",
-        "packagesPath": "C:\\Users\\anhhu\\.nuget\\packages\\",
-        "outputPath": "D:\\C#\\đồ án\\C_hash\\MilkTeaApp\\MilkTea.Cilent\\obj\\",
+        "projectPath": "D:\\Games\\tailieu\\nam 4\\hk1\\C#\\DoAn\\MilkTeaApp\\MilkTea.Cilent\\MilkTea.Client.csproj",
+        "packagesPath": "C:\\Users\\MTeumb\\.nuget\\packages\\",
+        "outputPath": "D:\\Games\\tailieu\\nam 4\\hk1\\C#\\DoAn\\MilkTeaApp\\MilkTea.Cilent\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\anhhu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\MTeumb\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
