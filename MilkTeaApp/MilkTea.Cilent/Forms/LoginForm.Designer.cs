@@ -98,7 +98,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.icons8_email_24;
+            pictureBox1.Image = Properties.Resources.download1;
             pictureBox1.Location = new Point(51, 115);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(24, 25);
