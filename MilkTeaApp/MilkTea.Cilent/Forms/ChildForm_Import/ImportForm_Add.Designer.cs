@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            roundedButton1 = new MilkTea.Client.Controls.RoundedButton();
+            btn_ = new MilkTea.Client.Controls.RoundedButton();
+            numericUpDown1 = new NumericUpDown();
+            comboBox1 = new ComboBox();
             txt_iPort_nguoitao = new TextBox();
             txt_iPort_maphieu = new TextBox();
             dt_iPort_ngaylap = new DateTimePicker();
@@ -36,10 +40,6 @@
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
-            comboBox1 = new ComboBox();
-            numericUpDown1 = new NumericUpDown();
-            btn_ = new MilkTea.Client.Controls.RoundedButton();
-            roundedButton1 = new MilkTea.Client.Controls.RoundedButton();
             panel2 = new Panel();
             label5 = new Label();
             panel5 = new Panel();
@@ -50,11 +50,15 @@
             soLuong_tb_add = new DataGridViewTextBoxColumn();
             tenNVN_tb_add = new DataGridViewTextBoxColumn();
             tongTien_tb_add = new DataGridViewTextBoxColumn();
+            panel3 = new Panel();
+            btn_Thoat_iPort_add = new MilkTea.Client.Controls.RoundedButton();
+            btn_Luu_Iport_add = new MilkTea.Client.Controls.RoundedButton();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             panel2.SuspendLayout();
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            panel3.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -75,6 +79,57 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1020, 185);
             panel1.TabIndex = 0;
+            // 
+            // roundedButton1
+            // 
+            roundedButton1.BackColor = Color.DodgerBlue;
+            roundedButton1.BorderColor = Color.DodgerBlue;
+            roundedButton1.BorderRadius = 20;
+            roundedButton1.BorderSize = 0;
+            roundedButton1.FlatAppearance.BorderSize = 0;
+            roundedButton1.FlatStyle = FlatStyle.Flat;
+            roundedButton1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            roundedButton1.ForeColor = Color.White;
+            roundedButton1.Location = new Point(864, 139);
+            roundedButton1.Name = "roundedButton1";
+            roundedButton1.Size = new Size(98, 36);
+            roundedButton1.TabIndex = 10;
+            roundedButton1.Text = "Xóa";
+            roundedButton1.UseVisualStyleBackColor = false;
+            // 
+            // btn_
+            // 
+            btn_.BackColor = Color.DodgerBlue;
+            btn_.BorderColor = Color.DodgerBlue;
+            btn_.BorderRadius = 20;
+            btn_.BorderSize = 0;
+            btn_.FlatAppearance.BorderSize = 0;
+            btn_.FlatStyle = FlatStyle.Flat;
+            btn_.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btn_.ForeColor = Color.White;
+            btn_.Location = new Point(760, 139);
+            btn_.Name = "btn_";
+            btn_.Size = new Size(98, 36);
+            btn_.TabIndex = 9;
+            btn_.Text = "Thêm";
+            btn_.UseVisualStyleBackColor = false;
+            // 
+            // numericUpDown1
+            // 
+            numericUpDown1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            numericUpDown1.Location = new Point(615, 145);
+            numericUpDown1.Name = "numericUpDown1";
+            numericUpDown1.Size = new Size(113, 27);
+            numericUpDown1.TabIndex = 8;
+            // 
+            // comboBox1
+            // 
+            comboBox1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(218, 144);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(358, 28);
+            comboBox1.TabIndex = 7;
             // 
             // txt_iPort_nguoitao
             // 
@@ -140,57 +195,6 @@
             label1.TabIndex = 0;
             label1.Text = "Mã phiếu";
             // 
-            // comboBox1
-            // 
-            comboBox1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(218, 144);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(263, 28);
-            comboBox1.TabIndex = 7;
-            // 
-            // numericUpDown1
-            // 
-            numericUpDown1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            numericUpDown1.Location = new Point(487, 144);
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(113, 27);
-            numericUpDown1.TabIndex = 8;
-            // 
-            // btn_
-            // 
-            btn_.BackColor = Color.DodgerBlue;
-            btn_.BorderColor = Color.DodgerBlue;
-            btn_.BorderRadius = 20;
-            btn_.BorderSize = 0;
-            btn_.FlatAppearance.BorderSize = 0;
-            btn_.FlatStyle = FlatStyle.Flat;
-            btn_.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            btn_.ForeColor = Color.White;
-            btn_.Location = new Point(760, 139);
-            btn_.Name = "btn_";
-            btn_.Size = new Size(98, 36);
-            btn_.TabIndex = 9;
-            btn_.Text = "Thêm";
-            btn_.UseVisualStyleBackColor = false;
-            // 
-            // roundedButton1
-            // 
-            roundedButton1.BackColor = Color.DodgerBlue;
-            roundedButton1.BorderColor = Color.DodgerBlue;
-            roundedButton1.BorderRadius = 20;
-            roundedButton1.BorderSize = 0;
-            roundedButton1.FlatAppearance.BorderSize = 0;
-            roundedButton1.FlatStyle = FlatStyle.Flat;
-            roundedButton1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            roundedButton1.ForeColor = Color.White;
-            roundedButton1.Location = new Point(864, 139);
-            roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(98, 36);
-            roundedButton1.TabIndex = 10;
-            roundedButton1.Text = "Xóa";
-            roundedButton1.UseVisualStyleBackColor = false;
-            // 
             // panel2
             // 
             panel2.Controls.Add(label5);
@@ -219,7 +223,7 @@
             panel5.Location = new Point(0, 265);
             panel5.Name = "panel5";
             panel5.Padding = new Padding(20);
-            panel5.Size = new Size(1020, 262);
+            panel5.Size = new Size(1020, 345);
             panel5.TabIndex = 4;
             panel5.TabStop = true;
             // 
@@ -229,7 +233,7 @@
             dataGridView1.BackgroundColor = SystemColors.ButtonFace;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { maPhieuNhap_tb_add, ngayNhap_tb_add, tenNL_tb_add, soLuong_tb_add, tenNVN_tb_add, tongTien_tb_add });
-            dataGridView1.Dock = DockStyle.Fill;
+            dataGridView1.Dock = DockStyle.Top;
             dataGridView1.Location = new Point(20, 20);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(980, 222);
@@ -269,11 +273,56 @@
             tongTien_tb_add.Name = "tongTien_tb_add";
             tongTien_tb_add.Width = 200;
             // 
+            // panel3
+            // 
+            panel3.Controls.Add(btn_Luu_Iport_add);
+            panel3.Controls.Add(btn_Thoat_iPort_add);
+            panel3.Dock = DockStyle.Bottom;
+            panel3.Location = new Point(0, 550);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(1020, 60);
+            panel3.TabIndex = 5;
+            // 
+            // btn_Thoat_iPort_add
+            // 
+            btn_Thoat_iPort_add.BackColor = Color.DodgerBlue;
+            btn_Thoat_iPort_add.BorderColor = Color.DodgerBlue;
+            btn_Thoat_iPort_add.BorderRadius = 20;
+            btn_Thoat_iPort_add.BorderSize = 0;
+            btn_Thoat_iPort_add.FlatAppearance.BorderSize = 0;
+            btn_Thoat_iPort_add.FlatStyle = FlatStyle.Flat;
+            btn_Thoat_iPort_add.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btn_Thoat_iPort_add.ForeColor = Color.White;
+            btn_Thoat_iPort_add.Location = new Point(910, 12);
+            btn_Thoat_iPort_add.Name = "btn_Thoat_iPort_add";
+            btn_Thoat_iPort_add.Size = new Size(98, 36);
+            btn_Thoat_iPort_add.TabIndex = 10;
+            btn_Thoat_iPort_add.Text = "Thoát";
+            btn_Thoat_iPort_add.UseVisualStyleBackColor = false;
+            // 
+            // btn_Luu_Iport_add
+            // 
+            btn_Luu_Iport_add.BackColor = Color.DodgerBlue;
+            btn_Luu_Iport_add.BorderColor = Color.DodgerBlue;
+            btn_Luu_Iport_add.BorderRadius = 20;
+            btn_Luu_Iport_add.BorderSize = 0;
+            btn_Luu_Iport_add.FlatAppearance.BorderSize = 0;
+            btn_Luu_Iport_add.FlatStyle = FlatStyle.Flat;
+            btn_Luu_Iport_add.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btn_Luu_Iport_add.ForeColor = Color.White;
+            btn_Luu_Iport_add.Location = new Point(806, 12);
+            btn_Luu_Iport_add.Name = "btn_Luu_Iport_add";
+            btn_Luu_Iport_add.Size = new Size(98, 36);
+            btn_Luu_Iport_add.TabIndex = 11;
+            btn_Luu_Iport_add.Text = "Lưu";
+            btn_Luu_Iport_add.UseVisualStyleBackColor = false;
+            // 
             // ImportForm_Add
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1020, 527);
+            ClientSize = new Size(1020, 610);
+            Controls.Add(panel3);
             Controls.Add(panel5);
             Controls.Add(panel2);
             Controls.Add(panel1);
@@ -286,6 +335,7 @@
             panel2.ResumeLayout(false);
             panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            panel3.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -313,5 +363,8 @@
         private DataGridViewTextBoxColumn soLuong_tb_add;
         private DataGridViewTextBoxColumn tenNVN_tb_add;
         private DataGridViewTextBoxColumn tongTien_tb_add;
+        private Panel panel3;
+        private Controls.RoundedButton btn_Thoat_iPort_add;
+        private Controls.RoundedButton btn_Luu_Iport_add;
     }
 }
