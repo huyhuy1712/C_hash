@@ -135,32 +135,11 @@
   <metadata name="thongTin_Tb.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="xoa_Tb.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="maPhieuNhap_Tb.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="ngayNhap_Tb.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="soLuong_Tb.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="tenNVN_Tb.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="tongTien_Tb.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="thongTin_Tb.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="dataGridViewCellStyle3.NullValue" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="dataGridViewCellStyle1.NullValue" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vwAADr8BOAVTJAAAALVJREFUOE+lkrENwjAQRTObp/ASSU3qpAot2QEoSRkW8AzAABAQ0Lg99C3ZCrnY
+        vAAADrwBlbxySQAAALVJREFUOE+lkrENwjAQRTObp/ASSU3qpAot2QEoSRkW8AzAABAQ0Lg99C3ZCrnY
         saF40un737vGGRFl/8CCVNygtaYUmEApRUKIKND1CnbbPb2e71nwFhQUeUF9f6Tu0LFlZHhDJyhAGcWm
         WbtlzMgwRwnA+XShdtMaMNs8WnAfHlSuSgPmJIFdxmUwliwKUKyr+uvqOAsKpJTm2u06uGULMryh4xVM
         P4yPWcH0qy7BBL/CglQ+6LISoJ37amgAAAAASUVORK5CYII=
@@ -169,10 +148,10 @@
   <metadata name="xoa_Tb.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="dataGridViewCellStyle4.NullValue" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="dataGridViewCellStyle2.NullValue" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vwAADr8BOAVTJAAAALVJREFUOE+lkrENwjAQRTObp/ASSU3qpAot2QEoSRkW8AzAABAQ0Lg99C3ZCrnY
+        vAAADrwBlbxySQAAALVJREFUOE+lkrENwjAQRTObp/ASSU3qpAot2QEoSRkW8AzAABAQ0Lg99C3ZCrnY
         saF40un737vGGRFl/8CCVNygtaYUmEApRUKIKND1CnbbPb2e71nwFhQUeUF9f6Tu0LFlZHhDJyhAGcWm
         WbtlzMgwRwnA+XShdtMaMNs8WnAfHlSuSgPmJIFdxmUwliwKUKyr+uvqOAsKpJTm2u06uGULMryh4xVM
         P4yPWcH0qy7BBL/CglQ+6LISoJ37amgAAAAASUVORK5CYII=

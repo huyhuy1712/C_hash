@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MilkTea.Client.Forms.ChildForm_Import;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,7 +20,19 @@ namespace MilkTea.Client.Forms
 
         private void ImportForm_Load(object sender, EventArgs e)
         {
-            int index = dataGridView1.Rows.Add();
+
+        }
+
+        private void add_Import_btn_Click(object sender, EventArgs e)
+        {
+            ImportForm_Add form = new ImportForm_Add();
+            form.ShowDialog();
+        }
+
+        private void excel_Import_btn_Click(object sender, EventArgs e)
+        {
+            ImportForm_Info form = new ImportForm_Info();
+            form.ShowDialog();
         }
     }
 }

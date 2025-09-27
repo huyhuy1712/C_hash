@@ -101,3 +101,5 @@ C:\Users\dtoan\Source\Repos\C_hash\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-wi
 C:\Users\dtoan\Source\Repos\C_hash\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.genruntimeconfig.cache
 C:\Users\dtoan\Source\Repos\C_hash\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\ref\MilkTea.Client.dll
 C:\Users\dtoan\source\repos\C_hash\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\information.png
+C:\Users\dtoan\source\repos\C_hash\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ChildForm_Import.ImportForm_Add.resources
+C:\Users\dtoan\source\repos\C_hash\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ChildForm_Import.ImportForm_Info.resources

@@ -51,7 +51,7 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1660, 527);
+            panel1.Size = new Size(962, 527);
             panel1.TabIndex = 1;
             // 
             // panel5
@@ -62,7 +62,7 @@
             panel5.Location = new Point(0, 80);
             panel5.Name = "panel5";
             panel5.Padding = new Padding(20);
-            panel5.Size = new Size(1660, 447);
+            panel5.Size = new Size(962, 447);
             panel5.TabIndex = 3;
             panel5.TabStop = true;
             // 
@@ -75,7 +75,7 @@
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(20, 20);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(1620, 407);
+            dataGridView1.Size = new Size(922, 407);
             dataGridView1.TabIndex = 0;
             // 
             // maPhieuNhap_Tb_Ct
@@ -113,7 +113,7 @@
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1660, 80);
+            panel2.Size = new Size(962, 80);
             panel2.TabIndex = 0;
             // 
             // label1
@@ -121,7 +121,7 @@
             label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             label1.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.DodgerBlue;
-            label1.Location = new Point(699, 18);
+            label1.Location = new Point(350, 18);
             label1.Name = "label1";
             label1.Size = new Size(387, 45);
             label1.TabIndex = 1;
@@ -131,7 +131,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1660, 527);
+            ClientSize = new Size(962, 527);
             Controls.Add(panel1);
             Name = "ImportForm_Info";
             Text = "ImportForm_Info";
