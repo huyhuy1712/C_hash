@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Source\\Repos\\C_hash\\MilkTeaApp\\MilkTea.Cilent\\MilkTea.Client.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Desktop\\doan_trasua\\C_hash\\MilkTeaApp\\MilkTea.Cilent\\MilkTea.Client.csproj",
       "projectName": "MilkTea.Client",
-      "projectPath": "C:\\Users\\User\\Source\\Repos\\C_hash\\MilkTeaApp\\MilkTea.Cilent\\MilkTea.Client.csproj",
+      "projectPath": "C:\\Users\\User\\Desktop\\doan_trasua\\C_hash\\MilkTeaApp\\MilkTea.Cilent\\MilkTea.Client.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Source\\Repos\\C_hash\\MilkTeaApp\\MilkTea.Cilent\\obj\\",
+      "outputPath": "C:\\Users\\User\\Desktop\\doan_trasua\\C_hash\\MilkTeaApp\\MilkTea.Cilent\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",

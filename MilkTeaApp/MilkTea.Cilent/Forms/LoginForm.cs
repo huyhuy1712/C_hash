@@ -79,11 +79,5 @@ namespace MilkTea.Client.Forms
 
         }
 
-        private void label_TaoTaiKhoan_Click(object sender, EventArgs e)
-        {
-            RegisterForm registerForm = new RegisterForm();
-            registerForm.Show();
-            //this.Hide();
-        }
     }
 }

@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
-            label_TaoTaiKhoan = new Label();
             roundedButton_Login = new MilkTea.Client.Controls.RoundedButton();
             pictureBox2 = new PictureBox();
             pictureBox1 = new PictureBox();
@@ -37,6 +36,7 @@
             roundedTextBox_TenTK = new MilkTea.Client.Controls.RoundedTextBox();
             label_login = new Label();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            label_TaoTaiKhoan = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -55,18 +55,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(379, 378);
             panel1.TabIndex = 0;
-            // 
-            // label_TaoTaiKhoan
-            // 
-            label_TaoTaiKhoan.AutoSize = true;
-            label_TaoTaiKhoan.Cursor = Cursors.Hand;
-            label_TaoTaiKhoan.Font = new Font("Bahnschrift Condensed", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label_TaoTaiKhoan.Location = new Point(134, 340);
-            label_TaoTaiKhoan.Name = "label_TaoTaiKhoan";
-            label_TaoTaiKhoan.Size = new Size(114, 28);
-            label_TaoTaiKhoan.TabIndex = 6;
-            label_TaoTaiKhoan.Text = "Tạo tài khoản";
-            label_TaoTaiKhoan.Click += label_TaoTaiKhoan_Click;
             // 
             // roundedButton_Login
             // 
@@ -148,6 +136,17 @@
             label_login.Size = new Size(200, 46);
             label_login.TabIndex = 0;
             label_login.Text = "Đăng nhập";
+            // 
+            // label_TaoTaiKhoan
+            // 
+            label_TaoTaiKhoan.AutoSize = true;
+            label_TaoTaiKhoan.Cursor = Cursors.Hand;
+            label_TaoTaiKhoan.Font = new Font("Bahnschrift Condensed", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label_TaoTaiKhoan.Location = new Point(134, 340);
+            label_TaoTaiKhoan.Name = "label_TaoTaiKhoan";
+            label_TaoTaiKhoan.Size = new Size(114, 28);
+            label_TaoTaiKhoan.TabIndex = 6;
+            label_TaoTaiKhoan.Text = "Tạo tài khoản";
             // 
             // LoginForm
             // 
