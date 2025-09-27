@@ -36,7 +36,6 @@
             roundedTextBox_TenTK = new MilkTea.Client.Controls.RoundedTextBox();
             label_login = new Label();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            label_TaoTaiKhoan = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -44,7 +43,6 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(label_TaoTaiKhoan);
             panel1.Controls.Add(roundedButton_Login);
             panel1.Controls.Add(pictureBox2);
             panel1.Controls.Add(pictureBox1);
@@ -137,17 +135,6 @@
             label_login.TabIndex = 0;
             label_login.Text = "Đăng nhập";
             // 
-            // label_TaoTaiKhoan
-            // 
-            label_TaoTaiKhoan.AutoSize = true;
-            label_TaoTaiKhoan.Cursor = Cursors.Hand;
-            label_TaoTaiKhoan.Font = new Font("Bahnschrift Condensed", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label_TaoTaiKhoan.Location = new Point(134, 340);
-            label_TaoTaiKhoan.Name = "label_TaoTaiKhoan";
-            label_TaoTaiKhoan.Size = new Size(114, 28);
-            label_TaoTaiKhoan.TabIndex = 6;
-            label_TaoTaiKhoan.Text = "Tạo tài khoản";
-            // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -174,6 +161,5 @@
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
         private Controls.RoundedButton roundedButton_Login;
-        protected Label label_TaoTaiKhoan;
     }
 }
