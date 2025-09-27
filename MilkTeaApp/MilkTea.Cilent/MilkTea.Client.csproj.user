@@ -10,10 +10,19 @@
     <Compile Update="Controls\RoundedTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Controls\ToggleButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Forms\AccountForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\ChildForm_Account\AddAccountForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ChildForm_Account\EditAccountForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ChildForm_Account\ViewAccountForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\ChildForm_Order\AddProductForm.cs">

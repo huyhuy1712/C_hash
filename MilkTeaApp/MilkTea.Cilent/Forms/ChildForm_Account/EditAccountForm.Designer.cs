@@ -1,6 +1,6 @@
 ﻿namespace MilkTea.Client.Forms.ChildForm_Account
 {
-    partial class AddAccountForm
+    partial class EditAccountForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,12 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             panel1 = new Panel();
             panel3 = new Panel();
+            panel14 = new Panel();
+            btnXacNhan = new MilkTea.Client.Controls.RoundedButton();
+            btnThoat = new MilkTea.Client.Controls.RoundedButton();
             panel13 = new Panel();
-            btnThemTTK = new MilkTea.Client.Controls.RoundedButton();
-            btnThoatTTK = new MilkTea.Client.Controls.RoundedButton();
+            panel15 = new Panel();
+            tgBtnTrangThai = new MilkTea.Client.Controls.ToggleButton();
+            label7 = new Label();
             panel12 = new Panel();
             cbxQuyen = new MilkTea.Client.Controls.RoundedComboBox();
             label6 = new Label();
@@ -56,10 +59,11 @@
             label2 = new Label();
             panel2 = new Panel();
             label1 = new Label();
-            imageList1 = new ImageList(components);
             panel1.SuspendLayout();
             panel3.SuspendLayout();
+            panel14.SuspendLayout();
             panel13.SuspendLayout();
+            panel15.SuspendLayout();
             panel12.SuspendLayout();
             panel11.SuspendLayout();
             panel10.SuspendLayout();
@@ -80,11 +84,12 @@
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(800, 450);
-            panel1.TabIndex = 0;
+            panel1.TabIndex = 1;
             // 
             // panel3
             // 
             panel3.BackColor = SystemColors.ScrollBar;
+            panel3.Controls.Add(panel14);
             panel3.Controls.Add(panel13);
             panel3.Controls.Add(panel12);
             panel3.Controls.Add(panel11);
@@ -101,53 +106,99 @@
             panel3.Size = new Size(800, 370);
             panel3.TabIndex = 1;
             // 
+            // panel14
+            // 
+            panel14.Controls.Add(btnXacNhan);
+            panel14.Controls.Add(btnThoat);
+            panel14.Dock = DockStyle.Top;
+            panel14.Location = new Point(0, 324);
+            panel14.Name = "panel14";
+            panel14.Size = new Size(800, 40);
+            panel14.TabIndex = 11;
+            // 
+            // btnXacNhan
+            // 
+            btnXacNhan.BackColor = Color.Lime;
+            btnXacNhan.BorderColor = Color.DodgerBlue;
+            btnXacNhan.BorderRadius = 20;
+            btnXacNhan.BorderSize = 0;
+            btnXacNhan.Dock = DockStyle.Right;
+            btnXacNhan.FlatAppearance.BorderSize = 0;
+            btnXacNhan.FlatStyle = FlatStyle.Flat;
+            btnXacNhan.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnXacNhan.ForeColor = Color.Black;
+            btnXacNhan.Location = new Point(599, 0);
+            btnXacNhan.Margin = new Padding(30);
+            btnXacNhan.Name = "btnXacNhan";
+            btnXacNhan.Size = new Size(107, 40);
+            btnXacNhan.TabIndex = 1;
+            btnXacNhan.Text = "Xác Nhận";
+            btnXacNhan.UseVisualStyleBackColor = false;
+            // 
+            // btnThoat
+            // 
+            btnThoat.BackColor = Color.Red;
+            btnThoat.BorderColor = Color.DodgerBlue;
+            btnThoat.BorderRadius = 20;
+            btnThoat.BorderSize = 0;
+            btnThoat.Dock = DockStyle.Right;
+            btnThoat.FlatAppearance.BorderSize = 0;
+            btnThoat.FlatStyle = FlatStyle.Flat;
+            btnThoat.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnThoat.ForeColor = Color.White;
+            btnThoat.Location = new Point(706, 0);
+            btnThoat.Name = "btnThoat";
+            btnThoat.Size = new Size(94, 40);
+            btnThoat.TabIndex = 0;
+            btnThoat.Text = "Thoát";
+            btnThoat.UseVisualStyleBackColor = false;
+            btnThoat.Click += btnThoat_Click;
+            // 
             // panel13
             // 
-            panel13.Controls.Add(btnThemTTK);
-            panel13.Controls.Add(btnThoatTTK);
-            panel13.Dock = DockStyle.Bottom;
-            panel13.Location = new Point(0, 330);
+            panel13.Controls.Add(panel15);
+            panel13.Controls.Add(label7);
+            panel13.Dock = DockStyle.Top;
+            panel13.Location = new Point(0, 284);
             panel13.Name = "panel13";
             panel13.Size = new Size(800, 40);
-            panel13.TabIndex = 9;
+            panel13.TabIndex = 10;
             // 
-            // btnThemTTK
+            // panel15
             // 
-            btnThemTTK.BackColor = Color.Lime;
-            btnThemTTK.BorderColor = Color.DodgerBlue;
-            btnThemTTK.BorderRadius = 20;
-            btnThemTTK.BorderSize = 0;
-            btnThemTTK.Dock = DockStyle.Right;
-            btnThemTTK.FlatAppearance.BorderSize = 0;
-            btnThemTTK.FlatStyle = FlatStyle.Flat;
-            btnThemTTK.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            btnThemTTK.ForeColor = Color.Black;
-            btnThemTTK.Location = new Point(612, 0);
-            btnThemTTK.Margin = new Padding(30);
-            btnThemTTK.Name = "btnThemTTK";
-            btnThemTTK.Size = new Size(94, 40);
-            btnThemTTK.TabIndex = 1;
-            btnThemTTK.Text = "+ Thêm";
-            btnThemTTK.UseVisualStyleBackColor = false;
+            panel15.Controls.Add(tgBtnTrangThai);
+            panel15.Dock = DockStyle.Left;
+            panel15.Location = new Point(178, 0);
+            panel15.Name = "panel15";
+            panel15.Size = new Size(117, 40);
+            panel15.TabIndex = 4;
             // 
-            // btnThoatTTK
+            // tgBtnTrangThai
             // 
-            btnThoatTTK.BackColor = Color.Red;
-            btnThoatTTK.BorderColor = Color.DodgerBlue;
-            btnThoatTTK.BorderRadius = 20;
-            btnThoatTTK.BorderSize = 0;
-            btnThoatTTK.Dock = DockStyle.Right;
-            btnThoatTTK.FlatAppearance.BorderSize = 0;
-            btnThoatTTK.FlatStyle = FlatStyle.Flat;
-            btnThoatTTK.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            btnThoatTTK.ForeColor = Color.White;
-            btnThoatTTK.Location = new Point(706, 0);
-            btnThoatTTK.Name = "btnThoatTTK";
-            btnThoatTTK.Size = new Size(94, 40);
-            btnThoatTTK.TabIndex = 0;
-            btnThoatTTK.Text = "Thoát";
-            btnThoatTTK.UseVisualStyleBackColor = false;
-            btnThoatTTK.Click += btnThoatTTK_Click;
+            tgBtnTrangThai.Location = new Point(6, 5);
+            tgBtnTrangThai.MinimumSize = new Size(45, 22);
+            tgBtnTrangThai.Name = "tgBtnTrangThai";
+            tgBtnTrangThai.OffBackColor = Color.Gray;
+            tgBtnTrangThai.OffToggleColor = Color.White;
+            tgBtnTrangThai.OnBackColor = Color.MediumSlateBlue;
+            tgBtnTrangThai.OnToggleColor = Color.White;
+            tgBtnTrangThai.Size = new Size(100, 31);
+            tgBtnTrangThai.TabIndex = 3;
+            tgBtnTrangThai.Text = "toggleButton1";
+            tgBtnTrangThai.TextAlign = ContentAlignment.MiddleCenter;
+            tgBtnTrangThai.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            label7.Dock = DockStyle.Left;
+            label7.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label7.ForeColor = Color.DodgerBlue;
+            label7.Location = new Point(0, 0);
+            label7.Name = "label7";
+            label7.Padding = new Padding(30, 0, 0, 0);
+            label7.Size = new Size(178, 40);
+            label7.TabIndex = 2;
+            label7.Text = "Trạng Thái";
             // 
             // panel12
             // 
@@ -221,7 +272,6 @@
             btnChonAnh.TabIndex = 1;
             btnChonAnh.Text = "Chọn";
             btnChonAnh.UseVisualStyleBackColor = false;
-            btnChonAnh.Click += btnChonAnh_Click;
             // 
             // txtAnh
             // 
@@ -395,28 +445,24 @@
             label1.ForeColor = Color.DodgerBlue;
             label1.Location = new Point(249, 9);
             label1.Name = "label1";
-            label1.Size = new Size(324, 54);
+            label1.Size = new Size(289, 54);
             label1.TabIndex = 0;
-            label1.Text = "Thêm Tài Khoản";
+            label1.Text = "Sửa Tài Khoản";
             // 
-            // imageList1
-            // 
-            imageList1.ColorDepth = ColorDepth.Depth32Bit;
-            imageList1.ImageSize = new Size(16, 16);
-            imageList1.TransparentColor = Color.Transparent;
-            // 
-            // AddAccountForm
+            // EditAccountForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(panel1);
-            Name = "AddAccountForm";
+            Name = "EditAccountForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "AddAccountForm";
+            Text = "EditAccountForm";
             panel1.ResumeLayout(false);
             panel3.ResumeLayout(false);
+            panel14.ResumeLayout(false);
             panel13.ResumeLayout(false);
+            panel15.ResumeLayout(false);
             panel12.ResumeLayout(false);
             panel12.PerformLayout();
             panel11.ResumeLayout(false);
@@ -443,32 +489,35 @@
         #endregion
 
         private Panel panel1;
-        private Panel panel2;
         private Panel panel3;
-        private Panel panel4;
-        private Label label1;
-        private Label label2;
-        private Panel panel5;
-        private TextBox txtbThemTaiKhoan;
-        private Panel panel6;
-        private Label label3;
-        private Panel panel7;
-        private TextBox txtbMatKhau;
-        private Panel panel8;
-        private Label label4;
-        private Panel panel9;
-        private TextBox txtbHoTen;
-        private Panel panel10;
-        private Label label5;
-        private Panel panel11;
-        private TextBox txtAnh;
-        private Controls.RoundedButton btnChonAnh;
-        private ImageList imageList1;
         private Panel panel12;
         private Controls.RoundedComboBox cbxQuyen;
         private Label label6;
+        private Panel panel11;
+        private Controls.RoundedButton btnChonAnh;
+        private TextBox txtAnh;
+        private Panel panel10;
+        private Label label5;
+        private Panel panel9;
+        private TextBox txtbHoTen;
+        private Panel panel8;
+        private Label label4;
+        private Panel panel7;
+        private TextBox txtbMatKhau;
+        private Panel panel6;
+        private Label label3;
+        private Panel panel5;
+        private TextBox txtbThemTaiKhoan;
+        private Panel panel4;
+        private Label label2;
+        private Panel panel2;
+        private Label label1;
+        private Panel panel14;
+        private Controls.RoundedButton btnXacNhan;
+        private Controls.RoundedButton btnThoat;
         private Panel panel13;
-        private Controls.RoundedButton btnThemTTK;
-        private Controls.RoundedButton btnThoatTTK;
+        private Panel panel15;
+        private Controls.ToggleButton tgBtnTrangThai;
+        private Label label7;
     }
 }

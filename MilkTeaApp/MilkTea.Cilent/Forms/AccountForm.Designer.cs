@@ -29,24 +29,21 @@ namespace MilkTea.Client.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            Panel panel2;
             Panel panel3;
-            Panel panel4;
             Panel panel5;
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AccountForm));
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            label1 = new Label();
+            Panel panel2;
+            Panel panel4;
             roundedButton2 = new MilkTea.Client.Controls.RoundedButton();
             roundedComboBox2 = new MilkTea.Client.Controls.RoundedComboBox();
             roundedComboBox1 = new MilkTea.Client.Controls.RoundedComboBox();
             Search = new MilkTea.Client.Controls.RoundedTextBox();
             btnThemAccount = new MilkTea.Client.Controls.RoundedButton();
-            label2 = new Label();
             dataGridView1 = new DataGridView();
-            panel1 = new Panel();
             ID = new DataGridViewTextBoxColumn();
             taiKhoan = new DataGridViewTextBoxColumn();
             hoVaTen = new DataGridViewTextBoxColumn();
@@ -57,39 +54,20 @@ namespace MilkTea.Client.Forms
             sua = new DataGridViewImageColumn();
             khoa = new DataGridViewImageColumn();
             xoa = new DataGridViewImageColumn();
-            panel2 = new Panel();
+            label1 = new Label();
+            label2 = new Label();
+            panel1 = new Panel();
             panel3 = new Panel();
-            panel4 = new Panel();
             panel5 = new Panel();
-            panel2.SuspendLayout();
+            panel2 = new Panel();
+            panel4 = new Panel();
             panel3.SuspendLayout();
-            panel4.SuspendLayout();
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            panel2.SuspendLayout();
+            panel4.SuspendLayout();
             panel1.SuspendLayout();
             SuspendLayout();
-            // 
-            // panel2
-            // 
-            panel2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            panel2.Controls.Add(label1);
-            panel2.Dock = DockStyle.Top;
-            panel2.Location = new Point(0, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(1658, 80);
-            panel2.TabIndex = 1;
-            // 
-            // label1
-            // 
-            label1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.DodgerBlue;
-            label1.Location = new Point(736, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(207, 54);
-            label1.TabIndex = 0;
-            label1.Text = "Tài Khoản";
             // 
             // panel3
             // 
@@ -136,6 +114,7 @@ namespace MilkTea.Client.Forms
             roundedComboBox2.Font = new Font("Segoe UI", 10F);
             roundedComboBox2.FormattingEnabled = true;
             roundedComboBox2.ItemHeight = 30;
+            roundedComboBox2.Items.AddRange(new object[] { "Cũ Nhất", "Mới Nhất" });
             roundedComboBox2.Location = new Point(558, 6);
             roundedComboBox2.Name = "roundedComboBox2";
             roundedComboBox2.Size = new Size(151, 36);
@@ -191,28 +170,6 @@ namespace MilkTea.Client.Forms
             btnThemAccount.UseVisualStyleBackColor = false;
             btnThemAccount.Click += btnThemAccount_Click;
             // 
-            // panel4
-            // 
-            panel4.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            panel4.Controls.Add(label2);
-            panel4.Dock = DockStyle.Top;
-            panel4.Location = new Point(0, 130);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(1658, 50);
-            panel4.TabIndex = 3;
-            // 
-            // label2
-            // 
-            label2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.ForeColor = Color.DodgerBlue;
-            label2.Location = new Point(691, 3);
-            label2.Name = "label2";
-            label2.Size = new Size(293, 41);
-            label2.TabIndex = 0;
-            label2.Text = "Danh Sách Tài Khoản";
-            // 
             // panel5
             // 
             panel5.AutoSizeMode = AutoSizeMode.GrowAndShrink;
@@ -226,6 +183,7 @@ namespace MilkTea.Client.Forms
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.CellBorderStyle = DataGridViewCellBorderStyle.None;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { ID, taiKhoan, hoVaTen, trangThai, ngayTao, quyen, chiTiet, sua, khoa, xoa });
             dataGridView1.Dock = DockStyle.Fill;
@@ -235,20 +193,6 @@ namespace MilkTea.Client.Forms
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(1658, 339);
             dataGridView1.TabIndex = 0;
-            dataGridView1.CellClick += dataGridView1_CellClick;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
-            // 
-            // panel1
-            // 
-            panel1.Controls.Add(panel5);
-            panel1.Controls.Add(panel4);
-            panel1.Controls.Add(panel3);
-            panel1.Controls.Add(panel2);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1658, 519);
-            panel1.TabIndex = 0;
             // 
             // ID
             // 
@@ -366,6 +310,62 @@ namespace MilkTea.Client.Forms
             xoa.Resizable = DataGridViewTriState.False;
             xoa.Width = 75;
             // 
+            // panel2
+            // 
+            panel2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            panel2.Controls.Add(label1);
+            panel2.Dock = DockStyle.Top;
+            panel2.Location = new Point(0, 0);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(1658, 80);
+            panel2.TabIndex = 1;
+            // 
+            // label1
+            // 
+            label1.Dock = DockStyle.Fill;
+            label1.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.DodgerBlue;
+            label1.Location = new Point(0, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(1658, 80);
+            label1.TabIndex = 0;
+            label1.Text = "Tài Khoản";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // panel4
+            // 
+            panel4.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            panel4.Controls.Add(label2);
+            panel4.Dock = DockStyle.Top;
+            panel4.Location = new Point(0, 130);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(1658, 50);
+            panel4.TabIndex = 3;
+            // 
+            // label2
+            // 
+            label2.Dock = DockStyle.Fill;
+            label2.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.ForeColor = Color.DodgerBlue;
+            label2.Location = new Point(0, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(1658, 50);
+            label2.TabIndex = 0;
+            label2.Text = "Danh Sách Tài Khoản";
+            label2.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(panel5);
+            panel1.Controls.Add(panel4);
+            panel1.Controls.Add(panel3);
+            panel1.Controls.Add(panel2);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1658, 519);
+            panel1.TabIndex = 0;
+            // 
             // AccountForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -374,13 +374,11 @@ namespace MilkTea.Client.Forms
             Controls.Add(panel1);
             Name = "AccountForm";
             Load += AccountForm_Load;
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
             panel3.ResumeLayout(false);
-            panel4.ResumeLayout(false);
-            panel4.PerformLayout();
             panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            panel2.ResumeLayout(false);
+            panel4.ResumeLayout(false);
             panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -393,14 +391,10 @@ namespace MilkTea.Client.Forms
         #endregion
 
         private Panel panel1;
-        private Panel panel2;
-        private Label label1;
-        private Label label2;
         private Controls.RoundedButton btnThemAccount;
         private Controls.RoundedTextBox Search;
         private Controls.RoundedComboBox roundedComboBox1;
         private Controls.RoundedComboBox roundedComboBox2;
-        private Controls.RoundedButton roundedButton2;
         private DataGridView dataGridView1;
         private DataGridViewTextBoxColumn ID;
         private DataGridViewTextBoxColumn taiKhoan;
@@ -412,5 +406,8 @@ namespace MilkTea.Client.Forms
         private DataGridViewImageColumn sua;
         private DataGridViewImageColumn khoa;
         private DataGridViewImageColumn xoa;
+        private Controls.RoundedButton roundedButton2;
+        private Label label2;
+        private Label label1;
     }
 }
