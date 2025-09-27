@@ -1,40 +1,36 @@
-USE ql_do_uong_db;
+USE ql_do_uong;
 
 -- 1. Loai sản phẩm
-INSERT INTO Loai (TenLoai, MoTa) VALUES
+INSERT IGNORE INTO Loai (TenLoai, MoTa) VALUES
 ('Trà sữa truyền thống', 'Trà sữa cơ bản'),
 ('Trà sữa matcha', 'Trà sữa vị matcha'),
 ('Trà sữa socola', 'Trà sữa vị socola'),
-('Trà sữa caramel', 'Trà sữa vị caramel'),
-('Trà sữa dâu', 'Trà sữa vị dâu'),
-('Trà sữa khoai môn', 'Trà sữa vị khoai môn'),
-('Trà sữa hạt dẻ', 'Trà sữa vị hạt dẻ'),
-('Trà sữa bạc hà', 'Trà sữa vị bạc hà'),
-('Trà sữa matcha socola', 'Trà sữa matcha + socola'),
-('Trà sữa hoàng kim', 'Trà sữa đặc biệt');
+('Trà sữa trái cây', 'Trà sữa trái cây'),
+('Trà sữa khoai', 'Trà sữa khoai'),
+('Trà sữa đặc biệt', 'Trà sữa đặc biệt');
 
 -- 2. SanPham
-INSERT INTO SanPham (TenSP, Gia, Anh, SLDuKien, TrangThai, MaLoai) VALUES
-('Trà sữa truyền thống', 25000, 'trasua1.jpg', 50, 1, 1),
-('Trà sữa matcha', 30000, 'trasua2.jpg', 40, 1, 2),
-('Trà sữa socola', 28000, 'trasua3.jpg', 30, 1, 3),
-('Trà sữa caramel', 32000, 'trasua4.jpg', 20, 1, 4),
-('Trà sữa dâu', 27000, 'trasua5.jpg', 25, 1, 5),
-('Trà sữa khoai môn', 30000, 'trasua6.jpg', 15, 1, 6),
-('Trà sữa hạt dẻ', 35000, 'trasua7.jpg', 10, 1, 7),
-('Trà sữa bạc hà', 33000, 'trasua8.jpg', 12, 1, 8),
-('Trà sữa matcha socola', 36000, 'trasua9.jpg', 8, 1, 9),
-('Trà sữa hoàng kim', 40000, 'trasua10.jpg', 5, 1, 10);
+INSERT IGNORE INTO SanPham (TenSP, Gia, Anh, SLDuKien, TrangThai, MaLoai) VALUES
+('Trà sữa truyền thống', 25000, '', 50, 1, 1),
+('Trà sữa matcha truyền thống', 30000, '', 40, 1, 2),
+('Trà sữa socola', 28000, '', 30, 1, 3),
+('Trà sữa caramel', 32000, '', 20, 1, 3),
+('Trà sữa dâu', 27000, '', 25, 1, 4),
+('Trà sữa khoai môn', 30000, '', 15, 1, 5),
+('Trà sữa hạt dẻ', 35000, '', 10, 1, 5),
+('Trà sữa bạc hà', 33000, '', 12, 1, 1),
+('Trà sữa matcha socola', 36000, '', 8, 1, 2),
+('Trà sữa hoàng kim', 40000, '', 5, 1, 6);
 
 -- 3. Size
-INSERT INTO Size (TenSize, PhuThu) VALUES
+INSERT IGNORE INTO Size (TenSize, PhuThu) VALUES
 ('S', 10000),
 ('M', 15000),
 ('L', 20000),
 ('XL', 25000);
 
 -- 4. Quyen
-INSERT INTO Quyen (TenQuyen, Mota) VALUES
+INSERT IGNORE INTO Quyen (TenQuyen, Mota) VALUES
 ('Admin', 'Quyền toàn quyền'),
 ('Nhân viên bán hàng', 'Quyền bán hàng'),
 ('Nhân viên kho', 'Quyền quản lý kho'),
@@ -42,15 +38,37 @@ INSERT INTO Quyen (TenQuyen, Mota) VALUES
 ('Quản lý', 'Quyền quản lý tổng');
 
 -- 5. ChucNang
-INSERT INTO ChucNang (TenChucNang, MoTa) VALUES
-('Quản lý sản phẩm', 'Thêm, sửa, xóa sản phẩm'),
-('Quản lý đơn hàng', 'Quản lý đơn hàng bán'),
-('Quản lý nhân viên', 'Thêm, sửa nhân viên'),
-('Quản lý kho', 'Nhập xuất nguyên liệu'),
-('Xem báo cáo', 'Xem doanh thu, chi phí');
+INSERT IGNORE INTO ChucNang (TenChucNang, MoTa) VALUES
+('Thêm đơn hàng', 'Thêm đơn hàng'),
+('Thêm sản phẩm', 'Thêm sản phẩm'),
+('Xóa sản phẩm', 'Xóa sản phẩm'),
+('Sửa sản phẩm', 'Sửa sản phẩm'),
+('Vào thống kê', 'Vào thống kê'),
+('Vào tài khoản', 'Vào tài khoản'),
+('Thêm tài khoản', 'Thêm tài khoản'),
+('Sửa tài khoản', 'Sửa tài khoản'),
+('Xóa tài khoản', 'Xóa tài khoản'),
+('Xem tài khoản', 'Xem tài khoản'),
+('Thêm quyền', 'Thêm quyền'),
+('Sửa quyền', 'Sửa quyền'),
+('Xóa quyền', 'Xóa quyền'),
+('Vào khuyến mãi', 'Vào khuyến mãi'),
+('Thêm khuyến mãi', 'Thêm khuyến mãi'),
+('Xóa khuyến mãi', 'Xóa khuyến mãi'),
+('Sửa khuyến mãi', 'Sửa khuyến mãi'),
+('Vào hóa đơn', 'Vào hóa đơn'),
+('Xóa hóa đơn', 'Xóa hóa đơn'),
+('Vào nhập hàng', 'Vào nhập hàng'),
+('Thêm phiếu nhập', 'Thêm phiếu nhập'),
+('Xóa phiếu nhập', 'Xóa phiếu nhập'),
+('Sửa phiếu nhập', 'Sửa phiếu nhập'),
+('Nhập excel phiếu nhập', 'Nhập excel phiếu nhập');
+
+
+
 
 -- 6. TaiKhoan
-INSERT INTO TaiKhoan (TenTaiKhoan, Anh, TrangThai, MaQuyen) VALUES
+INSERT IGNORE INTO TaiKhoan (TenTaiKhoan, Anh, TrangThai, MaQuyen) VALUES
 ('nv_banhang1', '', 1, 2),
 ('nv_banhang2', '', 1, 2),
 ('nv_banhang3', '', 1, 2),
@@ -63,7 +81,7 @@ INSERT INTO TaiKhoan (TenTaiKhoan, Anh, TrangThai, MaQuyen) VALUES
 ('nv_banhang5', '', 1, 2);
 
 -- 7. Quyen_ChucNang
-INSERT INTO Quyen_ChucNang (MaQuyen, MaChucNang) VALUES
+INSERT IGNORE INTO Quyen_ChucNang (MaQuyen, MaChucNang) VALUES
 (1,1),(1,2),(1,3),(1,4),(1,5),
 (2,2),(2,5),
 (3,4),
@@ -71,7 +89,7 @@ INSERT INTO Quyen_ChucNang (MaQuyen, MaChucNang) VALUES
 (5,1),(5,2),(5,3),(5,4),(5,5);
 
 -- 8. NhanVien
-INSERT INTO NhanVien (TenNV, SDT, MaTK) VALUES
+INSERT IGNORE INTO NhanVien (TenNV, SDT, MaTK) VALUES
 ('Nguyen Van A','0901234561',1),
 ('Nguyen Van B','0901234562',2),
 ('Nguyen Van C','0901234563',3),
@@ -84,12 +102,12 @@ INSERT INTO NhanVien (TenNV, SDT, MaTK) VALUES
 ('Pham Thi K','0901234570',10);
 
 -- 9. Buzzer
-INSERT INTO Buzzer (SoHieu, TrangThai) VALUES
+INSERT IGNORE INTO Buzzer (SoHieu, TrangThai) VALUES
 ('BZ01',1),('BZ02',1),('BZ03',1),('BZ04',1),('BZ05',1),
 ('BZ06',1),('BZ07',1),('BZ08',1),('BZ09',1),('BZ10',1);
 
 -- 10. DonHang
-INSERT INTO DonHang (MaNV, NgayLap, GioLap, TrangThai, MaBuzzer, PhuongThucThanhToan, TongGia) VALUES
+INSERT IGNORE INTO DonHang (MaNV, NgayLap, GioLap, TrangThai, MaBuzzer, PhuongThucThanhToan, TongGia) VALUES
 (1,'2025-09-27','09:00:00',1,1,1,50000),
 (2,'2025-09-27','10:15:00',1,2,1,30000),
 (3,'2025-09-27','11:30:00',1,3,1,84000),
@@ -99,7 +117,7 @@ INSERT INTO DonHang (MaNV, NgayLap, GioLap, TrangThai, MaBuzzer, PhuongThucThanh
 (7,'2025-09-27','16:45:00',1,7,1,35000);
 
 -- 11. ChiTietDonHang
-INSERT INTO ChiTietDonHang (MaDH, MaSP, MaSize, SoLuong, GiaVon, TongGia) VALUES
+INSERT IGNORE INTO ChiTietDonHang (MaDH, MaSP, MaSize, SoLuong, GiaVon, TongGia) VALUES
 (1,1,2,2,25000,50000),
 (2,2,2,1,30000,30000),
 (3,3,3,3,28000,84000),
@@ -109,7 +127,7 @@ INSERT INTO ChiTietDonHang (MaDH, MaSP, MaSize, SoLuong, GiaVon, TongGia) VALUES
 (7,5,2,1,35000,35000);
 
 -- 12. NguyenLieu
-INSERT INTO NguyenLieu (SoLuong, Ten, GiaBan) VALUES
+INSERT IGNORE INTO NguyenLieu (SoLuong, Ten, GiaBan) VALUES
 (1000, 'Trà đen', 5000.00),
 (800, 'Trà xanh', 6000.00),
 (500, 'Sữa đặc', 10000.00),
@@ -122,7 +140,7 @@ INSERT INTO NguyenLieu (SoLuong, Ten, GiaBan) VALUES
 (250, 'Matcha bột', 20000.00);
 
 -- 13. PhieuNhap
-INSERT INTO PhieuNhap (NgayNhap, SoLuong, MaNV, TongTien) VALUES
+INSERT IGNORE INTO PhieuNhap (NgayNhap, SoLuong, MaNV, TongTien) VALUES
 ('2025-09-01',50,1,500000),
 ('2025-09-02',30,2,300000),
 ('2025-09-03',40,3,400000),
@@ -135,7 +153,7 @@ INSERT INTO PhieuNhap (NgayNhap, SoLuong, MaNV, TongTien) VALUES
 ('2025-09-10',50,10,500000);
 
 -- 14. ChiTietPhieuNhap
-INSERT INTO ChiTietPhieuNhap (MaPN, SoLuong, MaNguyenLieu, DonGiaNhap, TongGia) VALUES
+INSERT IGNORE INTO ChiTietPhieuNhap (MaPN, SoLuong, MaNguyenLieu, DonGiaNhap, TongGia) VALUES
 (1,20,1,5000,100000),
 (1,30,2,4000,120000),
 (2,15,3,6000,90000),
@@ -148,7 +166,7 @@ INSERT INTO ChiTietPhieuNhap (MaPN, SoLuong, MaNguyenLieu, DonGiaNhap, TongGia) 
 (7,25,5,7000,175000);
 
 -- 15. CTKhuyenMai
-INSERT INTO CTKhuyenMai (TenCTKhuyenMai, MoTa, NgayBatDau, NgayKetThuc, PhanTramKhuyenMai, TrangThai) VALUES
+INSERT IGNORE INTO CTKhuyenMai (TenCTKhuyenMai, MoTa, NgayBatDau, NgayKetThuc, PhanTramKhuyenMai, TrangThai) VALUES
 ('KM Mua 1 tặng 1','Khuyến mãi 1', '2025-09-01','2025-09-30',50,1),
 ('KM Giảm 10%','Khuyến mãi 2', '2025-09-01','2025-09-30',10,1),
 ('KM Giảm 20%','Khuyến mãi 3', '2025-09-05','2025-09-30',20,1),
@@ -161,25 +179,25 @@ INSERT INTO CTKhuyenMai (TenCTKhuyenMai, MoTa, NgayBatDau, NgayKetThuc, PhanTram
 ('KM Sinh nhật','Khuyến mãi 10', '2025-09-15','2025-09-30',30,1);
 
 -- 16. sanpham_khuyenmai
-INSERT INTO sanpham_khuyenmai (MaSP, MaCTKhuyenMai) VALUES
+INSERT IGNORE INTO sanpham_khuyenmai (MaSP, MaCTKhuyenMai) VALUES
 (1,1),(2,2),(3,3),(4,4),(5,5),
 (6,6),(7,7),(8,8),(9,9),(10,10);
 
 -- 17. CongThuc
-INSERT INTO CongThuc (Ten, MaSP, Mota) VALUES
-('Công thức 1',1,'Trà sữa truyền thống'),
-('Công thức 2',2,'Trà sữa matcha'),
-('Công thức 3',3,'Trà sữa socola'),
-('Công thức 4',4,'Trà sữa caramel'),
-('Công thức 5',5,'Trà sữa dâu'),
-('Công thức 6',6,'Trà sữa khoai môn'),
-('Công thức 7',7,'Trà sữa hạt dẻ'),
-('Công thức 8',8,'Trà sữa bạc hà'),
-('Công thức 9',9,'Trà sữa matcha socola'),
-('Công thức 10',10,'Trà sữa hoàng kim');
+INSERT IGNORE INTO CongThuc (Ten, MaSP, Mota) VALUES
+('Trà sữa truyền thống',1,'Trà sữa truyền thống'),
+('Trà sữa matcha',2,'Trà sữa matcha'),
+('Trà sữa socola',3,'Trà sữa socola'),
+('Trà sữa caramel',4,'Trà sữa caramel'),
+('Trà sữa dâu',5,'Trà sữa dâu'),
+('Trà sữa khoai môn',6,'Trà sữa khoai môn'),
+('Trà sữa hạt dẻ',7,'Trà sữa hạt dẻ'),
+('Trà sữa bạc hà',8,'Trà sữa bạc hà'),
+('Trà sữa matcha socola',9,'Trà sữa matcha socola'),
+('Trà sữa hoàng kim',10,'Trà sữa hoàng kim');
 
 -- 18. ChiTietCongThuc
-INSERT INTO ChiTietCongThuc (MaCT, MaNL, SL) VALUES
+INSERT IGNORE INTO ChiTietCongThuc (MaCT, MaNL, SL) VALUES
 (1,1,20),(1,3,10),
 (2,2,25),(2,10,5),
 (3,1,15),(3,5,5),
@@ -192,7 +210,7 @@ INSERT INTO ChiTietCongThuc (MaCT, MaNL, SL) VALUES
 (10,1,10),(10,3,10);
 
 -- 19. DoanhThu
-INSERT INTO DoanhThu (Ngay, Thang, Nam, Gio, SLBan, MaSP, MaLoai, MaKM, MaSize, TongDoanhThu) VALUES
+INSERT IGNORE INTO DoanhThu (Ngay, Thang, Nam, Gio, SLBan, MaSP, MaLoai, MaKM, MaSize, TongDoanhThu) VALUES
 (27,9,2025,'09:00:00',2,1,1,1,2,50000),
 (27,9,2025,'10:15:00',1,2,2,2,2,30000),
 (27,9,2025,'11:30:00',3,3,3,3,3,84000),
@@ -201,11 +219,11 @@ INSERT INTO DoanhThu (Ngay, Thang, Nam, Gio, SLBan, MaSP, MaLoai, MaKM, MaSize, 
 (27,9,2025,'15:30:00',1,2,2,6,3,30000),
 (27,9,2025,'16:45:00',1,5,5,7,2,35000),
 (26,9,2025,'17:00:00',2,6,6,8,2,60000),
-(26,9,2025,'18:00:00',1,7,7,9,3,85000),
-(26,9,2025,'19:00:00',1,8,8,10,2,40000);
+(26,9,2025,'18:00:00',1,7,2,9,3,85000),
+(26,9,2025,'19:00:00',1,8,2,10,2,40000);
 
 -- 20. ChiPhi
-INSERT INTO ChiPhi (Ngay, Thang, Nam, MaSP, MaLoai, MaKM, TongChiPhiSP, TongChiPhiNL) VALUES
+INSERT IGNORE INTO ChiPhi (Ngay, Thang, Nam, MaSP, MaLoai, MaKM, TongChiPhiSP, TongChiPhiNL) VALUES
 (27,9,2025,1,1,1,80000,50000),
 (27,9,2025,2,2,2,75000,30000),
 (27,9,2025,3,3,3,120000,84000),
