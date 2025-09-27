@@ -13,9 +13,6 @@
     <Compile Update="Forms\AccountForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\ChildForm_Account\AddAccountForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Forms\ChildForm_Order\AddProductForm.cs">
       <SubType>Form</SubType>
     </Compile>
