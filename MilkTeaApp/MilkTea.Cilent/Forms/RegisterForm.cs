@@ -16,5 +16,10 @@ namespace MilkTea.Client.Forms
         {
             InitializeComponent();
         }
+
+        private void roundedButton_Register_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
