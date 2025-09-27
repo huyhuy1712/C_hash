@@ -7,6 +7,9 @@
     <Compile Update="Controls\RoundedComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="Controls\RoundedPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Controls\RoundedTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
