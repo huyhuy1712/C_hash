@@ -1,27 +1,29 @@
-# Visual Studio cache folder
-.vs/
-
 # Build results
-bin/
-obj/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
 
-# User-specific files
-*.user
-*.suo
+# Visual Studio
+.vscode/
+*.sln.docstates
 
-# Logs
-*.log
+# Test results
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
 
-# NuGet packages
-*.nupkg
-*.snupkg
-packages/
+# NuGet
+*.nuget/
+project.lock.json
+project.fragment.lock.json
 
-# Backup & temp
-*.tmp
-*.bak
-*.swp
+# Resharper / Rider
+_ReSharper*/
+*.DotSettings.user
 
-# Other
-*.dbmdl
-*.jfm
+# VS for Mac
+*.pidb
+*.userprefs
+
+# Others
+*.DS_Store
+Thumbs.db

@@ -79,5 +79,9 @@ namespace MilkTea.Client.Forms
 
         }
 
+        private void label_TaoTaiKhoan_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
