@@ -10,7 +10,7 @@ namespace MilkTea.Client
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Application.Run(new OrderForm());
+            Application.Run(new MainForm());
         }
     }
 }
