@@ -16,6 +16,9 @@
     <Compile Update="Forms\ChildForm_Account\AddAccountForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\ChildForm_d\AddDiscount.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\ChildForm_Order\AddProductForm.cs">
       <SubType>Form</SubType>
     </Compile>

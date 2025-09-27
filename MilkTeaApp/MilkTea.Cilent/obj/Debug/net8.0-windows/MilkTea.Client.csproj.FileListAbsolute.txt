@@ -102,3 +102,56 @@ D:\Games\tailieu\nam 4\hk1\C#\DoAn\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-wi
 D:\Games\tailieu\nam 4\hk1\C#\DoAn\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\ref\MilkTea.Client.dll
 D:\Games\tailieu\nam 4\hk1\C#\DoAn\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\padlock.png
 D:\Games\tailieu\nam 4\hk1\C#\DoAn\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ChildForm_Account.AddAccountForm.resources
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\beverage.png
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\circle-user.png
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\discount.png
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\edit.png
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\home.png
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\icons8-trash-96.png
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\import.png
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\invoice.png
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\login.png
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\logout.png
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\order.png
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\padlock.png
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\recycle bin.png
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\report.png
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\search.png
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\three-dots.png
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\topping.png
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\trash.png
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\user.png
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\X.png
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\MilkTea.Client.exe
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\MilkTea.Client.deps.json
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\MilkTea.Client.runtimeconfig.json
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\MilkTea.Client.dll
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\MilkTea.Client.pdb
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Controls.RoundedTextBox.resources
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.AccountForm.resources
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ChildForm_Account.AddAccountForm.resources
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ChildForm_Order.AddProductForm.resources
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ChildForm_Order.AddRecipeForm.resources
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ChildForm_Order.EditProductForm.resources
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ChildForm_Order.InvoiceOrder.resources
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ChildForm_Order.ToppingForm.resources
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.DiscountForm.resources
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ImportForm.resources
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.InvoiceForm.resources
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.LoginForm.resources
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.MainForm.resources
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.OrderForm.resources
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.RegisterForm.resources
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ReportForm.resources
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Properties.Resources.resources
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.csproj.GenerateResource.cache
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.GeneratedMSBuildEditorConfig.editorconfig
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.AssemblyInfoInputs.cache
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.AssemblyInfo.cs
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.csproj.CoreCompileInputs.cache
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.sourcelink.json
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.dll
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\refint\MilkTea.Client.dll
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.pdb
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.genruntimeconfig.cache
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\ref\MilkTea.Client.dll
