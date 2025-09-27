@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MilkTea.Client.Forms.ChildForm_Order;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -79,6 +80,8 @@ namespace MilkTea.Client.Forms
 
         private void btnXuatDon_Click(object sender, EventArgs e)
         {
+            InvoiceOrder invoiceForm = new InvoiceOrder();
+            invoiceForm.ShowDialog();
 
         }
 
@@ -127,6 +130,50 @@ namespace MilkTea.Client.Forms
         }
 
         private void Hủy_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void product_delete_btn1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Topping_Click(object sender, EventArgs e)
+        {
+            ToppingForm toppingForm = new ToppingForm();
+            toppingForm.ShowDialog();
+
+        }
+
+        private void product_edit_btn1_Click(object sender, EventArgs e)
+        {
+            EditProductForm editProductForm = new EditProductForm();
+            editProductForm.ShowDialog();
+        }
+
+        private void roundedButton1_Click_1(object sender, EventArgs e)
+        {
+            AddProductForm addProductForm = new AddProductForm();
+            addProductForm.ShowDialog();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
         {
 
         }

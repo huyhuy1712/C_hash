@@ -4,7 +4,6 @@ CREATE TABLE `SanPham` (
   `Gia` decimal(12,2) NOT NULL,
   `Anh` varchar(50),
   `SLDuKien` int,
-  `MaKM` int,
   `TrangThai` int,
   `MaLoai` int
 );
@@ -117,6 +116,7 @@ CREATE TABLE `NguyenLieu` (
 
 CREATE TABLE `CongThuc` (
   `MaCT` int PRIMARY KEY AUTO_INCREMENT,
+  `Ten` text,
   `MaSP` int,
   `Mota` text
 );
@@ -153,7 +153,10 @@ CREATE TABLE `ChiPhi` (
   `TongChiPhiNL` decimal(12,2)
 );
 
-ALTER TABLE `SanPham` ADD FOREIGN KEY (`MaKM`) REFERENCES `CTKhuyenMai` (`MaCTKhuyenMai`);
+CREATE TABLE `sanpham_khuyenmai` (
+  `MaSP` int,
+  `MaCTKhuyenMai` int
+);
 
 ALTER TABLE `SanPham` ADD FOREIGN KEY (`MaLoai`) REFERENCES `Loai` (`MaLoai`);
 
@@ -200,3 +203,7 @@ ALTER TABLE `ChiPhi` ADD FOREIGN KEY (`MaSP`) REFERENCES `SanPham` (`MaSP`);
 ALTER TABLE `ChiPhi` ADD FOREIGN KEY (`MaLoai`) REFERENCES `Loai` (`MaLoai`);
 
 ALTER TABLE `ChiPhi` ADD FOREIGN KEY (`MaKM`) REFERENCES `CTKhuyenMai` (`MaCTKhuyenMai`);
+
+ALTER TABLE `sanpham_khuyenmai` ADD FOREIGN KEY (`MaSP`) REFERENCES `SanPham` (`MaSP`);
+
+ALTER TABLE `sanpham_khuyenmai` ADD FOREIGN KEY (`MaCTKhuyenMai`) REFERENCES `CTKhuyenMai` (`MaCTKhuyenMai`);

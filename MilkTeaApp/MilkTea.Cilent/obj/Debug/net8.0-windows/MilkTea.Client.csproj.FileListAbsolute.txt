@@ -41,6 +41,7 @@ D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\
 D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\recycle bin.png
 D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\X.png
 D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\topping.png
+<<<<<<< HEAD
 C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\beverage.png
 C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\circle-user.png
 C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\discount.png
@@ -86,3 +87,13 @@ C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\M
 C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\ref\MilkTea.Client.dll
 C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Controls.RoundedButton.resources
 C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Controls.RoundedComboBox.resources
+=======
+D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\edit.png
+D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\icons8-trash-96.png
+D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\trash.png
+D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ChildForm_Order.InvoiceOrder.resources
+D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ChildForm_Order.ToppingForm.resources
+D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ChildForm_Order.EditProductForm.resources
+D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ChildForm_Order.AddProductForm.resources
+D:\C#\đồ án\C_hash\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ChildForm_Order.AddRecipeForm.resources
+>>>>>>> main

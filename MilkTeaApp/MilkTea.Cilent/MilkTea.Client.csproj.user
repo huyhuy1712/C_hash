@@ -16,6 +16,21 @@
     <Compile Update="Forms\AccountForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\ChildForm_Order\AddProductForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ChildForm_Order\AddRecipeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ChildForm_Order\EditProductForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ChildForm_Order\InvoiceOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ChildForm_Order\ToppingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\DiscountForm.cs">
       <SubType>Form</SubType>
     </Compile>
