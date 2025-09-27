@@ -42,23 +42,23 @@
             label1 = new Label();
             panel2 = new Panel();
             label5 = new Label();
-            panel5 = new Panel();
-            dataGridView1 = new DataGridView();
-            maPhieuNhap_tb_add = new DataGridViewTextBoxColumn();
-            ngayNhap_tb_add = new DataGridViewTextBoxColumn();
-            tenNL_tb_add = new DataGridViewTextBoxColumn();
-            soLuong_tb_add = new DataGridViewTextBoxColumn();
-            tenNVN_tb_add = new DataGridViewTextBoxColumn();
-            tongTien_tb_add = new DataGridViewTextBoxColumn();
             panel3 = new Panel();
-            btn_Thoat_iPort_add = new MilkTea.Client.Controls.RoundedButton();
             btn_Luu_Iport_add = new MilkTea.Client.Controls.RoundedButton();
+            btn_Thoat_iPort_add = new MilkTea.Client.Controls.RoundedButton();
+            dataGridView1 = new DataGridView();
+            tongTien_tb_add = new DataGridViewTextBoxColumn();
+            tenNVN_tb_add = new DataGridViewTextBoxColumn();
+            soLuong_tb_add = new DataGridViewTextBoxColumn();
+            tenNL_tb_add = new DataGridViewTextBoxColumn();
+            ngayNhap_tb_add = new DataGridViewTextBoxColumn();
+            maPhieuNhap_tb_add = new DataGridViewTextBoxColumn();
+            panel5 = new Panel();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             panel2.SuspendLayout();
-            panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            panel5.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -206,72 +206,15 @@
             // 
             // label5
             // 
-            label5.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
+            label5.Dock = DockStyle.Fill;
             label5.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = Color.DodgerBlue;
-            label5.Location = new Point(340, 19);
+            label5.Location = new Point(0, 0);
             label5.Name = "label5";
-            label5.Size = new Size(338, 45);
+            label5.Size = new Size(1020, 80);
             label5.TabIndex = 2;
             label5.Text = "Danh Sách Hàng Hóa";
-            // 
-            // panel5
-            // 
-            panel5.BackColor = SystemColors.ActiveBorder;
-            panel5.Controls.Add(dataGridView1);
-            panel5.Dock = DockStyle.Fill;
-            panel5.Location = new Point(0, 265);
-            panel5.Name = "panel5";
-            panel5.Padding = new Padding(20);
-            panel5.Size = new Size(1020, 345);
-            panel5.TabIndex = 4;
-            panel5.TabStop = true;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.BackgroundColor = SystemColors.ButtonFace;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { maPhieuNhap_tb_add, ngayNhap_tb_add, tenNL_tb_add, soLuong_tb_add, tenNVN_tb_add, tongTien_tb_add });
-            dataGridView1.Dock = DockStyle.Top;
-            dataGridView1.Location = new Point(20, 20);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(980, 222);
-            dataGridView1.TabIndex = 0;
-            // 
-            // maPhieuNhap_tb_add
-            // 
-            maPhieuNhap_tb_add.HeaderText = "Mã Phiếu Nhập";
-            maPhieuNhap_tb_add.Name = "maPhieuNhap_tb_add";
-            // 
-            // ngayNhap_tb_add
-            // 
-            ngayNhap_tb_add.HeaderText = "Ngày nhập";
-            ngayNhap_tb_add.Name = "ngayNhap_tb_add";
-            ngayNhap_tb_add.Width = 150;
-            // 
-            // tenNL_tb_add
-            // 
-            tenNL_tb_add.HeaderText = "Tên nguyên liệu";
-            tenNL_tb_add.Name = "tenNL_tb_add";
-            // 
-            // soLuong_tb_add
-            // 
-            soLuong_tb_add.HeaderText = "Số lượng";
-            soLuong_tb_add.Name = "soLuong_tb_add";
-            soLuong_tb_add.Width = 80;
-            // 
-            // tenNVN_tb_add
-            // 
-            tenNVN_tb_add.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            tenNVN_tb_add.HeaderText = "Tên NV nhập";
-            tenNVN_tb_add.Name = "tenNVN_tb_add";
-            // 
-            // tongTien_tb_add
-            // 
-            tongTien_tb_add.HeaderText = "Tổng Tiền";
-            tongTien_tb_add.Name = "tongTien_tb_add";
-            tongTien_tb_add.Width = 200;
+            label5.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel3
             // 
@@ -282,23 +225,6 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(1020, 60);
             panel3.TabIndex = 5;
-            // 
-            // btn_Thoat_iPort_add
-            // 
-            btn_Thoat_iPort_add.BackColor = Color.DodgerBlue;
-            btn_Thoat_iPort_add.BorderColor = Color.DodgerBlue;
-            btn_Thoat_iPort_add.BorderRadius = 20;
-            btn_Thoat_iPort_add.BorderSize = 0;
-            btn_Thoat_iPort_add.FlatAppearance.BorderSize = 0;
-            btn_Thoat_iPort_add.FlatStyle = FlatStyle.Flat;
-            btn_Thoat_iPort_add.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            btn_Thoat_iPort_add.ForeColor = Color.White;
-            btn_Thoat_iPort_add.Location = new Point(910, 12);
-            btn_Thoat_iPort_add.Name = "btn_Thoat_iPort_add";
-            btn_Thoat_iPort_add.Size = new Size(98, 36);
-            btn_Thoat_iPort_add.TabIndex = 10;
-            btn_Thoat_iPort_add.Text = "Thoát";
-            btn_Thoat_iPort_add.UseVisualStyleBackColor = false;
             // 
             // btn_Luu_Iport_add
             // 
@@ -317,6 +243,81 @@
             btn_Luu_Iport_add.Text = "Lưu";
             btn_Luu_Iport_add.UseVisualStyleBackColor = false;
             // 
+            // btn_Thoat_iPort_add
+            // 
+            btn_Thoat_iPort_add.BackColor = Color.DodgerBlue;
+            btn_Thoat_iPort_add.BorderColor = Color.DodgerBlue;
+            btn_Thoat_iPort_add.BorderRadius = 20;
+            btn_Thoat_iPort_add.BorderSize = 0;
+            btn_Thoat_iPort_add.FlatAppearance.BorderSize = 0;
+            btn_Thoat_iPort_add.FlatStyle = FlatStyle.Flat;
+            btn_Thoat_iPort_add.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btn_Thoat_iPort_add.ForeColor = Color.White;
+            btn_Thoat_iPort_add.Location = new Point(910, 12);
+            btn_Thoat_iPort_add.Name = "btn_Thoat_iPort_add";
+            btn_Thoat_iPort_add.Size = new Size(98, 36);
+            btn_Thoat_iPort_add.TabIndex = 10;
+            btn_Thoat_iPort_add.Text = "Thoát";
+            btn_Thoat_iPort_add.UseVisualStyleBackColor = false;
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.BackgroundColor = SystemColors.ButtonFace;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { maPhieuNhap_tb_add, ngayNhap_tb_add, tenNL_tb_add, soLuong_tb_add, tenNVN_tb_add, tongTien_tb_add });
+            dataGridView1.Dock = DockStyle.Top;
+            dataGridView1.Location = new Point(20, 20);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(980, 222);
+            dataGridView1.TabIndex = 0;
+            // 
+            // tongTien_tb_add
+            // 
+            tongTien_tb_add.HeaderText = "Tổng Tiền";
+            tongTien_tb_add.Name = "tongTien_tb_add";
+            tongTien_tb_add.Width = 200;
+            // 
+            // tenNVN_tb_add
+            // 
+            tenNVN_tb_add.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            tenNVN_tb_add.HeaderText = "Tên NV nhập";
+            tenNVN_tb_add.Name = "tenNVN_tb_add";
+            // 
+            // soLuong_tb_add
+            // 
+            soLuong_tb_add.HeaderText = "Số lượng";
+            soLuong_tb_add.Name = "soLuong_tb_add";
+            soLuong_tb_add.Width = 80;
+            // 
+            // tenNL_tb_add
+            // 
+            tenNL_tb_add.HeaderText = "Tên nguyên liệu";
+            tenNL_tb_add.Name = "tenNL_tb_add";
+            // 
+            // ngayNhap_tb_add
+            // 
+            ngayNhap_tb_add.HeaderText = "Ngày nhập";
+            ngayNhap_tb_add.Name = "ngayNhap_tb_add";
+            ngayNhap_tb_add.Width = 150;
+            // 
+            // maPhieuNhap_tb_add
+            // 
+            maPhieuNhap_tb_add.HeaderText = "Mã Phiếu Nhập";
+            maPhieuNhap_tb_add.Name = "maPhieuNhap_tb_add";
+            // 
+            // panel5
+            // 
+            panel5.BackColor = SystemColors.ActiveBorder;
+            panel5.Controls.Add(dataGridView1);
+            panel5.Dock = DockStyle.Fill;
+            panel5.Location = new Point(0, 265);
+            panel5.Name = "panel5";
+            panel5.Padding = new Padding(20);
+            panel5.Size = new Size(1020, 345);
+            panel5.TabIndex = 4;
+            panel5.TabStop = true;
+            // 
             // ImportForm_Add
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -333,9 +334,9 @@
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             panel2.ResumeLayout(false);
-            panel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            panel5.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -355,7 +356,9 @@
         private Controls.RoundedButton roundedButton1;
         private Panel panel2;
         private Label label5;
-        private Panel panel5;
+        private Panel panel3;
+        private Controls.RoundedButton btn_Thoat_iPort_add;
+        private Controls.RoundedButton btn_Luu_Iport_add;
         private DataGridView dataGridView1;
         private DataGridViewTextBoxColumn maPhieuNhap_tb_add;
         private DataGridViewTextBoxColumn ngayNhap_tb_add;
@@ -363,8 +366,6 @@
         private DataGridViewTextBoxColumn soLuong_tb_add;
         private DataGridViewTextBoxColumn tenNVN_tb_add;
         private DataGridViewTextBoxColumn tongTien_tb_add;
-        private Panel panel3;
-        private Controls.RoundedButton btn_Thoat_iPort_add;
-        private Controls.RoundedButton btn_Luu_Iport_add;
+        private Panel panel5;
     }
 }
