@@ -8,18 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MilkTea.Client.Forms
+namespace MilkTea.Client.Forms.ChildForm_Import
 {
-    public partial class ImportForm : Form
+    public partial class ImportForm_Add : Form
     {
-        public ImportForm()
+        public ImportForm_Add()
         {
             InitializeComponent();
         }
 
-        private void ImportForm_Load(object sender, EventArgs e)
+        private void ImportForm_Add_Load(object sender, EventArgs e)
         {
-            int index = dataGridView1.Rows.Add();
+
         }
     }
 }

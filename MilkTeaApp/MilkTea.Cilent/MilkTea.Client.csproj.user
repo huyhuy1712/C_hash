@@ -13,6 +13,12 @@
     <Compile Update="Forms\AccountForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\ChildForm_Import\ImportForm_Add.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ChildForm_Import\ImportForm_Info.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\ChildForm_Order\AddProductForm.cs">
       <SubType>Form</SubType>
     </Compile>
