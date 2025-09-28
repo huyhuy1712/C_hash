@@ -67,8 +67,26 @@ namespace MilkTea.Client.Forms
                     }
                 }
             }
+
+            if (dataGridView1.Columns[e.ColumnIndex].Name == "xoa")
+            {
+                // Lấy dữ liệu của dòng được chọn
+                string id = dataGridView1.Rows[e.RowIndex].Cells["ID"].Value?.ToString();
+                string taiKhoan = dataGridView1.Rows[e.RowIndex].Cells["taiKhoan"].Value?.ToString();
+
+                // Confirm xoa
+                if (MessageBox.Show("Bạn Có Thật Sự Muốn Xóa?", "Are You Sure?", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+                {
+                    //Xu ly xoa account
+
+                }
+            }
         }
 
-
+        private void btnDanhSachQuyen_Click(object sender, EventArgs e)
+        {
+            DanhSachQuyenForm danhSachQuyen = new DanhSachQuyenForm();
+            danhSachQuyen.ShowDialog();
+        }
     }
 }

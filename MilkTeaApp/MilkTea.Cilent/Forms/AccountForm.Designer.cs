@@ -31,14 +31,14 @@ namespace MilkTea.Client.Forms
         {
             Panel panel3;
             Panel panel5;
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AccountForm));
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
             Panel panel2;
             Panel panel4;
-            roundedButton2 = new MilkTea.Client.Controls.RoundedButton();
+            btnDanhSachQuyen = new MilkTea.Client.Controls.RoundedButton();
             roundedComboBox2 = new MilkTea.Client.Controls.RoundedComboBox();
             roundedComboBox1 = new MilkTea.Client.Controls.RoundedComboBox();
             Search = new MilkTea.Client.Controls.RoundedTextBox();
@@ -73,7 +73,7 @@ namespace MilkTea.Client.Forms
             // 
             panel3.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             panel3.BackColor = SystemColors.ActiveBorder;
-            panel3.Controls.Add(roundedButton2);
+            panel3.Controls.Add(btnDanhSachQuyen);
             panel3.Controls.Add(roundedComboBox2);
             panel3.Controls.Add(roundedComboBox1);
             panel3.Controls.Add(Search);
@@ -84,22 +84,23 @@ namespace MilkTea.Client.Forms
             panel3.Size = new Size(1658, 50);
             panel3.TabIndex = 2;
             // 
-            // roundedButton2
+            // btnDanhSachQuyen
             // 
-            roundedButton2.BackColor = Color.DodgerBlue;
-            roundedButton2.BorderColor = Color.DodgerBlue;
-            roundedButton2.BorderRadius = 20;
-            roundedButton2.BorderSize = 0;
-            roundedButton2.FlatAppearance.BorderSize = 0;
-            roundedButton2.FlatStyle = FlatStyle.Flat;
-            roundedButton2.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            roundedButton2.ForeColor = Color.White;
-            roundedButton2.Location = new Point(715, 6);
-            roundedButton2.Name = "roundedButton2";
-            roundedButton2.Size = new Size(228, 36);
-            roundedButton2.TabIndex = 4;
-            roundedButton2.Text = "Danh Sách Quyền";
-            roundedButton2.UseVisualStyleBackColor = false;
+            btnDanhSachQuyen.BackColor = Color.DodgerBlue;
+            btnDanhSachQuyen.BorderColor = Color.DodgerBlue;
+            btnDanhSachQuyen.BorderRadius = 20;
+            btnDanhSachQuyen.BorderSize = 0;
+            btnDanhSachQuyen.FlatAppearance.BorderSize = 0;
+            btnDanhSachQuyen.FlatStyle = FlatStyle.Flat;
+            btnDanhSachQuyen.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnDanhSachQuyen.ForeColor = Color.White;
+            btnDanhSachQuyen.Location = new Point(715, 6);
+            btnDanhSachQuyen.Name = "btnDanhSachQuyen";
+            btnDanhSachQuyen.Size = new Size(228, 36);
+            btnDanhSachQuyen.TabIndex = 4;
+            btnDanhSachQuyen.Text = "Danh Sách Quyền";
+            btnDanhSachQuyen.UseVisualStyleBackColor = false;
+            btnDanhSachQuyen.Click += btnDanhSachQuyen_Click;
             // 
             // roundedComboBox2
             // 
@@ -252,10 +253,10 @@ namespace MilkTea.Client.Forms
             // chiTiet
             // 
             chiTiet.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.NullValue = resources.GetObject("dataGridViewCellStyle1.NullValue");
-            dataGridViewCellStyle1.Padding = new Padding(3);
-            chiTiet.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.NullValue = resources.GetObject("dataGridViewCellStyle9.NullValue");
+            dataGridViewCellStyle9.Padding = new Padding(3);
+            chiTiet.DefaultCellStyle = dataGridViewCellStyle9;
             chiTiet.HeaderText = "Chi Tiết";
             chiTiet.Image = Properties.Resources.circle_user;
             chiTiet.ImageLayout = DataGridViewImageCellLayout.Zoom;
@@ -267,10 +268,10 @@ namespace MilkTea.Client.Forms
             // 
             // sua
             // 
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.NullValue = resources.GetObject("dataGridViewCellStyle2.NullValue");
-            dataGridViewCellStyle2.Padding = new Padding(3);
-            sua.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.NullValue = resources.GetObject("dataGridViewCellStyle10.NullValue");
+            dataGridViewCellStyle10.Padding = new Padding(3);
+            sua.DefaultCellStyle = dataGridViewCellStyle10;
             sua.HeaderText = "Sửa";
             sua.Image = Properties.Resources.edit;
             sua.ImageLayout = DataGridViewImageCellLayout.Zoom;
@@ -282,10 +283,10 @@ namespace MilkTea.Client.Forms
             // 
             // khoa
             // 
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.NullValue = resources.GetObject("dataGridViewCellStyle3.NullValue");
-            dataGridViewCellStyle3.Padding = new Padding(3);
-            khoa.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.NullValue = resources.GetObject("dataGridViewCellStyle11.NullValue");
+            dataGridViewCellStyle11.Padding = new Padding(3);
+            khoa.DefaultCellStyle = dataGridViewCellStyle11;
             khoa.HeaderText = "Khóa";
             khoa.Image = Properties.Resources.padlock;
             khoa.ImageLayout = DataGridViewImageCellLayout.Zoom;
@@ -297,10 +298,10 @@ namespace MilkTea.Client.Forms
             // 
             // xoa
             // 
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.NullValue = resources.GetObject("dataGridViewCellStyle4.NullValue");
-            dataGridViewCellStyle4.Padding = new Padding(3);
-            xoa.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.NullValue = resources.GetObject("dataGridViewCellStyle12.NullValue");
+            dataGridViewCellStyle12.Padding = new Padding(3);
+            xoa.DefaultCellStyle = dataGridViewCellStyle12;
             xoa.HeaderText = "Xóa";
             xoa.Image = Properties.Resources.trash;
             xoa.ImageLayout = DataGridViewImageCellLayout.Zoom;
@@ -406,7 +407,7 @@ namespace MilkTea.Client.Forms
         private DataGridViewImageColumn sua;
         private DataGridViewImageColumn khoa;
         private DataGridViewImageColumn xoa;
-        private Controls.RoundedButton roundedButton2;
+        private Controls.RoundedButton btnDanhSachQuyen;
         private Label label2;
         private Label label1;
     }
