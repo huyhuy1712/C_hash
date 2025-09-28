@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
-            panel2 = new Panel();
-            label1 = new Label();
             panel5 = new Panel();
             dataGridView1 = new DataGridView();
             maPhieuNhap_tb_ìno = new DataGridViewTextBoxColumn();
@@ -38,10 +36,12 @@
             tenNL_tb_info = new DataGridViewTextBoxColumn();
             donGia_tb_info = new DataGridViewTextBoxColumn();
             tongTien_tb_add = new DataGridViewTextBoxColumn();
+            panel2 = new Panel();
+            label1 = new Label();
             panel1.SuspendLayout();
-            panel2.SuspendLayout();
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -53,27 +53,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(962, 527);
             panel1.TabIndex = 1;
-            // 
-            // panel2
-            // 
-            panel2.Controls.Add(label1);
-            panel2.Dock = DockStyle.Top;
-            panel2.Location = new Point(0, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(962, 80);
-            panel2.TabIndex = 0;
-            // 
-            // label1
-            // 
-            label1.Dock = DockStyle.Fill;
-            label1.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.DodgerBlue;
-            label1.Location = new Point(0, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(962, 80);
-            label1.TabIndex = 1;
-            label1.Text = "Chi Tiết Phiếu Nhập Kho";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel5
             // 
@@ -96,7 +75,7 @@
             dataGridView1.Dock = DockStyle.Top;
             dataGridView1.Location = new Point(20, 20);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(922, 222);
+            dataGridView1.Size = new Size(922, 404);
             dataGridView1.TabIndex = 0;
             // 
             // maPhieuNhap_tb_ìno
@@ -128,18 +107,42 @@
             tongTien_tb_add.Name = "tongTien_tb_add";
             tongTien_tb_add.Width = 200;
             // 
+            // panel2
+            // 
+            panel2.Controls.Add(label1);
+            panel2.Dock = DockStyle.Top;
+            panel2.Location = new Point(0, 0);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(962, 80);
+            panel2.TabIndex = 0;
+            // 
+            // label1
+            // 
+            label1.Dock = DockStyle.Fill;
+            label1.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.DodgerBlue;
+            label1.Location = new Point(0, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(962, 80);
+            label1.TabIndex = 1;
+            label1.Text = "Chi Tiết Phiếu Nhập Kho";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // ImportForm_Info
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(962, 527);
             Controls.Add(panel1);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "ImportForm_Info";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "ImportForm_Info";
             panel1.ResumeLayout(false);
-            panel2.ResumeLayout(false);
             panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            panel2.ResumeLayout(false);
             ResumeLayout(false);
         }
 
