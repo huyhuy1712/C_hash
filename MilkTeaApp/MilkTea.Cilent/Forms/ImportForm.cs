@@ -20,6 +20,8 @@ namespace MilkTea.Client.Forms
 
         private void ImportForm_Load(object sender, EventArgs e)
         {
+            int index = dataGridView1.Rows.Add();
+
 
         }
 
@@ -33,6 +35,27 @@ namespace MilkTea.Client.Forms
         {
             ImportForm_Info form = new ImportForm_Info();
             form.ShowDialog();
+        }
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            // Bỏ qua nếu click vào header hoặc dòng không hợp lệ
+            if (e.RowIndex < 0) return;
+
+            // Kiểm tra cột được click
+            if (dataGridView1.Columns[e.ColumnIndex].Name == "thongTin_Tb_iPort")
+            {
+                // Lấy dữ liệu của dòng được chọn
+                string id = dataGridView1.Rows[e.RowIndex].Cells["maPhieuNhap_Tb_iPort"].Value?.ToString();
+                // Mở form sửa (ví dụ FormEditAccount)
+                using (var frm = new ImportForm_Info())
+                {
+                    if (frm.ShowDialog() == DialogResult.OK)
+                    {
+                        // Sau khi form con đóng và bấm OK thì refresh lại grid
+                    }
+                }
+            }
         }
     }
 }

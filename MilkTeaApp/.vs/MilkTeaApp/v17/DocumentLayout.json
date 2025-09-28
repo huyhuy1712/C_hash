@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\dtoan\\source\\repos\\C_hash\\MilkTeaApp\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{5012D040-F664-43F3-B579-6E3262FF66DE}|MilkTea.Cilent\\MilkTea.Client.csproj|c:\\users\\dtoan\\source\\repos\\c_hash\\milkteaapp\\milktea.cilent\\forms\\importform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5012D040-F664-43F3-B579-6E3262FF66DE}|MilkTea.Cilent\\MilkTea.Client.csproj|solutionrelative:milktea.cilent\\forms\\importform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5012D040-F664-43F3-B579-6E3262FF66DE}|MilkTea.Cilent\\MilkTea.Client.csproj|c:\\users\\dtoan\\source\\repos\\c_hash\\milkteaapp\\milktea.cilent\\forms\\importform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{5012D040-F664-43F3-B579-6E3262FF66DE}|MilkTea.Cilent\\MilkTea.Client.csproj|solutionrelative:milktea.cilent\\forms\\importform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
@@ -19,11 +23,24 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "ImportForm.cs",
+              "DocumentMoniker": "C:\\Users\\dtoan\\source\\repos\\C_hash\\MilkTeaApp\\MilkTea.Cilent\\Forms\\ImportForm.cs",
+              "RelativeDocumentMoniker": "MilkTea.Cilent\\Forms\\ImportForm.cs",
+              "ToolTip": "C:\\Users\\dtoan\\source\\repos\\C_hash\\MilkTeaApp\\MilkTea.Cilent\\Forms\\ImportForm.cs*",
+              "RelativeToolTip": "MilkTea.Cilent\\Forms\\ImportForm.cs*",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAUwDYAAABPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-28T05:47:28.68Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "ImportForm.cs [Design]",
               "DocumentMoniker": "C:\\Users\\dtoan\\source\\repos\\C_hash\\MilkTeaApp\\MilkTea.Cilent\\Forms\\ImportForm.cs",
               "RelativeDocumentMoniker": "MilkTea.Cilent\\Forms\\ImportForm.cs",
-              "ToolTip": "C:\\Users\\dtoan\\source\\repos\\C_hash\\MilkTeaApp\\MilkTea.Cilent\\Forms\\ImportForm.cs [Design]",
-              "RelativeToolTip": "MilkTea.Cilent\\Forms\\ImportForm.cs [Design]",
+              "ToolTip": "C:\\Users\\dtoan\\source\\repos\\C_hash\\MilkTeaApp\\MilkTea.Cilent\\Forms\\ImportForm.cs [Design]*",
+              "RelativeToolTip": "MilkTea.Cilent\\Forms\\ImportForm.cs [Design]*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-28T05:36:10.355Z",
               "EditorCaption": " [Design]"
