@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MilkTea.Client.Forms
+namespace MilkTea.Client.Forms.ChildForm_Import
 {
-    public partial class RegisterForm : Form
+    public partial class ImportForm_Info : Form
     {
-        public RegisterForm()
+        public ImportForm_Info()
         {
             InitializeComponent();
         }
