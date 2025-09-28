@@ -85,8 +85,8 @@ namespace MilkTea.Client.Forms
 
         private void btnDanhSachQuyen_Click(object sender, EventArgs e)
         {
-            DanhSachQuyenForm danhSachQuyen = new DanhSachQuyenForm();
-            danhSachQuyen.ShowDialog();
+            var frm = new DanhSachQuyenForm();
+            frm.ShowDialog();
         }
     }
 }

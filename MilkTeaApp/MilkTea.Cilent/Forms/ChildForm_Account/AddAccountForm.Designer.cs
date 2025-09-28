@@ -33,11 +33,13 @@
             panel3 = new Panel();
             panel13 = new Panel();
             btnThemTTK = new MilkTea.Client.Controls.RoundedButton();
+            panel14 = new Panel();
             btnThoatTTK = new MilkTea.Client.Controls.RoundedButton();
             panel12 = new Panel();
             cbxQuyen = new MilkTea.Client.Controls.RoundedComboBox();
             label6 = new Label();
             panel11 = new Panel();
+            panel15 = new Panel();
             btnChonAnh = new MilkTea.Client.Controls.RoundedButton();
             txtAnh = new TextBox();
             panel10 = new Panel();
@@ -60,8 +62,10 @@
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             panel13.SuspendLayout();
+            panel14.SuspendLayout();
             panel12.SuspendLayout();
             panel11.SuspendLayout();
+            panel15.SuspendLayout();
             panel10.SuspendLayout();
             panel9.SuspendLayout();
             panel8.SuspendLayout();
@@ -79,7 +83,7 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(800, 450);
+            panel1.Size = new Size(800, 479);
             panel1.TabIndex = 0;
             // 
             // panel3
@@ -98,17 +102,19 @@
             panel3.Dock = DockStyle.Fill;
             panel3.Location = new Point(0, 80);
             panel3.Name = "panel3";
-            panel3.Size = new Size(800, 370);
+            panel3.Padding = new Padding(20);
+            panel3.Size = new Size(800, 399);
             panel3.TabIndex = 1;
             // 
             // panel13
             // 
             panel13.Controls.Add(btnThemTTK);
-            panel13.Controls.Add(btnThoatTTK);
+            panel13.Controls.Add(panel14);
             panel13.Dock = DockStyle.Bottom;
-            panel13.Location = new Point(0, 330);
+            panel13.Location = new Point(20, 329);
             panel13.Name = "panel13";
-            panel13.Size = new Size(800, 40);
+            panel13.Padding = new Padding(0, 10, 0, 0);
+            panel13.Size = new Size(760, 50);
             panel13.TabIndex = 9;
             // 
             // btnThemTTK
@@ -122,13 +128,22 @@
             btnThemTTK.FlatStyle = FlatStyle.Flat;
             btnThemTTK.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnThemTTK.ForeColor = Color.Black;
-            btnThemTTK.Location = new Point(612, 0);
+            btnThemTTK.Location = new Point(490, 10);
             btnThemTTK.Margin = new Padding(30);
             btnThemTTK.Name = "btnThemTTK";
-            btnThemTTK.Size = new Size(94, 40);
+            btnThemTTK.Size = new Size(125, 40);
             btnThemTTK.TabIndex = 1;
             btnThemTTK.Text = "+ Thêm";
             btnThemTTK.UseVisualStyleBackColor = false;
+            // 
+            // panel14
+            // 
+            panel14.Controls.Add(btnThoatTTK);
+            panel14.Dock = DockStyle.Right;
+            panel14.Location = new Point(615, 10);
+            panel14.Name = "panel14";
+            panel14.Size = new Size(145, 40);
+            panel14.TabIndex = 2;
             // 
             // btnThoatTTK
             // 
@@ -141,9 +156,9 @@
             btnThoatTTK.FlatStyle = FlatStyle.Flat;
             btnThoatTTK.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnThoatTTK.ForeColor = Color.White;
-            btnThoatTTK.Location = new Point(706, 0);
+            btnThoatTTK.Location = new Point(20, 0);
             btnThoatTTK.Name = "btnThoatTTK";
-            btnThoatTTK.Size = new Size(94, 40);
+            btnThoatTTK.Size = new Size(125, 40);
             btnThoatTTK.TabIndex = 0;
             btnThoatTTK.Text = "Thoát";
             btnThoatTTK.UseVisualStyleBackColor = false;
@@ -154,10 +169,10 @@
             panel12.Controls.Add(cbxQuyen);
             panel12.Controls.Add(label6);
             panel12.Dock = DockStyle.Top;
-            panel12.Location = new Point(0, 248);
+            panel12.Location = new Point(20, 268);
             panel12.Name = "panel12";
-            panel12.Padding = new Padding(30, 0, 0, 0);
-            panel12.Size = new Size(800, 36);
+            panel12.Padding = new Padding(30, 10, 0, 0);
+            panel12.Size = new Size(760, 46);
             panel12.TabIndex = 8;
             // 
             // cbxQuyen
@@ -176,7 +191,7 @@
             cbxQuyen.FormattingEnabled = true;
             cbxQuyen.ItemHeight = 30;
             cbxQuyen.Items.AddRange(new object[] { "Admin ", "Nhân Viên" });
-            cbxQuyen.Location = new Point(113, 0);
+            cbxQuyen.Location = new Point(113, 10);
             cbxQuyen.Name = "cbxQuyen";
             cbxQuyen.Size = new Size(151, 36);
             cbxQuyen.TabIndex = 2;
@@ -187,7 +202,7 @@
             label6.Dock = DockStyle.Left;
             label6.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label6.ForeColor = Color.DodgerBlue;
-            label6.Location = new Point(30, 0);
+            label6.Location = new Point(30, 10);
             label6.Name = "label6";
             label6.Size = new Size(83, 31);
             label6.TabIndex = 1;
@@ -195,14 +210,24 @@
             // 
             // panel11
             // 
-            panel11.Controls.Add(btnChonAnh);
+            panel11.Controls.Add(panel15);
             panel11.Controls.Add(txtAnh);
             panel11.Dock = DockStyle.Top;
-            panel11.Location = new Point(0, 217);
+            panel11.Location = new Point(20, 237);
             panel11.Name = "panel11";
             panel11.Padding = new Padding(30, 0, 0, 0);
-            panel11.Size = new Size(800, 31);
+            panel11.Size = new Size(760, 31);
             panel11.TabIndex = 7;
+            // 
+            // panel15
+            // 
+            panel15.Controls.Add(btnChonAnh);
+            panel15.Dock = DockStyle.Right;
+            panel15.Location = new Point(640, 0);
+            panel15.Name = "panel15";
+            panel15.Padding = new Padding(10, 0, 0, 0);
+            panel15.Size = new Size(120, 31);
+            panel15.TabIndex = 2;
             // 
             // btnChonAnh
             // 
@@ -210,14 +235,14 @@
             btnChonAnh.BorderColor = Color.DodgerBlue;
             btnChonAnh.BorderRadius = 20;
             btnChonAnh.BorderSize = 0;
-            btnChonAnh.Dock = DockStyle.Left;
+            btnChonAnh.Dock = DockStyle.Right;
             btnChonAnh.FlatAppearance.BorderSize = 0;
             btnChonAnh.FlatStyle = FlatStyle.Flat;
             btnChonAnh.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnChonAnh.ForeColor = Color.White;
-            btnChonAnh.Location = new Point(603, 0);
+            btnChonAnh.Location = new Point(20, 0);
             btnChonAnh.Name = "btnChonAnh";
-            btnChonAnh.Size = new Size(94, 31);
+            btnChonAnh.Size = new Size(100, 31);
             btnChonAnh.TabIndex = 1;
             btnChonAnh.Text = "Chọn";
             btnChonAnh.UseVisualStyleBackColor = false;
@@ -236,10 +261,10 @@
             // 
             panel10.Controls.Add(label5);
             panel10.Dock = DockStyle.Top;
-            panel10.Location = new Point(0, 186);
+            panel10.Location = new Point(20, 206);
             panel10.Name = "panel10";
             panel10.Padding = new Padding(30, 0, 0, 0);
-            panel10.Size = new Size(800, 31);
+            panel10.Size = new Size(760, 31);
             panel10.TabIndex = 6;
             // 
             // label5
@@ -258,10 +283,10 @@
             // 
             panel9.Controls.Add(txtbHoTen);
             panel9.Dock = DockStyle.Top;
-            panel9.Location = new Point(0, 155);
+            panel9.Location = new Point(20, 175);
             panel9.Name = "panel9";
             panel9.Padding = new Padding(30, 0, 0, 0);
-            panel9.Size = new Size(800, 31);
+            panel9.Size = new Size(760, 31);
             panel9.TabIndex = 5;
             // 
             // txtbHoTen
@@ -278,10 +303,10 @@
             // 
             panel8.Controls.Add(label4);
             panel8.Dock = DockStyle.Top;
-            panel8.Location = new Point(0, 124);
+            panel8.Location = new Point(20, 144);
             panel8.Name = "panel8";
             panel8.Padding = new Padding(30, 0, 0, 0);
-            panel8.Size = new Size(800, 31);
+            panel8.Size = new Size(760, 31);
             panel8.TabIndex = 4;
             // 
             // label4
@@ -300,10 +325,10 @@
             // 
             panel7.Controls.Add(txtbMatKhau);
             panel7.Dock = DockStyle.Top;
-            panel7.Location = new Point(0, 93);
+            panel7.Location = new Point(20, 113);
             panel7.Name = "panel7";
             panel7.Padding = new Padding(30, 0, 0, 0);
-            panel7.Size = new Size(800, 31);
+            panel7.Size = new Size(760, 31);
             panel7.TabIndex = 3;
             // 
             // txtbMatKhau
@@ -320,10 +345,10 @@
             // 
             panel6.Controls.Add(label3);
             panel6.Dock = DockStyle.Top;
-            panel6.Location = new Point(0, 62);
+            panel6.Location = new Point(20, 82);
             panel6.Name = "panel6";
             panel6.Padding = new Padding(30, 0, 0, 0);
-            panel6.Size = new Size(800, 31);
+            panel6.Size = new Size(760, 31);
             panel6.TabIndex = 2;
             // 
             // label3
@@ -342,10 +367,10 @@
             // 
             panel5.Controls.Add(txtbThemTaiKhoan);
             panel5.Dock = DockStyle.Top;
-            panel5.Location = new Point(0, 31);
+            panel5.Location = new Point(20, 51);
             panel5.Name = "panel5";
             panel5.Padding = new Padding(30, 0, 0, 0);
-            panel5.Size = new Size(800, 31);
+            panel5.Size = new Size(760, 31);
             panel5.TabIndex = 1;
             // 
             // txtbThemTaiKhoan
@@ -361,10 +386,10 @@
             // 
             panel4.Controls.Add(label2);
             panel4.Dock = DockStyle.Top;
-            panel4.Location = new Point(0, 0);
+            panel4.Location = new Point(20, 20);
             panel4.Name = "panel4";
             panel4.Padding = new Padding(30, 0, 0, 0);
-            panel4.Size = new Size(800, 31);
+            panel4.Size = new Size(760, 31);
             panel4.TabIndex = 0;
             // 
             // label2
@@ -409,7 +434,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 479);
             Controls.Add(panel1);
             Name = "AddAccountForm";
             StartPosition = FormStartPosition.CenterScreen;
@@ -417,10 +442,12 @@
             panel1.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel13.ResumeLayout(false);
+            panel14.ResumeLayout(false);
             panel12.ResumeLayout(false);
             panel12.PerformLayout();
             panel11.ResumeLayout(false);
             panel11.PerformLayout();
+            panel15.ResumeLayout(false);
             panel10.ResumeLayout(false);
             panel10.PerformLayout();
             panel9.ResumeLayout(false);
@@ -470,5 +497,7 @@
         private Panel panel13;
         private Controls.RoundedButton btnThemTTK;
         private Controls.RoundedButton btnThoatTTK;
+        private Panel panel14;
+        private Panel panel15;
     }
 }

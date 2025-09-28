@@ -28,78 +28,75 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             panel1 = new Panel();
-            panel10 = new Panel();
-            panel11 = new Panel();
-            panel5 = new Panel();
+            panel4 = new Panel();
+            Table = new Panel();
             dataGridView1 = new DataGridView();
             tenQuyen = new DataGridViewTextBoxColumn();
             chon = new DataGridViewCheckBoxColumn();
-            panel6 = new Panel();
-            txtbSearch = new MilkTea.Client.Controls.RoundedTextBox();
-            panel9 = new Panel();
+            TimKiem = new Panel();
+            textBox1 = new TextBox();
+            Button = new Panel();
             btnXacNhan = new MilkTea.Client.Controls.RoundedButton();
-            btnDong = new MilkTea.Client.Controls.RoundedButton();
-            panel3 = new Panel();
-            txtbTenQuyen = new MilkTea.Client.Controls.RoundedTextBox();
-            label2 = new Label();
             panel2 = new Panel();
+            btnDong = new MilkTea.Client.Controls.RoundedButton();
+            TextBox = new Panel();
+            txtbTenQuyen = new MilkTea.Client.Controls.RoundedTextBox();
+            label = new Panel();
+            label2 = new Label();
+            Title = new Panel();
             label1 = new Label();
             panel1.SuspendLayout();
-            panel10.SuspendLayout();
-            panel11.SuspendLayout();
-            panel5.SuspendLayout();
+            panel4.SuspendLayout();
+            Table.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            panel6.SuspendLayout();
-            panel9.SuspendLayout();
-            panel3.SuspendLayout();
+            TimKiem.SuspendLayout();
+            Button.SuspendLayout();
             panel2.SuspendLayout();
+            TextBox.SuspendLayout();
+            label.SuspendLayout();
+            Title.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
-            panel1.Controls.Add(panel10);
-            panel1.Controls.Add(panel3);
-            panel1.Controls.Add(panel2);
+            panel1.Controls.Add(panel4);
+            panel1.Controls.Add(Title);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(800, 450);
             panel1.TabIndex = 0;
             // 
-            // panel10
+            // panel4
             // 
-            panel10.Controls.Add(panel11);
-            panel10.Controls.Add(panel9);
-            panel10.Dock = DockStyle.Fill;
-            panel10.Location = new Point(0, 170);
-            panel10.Name = "panel10";
-            panel10.Size = new Size(800, 280);
-            panel10.TabIndex = 2;
+            panel4.BackColor = SystemColors.ScrollBar;
+            panel4.Controls.Add(Table);
+            panel4.Controls.Add(TimKiem);
+            panel4.Controls.Add(Button);
+            panel4.Controls.Add(TextBox);
+            panel4.Controls.Add(label);
+            panel4.Dock = DockStyle.Fill;
+            panel4.Location = new Point(0, 100);
+            panel4.Name = "panel4";
+            panel4.Padding = new Padding(20);
+            panel4.Size = new Size(800, 350);
+            panel4.TabIndex = 1;
             // 
-            // panel11
+            // Table
             // 
-            panel11.Controls.Add(panel5);
-            panel11.Controls.Add(panel6);
-            panel11.Dock = DockStyle.Fill;
-            panel11.Location = new Point(0, 0);
-            panel11.Name = "panel11";
-            panel11.Size = new Size(800, 230);
-            panel11.TabIndex = 1;
-            // 
-            // panel5
-            // 
-            panel5.Controls.Add(dataGridView1);
-            panel5.Dock = DockStyle.Fill;
-            panel5.Location = new Point(0, 0);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(800, 180);
-            panel5.TabIndex = 1;
+            Table.Controls.Add(dataGridView1);
+            Table.Dock = DockStyle.Fill;
+            Table.Location = new Point(20, 110);
+            Table.Name = "Table";
+            Table.Size = new Size(760, 130);
+            Table.TabIndex = 1;
             // 
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.BackgroundColor = SystemColors.Control;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { tenQuyen, chon });
             dataGridView1.Dock = DockStyle.Fill;
@@ -107,7 +104,7 @@
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(800, 180);
+            dataGridView1.Size = new Size(760, 130);
             dataGridView1.TabIndex = 0;
             // 
             // tenQuyen
@@ -121,10 +118,10 @@
             // 
             // chon
             // 
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.NullValue = false;
-            dataGridViewCellStyle2.Padding = new Padding(3);
-            chon.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.NullValue = false;
+            dataGridViewCellStyle1.Padding = new Padding(3);
+            chon.DefaultCellStyle = dataGridViewCellStyle1;
             chon.HeaderText = "";
             chon.MinimumWidth = 6;
             chon.Name = "chon";
@@ -133,39 +130,36 @@
             chon.SortMode = DataGridViewColumnSortMode.Automatic;
             chon.Width = 125;
             // 
-            // panel6
+            // TimKiem
             // 
-            panel6.Controls.Add(txtbSearch);
-            panel6.Dock = DockStyle.Bottom;
-            panel6.Location = new Point(0, 180);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(800, 50);
-            panel6.TabIndex = 2;
+            TimKiem.Controls.Add(textBox1);
+            TimKiem.Dock = DockStyle.Bottom;
+            TimKiem.Location = new Point(20, 240);
+            TimKiem.Name = "TimKiem";
+            TimKiem.Size = new Size(760, 40);
+            TimKiem.TabIndex = 2;
             // 
-            // txtbSearch
+            // textBox1
             // 
-            txtbSearch.BackColor = Color.White;
-            txtbSearch.BorderColor = Color.Gray;
-            txtbSearch.BorderRadius = 20;
-            txtbSearch.Dock = DockStyle.Fill;
-            txtbSearch.FocusBorderColor = Color.DeepSkyBlue;
-            txtbSearch.Location = new Point(0, 0);
-            txtbSearch.Name = "txtbSearch";
-            txtbSearch.Padding = new Padding(10, 5, 40, 5);
-            txtbSearch.Placeholder = "Từ khóa tìm kiếm...";
-            txtbSearch.Size = new Size(800, 50);
-            txtbSearch.TabIndex = 0;
-            txtbSearch.TextValue = "";
+            textBox1.BorderStyle = BorderStyle.FixedSingle;
+            textBox1.Dock = DockStyle.Fill;
+            textBox1.Font = new Font("Segoe UI", 15F);
+            textBox1.Location = new Point(0, 0);
+            textBox1.Name = "textBox1";
+            textBox1.PlaceholderText = "Tìm Kiếm ...";
+            textBox1.Size = new Size(760, 41);
+            textBox1.TabIndex = 0;
             // 
-            // panel9
+            // Button
             // 
-            panel9.Controls.Add(btnXacNhan);
-            panel9.Controls.Add(btnDong);
-            panel9.Dock = DockStyle.Bottom;
-            panel9.Location = new Point(0, 230);
-            panel9.Name = "panel9";
-            panel9.Size = new Size(800, 50);
-            panel9.TabIndex = 3;
+            Button.Controls.Add(btnXacNhan);
+            Button.Controls.Add(panel2);
+            Button.Dock = DockStyle.Bottom;
+            Button.Location = new Point(20, 280);
+            Button.Name = "Button";
+            Button.Padding = new Padding(0, 10, 0, 0);
+            Button.Size = new Size(760, 50);
+            Button.TabIndex = 3;
             // 
             // btnXacNhan
             // 
@@ -178,12 +172,21 @@
             btnXacNhan.FlatStyle = FlatStyle.Flat;
             btnXacNhan.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnXacNhan.ForeColor = Color.Black;
-            btnXacNhan.Location = new Point(540, 0);
+            btnXacNhan.Location = new Point(490, 10);
             btnXacNhan.Name = "btnXacNhan";
-            btnXacNhan.Size = new Size(135, 50);
+            btnXacNhan.Size = new Size(125, 40);
             btnXacNhan.TabIndex = 1;
             btnXacNhan.Text = "Xác Nhận";
             btnXacNhan.UseVisualStyleBackColor = false;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(btnDong);
+            panel2.Dock = DockStyle.Right;
+            panel2.Location = new Point(615, 10);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(145, 40);
+            panel2.TabIndex = 2;
             // 
             // btnDong
             // 
@@ -196,23 +199,23 @@
             btnDong.FlatStyle = FlatStyle.Flat;
             btnDong.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnDong.ForeColor = Color.Black;
-            btnDong.Location = new Point(675, 0);
+            btnDong.Location = new Point(20, 0);
             btnDong.Name = "btnDong";
-            btnDong.Size = new Size(125, 50);
+            btnDong.Size = new Size(125, 40);
             btnDong.TabIndex = 0;
             btnDong.Text = "Đóng";
             btnDong.UseVisualStyleBackColor = false;
             btnDong.Click += btnDong_Click;
             // 
-            // panel3
+            // TextBox
             // 
-            panel3.Controls.Add(txtbTenQuyen);
-            panel3.Controls.Add(label2);
-            panel3.Dock = DockStyle.Top;
-            panel3.Location = new Point(0, 100);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(800, 70);
-            panel3.TabIndex = 1;
+            TextBox.Controls.Add(txtbTenQuyen);
+            TextBox.Dock = DockStyle.Top;
+            TextBox.Location = new Point(20, 60);
+            TextBox.Name = "TextBox";
+            TextBox.Padding = new Padding(0, 0, 0, 10);
+            TextBox.Size = new Size(760, 50);
+            TextBox.TabIndex = 1;
             // 
             // txtbTenQuyen
             // 
@@ -221,13 +224,22 @@
             txtbTenQuyen.BorderRadius = 20;
             txtbTenQuyen.Dock = DockStyle.Fill;
             txtbTenQuyen.FocusBorderColor = Color.DeepSkyBlue;
-            txtbTenQuyen.Location = new Point(0, 32);
+            txtbTenQuyen.Location = new Point(0, 0);
             txtbTenQuyen.Name = "txtbTenQuyen";
             txtbTenQuyen.Padding = new Padding(10, 5, 40, 5);
             txtbTenQuyen.Placeholder = "";
-            txtbTenQuyen.Size = new Size(800, 38);
+            txtbTenQuyen.Size = new Size(760, 40);
             txtbTenQuyen.TabIndex = 1;
             txtbTenQuyen.TextValue = "";
+            // 
+            // label
+            // 
+            label.Controls.Add(label2);
+            label.Dock = DockStyle.Top;
+            label.Location = new Point(20, 20);
+            label.Name = "label";
+            label.Size = new Size(760, 40);
+            label.TabIndex = 1;
             // 
             // label2
             // 
@@ -236,18 +248,18 @@
             label2.ForeColor = Color.DodgerBlue;
             label2.Location = new Point(0, 0);
             label2.Name = "label2";
-            label2.Size = new Size(800, 32);
+            label2.Size = new Size(760, 30);
             label2.TabIndex = 0;
             label2.Text = "Tên Quyền";
             // 
-            // panel2
+            // Title
             // 
-            panel2.Controls.Add(label1);
-            panel2.Dock = DockStyle.Top;
-            panel2.Location = new Point(0, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(800, 100);
-            panel2.TabIndex = 0;
+            Title.Controls.Add(label1);
+            Title.Dock = DockStyle.Top;
+            Title.Location = new Point(0, 0);
+            Title.Name = "Title";
+            Title.Size = new Size(800, 100);
+            Title.TabIndex = 0;
             // 
             // label1
             // 
@@ -269,36 +281,40 @@
             Controls.Add(panel1);
             Name = "AddQuyenForm";
             Text = "Quyền";
+            Load += AddQuyenForm_Load;
             panel1.ResumeLayout(false);
-            panel10.ResumeLayout(false);
-            panel11.ResumeLayout(false);
-            panel5.ResumeLayout(false);
+            panel4.ResumeLayout(false);
+            Table.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            panel6.ResumeLayout(false);
-            panel9.ResumeLayout(false);
-            panel3.ResumeLayout(false);
+            TimKiem.ResumeLayout(false);
+            TimKiem.PerformLayout();
+            Button.ResumeLayout(false);
             panel2.ResumeLayout(false);
+            TextBox.ResumeLayout(false);
+            label.ResumeLayout(false);
+            Title.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
         private Panel panel1;
-        private Panel panel2;
+        private Panel Title;
         private Label label1;
-        private Panel panel3;
+        private Panel label;
         private Label label2;
         private Controls.RoundedTextBox txtbTenQuyen;
-        private Panel panel10;
-        private Panel panel11;
-        private Panel panel5;
+        private Panel Table;
         private DataGridView dataGridView1;
         private DataGridViewTextBoxColumn tenQuyen;
         private DataGridViewCheckBoxColumn chon;
-        private Panel panel6;
-        private Controls.RoundedTextBox txtbSearch;
-        private Panel panel9;
+        private Panel TimKiem;
+        private Panel Button;
         private Controls.RoundedButton btnXacNhan;
         private Controls.RoundedButton btnDong;
+        private Panel panel4;
+        private TextBox textBox1;
+        private Panel TextBox;
+        private Panel panel2;
     }
 }

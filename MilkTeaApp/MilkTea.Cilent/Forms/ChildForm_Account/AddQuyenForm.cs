@@ -21,5 +21,11 @@ namespace MilkTea.Client.Forms.ChildForm_Account
         {
             this.Close();
         }
+
+        private void AddQuyenForm_Load(object sender, EventArgs e)
+        {
+            int index = dataGridView1.Rows.Add();
+            dataGridView1.Rows.Add();
+        }
     }
 }

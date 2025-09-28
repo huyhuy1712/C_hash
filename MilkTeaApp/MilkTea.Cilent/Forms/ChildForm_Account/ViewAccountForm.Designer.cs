@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            panel11 = new Panel();
             panel3 = new Panel();
             btnDong = new MilkTea.Client.Controls.RoundedButton();
             panel4 = new Panel();
@@ -50,6 +51,7 @@
             panel2 = new Panel();
             label1 = new Label();
             panel1.SuspendLayout();
+            panel11.SuspendLayout();
             panel3.SuspendLayout();
             panel4.SuspendLayout();
             panel6.SuspendLayout();
@@ -64,27 +66,39 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(panel3);
-            panel1.Controls.Add(panel4);
+            panel1.Controls.Add(panel11);
             panel1.Controls.Add(panel2);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(800, 450);
+            panel1.Size = new Size(800, 519);
             panel1.TabIndex = 2;
+            // 
+            // panel11
+            // 
+            panel11.BackColor = SystemColors.ScrollBar;
+            panel11.Controls.Add(panel3);
+            panel11.Controls.Add(panel4);
+            panel11.Dock = DockStyle.Fill;
+            panel11.Location = new Point(0, 80);
+            panel11.Name = "panel11";
+            panel11.Padding = new Padding(20);
+            panel11.Size = new Size(800, 439);
+            panel11.TabIndex = 1;
             // 
             // panel3
             // 
-            panel3.BackColor = SystemColors.ScrollBar;
+            panel3.BackColor = Color.Transparent;
             panel3.Controls.Add(btnDong);
-            panel3.Dock = DockStyle.Fill;
-            panel3.Location = new Point(0, 280);
+            panel3.Dock = DockStyle.Bottom;
+            panel3.Location = new Point(20, 249);
             panel3.Name = "panel3";
-            panel3.Size = new Size(800, 170);
+            panel3.Size = new Size(760, 170);
             panel3.TabIndex = 1;
             // 
             // btnDong
             // 
+            btnDong.Anchor = AnchorStyles.None;
             btnDong.BackColor = Color.Red;
             btnDong.BorderColor = Color.DodgerBlue;
             btnDong.BorderRadius = 20;
@@ -93,9 +107,9 @@
             btnDong.FlatStyle = FlatStyle.Flat;
             btnDong.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnDong.ForeColor = Color.Black;
-            btnDong.Location = new Point(271, 41);
+            btnDong.Location = new Point(318, 70);
             btnDong.Name = "btnDong";
-            btnDong.Size = new Size(251, 43);
+            btnDong.Size = new Size(125, 40);
             btnDong.TabIndex = 0;
             btnDong.Text = "Đóng";
             btnDong.UseVisualStyleBackColor = false;
@@ -103,13 +117,13 @@
             // 
             // panel4
             // 
-            panel4.BackColor = SystemColors.ScrollBar;
+            panel4.BackColor = SystemColors.Control;
             panel4.Controls.Add(panel6);
             panel4.Controls.Add(panel5);
             panel4.Dock = DockStyle.Top;
-            panel4.Location = new Point(0, 80);
+            panel4.Location = new Point(20, 20);
             panel4.Name = "panel4";
-            panel4.Size = new Size(800, 200);
+            panel4.Size = new Size(760, 200);
             panel4.TabIndex = 0;
             // 
             // panel6
@@ -121,7 +135,7 @@
             panel6.Dock = DockStyle.Fill;
             panel6.Location = new Point(170, 0);
             panel6.Name = "panel6";
-            panel6.Size = new Size(630, 200);
+            panel6.Size = new Size(590, 200);
             panel6.TabIndex = 1;
             // 
             // panel10
@@ -131,7 +145,7 @@
             panel10.Dock = DockStyle.Top;
             panel10.Location = new Point(0, 150);
             panel10.Name = "panel10";
-            panel10.Size = new Size(630, 50);
+            panel10.Size = new Size(590, 50);
             panel10.TabIndex = 3;
             // 
             // label8
@@ -161,7 +175,7 @@
             panel9.Dock = DockStyle.Top;
             panel9.Location = new Point(0, 100);
             panel9.Name = "panel9";
-            panel9.Size = new Size(630, 50);
+            panel9.Size = new Size(590, 50);
             panel9.TabIndex = 2;
             // 
             // label6
@@ -191,7 +205,7 @@
             panel8.Dock = DockStyle.Top;
             panel8.Location = new Point(0, 50);
             panel8.Name = "panel8";
-            panel8.Size = new Size(630, 50);
+            panel8.Size = new Size(590, 50);
             panel8.TabIndex = 1;
             // 
             // label5
@@ -221,7 +235,7 @@
             panel7.Dock = DockStyle.Top;
             panel7.Location = new Point(0, 0);
             panel7.Name = "panel7";
-            panel7.Size = new Size(630, 50);
+            panel7.Size = new Size(590, 50);
             panel7.TabIndex = 0;
             // 
             // label3
@@ -250,6 +264,7 @@
             panel5.Dock = DockStyle.Left;
             panel5.Location = new Point(0, 0);
             panel5.Name = "panel5";
+            panel5.Padding = new Padding(10);
             panel5.Size = new Size(170, 200);
             panel5.TabIndex = 0;
             // 
@@ -257,9 +272,10 @@
             // 
             pictureBox1.Dock = DockStyle.Fill;
             pictureBox1.Image = Properties.Resources.circle_user;
-            pictureBox1.Location = new Point(0, 0);
+            pictureBox1.Location = new Point(10, 10);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(170, 200);
+            pictureBox1.Size = new Size(150, 180);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
@@ -288,12 +304,13 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 519);
             Controls.Add(panel1);
             Name = "ViewAccountForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ViewAccountForm";
             panel1.ResumeLayout(false);
+            panel11.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel6.ResumeLayout(false);
@@ -330,5 +347,6 @@
         private Label label7;
         private Label label5;
         private Controls.RoundedButton btnDong;
+        private Panel panel11;
     }
 }

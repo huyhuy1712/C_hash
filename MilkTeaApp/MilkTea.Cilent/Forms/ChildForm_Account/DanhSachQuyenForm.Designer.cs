@@ -28,29 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DanhSachQuyenForm));
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             panel1 = new Panel();
             panel3 = new Panel();
-            panel5 = new Panel();
+            Table = new Panel();
             dataGridView1 = new DataGridView();
             tenQuyen = new DataGridViewTextBoxColumn();
             sua = new DataGridViewImageColumn();
             xoa = new DataGridViewImageColumn();
-            panel4 = new Panel();
-            txtbSearchQuyen = new MilkTea.Client.Controls.RoundedTextBox();
+            Tool = new Panel();
+            panel7 = new Panel();
             btnThemQuyen = new MilkTea.Client.Controls.RoundedButton();
-            panel6 = new Panel();
+            txtbSearchQuyen = new MilkTea.Client.Controls.RoundedTextBox();
+            Button = new Panel();
             btnDong = new MilkTea.Client.Controls.RoundedButton();
             panel2 = new Panel();
             label1 = new Label();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
-            panel5.SuspendLayout();
+            Table.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            panel4.SuspendLayout();
-            panel6.SuspendLayout();
+            Tool.SuspendLayout();
+            panel7.SuspendLayout();
+            Button.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
@@ -67,27 +69,29 @@
             // panel3
             // 
             panel3.BackColor = SystemColors.ScrollBar;
-            panel3.Controls.Add(panel5);
-            panel3.Controls.Add(panel4);
-            panel3.Controls.Add(panel6);
+            panel3.Controls.Add(Button);
+            panel3.Controls.Add(Table);
+            panel3.Controls.Add(Tool);
             panel3.Dock = DockStyle.Fill;
             panel3.Location = new Point(0, 100);
             panel3.Name = "panel3";
+            panel3.Padding = new Padding(20);
             panel3.Size = new Size(800, 350);
             panel3.TabIndex = 1;
             // 
-            // panel5
+            // Table
             // 
-            panel5.Controls.Add(dataGridView1);
-            panel5.Dock = DockStyle.Fill;
-            panel5.Location = new Point(0, 50);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(800, 250);
-            panel5.TabIndex = 3;
+            Table.Controls.Add(dataGridView1);
+            Table.Dock = DockStyle.Fill;
+            Table.Location = new Point(20, 70);
+            Table.Name = "Table";
+            Table.Size = new Size(760, 260);
+            Table.TabIndex = 3;
             // 
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.BackgroundColor = SystemColors.Control;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { tenQuyen, sua, xoa });
             dataGridView1.Dock = DockStyle.Fill;
@@ -95,7 +99,7 @@
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(800, 250);
+            dataGridView1.Size = new Size(760, 260);
             dataGridView1.TabIndex = 0;
             // 
             // tenQuyen
@@ -109,10 +113,10 @@
             // 
             // sua
             // 
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.NullValue = resources.GetObject("dataGridViewCellStyle1.NullValue");
-            dataGridViewCellStyle1.Padding = new Padding(3);
-            sua.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.NullValue = resources.GetObject("dataGridViewCellStyle5.NullValue");
+            dataGridViewCellStyle5.Padding = new Padding(3);
+            sua.DefaultCellStyle = dataGridViewCellStyle5;
             sua.HeaderText = "Sửa";
             sua.Image = Properties.Resources.edit;
             sua.ImageLayout = DataGridViewImageCellLayout.Zoom;
@@ -125,10 +129,10 @@
             // 
             // xoa
             // 
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.NullValue = resources.GetObject("dataGridViewCellStyle2.NullValue");
-            dataGridViewCellStyle2.Padding = new Padding(3);
-            xoa.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.NullValue = resources.GetObject("dataGridViewCellStyle6.NullValue");
+            dataGridViewCellStyle6.Padding = new Padding(3);
+            xoa.DefaultCellStyle = dataGridViewCellStyle6;
             xoa.HeaderText = "Xóa";
             xoa.Image = Properties.Resources.trash;
             xoa.MinimumWidth = 6;
@@ -136,30 +140,25 @@
             xoa.ReadOnly = true;
             xoa.Width = 125;
             // 
-            // panel4
+            // Tool
             // 
-            panel4.Controls.Add(txtbSearchQuyen);
-            panel4.Controls.Add(btnThemQuyen);
-            panel4.Dock = DockStyle.Top;
-            panel4.Location = new Point(0, 0);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(800, 50);
-            panel4.TabIndex = 0;
+            Tool.Controls.Add(panel7);
+            Tool.Controls.Add(txtbSearchQuyen);
+            Tool.Dock = DockStyle.Top;
+            Tool.Location = new Point(20, 20);
+            Tool.Name = "Tool";
+            Tool.Padding = new Padding(0, 0, 0, 10);
+            Tool.Size = new Size(760, 50);
+            Tool.TabIndex = 0;
             // 
-            // txtbSearchQuyen
+            // panel7
             // 
-            txtbSearchQuyen.BackColor = Color.White;
-            txtbSearchQuyen.BorderColor = Color.Gray;
-            txtbSearchQuyen.BorderRadius = 20;
-            txtbSearchQuyen.Dock = DockStyle.Right;
-            txtbSearchQuyen.FocusBorderColor = Color.DeepSkyBlue;
-            txtbSearchQuyen.Location = new Point(466, 0);
-            txtbSearchQuyen.Name = "txtbSearchQuyen";
-            txtbSearchQuyen.Padding = new Padding(10, 5, 40, 5);
-            txtbSearchQuyen.Placeholder = "Từ khóa tìm kiếm...";
-            txtbSearchQuyen.Size = new Size(334, 50);
-            txtbSearchQuyen.TabIndex = 1;
-            txtbSearchQuyen.TextValue = "";
+            panel7.Controls.Add(btnThemQuyen);
+            panel7.Dock = DockStyle.Left;
+            panel7.Location = new Point(0, 0);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(250, 40);
+            panel7.TabIndex = 2;
             // 
             // btnThemQuyen
             // 
@@ -174,20 +173,36 @@
             btnThemQuyen.ForeColor = Color.White;
             btnThemQuyen.Location = new Point(0, 0);
             btnThemQuyen.Name = "btnThemQuyen";
-            btnThemQuyen.Size = new Size(125, 50);
+            btnThemQuyen.Size = new Size(125, 40);
             btnThemQuyen.TabIndex = 0;
             btnThemQuyen.Text = "+ Thêm";
             btnThemQuyen.UseVisualStyleBackColor = false;
             btnThemQuyen.Click += btnThemQuyen_Click;
             // 
-            // panel6
+            // txtbSearchQuyen
             // 
-            panel6.Controls.Add(btnDong);
-            panel6.Dock = DockStyle.Bottom;
-            panel6.Location = new Point(0, 300);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(800, 50);
-            panel6.TabIndex = 2;
+            txtbSearchQuyen.BackColor = Color.White;
+            txtbSearchQuyen.BorderColor = Color.Gray;
+            txtbSearchQuyen.BorderRadius = 20;
+            txtbSearchQuyen.Dock = DockStyle.Right;
+            txtbSearchQuyen.FocusBorderColor = Color.DeepSkyBlue;
+            txtbSearchQuyen.Location = new Point(426, 0);
+            txtbSearchQuyen.Name = "txtbSearchQuyen";
+            txtbSearchQuyen.Padding = new Padding(10, 5, 40, 5);
+            txtbSearchQuyen.Placeholder = "Từ khóa tìm kiếm...";
+            txtbSearchQuyen.Size = new Size(334, 40);
+            txtbSearchQuyen.TabIndex = 1;
+            txtbSearchQuyen.TextValue = "";
+            // 
+            // Button
+            // 
+            Button.Controls.Add(btnDong);
+            Button.Dock = DockStyle.Bottom;
+            Button.Location = new Point(20, 280);
+            Button.Name = "Button";
+            Button.Padding = new Padding(0, 10, 0, 0);
+            Button.Size = new Size(760, 50);
+            Button.TabIndex = 2;
             // 
             // btnDong
             // 
@@ -200,9 +215,9 @@
             btnDong.FlatStyle = FlatStyle.Flat;
             btnDong.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnDong.ForeColor = Color.White;
-            btnDong.Location = new Point(675, 0);
+            btnDong.Location = new Point(635, 10);
             btnDong.Name = "btnDong";
-            btnDong.Size = new Size(125, 50);
+            btnDong.Size = new Size(125, 40);
             btnDong.TabIndex = 0;
             btnDong.Text = "Đóng";
             btnDong.UseVisualStyleBackColor = false;
@@ -241,10 +256,11 @@
             Load += DanhSachQuyenForm_Load;
             panel1.ResumeLayout(false);
             panel3.ResumeLayout(false);
-            panel5.ResumeLayout(false);
+            Table.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            panel4.ResumeLayout(false);
-            panel6.ResumeLayout(false);
+            Tool.ResumeLayout(false);
+            panel7.ResumeLayout(false);
+            Button.ResumeLayout(false);
             panel2.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -255,15 +271,16 @@
         private Panel panel2;
         private Label label1;
         private Panel panel3;
-        private Panel panel6;
+        private Panel Button;
         private Controls.RoundedButton btnDong;
-        private Panel panel5;
+        private Panel Table;
         private DataGridView dataGridView1;
         private DataGridViewTextBoxColumn tenQuyen;
         private DataGridViewImageColumn sua;
         private DataGridViewImageColumn xoa;
-        private Panel panel4;
+        private Panel Tool;
         private Controls.RoundedTextBox txtbSearchQuyen;
         private Controls.RoundedButton btnThemQuyen;
+        private Panel panel7;
     }
 }
