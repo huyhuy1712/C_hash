@@ -8,11 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MilkTea.Client.Forms.ChildForm_Discount
+namespace MilkTea.Client.Forms
 {
     public partial class EditDiscountForm : Form
     {
         public EditDiscountForm()
+
         {
             InitializeComponent();
         }

@@ -94,7 +94,6 @@ namespace MilkTea.Client.Forms
             ReportPanel.Controls.Add(Header);
             ReportPanel.Dock = DockStyle.Fill;
             ReportPanel.Location = new Point(0, 0);
-            ReportPanel.Margin = new Padding(3, 2, 3, 2);
             ReportPanel.Name = "ReportPanel";
             ReportPanel.Size = new Size(948, 557);
             ReportPanel.TabIndex = 0;
@@ -603,11 +602,10 @@ namespace MilkTea.Client.Forms
             // 
             // ReportForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(948, 557);
             Controls.Add(ReportPanel);
-            Margin = new Padding(3, 2, 3, 2);
             Name = "ReportForm";
             Text = "OrderForm";
             ReportPanel.ResumeLayout(false);

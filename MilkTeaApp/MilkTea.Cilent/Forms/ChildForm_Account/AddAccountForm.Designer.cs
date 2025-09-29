@@ -1,6 +1,6 @@
 ﻿namespace MilkTea.Client.Forms.ChildForm_Account
 {
-    partial class AddAccountForm
+    partial class AddAccountForm: Form
     {
         /// <summary>
         /// Required designer variable.
@@ -162,7 +162,7 @@
             btnThoatTTK.TabIndex = 0;
             btnThoatTTK.Text = "Thoát";
             btnThoatTTK.UseVisualStyleBackColor = false;
-            btnThoatTTK.Click += btnThoatTTK_Click;
+            //btnThoatTTK.Click += btnThoatTTK_Click;
             // 
             // panel12
             // 
@@ -246,7 +246,7 @@
             btnChonAnh.TabIndex = 1;
             btnChonAnh.Text = "Chọn";
             btnChonAnh.UseVisualStyleBackColor = false;
-            btnChonAnh.Click += btnChonAnh_Click;
+            //btnChonAnh.Click += btnChonAnh_Click;
             // 
             // txtAnh
             // 

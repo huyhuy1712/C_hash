@@ -46,7 +46,6 @@
             btn_Luu_Iport_add = new MilkTea.Client.Controls.RoundedButton();
             btn_Thoat_iPort_add = new MilkTea.Client.Controls.RoundedButton();
             dataGridView1 = new DataGridView();
-
             maPhieuNhap_tb_add = new DataGridViewTextBoxColumn();
             ngayNhap_tb_add = new DataGridViewTextBoxColumn();
             tenNL_tb_add = new DataGridViewTextBoxColumn();
@@ -222,7 +221,6 @@
             panel3.Controls.Add(btn_Luu_Iport_add);
             panel3.Controls.Add(btn_Thoat_iPort_add);
             panel3.Dock = DockStyle.Bottom;
-
             panel3.Location = new Point(0, 639);
             panel3.Name = "panel3";
             panel3.Size = new Size(1020, 60);

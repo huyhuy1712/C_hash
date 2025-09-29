@@ -20,9 +20,6 @@
     <Compile Update="Forms\AccountForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\ChildForm_Account\AddAccountForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Forms\ChildForm_Account\AddQuyenForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -41,6 +38,9 @@
     <Compile Update="Forms\ChildForm_Discount\AddDiscountForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\ChildForm_Discount\Bill.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\ChildForm_Discount\DetailDiscountForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -51,24 +51,6 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\ChildForm_Import\ImportForm_Info.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\ChildForm_Order\AddProductForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\ChildForm_Order\AddRecipeForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\ChildForm_Order\Bill.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\ChildForm_Order\EditProductForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\ChildForm_Order\InvoiceOrder.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\ChildForm_Order\ToppingForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\DiscountForm.cs">
@@ -86,15 +68,15 @@
     <Compile Update="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\OrderForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Forms\ReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Forms\ImportForm.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

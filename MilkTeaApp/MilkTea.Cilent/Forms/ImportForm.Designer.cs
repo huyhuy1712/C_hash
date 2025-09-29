@@ -70,7 +70,6 @@ namespace MilkTea.Client.Forms
             panel2.Controls.Add(label1);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
-
             panel2.Margin = new Padding(3, 4, 3, 4);
             panel2.Name = "panel2";
             panel2.Size = new Size(1897, 57);
@@ -358,7 +357,7 @@ namespace MilkTea.Client.Forms
             // 
             // ImportForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1897, 703);
             Controls.Add(panel1);
