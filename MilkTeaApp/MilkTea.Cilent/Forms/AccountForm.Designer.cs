@@ -285,10 +285,10 @@ namespace MilkTea.Client.Forms
             // ButtonQuyen
             // 
             ButtonQuyen.Controls.Add(btnDanhSachQuyen);
-            ButtonQuyen.Dock = DockStyle.Left;
-            ButtonQuyen.Location = new Point(780, 30);
+            ButtonQuyen.Dock = DockStyle.Top;
+            ButtonQuyen.Location = new Point(772, 30);
             ButtonQuyen.Name = "ButtonQuyen";
-            ButtonQuyen.Size = new Size(250, 40);
+            ButtonQuyen.Size = new Size(866, 40);
             ButtonQuyen.TabIndex = 16;
             // 
             // btnDanhSachQuyen
@@ -297,14 +297,14 @@ namespace MilkTea.Client.Forms
             btnDanhSachQuyen.BorderColor = Color.DodgerBlue;
             btnDanhSachQuyen.BorderRadius = 20;
             btnDanhSachQuyen.BorderSize = 0;
-            btnDanhSachQuyen.Dock = DockStyle.Left;
+            btnDanhSachQuyen.Dock = DockStyle.Right;
             btnDanhSachQuyen.FlatAppearance.BorderSize = 0;
             btnDanhSachQuyen.FlatStyle = FlatStyle.Flat;
             btnDanhSachQuyen.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnDanhSachQuyen.ForeColor = Color.White;
-            btnDanhSachQuyen.Location = new Point(0, 0);
+            btnDanhSachQuyen.Location = new Point(663, 0);
             btnDanhSachQuyen.Name = "btnDanhSachQuyen";
-            btnDanhSachQuyen.Size = new Size(230, 40);
+            btnDanhSachQuyen.Size = new Size(203, 40);
             btnDanhSachQuyen.TabIndex = 4;
             btnDanhSachQuyen.Text = "Danh Sách Quyền";
             btnDanhSachQuyen.UseVisualStyleBackColor = false;
@@ -316,7 +316,7 @@ namespace MilkTea.Client.Forms
             Order.Dock = DockStyle.Left;
             Order.Location = new Point(610, 30);
             Order.Name = "Order";
-            Order.Size = new Size(170, 40);
+            Order.Size = new Size(162, 40);
             Order.TabIndex = 15;
             // 
             // roundedComboBox1
