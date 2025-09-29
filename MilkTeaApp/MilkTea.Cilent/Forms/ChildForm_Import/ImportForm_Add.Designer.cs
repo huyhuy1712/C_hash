@@ -46,12 +46,12 @@
             btn_Luu_Iport_add = new MilkTea.Client.Controls.RoundedButton();
             btn_Thoat_iPort_add = new MilkTea.Client.Controls.RoundedButton();
             dataGridView1 = new DataGridView();
-            tongTien_tb_add = new DataGridViewTextBoxColumn();
-            tenNVN_tb_add = new DataGridViewTextBoxColumn();
-            soLuong_tb_add = new DataGridViewTextBoxColumn();
-            tenNL_tb_add = new DataGridViewTextBoxColumn();
-            ngayNhap_tb_add = new DataGridViewTextBoxColumn();
             maPhieuNhap_tb_add = new DataGridViewTextBoxColumn();
+            ngayNhap_tb_add = new DataGridViewTextBoxColumn();
+            tenNL_tb_add = new DataGridViewTextBoxColumn();
+            soLuong_tb_add = new DataGridViewTextBoxColumn();
+            tenNVN_tb_add = new DataGridViewTextBoxColumn();
+            tongTien_tb_add = new DataGridViewTextBoxColumn();
             panel5 = new Panel();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
@@ -221,7 +221,7 @@
             panel3.Controls.Add(btn_Luu_Iport_add);
             panel3.Controls.Add(btn_Thoat_iPort_add);
             panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(0, 550);
+            panel3.Location = new Point(0, 639);
             panel3.Name = "panel3";
             panel3.Size = new Size(1020, 60);
             panel3.TabIndex = 5;
@@ -269,31 +269,13 @@
             dataGridView1.Dock = DockStyle.Top;
             dataGridView1.Location = new Point(20, 20);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(980, 222);
+            dataGridView1.Size = new Size(980, 334);
             dataGridView1.TabIndex = 0;
             // 
-            // tongTien_tb_add
+            // maPhieuNhap_tb_add
             // 
-            tongTien_tb_add.HeaderText = "Tổng Tiền";
-            tongTien_tb_add.Name = "tongTien_tb_add";
-            tongTien_tb_add.Width = 200;
-            // 
-            // tenNVN_tb_add
-            // 
-            tenNVN_tb_add.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            tenNVN_tb_add.HeaderText = "Tên NV nhập";
-            tenNVN_tb_add.Name = "tenNVN_tb_add";
-            // 
-            // soLuong_tb_add
-            // 
-            soLuong_tb_add.HeaderText = "Số lượng";
-            soLuong_tb_add.Name = "soLuong_tb_add";
-            soLuong_tb_add.Width = 80;
-            // 
-            // tenNL_tb_add
-            // 
-            tenNL_tb_add.HeaderText = "Tên nguyên liệu";
-            tenNL_tb_add.Name = "tenNL_tb_add";
+            maPhieuNhap_tb_add.HeaderText = "Mã Phiếu Nhập";
+            maPhieuNhap_tb_add.Name = "maPhieuNhap_tb_add";
             // 
             // ngayNhap_tb_add
             // 
@@ -301,10 +283,28 @@
             ngayNhap_tb_add.Name = "ngayNhap_tb_add";
             ngayNhap_tb_add.Width = 150;
             // 
-            // maPhieuNhap_tb_add
+            // tenNL_tb_add
             // 
-            maPhieuNhap_tb_add.HeaderText = "Mã Phiếu Nhập";
-            maPhieuNhap_tb_add.Name = "maPhieuNhap_tb_add";
+            tenNL_tb_add.HeaderText = "Tên nguyên liệu";
+            tenNL_tb_add.Name = "tenNL_tb_add";
+            // 
+            // soLuong_tb_add
+            // 
+            soLuong_tb_add.HeaderText = "Số lượng";
+            soLuong_tb_add.Name = "soLuong_tb_add";
+            soLuong_tb_add.Width = 80;
+            // 
+            // tenNVN_tb_add
+            // 
+            tenNVN_tb_add.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            tenNVN_tb_add.HeaderText = "Tên NV nhập";
+            tenNVN_tb_add.Name = "tenNVN_tb_add";
+            // 
+            // tongTien_tb_add
+            // 
+            tongTien_tb_add.HeaderText = "Tổng Tiền";
+            tongTien_tb_add.Name = "tongTien_tb_add";
+            tongTien_tb_add.Width = 200;
             // 
             // panel5
             // 
@@ -314,7 +314,7 @@
             panel5.Location = new Point(0, 265);
             panel5.Name = "panel5";
             panel5.Padding = new Padding(20);
-            panel5.Size = new Size(1020, 345);
+            panel5.Size = new Size(1020, 434);
             panel5.TabIndex = 4;
             panel5.TabStop = true;
             // 
@@ -322,12 +322,15 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1020, 610);
+            ClientSize = new Size(1020, 699);
             Controls.Add(panel3);
             Controls.Add(panel5);
             Controls.Add(panel2);
             Controls.Add(panel1);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "ImportForm_Add";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "ImportForm_Add";
             Load += ImportForm_Add_Load;
             panel1.ResumeLayout(false);
