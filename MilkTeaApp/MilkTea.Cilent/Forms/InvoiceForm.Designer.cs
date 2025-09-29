@@ -256,9 +256,9 @@ namespace MilkTea.Client.Forms
             // 
             pictureBox17.Dock = DockStyle.Right;
             pictureBox17.Image = Properties.Resources.money;
-            pictureBox17.Location = new Point(131, 0);
+            pictureBox17.Location = new Point(93, 0);
             pictureBox17.Name = "pictureBox17";
-            pictureBox17.Size = new Size(29, 38);
+            pictureBox17.Size = new Size(67, 38);
             pictureBox17.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox17.TabIndex = 2;
             pictureBox17.TabStop = false;
@@ -450,9 +450,9 @@ namespace MilkTea.Client.Forms
             // 
             pictureBox12.Dock = DockStyle.Right;
             pictureBox12.Image = Properties.Resources.money;
-            pictureBox12.Location = new Point(131, 0);
+            pictureBox12.Location = new Point(93, 0);
             pictureBox12.Name = "pictureBox12";
-            pictureBox12.Size = new Size(29, 38);
+            pictureBox12.Size = new Size(67, 38);
             pictureBox12.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox12.TabIndex = 2;
             pictureBox12.TabStop = false;
@@ -644,9 +644,9 @@ namespace MilkTea.Client.Forms
             // 
             pictureBox2.Dock = DockStyle.Right;
             pictureBox2.Image = Properties.Resources.money;
-            pictureBox2.Location = new Point(131, 0);
+            pictureBox2.Location = new Point(93, 0);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(29, 38);
+            pictureBox2.Size = new Size(67, 38);
             pictureBox2.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox2.TabIndex = 2;
             pictureBox2.TabStop = false;
@@ -838,9 +838,9 @@ namespace MilkTea.Client.Forms
             // 
             pictureBox7.Dock = DockStyle.Right;
             pictureBox7.Image = Properties.Resources.money;
-            pictureBox7.Location = new Point(131, 0);
+            pictureBox7.Location = new Point(85, 0);
             pictureBox7.Name = "pictureBox7";
-            pictureBox7.Size = new Size(29, 38);
+            pictureBox7.Size = new Size(75, 38);
             pictureBox7.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox7.TabIndex = 2;
             pictureBox7.TabStop = false;
@@ -938,6 +938,7 @@ namespace MilkTea.Client.Forms
             pictureBox5.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox5.TabIndex = 1;
             pictureBox5.TabStop = false;
+            pictureBox5.Click += pictureBox5_Click;
             // 
             // pictureBox6
             // 
@@ -1085,7 +1086,6 @@ namespace MilkTea.Client.Forms
             Controls.Add(invoicePanel);
             Name = "InvoiceForm";
             Text = "InvoiceForm";
-            //Load += InvoiceForm_Load;
             invoicePanel.ResumeLayout(false);
             panel3.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
@@ -1143,8 +1143,8 @@ namespace MilkTea.Client.Forms
             ResumeLayout(false);
         }
 
-    
-   
+
+
 
         #endregion
         private Panel invoicePanel;

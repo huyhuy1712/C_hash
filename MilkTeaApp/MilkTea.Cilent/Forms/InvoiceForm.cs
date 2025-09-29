@@ -32,5 +32,10 @@ namespace MilkTea.Client.Forms
         {
 
         }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
