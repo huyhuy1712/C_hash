@@ -347,6 +347,7 @@ namespace MilkTea.Client.Forms
             // 
             // pictureBox20
             // 
+            pictureBox20.Cursor = Cursors.Hand;
             pictureBox20.Dock = DockStyle.Fill;
             pictureBox20.Image = Properties.Resources.info;
             pictureBox20.Location = new Point(73, 4);
@@ -355,6 +356,7 @@ namespace MilkTea.Client.Forms
             pictureBox20.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox20.TabIndex = 1;
             pictureBox20.TabStop = false;
+            pictureBox20.Click += pictureBox20_Click;
             // 
             // pictureBox21
             // 
@@ -540,6 +542,7 @@ namespace MilkTea.Client.Forms
             // 
             // pictureBox15
             // 
+            pictureBox15.Cursor = Cursors.Hand;
             pictureBox15.Dock = DockStyle.Fill;
             pictureBox15.Image = Properties.Resources.info;
             pictureBox15.Location = new Point(73, 4);
@@ -548,6 +551,7 @@ namespace MilkTea.Client.Forms
             pictureBox15.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox15.TabIndex = 1;
             pictureBox15.TabStop = false;
+            pictureBox15.Click += pictureBox15_Click;
             // 
             // pictureBox16
             // 
@@ -733,6 +737,7 @@ namespace MilkTea.Client.Forms
             // 
             // pictureBox10
             // 
+            pictureBox10.Cursor = Cursors.Hand;
             pictureBox10.Dock = DockStyle.Fill;
             pictureBox10.Image = Properties.Resources.info;
             pictureBox10.Location = new Point(73, 4);
@@ -741,6 +746,7 @@ namespace MilkTea.Client.Forms
             pictureBox10.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox10.TabIndex = 1;
             pictureBox10.TabStop = false;
+            pictureBox10.Click += pictureBox10_Click;
             // 
             // pictureBox11
             // 
@@ -927,6 +933,7 @@ namespace MilkTea.Client.Forms
             // 
             // pictureBox5
             // 
+            pictureBox5.Cursor = Cursors.Hand;
             pictureBox5.Dock = DockStyle.Fill;
             pictureBox5.Image = Properties.Resources.info;
             pictureBox5.Location = new Point(73, 4);
@@ -935,6 +942,7 @@ namespace MilkTea.Client.Forms
             pictureBox5.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox5.TabIndex = 1;
             pictureBox5.TabStop = false;
+            pictureBox5.Click += pictureBox5_Click;
             // 
             // pictureBox6
             // 

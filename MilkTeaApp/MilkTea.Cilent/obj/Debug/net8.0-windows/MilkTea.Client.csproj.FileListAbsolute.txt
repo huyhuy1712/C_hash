@@ -55,3 +55,4 @@ C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\i
 C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\hourclass.png
 C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\info.png
 C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\money.png
+C:\D\New folder (8) C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ChildForm_Order.Bill.resources
