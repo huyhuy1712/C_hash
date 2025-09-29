@@ -7,30 +7,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MilkTea.Client.Forms.ChildForm_Order;
 
-namespace MilkTea.Client.Forms
+namespace MilkTea.Client.Forms.ChildForm_Order
 {
-    public partial class InvoiceForm : Form
+    public partial class Bill : Form
     {
-        public InvoiceForm()
+        public Bill()
         {
             InitializeComponent();
         }
 
-        private void label1_Click_1(object sender, EventArgs e)
+        private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void order_detail_panel_Paint(object sender, PaintEventArgs e)
         {
 
         }
 
-        private void label3_Click(object sender, EventArgs e)
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
         }
     }
 }

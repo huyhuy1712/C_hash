@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
   <ItemGroup>
     <Compile Update="Controls\RoundedButton.cs">
       <SubType>Component</SubType>
@@ -13,10 +14,31 @@
     <Compile Update="Controls\RoundedTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Controls\ToggleButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Forms\AccountForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\ChildForm_Account\AddAccountForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ChildForm_Account\AddQuyenForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ChildForm_Account\DanhSachQuyenForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ChildForm_Account\EditAccountForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ChildForm_Account\EditQuyenForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ChildForm_Account\ViewAccountForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ChildForm_Discount\AddDiscountForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\ChildForm_Discount\DetailDiscountForm.cs">
@@ -31,13 +53,13 @@
     <Compile Update="Forms\ChildForm_Import\ImportForm_Info.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\ChildForm_Discount\AddDiscountForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Forms\ChildForm_Order\AddProductForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\ChildForm_Order\AddRecipeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ChildForm_Order\Bill.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\ChildForm_Order\EditProductForm.cs">
@@ -72,7 +94,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
+    <EmbeddedResource Update="Forms\ImportForm.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
