@@ -58,16 +58,17 @@ namespace MilkTea.Client.Forms
             }
         }
 
-        private void roundedButton1_Click(object sender, EventArgs e)
+
+        private void roundedButton1_Click_1(object sender, EventArgs e)
         {
-            ImportForm_Add importForm_Add = new ImportForm_Add();
-            importForm_Add.ShowDialog();
+            ImportForm_Add form = new ImportForm_Add();
+            form.ShowDialog();
         }
 
         private void roundedButton2_Click(object sender, EventArgs e)
         {
-            ImportForm_Info importForm_Info = new ImportForm_Info();    
-            importForm_Info.ShowDialog();
+            ImportForm_Info form = new ImportForm_Info();
+            form.ShowDialog();
         }
     }
 }

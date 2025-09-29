@@ -36,11 +36,13 @@ namespace MilkTea.Client.Forms
             label1 = new Label();
             panel3 = new Panel();
             panel7 = new Panel();
-            roundedComboBox1 = new MilkTea.Client.Controls.RoundedComboBox();
-            roundedTextBox1 = new MilkTea.Client.Controls.RoundedTextBox();
+            roundedTextBox2 = new MilkTea.Client.Controls.RoundedTextBox();
+            roundedComboBox2 = new MilkTea.Client.Controls.RoundedComboBox();
             panel6 = new Panel();
             roundedButton2 = new MilkTea.Client.Controls.RoundedButton();
             roundedButton1 = new MilkTea.Client.Controls.RoundedButton();
+            roundedComboBox1 = new MilkTea.Client.Controls.RoundedComboBox();
+            roundedTextBox1 = new MilkTea.Client.Controls.RoundedTextBox();
             panel4 = new Panel();
             label2 = new Label();
             panel5 = new Panel();
@@ -94,19 +96,102 @@ namespace MilkTea.Client.Forms
             panel3.Location = new Point(0, 57);
             panel3.Margin = new Padding(3, 4, 3, 4);
             panel3.Name = "panel3";
-            panel3.Size = new Size(1897, 61);
+            panel3.Size = new Size(1897, 60);
             panel3.TabIndex = 1;
             // 
             // panel7
             // 
-            panel7.Controls.Add(roundedComboBox1);
-            panel7.Controls.Add(roundedTextBox1);
+            panel7.Controls.Add(roundedTextBox2);
+            panel7.Controls.Add(roundedComboBox2);
             panel7.Dock = DockStyle.Right;
-            panel7.Location = new Point(1405, 0);
+            panel7.Location = new Point(1413, 0);
             panel7.Name = "panel7";
-            panel7.Padding = new Padding(13);
-            panel7.Size = new Size(492, 61);
+            panel7.Padding = new Padding(10);
+            panel7.Size = new Size(484, 60);
             panel7.TabIndex = 1;
+            // 
+            // roundedTextBox2
+            // 
+            roundedTextBox2.BackColor = Color.White;
+            roundedTextBox2.BorderColor = Color.Gray;
+            roundedTextBox2.BorderRadius = 20;
+            roundedTextBox2.Dock = DockStyle.Right;
+            roundedTextBox2.FocusBorderColor = Color.DeepSkyBlue;
+            roundedTextBox2.Location = new Point(179, 10);
+            roundedTextBox2.Name = "roundedTextBox2";
+            roundedTextBox2.Padding = new Padding(10, 5, 40, 5);
+            roundedTextBox2.Placeholder = "Từ khóa tìm kiếm...";
+            roundedTextBox2.Size = new Size(295, 40);
+            roundedTextBox2.TabIndex = 1;
+            roundedTextBox2.TextValue = "";
+            // 
+            // roundedComboBox2
+            // 
+            roundedComboBox2.BackColor = Color.White;
+            roundedComboBox2.BorderColor = Color.Gray;
+            roundedComboBox2.BorderRadius = 15;
+            roundedComboBox2.BorderSize = 1;
+            roundedComboBox2.Dock = DockStyle.Left;
+            roundedComboBox2.DrawMode = DrawMode.OwnerDrawFixed;
+            roundedComboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+            roundedComboBox2.FlatStyle = FlatStyle.Flat;
+            roundedComboBox2.FocusBorderColor = Color.DeepSkyBlue;
+            roundedComboBox2.Font = new Font("Segoe UI", 10F);
+            roundedComboBox2.FormattingEnabled = true;
+            roundedComboBox2.ItemHeight = 30;
+            roundedComboBox2.Location = new Point(10, 10);
+            roundedComboBox2.Name = "roundedComboBox2";
+            roundedComboBox2.Size = new Size(151, 36);
+            roundedComboBox2.TabIndex = 0;
+            // 
+            // panel6
+            // 
+            panel6.Controls.Add(roundedButton2);
+            panel6.Controls.Add(roundedButton1);
+            panel6.Dock = DockStyle.Left;
+            panel6.Location = new Point(0, 0);
+            panel6.Name = "panel6";
+            panel6.Padding = new Padding(10);
+            panel6.Size = new Size(306, 60);
+            panel6.TabIndex = 0;
+            // 
+            // roundedButton2
+            // 
+            roundedButton2.BackColor = Color.DodgerBlue;
+            roundedButton2.BorderColor = Color.DodgerBlue;
+            roundedButton2.BorderRadius = 20;
+            roundedButton2.BorderSize = 0;
+            roundedButton2.Dock = DockStyle.Right;
+            roundedButton2.FlatAppearance.BorderSize = 0;
+            roundedButton2.FlatStyle = FlatStyle.Flat;
+            roundedButton2.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            roundedButton2.ForeColor = Color.White;
+            roundedButton2.Location = new Point(155, 10);
+            roundedButton2.Name = "roundedButton2";
+            roundedButton2.Size = new Size(141, 40);
+            roundedButton2.TabIndex = 1;
+            roundedButton2.Text = "Excel";
+            roundedButton2.UseVisualStyleBackColor = false;
+            roundedButton2.Click += roundedButton2_Click;
+            // 
+            // roundedButton1
+            // 
+            roundedButton1.BackColor = Color.DodgerBlue;
+            roundedButton1.BorderColor = Color.DodgerBlue;
+            roundedButton1.BorderRadius = 20;
+            roundedButton1.BorderSize = 0;
+            roundedButton1.Dock = DockStyle.Left;
+            roundedButton1.FlatAppearance.BorderSize = 0;
+            roundedButton1.FlatStyle = FlatStyle.Flat;
+            roundedButton1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            roundedButton1.ForeColor = Color.White;
+            roundedButton1.Location = new Point(10, 10);
+            roundedButton1.Name = "roundedButton1";
+            roundedButton1.Size = new Size(139, 40);
+            roundedButton1.TabIndex = 0;
+            roundedButton1.Text = "Thêm";
+            roundedButton1.UseVisualStyleBackColor = false;
+            roundedButton1.Click += roundedButton1_Click_1;
             // 
             // roundedComboBox1
             // 
@@ -142,60 +227,11 @@ namespace MilkTea.Client.Forms
             roundedTextBox1.TabIndex = 0;
             roundedTextBox1.TextValue = "";
             // 
-            // panel6
-            // 
-            panel6.Controls.Add(roundedButton2);
-            panel6.Controls.Add(roundedButton1);
-            panel6.Dock = DockStyle.Left;
-            panel6.Location = new Point(0, 0);
-            panel6.Name = "panel6";
-            panel6.Padding = new Padding(13);
-            panel6.Size = new Size(307, 61);
-            panel6.TabIndex = 0;
-            // 
-            // roundedButton2
-            // 
-            roundedButton2.BackColor = Color.DodgerBlue;
-            roundedButton2.BorderColor = Color.DodgerBlue;
-            roundedButton2.BorderRadius = 20;
-            roundedButton2.BorderSize = 0;
-            roundedButton2.Dock = DockStyle.Right;
-            roundedButton2.FlatAppearance.BorderSize = 0;
-            roundedButton2.FlatStyle = FlatStyle.Flat;
-            roundedButton2.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            roundedButton2.ForeColor = Color.White;
-            roundedButton2.Location = new Point(162, 13);
-            roundedButton2.Name = "roundedButton2";
-            roundedButton2.Size = new Size(132, 35);
-            roundedButton2.TabIndex = 1;
-            roundedButton2.Text = "Excel";
-            roundedButton2.UseVisualStyleBackColor = false;
-            roundedButton2.Click += roundedButton2_Click;
-            // 
-            // roundedButton1
-            // 
-            roundedButton1.BackColor = Color.DodgerBlue;
-            roundedButton1.BorderColor = Color.DodgerBlue;
-            roundedButton1.BorderRadius = 20;
-            roundedButton1.BorderSize = 0;
-            roundedButton1.Dock = DockStyle.Left;
-            roundedButton1.FlatAppearance.BorderSize = 0;
-            roundedButton1.FlatStyle = FlatStyle.Flat;
-            roundedButton1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            roundedButton1.ForeColor = Color.White;
-            roundedButton1.Location = new Point(13, 13);
-            roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(132, 35);
-            roundedButton1.TabIndex = 0;
-            roundedButton1.Text = "Thêm";
-            roundedButton1.UseVisualStyleBackColor = false;
-            roundedButton1.Click += roundedButton1_Click;
-            // 
             // panel4
             // 
             panel4.Controls.Add(label2);
             panel4.Dock = DockStyle.Top;
-            panel4.Location = new Point(0, 118);
+            panel4.Location = new Point(0, 117);
             panel4.Margin = new Padding(3, 4, 3, 4);
             panel4.Name = "panel4";
             panel4.Size = new Size(1897, 57);
@@ -218,11 +254,11 @@ namespace MilkTea.Client.Forms
             panel5.BackColor = SystemColors.ActiveBorder;
             panel5.Controls.Add(dataGridView1);
             panel5.Dock = DockStyle.Fill;
-            panel5.Location = new Point(0, 175);
+            panel5.Location = new Point(0, 174);
             panel5.Margin = new Padding(3, 4, 3, 4);
             panel5.Name = "panel5";
             panel5.Padding = new Padding(23, 27, 23, 27);
-            panel5.Size = new Size(1897, 528);
+            panel5.Size = new Size(1897, 529);
             panel5.TabIndex = 3;
             panel5.TabStop = true;
             // 
@@ -238,7 +274,7 @@ namespace MilkTea.Client.Forms
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(1851, 474);
+            dataGridView1.Size = new Size(1851, 475);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellClick += dataGridView1_CellClick;
             // 
@@ -361,11 +397,13 @@ namespace MilkTea.Client.Forms
         private DataGridViewTextBoxColumn tongTien_Tb_iPort;
         private DataGridViewImageColumn thongTin_Tb_iPort;
         private DataGridViewImageColumn xoa_Tb_iPort;
+        private Controls.RoundedComboBox roundedComboBox1;
+        private Controls.RoundedTextBox roundedTextBox1;
+        private Panel panel7;
+        private Controls.RoundedTextBox roundedTextBox2;
+        private Controls.RoundedComboBox roundedComboBox2;
         private Panel panel6;
         private Controls.RoundedButton roundedButton2;
         private Controls.RoundedButton roundedButton1;
-        private Panel panel7;
-        private Controls.RoundedComboBox roundedComboBox1;
-        private Controls.RoundedTextBox roundedTextBox1;
     }
 }
