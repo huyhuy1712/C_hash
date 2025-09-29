@@ -356,7 +356,6 @@ namespace MilkTea.Client.Forms
             pictureBox20.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox20.TabIndex = 1;
             pictureBox20.TabStop = false;
-            pictureBox20.Click += pictureBox20_Click;
             // 
             // pictureBox21
             // 
@@ -551,7 +550,6 @@ namespace MilkTea.Client.Forms
             pictureBox15.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox15.TabIndex = 1;
             pictureBox15.TabStop = false;
-            pictureBox15.Click += pictureBox15_Click;
             // 
             // pictureBox16
             // 
@@ -746,7 +744,6 @@ namespace MilkTea.Client.Forms
             pictureBox10.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox10.TabIndex = 1;
             pictureBox10.TabStop = false;
-            pictureBox10.Click += pictureBox10_Click;
             // 
             // pictureBox11
             // 
@@ -918,7 +915,6 @@ namespace MilkTea.Client.Forms
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel2.Size = new Size(210, 38);
             tableLayoutPanel2.TabIndex = 0;
-            tableLayoutPanel2.Paint += tableLayoutPanel2_Paint;
             // 
             // pictureBox4
             // 
@@ -942,7 +938,6 @@ namespace MilkTea.Client.Forms
             pictureBox5.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox5.TabIndex = 1;
             pictureBox5.TabStop = false;
-            pictureBox5.Click += pictureBox5_Click;
             // 
             // pictureBox6
             // 
@@ -1031,7 +1026,6 @@ namespace MilkTea.Client.Forms
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
             // 
             // textboxTimKiem
             // 
@@ -1047,7 +1041,6 @@ namespace MilkTea.Client.Forms
             textboxTimKiem.Size = new Size(234, 33);
             textboxTimKiem.TabIndex = 0;
             textboxTimKiem.TextValue = "";
-            textboxTimKiem.Load += textboxTimKiem_Load;
             // 
             // panel1
             // 
@@ -1070,7 +1063,6 @@ namespace MilkTea.Client.Forms
             btnDaThanhToan.TabIndex = 1;
             btnDaThanhToan.Text = "Đã thanh toán (6)";
             btnDaThanhToan.UseVisualStyleBackColor = true;
-            btnDaThanhToan.Click += btnDaThanhToan_Click;
             // 
             // btnChoThanhToan
             // 
@@ -1084,7 +1076,6 @@ namespace MilkTea.Client.Forms
             btnChoThanhToan.TabIndex = 0;
             btnChoThanhToan.Text = "Chờ thanh toán (5)";
             btnChoThanhToan.UseVisualStyleBackColor = false;
-            btnChoThanhToan.Click += button1_Click_1;
             // 
             // InvoiceForm
             // 
@@ -1094,7 +1085,7 @@ namespace MilkTea.Client.Forms
             Controls.Add(invoicePanel);
             Name = "InvoiceForm";
             Text = "InvoiceForm";
-            Load += InvoiceForm_Load;
+            //Load += InvoiceForm_Load;
             invoicePanel.ResumeLayout(false);
             panel3.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
@@ -1152,13 +1143,10 @@ namespace MilkTea.Client.Forms
             ResumeLayout(false);
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+    
+   
 
         #endregion
-
         private Panel invoicePanel;
         private Panel panel1;
         private Button btnChoThanhToan;
