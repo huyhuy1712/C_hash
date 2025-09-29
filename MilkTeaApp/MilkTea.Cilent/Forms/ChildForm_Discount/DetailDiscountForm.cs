@@ -21,5 +21,10 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
         {
 
         }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

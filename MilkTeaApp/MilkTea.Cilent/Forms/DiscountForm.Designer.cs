@@ -329,6 +329,7 @@ namespace MilkTea.Client.Forms
             label5.TabIndex = 0;
             label5.Text = "Chương trình 8/8";
             label5.TextAlign = ContentAlignment.MiddleCenter;
+            label5.Click += label5_Click;
             // 
             // panel8
             // 
@@ -691,7 +692,11 @@ namespace MilkTea.Client.Forms
             AddDiscountForm addDiscountForm = new AddDiscountForm();
             addDiscountForm.ShowDialog();
         }
-
+        private void label5_Click(object sender, EventArgs e)
+        {
+            DetailDiscountForm detailForm = new DetailDiscountForm();
+            detailForm.ShowDialog();
+        }
         private void label1_Click(object sender, EventArgs e)
         {
             throw new NotImplementedException();
