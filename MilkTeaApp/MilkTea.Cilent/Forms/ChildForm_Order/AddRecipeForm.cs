@@ -8,13 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MilkTea.Client.Forms.ChildForm_Discount
+namespace MilkTea.Client.Forms.ChildForm_Order
 {
-    public partial class EditDiscountForm : Form
+    public partial class AddRecipeForm : Form
     {
-        public EditDiscountForm()
+        public AddRecipeForm()
         {
             InitializeComponent();
         }
+
+
+        private void huy_btn_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
     }
 }

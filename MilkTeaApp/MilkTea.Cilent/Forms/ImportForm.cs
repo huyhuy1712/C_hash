@@ -21,6 +21,7 @@ namespace MilkTea.Client.Forms
         private void ImportForm_Load(object sender, EventArgs e)
         {
             int index = dataGridView1.Rows.Add();
+
         }
 
         private void add_Import_btn_Click(object sender, EventArgs e)
