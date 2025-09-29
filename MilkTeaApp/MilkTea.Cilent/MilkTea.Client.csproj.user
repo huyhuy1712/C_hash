@@ -13,22 +13,10 @@
     <Compile Update="Controls\RoundedTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="Forms\AccountForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\ChildForm_Account\AddAccountForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Forms\ChildForm_Discount\DetailDiscountForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\ChildForm_Discount\EditDiscountForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\ChildForm_Import\ImportForm_Add.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\ChildForm_Import\ImportForm_Info.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\ChildForm_Discount\AddDiscountForm.cs">
@@ -52,22 +40,10 @@
     <Compile Update="Forms\DiscountForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\ImportForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\InvoiceForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Forms\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Forms\OrderForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="Forms\ReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
