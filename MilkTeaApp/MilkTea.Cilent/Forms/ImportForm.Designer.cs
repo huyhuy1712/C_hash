@@ -64,8 +64,9 @@ namespace MilkTea.Client.Forms
             panel2.Controls.Add(label1);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
+            panel2.Margin = new Padding(3, 4, 3, 4);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1660, 43);
+            panel2.Size = new Size(1897, 57);
             panel2.TabIndex = 0;
             // 
             // label1
@@ -75,7 +76,7 @@ namespace MilkTea.Client.Forms
             label1.ForeColor = Color.DodgerBlue;
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
-            label1.Size = new Size(1660, 43);
+            label1.Size = new Size(1897, 57);
             label1.TabIndex = 0;
             label1.Text = "Phiếu Nhập Kho";
             label1.TextAlign = ContentAlignment.MiddleCenter;
@@ -88,10 +89,11 @@ namespace MilkTea.Client.Forms
             panel3.Controls.Add(search_Import);
             panel3.Controls.Add(add_Import_btn);
             panel3.Dock = DockStyle.Top;
-            panel3.Location = new Point(0, 43);
+            panel3.Location = new Point(0, 57);
+            panel3.Margin = new Padding(3, 4, 3, 4);
             panel3.Name = "panel3";
-            panel3.Padding = new Padding(20);
-            panel3.Size = new Size(1660, 77);
+            panel3.Padding = new Padding(23, 27, 23, 27);
+            panel3.Size = new Size(1897, 103);
             panel3.TabIndex = 1;
             // 
             // excel_Import_btn
@@ -105,9 +107,10 @@ namespace MilkTea.Client.Forms
             excel_Import_btn.FlatStyle = FlatStyle.Flat;
             excel_Import_btn.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             excel_Import_btn.ForeColor = Color.White;
-            excel_Import_btn.Location = new Point(147, 20);
+            excel_Import_btn.Location = new Point(168, 27);
+            excel_Import_btn.Margin = new Padding(3, 4, 3, 4);
             excel_Import_btn.Name = "excel_Import_btn";
-            excel_Import_btn.Size = new Size(127, 37);
+            excel_Import_btn.Size = new Size(145, 49);
             excel_Import_btn.TabIndex = 3;
             excel_Import_btn.Text = "Execl";
             excel_Import_btn.UseVisualStyleBackColor = false;
@@ -127,9 +130,10 @@ namespace MilkTea.Client.Forms
             cbx_search_Import.Font = new Font("Segoe UI", 10F);
             cbx_search_Import.FormattingEnabled = true;
             cbx_search_Import.ItemHeight = 30;
-            cbx_search_Import.Location = new Point(1190, 20);
+            cbx_search_Import.Location = new Point(1360, 27);
+            cbx_search_Import.Margin = new Padding(3, 4, 3, 4);
             cbx_search_Import.Name = "cbx_search_Import";
-            cbx_search_Import.Size = new Size(121, 36);
+            cbx_search_Import.Size = new Size(138, 36);
             cbx_search_Import.TabIndex = 1;
             // 
             // search_Import
@@ -139,11 +143,12 @@ namespace MilkTea.Client.Forms
             search_Import.BorderRadius = 20;
             search_Import.Dock = DockStyle.Right;
             search_Import.FocusBorderColor = Color.DeepSkyBlue;
-            search_Import.Location = new Point(1311, 20);
+            search_Import.Location = new Point(1498, 27);
+            search_Import.Margin = new Padding(3, 4, 3, 4);
             search_Import.Name = "search_Import";
-            search_Import.Padding = new Padding(10, 5, 40, 5);
+            search_Import.Padding = new Padding(11, 7, 46, 7);
             search_Import.Placeholder = "Từ khóa tìm kiếm...";
-            search_Import.Size = new Size(329, 37);
+            search_Import.Size = new Size(376, 49);
             search_Import.TabIndex = 2;
             search_Import.TextValue = "";
             // 
@@ -158,9 +163,10 @@ namespace MilkTea.Client.Forms
             add_Import_btn.FlatStyle = FlatStyle.Flat;
             add_Import_btn.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             add_Import_btn.ForeColor = Color.White;
-            add_Import_btn.Location = new Point(20, 20);
+            add_Import_btn.Location = new Point(23, 27);
+            add_Import_btn.Margin = new Padding(3, 4, 3, 4);
             add_Import_btn.Name = "add_Import_btn";
-            add_Import_btn.Size = new Size(127, 37);
+            add_Import_btn.Size = new Size(145, 49);
             add_Import_btn.TabIndex = 0;
             add_Import_btn.Text = "Thêm";
             add_Import_btn.UseVisualStyleBackColor = false;
@@ -170,9 +176,10 @@ namespace MilkTea.Client.Forms
             // 
             panel4.Controls.Add(label2);
             panel4.Dock = DockStyle.Top;
-            panel4.Location = new Point(0, 120);
+            panel4.Location = new Point(0, 160);
+            panel4.Margin = new Padding(3, 4, 3, 4);
             panel4.Name = "panel4";
-            panel4.Size = new Size(1660, 43);
+            panel4.Size = new Size(1897, 57);
             panel4.TabIndex = 2;
             // 
             // label2
@@ -182,7 +189,7 @@ namespace MilkTea.Client.Forms
             label2.ForeColor = Color.DodgerBlue;
             label2.Location = new Point(0, 0);
             label2.Name = "label2";
-            label2.Size = new Size(1660, 43);
+            label2.Size = new Size(1897, 57);
             label2.TabIndex = 1;
             label2.Text = "Danh Sách Phiếu Nhập";
             label2.TextAlign = ContentAlignment.MiddleCenter;
@@ -192,10 +199,11 @@ namespace MilkTea.Client.Forms
             panel5.BackColor = SystemColors.ActiveBorder;
             panel5.Controls.Add(dataGridView1);
             panel5.Dock = DockStyle.Fill;
-            panel5.Location = new Point(0, 163);
+            panel5.Location = new Point(0, 217);
+            panel5.Margin = new Padding(3, 4, 3, 4);
             panel5.Name = "panel5";
-            panel5.Padding = new Padding(20);
-            panel5.Size = new Size(1660, 364);
+            panel5.Padding = new Padding(23, 27, 23, 27);
+            panel5.Size = new Size(1897, 486);
             panel5.TabIndex = 3;
             panel5.TabStop = true;
             // 
@@ -206,37 +214,45 @@ namespace MilkTea.Client.Forms
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { maPhieuNhap_Tb, ngayNhap_Tb, soLuong_Tb, tenNVN_Tb, tongTien_Tb, thongTin_Tb, xoa_Tb });
             dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(20, 20);
+            dataGridView1.Location = new Point(23, 27);
+            dataGridView1.Margin = new Padding(3, 4, 3, 4);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(1620, 324);
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(1851, 432);
             dataGridView1.TabIndex = 0;
             // 
             // maPhieuNhap_Tb
             // 
             maPhieuNhap_Tb.HeaderText = "Mã Phiếu Nhập";
+            maPhieuNhap_Tb.MinimumWidth = 6;
             maPhieuNhap_Tb.Name = "maPhieuNhap_Tb";
             maPhieuNhap_Tb.Width = 300;
             // 
             // ngayNhap_Tb
             // 
             ngayNhap_Tb.HeaderText = "Ngày nhập";
+            ngayNhap_Tb.MinimumWidth = 6;
             ngayNhap_Tb.Name = "ngayNhap_Tb";
             ngayNhap_Tb.Width = 200;
             // 
             // soLuong_Tb
             // 
             soLuong_Tb.HeaderText = "Số lượng";
+            soLuong_Tb.MinimumWidth = 6;
             soLuong_Tb.Name = "soLuong_Tb";
+            soLuong_Tb.Width = 125;
             // 
             // tenNVN_Tb
             // 
             tenNVN_Tb.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             tenNVN_Tb.HeaderText = "Tên NV nhập";
+            tenNVN_Tb.MinimumWidth = 6;
             tenNVN_Tb.Name = "tenNVN_Tb";
             // 
             // tongTien_Tb
             // 
             tongTien_Tb.HeaderText = "Tổng Tiền";
+            tongTien_Tb.MinimumWidth = 6;
             tongTien_Tb.Name = "tongTien_Tb";
             tongTien_Tb.Width = 200;
             // 
@@ -249,9 +265,11 @@ namespace MilkTea.Client.Forms
             thongTin_Tb.HeaderText = "Thông tin";
             thongTin_Tb.Image = Properties.Resources.information;
             thongTin_Tb.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            thongTin_Tb.MinimumWidth = 6;
             thongTin_Tb.Name = "thongTin_Tb";
             thongTin_Tb.Resizable = DataGridViewTriState.True;
             thongTin_Tb.SortMode = DataGridViewColumnSortMode.Automatic;
+            thongTin_Tb.Width = 125;
             // 
             // xoa_Tb
             // 
@@ -261,9 +279,11 @@ namespace MilkTea.Client.Forms
             xoa_Tb.DefaultCellStyle = dataGridViewCellStyle2;
             xoa_Tb.HeaderText = "Xóa";
             xoa_Tb.Image = Properties.Resources.trash;
+            xoa_Tb.MinimumWidth = 6;
             xoa_Tb.Name = "xoa_Tb";
             xoa_Tb.Resizable = DataGridViewTriState.True;
             xoa_Tb.SortMode = DataGridViewColumnSortMode.Automatic;
+            xoa_Tb.Width = 125;
             // 
             // panel1
             // 
@@ -273,17 +293,17 @@ namespace MilkTea.Client.Forms
             panel1.Controls.Add(panel2);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1660, 527);
+            panel1.Size = new Size(1897, 703);
             panel1.TabIndex = 0;
             // 
             // ImportForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1660, 527);
+            ClientSize = new Size(1897, 703);
             Controls.Add(panel1);
-            Margin = new Padding(3, 2, 3, 2);
             Name = "ImportForm";
             Text = "Import Form";
             Load += ImportForm_Load;
