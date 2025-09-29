@@ -8,13 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MilkTea.Client.Forms.ChildForm_d
+namespace MilkTea.Client.Forms.ChildForm_Discount
 {
-    public partial class AddDiscount : Form
+    public partial class DetailDiscountForm : Form
     {
-        public AddDiscount()
+        public DetailDiscountForm()
         {
             InitializeComponent();
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

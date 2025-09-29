@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MilkTea.Client.Forms.ChildForm_Discount;
 
 namespace MilkTea.Client.Forms
 {
@@ -17,19 +18,17 @@ namespace MilkTea.Client.Forms
             InitializeComponent();
         }
 
-        private void Search_Load(object sender, EventArgs e)
+        private void DiscountForm_Load(object sender, EventArgs e)
         {
 
         }
-
-        private void roundedComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnThemDiscount_Click(object sender, EventArgs e)
         {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
+            AddDiscountForm addDiscountForm = new AddDiscountForm();
+            if (addDiscountForm.ShowDialog() == DialogResult.OK)
+            {
+                // Cập nhật danh sách khuyến mãi trong flowLayoutPanel1 (nếu cần)
+            }
         }
     }
 }

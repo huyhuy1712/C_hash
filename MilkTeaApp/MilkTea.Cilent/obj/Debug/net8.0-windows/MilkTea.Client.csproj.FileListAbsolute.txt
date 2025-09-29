@@ -141,7 +141,6 @@ D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.
 D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.LoginForm.resources
 D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.MainForm.resources
 D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.OrderForm.resources
-D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.RegisterForm.resources
 D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ReportForm.resources
 D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Properties.Resources.resources
 D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.csproj.GenerateResource.cache
@@ -155,3 +154,13 @@ D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\refint\M
 D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.pdb
 D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.genruntimeconfig.cache
 D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\ref\MilkTea.Client.dll
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\information.png
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\letter.png
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\bin\Debug\net8.0-windows\icons\lock.png
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Controls.RoundedButton.resources
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Controls.RoundedComboBox.resources
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ChildForm_Import.ImportForm_Add.resources
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ChildForm_Import.ImportForm_Info.resources
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ChildForm_Discount.AddDiscountForm.resources
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ChildForm_Discount.DetailDiscountForm.resources
+D:\Workspace\C#\Doan\MilkTeaApp\MilkTea.Cilent\obj\Debug\net8.0-windows\MilkTea.Client.Forms.ChildForm_Discount.EditDiscountForm.resources

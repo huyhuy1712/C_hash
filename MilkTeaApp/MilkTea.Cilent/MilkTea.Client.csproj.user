@@ -7,6 +7,9 @@
     <Compile Update="Controls\RoundedComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="Controls\RoundedPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Update="Controls\RoundedTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -16,7 +19,19 @@
     <Compile Update="Forms\ChildForm_Account\AddAccountForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\ChildForm_d\AddDiscount.cs">
+    <Compile Update="Forms\ChildForm_Discount\DetailDiscountForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ChildForm_Discount\EditDiscountForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ChildForm_Import\ImportForm_Add.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ChildForm_Import\ImportForm_Info.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ChildForm_Discount\AddDiscountForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\ChildForm_Order\AddProductForm.cs">
@@ -52,11 +67,13 @@
     <Compile Update="Forms\OrderForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\RegisterForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Update="Forms\ReportForm.cs">
       <SubType>Form</SubType>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
