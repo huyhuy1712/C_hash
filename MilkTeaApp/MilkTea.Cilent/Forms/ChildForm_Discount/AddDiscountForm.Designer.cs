@@ -350,7 +350,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             // pictureBox1
             // 
             pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Image = Properties.Resources.Hình_ảnh_trà_sữa_hoạt_hình_cute_nhất___Ảnh_đẹp_Free;
+            pictureBox1.Image = Properties.Resources.tra_sua_truyen_thong;
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(99, 100);
@@ -420,7 +420,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             // pictureBox2
             // 
             pictureBox2.Dock = DockStyle.Fill;
-            pictureBox2.Image = Properties.Resources.Hình_ảnh_trà_sữa_hoạt_hình_cute_nhất___Ảnh_đẹp_Free;
+            pictureBox2.Image = Properties.Resources.tra_sua_truyen_thong;
             pictureBox2.Location = new Point(0, 0);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(99, 100);
@@ -490,7 +490,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             // pictureBox3
             // 
             pictureBox3.Dock = DockStyle.Fill;
-            pictureBox3.Image = Properties.Resources.Hình_ảnh_trà_sữa_hoạt_hình_cute_nhất___Ảnh_đẹp_Free;
+            pictureBox3.Image = Properties.Resources.tra_sua_truyen_thong;
             pictureBox3.Location = new Point(0, 0);
             pictureBox3.Name = "pictureBox3";
             pictureBox3.Size = new Size(99, 100);
@@ -560,7 +560,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             // pictureBox4
             // 
             pictureBox4.Dock = DockStyle.Fill;
-            pictureBox4.Image = Properties.Resources.Hình_ảnh_trà_sữa_hoạt_hình_cute_nhất___Ảnh_đẹp_Free;
+            pictureBox4.Image = Properties.Resources.tra_sua_truyen_thong;
             pictureBox4.Location = new Point(0, 0);
             pictureBox4.Name = "pictureBox4";
             pictureBox4.Size = new Size(99, 100);
@@ -630,7 +630,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             // pictureBox5
             // 
             pictureBox5.Dock = DockStyle.Fill;
-            pictureBox5.Image = Properties.Resources.Hình_ảnh_trà_sữa_hoạt_hình_cute_nhất___Ảnh_đẹp_Free;
+            pictureBox5.Image = Properties.Resources.tra_sua_truyen_thong;
             pictureBox5.Location = new Point(0, 0);
             pictureBox5.Name = "pictureBox5";
             pictureBox5.Size = new Size(99, 100);
