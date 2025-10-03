@@ -133,16 +133,6 @@ namespace MilkTea.Client.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Hình_ảnh_trà_sữa_hoạt_hình_cute_nhất___Ảnh_đẹp_Free {
-            get {
-                object obj = ResourceManager.GetObject("Hình ảnh trà sữa hoạt hình cute nhất - Ảnh đẹp Free", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap home {
             get {
                 object obj = ResourceManager.GetObject("home", resourceCulture);
@@ -223,7 +213,6 @@ namespace MilkTea.Client.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-
         internal static System.Drawing.Bitmap info {
             get {
                 object obj = ResourceManager.GetObject("info", resourceCulture);
@@ -234,7 +223,6 @@ namespace MilkTea.Client.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-
         internal static System.Drawing.Bitmap information {
             get {
                 object obj = ResourceManager.GetObject("information", resourceCulture);
@@ -375,9 +363,19 @@ namespace MilkTea.Client.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap tra_sua_cute {
+        internal static System.Drawing.Bitmap tra_sua_bac_ha {
             get {
-                object obj = ResourceManager.GetObject("tra_sua_cute", resourceCulture);
+                object obj = ResourceManager.GetObject("tra_sua_bac_ha", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap tra_sua_truyen_thong {
+            get {
+                object obj = ResourceManager.GetObject("tra_sua_truyen_thong", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

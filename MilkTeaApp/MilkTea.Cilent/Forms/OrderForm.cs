@@ -1,4 +1,7 @@
-﻿using MilkTea.Client.Forms.ChildForm_Order;
+﻿using MilkTea.Client.Controls;
+using MilkTea.Client.Forms.ChildForm_Order;
+using MilkTea.Client.Models;
+using MilkTea.Client.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,62 +16,51 @@ namespace MilkTea.Client.Forms
 {
     public partial class OrderForm : Form
     {
+        private readonly SanPhamService _sanPhamService;
+
         public OrderForm()
         {
             InitializeComponent();
+            _sanPhamService = new SanPhamService();
         }
 
-        private void label1_Click(object sender, EventArgs e)
+
+        private async void OrderForm_Load(object sender, EventArgs e)
         {
+            try
+            {
+                var sanPhams = await _sanPhamService.GetSanPhamsAsync();
 
+                // Xóa hết control cũ trong flowLayoutPanel 
+                layout_product.Controls.Clear();
+
+                foreach (var sp in sanPhams)
+                {
+                    // Tạo một ProductItem (UserControl đã làm)
+                    var item = new ProductItem();
+
+                    // Set data từ SanPham
+                    item.SetData(sp);
+
+                    // Add vào flowLayoutPanel
+                    layout_product.Controls.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi gọi API: " + ex.Message);
+            }
         }
+
 
         private void label1_Click_1(object sender, EventArgs e)
         {
 
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click_2(object sender, EventArgs e)
-        {
-
-        }
-
-        private void roundedTextBox1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void roundedComboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void roundedButton1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void roundedComboBox4_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
+ 
 
         private void label17_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox9_Click(object sender, EventArgs e)
         {
 
         }
@@ -85,35 +77,20 @@ namespace MilkTea.Client.Forms
 
         }
 
-        private void SL_textBox_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void section_table_panel_Paint(object sender, PaintEventArgs e)
         {
 
         }
 
-        private void tableLayoutPanel4_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+      
 
         private void label29_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void flowLayoutPanel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+       
 
         private void popup_Opening(object sender, CancelEventArgs e)
         {
@@ -129,25 +106,6 @@ namespace MilkTea.Client.Forms
             popup.Show(location);
         }
 
-        private void Hủy_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox3_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void product_delete_btn1_Click(object sender, EventArgs e)
         {

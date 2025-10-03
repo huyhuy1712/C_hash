@@ -2,6 +2,9 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
+    <Compile Update="Controls\ProductItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Controls\RoundedButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -95,6 +98,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Forms\ImportForm.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Properties\Resources.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>

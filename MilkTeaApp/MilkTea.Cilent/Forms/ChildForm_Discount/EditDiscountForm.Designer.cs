@@ -40,6 +40,12 @@
             checkBox1 = new CheckBox();
             panel42 = new Panel();
             panel11 = new Panel();
+            h = new Panel();
+            roundedTextBox1 = new MilkTea.Client.Controls.RoundedTextBox();
+            panel43 = new Panel();
+            panel44 = new Panel();
+            roundedComboBox2 = new MilkTea.Client.Controls.RoundedComboBox();
+            label13 = new Label();
             panel7 = new Panel();
             pictureBox5 = new PictureBox();
             panel41 = new Panel();
@@ -96,17 +102,11 @@
             panel34 = new Panel();
             panel8 = new Panel();
             panel4 = new Panel();
+            panel9 = new Panel();
+            roundedButton2 = new MilkTea.Client.Controls.RoundedButton();
+            roundedButton1 = new MilkTea.Client.Controls.RoundedButton();
             panel3 = new Panel();
             panel1 = new Panel();
-            panel43 = new Panel();
-            label13 = new Label();
-            panel44 = new Panel();
-            roundedComboBox2 = new MilkTea.Client.Controls.RoundedComboBox();
-            h = new Panel();
-            roundedTextBox1 = new MilkTea.Client.Controls.RoundedTextBox();
-            panel9 = new Panel();
-            roundedButton1 = new MilkTea.Client.Controls.RoundedButton();
-            roundedButton2 = new MilkTea.Client.Controls.RoundedButton();
             panel2 = new Panel();
             panel2.SuspendLayout();
             panel19.SuspendLayout();
@@ -115,6 +115,9 @@
             panel10.SuspendLayout();
             panel42.SuspendLayout();
             panel11.SuspendLayout();
+            h.SuspendLayout();
+            panel43.SuspendLayout();
+            panel44.SuspendLayout();
             panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             panel41.SuspendLayout();
@@ -153,12 +156,9 @@
             panel34.SuspendLayout();
             panel8.SuspendLayout();
             panel4.SuspendLayout();
+            panel9.SuspendLayout();
             panel3.SuspendLayout();
             panel1.SuspendLayout();
-            panel43.SuspendLayout();
-            panel44.SuspendLayout();
-            h.SuspendLayout();
-            panel9.SuspendLayout();
             SuspendLayout();
             // 
             // panel2
@@ -291,6 +291,80 @@
             panel11.Size = new Size(676, 76);
             panel11.TabIndex = 1;
             // 
+            // h
+            // 
+            h.Controls.Add(roundedTextBox1);
+            h.Dock = DockStyle.Right;
+            h.Location = new Point(439, 0);
+            h.Name = "h";
+            h.Padding = new Padding(15);
+            h.Size = new Size(237, 76);
+            h.TabIndex = 5;
+            // 
+            // roundedTextBox1
+            // 
+            roundedTextBox1.BackColor = Color.White;
+            roundedTextBox1.BorderColor = Color.Gray;
+            roundedTextBox1.BorderRadius = 20;
+            roundedTextBox1.Dock = DockStyle.Fill;
+            roundedTextBox1.FocusBorderColor = Color.DeepSkyBlue;
+            roundedTextBox1.Location = new Point(15, 15);
+            roundedTextBox1.Name = "roundedTextBox1";
+            roundedTextBox1.Padding = new Padding(10, 5, 40, 5);
+            roundedTextBox1.Placeholder = "Từ khóa tìm kiếm...";
+            roundedTextBox1.Size = new Size(207, 46);
+            roundedTextBox1.TabIndex = 0;
+            roundedTextBox1.TextValue = "";
+            // 
+            // panel43
+            // 
+            panel43.Controls.Add(panel44);
+            panel43.Controls.Add(label13);
+            panel43.Dock = DockStyle.Left;
+            panel43.Location = new Point(169, 0);
+            panel43.Name = "panel43";
+            panel43.Size = new Size(270, 76);
+            panel43.TabIndex = 4;
+            // 
+            // panel44
+            // 
+            panel44.Controls.Add(roundedComboBox2);
+            panel44.Dock = DockStyle.Fill;
+            panel44.Location = new Point(84, 0);
+            panel44.Name = "panel44";
+            panel44.Size = new Size(186, 76);
+            panel44.TabIndex = 1;
+            // 
+            // roundedComboBox2
+            // 
+            roundedComboBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            roundedComboBox2.BackColor = Color.White;
+            roundedComboBox2.BorderColor = Color.Gray;
+            roundedComboBox2.BorderRadius = 15;
+            roundedComboBox2.BorderSize = 1;
+            roundedComboBox2.DrawMode = DrawMode.OwnerDrawFixed;
+            roundedComboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+            roundedComboBox2.FlatStyle = FlatStyle.Flat;
+            roundedComboBox2.FocusBorderColor = Color.DeepSkyBlue;
+            roundedComboBox2.Font = new Font("Segoe UI", 10F);
+            roundedComboBox2.FormattingEnabled = true;
+            roundedComboBox2.ItemHeight = 30;
+            roundedComboBox2.Location = new Point(6, 19);
+            roundedComboBox2.Name = "roundedComboBox2";
+            roundedComboBox2.Size = new Size(151, 36);
+            roundedComboBox2.TabIndex = 0;
+            // 
+            // label13
+            // 
+            label13.Dock = DockStyle.Left;
+            label13.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label13.Location = new Point(0, 0);
+            label13.Name = "label13";
+            label13.Size = new Size(84, 76);
+            label13.TabIndex = 0;
+            label13.Text = "Loại: ";
+            label13.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // panel7
             // 
             panel7.BackColor = SystemColors.ActiveBorder;
@@ -306,7 +380,7 @@
             // pictureBox5
             // 
             pictureBox5.Dock = DockStyle.Fill;
-            pictureBox5.Image = Properties.Resources.Hình_ảnh_trà_sữa_hoạt_hình_cute_nhất___Ảnh_đẹp_Free;
+            pictureBox5.Image = Properties.Resources.tra_sua_truyen_thong;
             pictureBox5.Location = new Point(0, 0);
             pictureBox5.Margin = new Padding(3, 4, 3, 4);
             pictureBox5.Name = "pictureBox5";
@@ -622,7 +696,7 @@
             // pictureBox4
             // 
             pictureBox4.Dock = DockStyle.Fill;
-            pictureBox4.Image = Properties.Resources.Hình_ảnh_trà_sữa_hoạt_hình_cute_nhất___Ảnh_đẹp_Free;
+            pictureBox4.Image = Properties.Resources.tra_sua_truyen_thong;
             pictureBox4.Location = new Point(0, 0);
             pictureBox4.Margin = new Padding(3, 4, 3, 4);
             pictureBox4.Name = "pictureBox4";
@@ -698,7 +772,7 @@
             // pictureBox1
             // 
             pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Image = Properties.Resources.Hình_ảnh_trà_sữa_hoạt_hình_cute_nhất___Ảnh_đẹp_Free;
+            pictureBox1.Image = Properties.Resources.tra_sua_truyen_thong;
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
@@ -790,7 +864,7 @@
             // pictureBox2
             // 
             pictureBox2.Dock = DockStyle.Fill;
-            pictureBox2.Image = Properties.Resources.Hình_ảnh_trà_sữa_hoạt_hình_cute_nhất___Ảnh_đẹp_Free;
+            pictureBox2.Image = Properties.Resources.tra_sua_truyen_thong;
             pictureBox2.Location = new Point(0, 0);
             pictureBox2.Margin = new Padding(3, 4, 3, 4);
             pictureBox2.Name = "pictureBox2";
@@ -866,7 +940,7 @@
             // pictureBox3
             // 
             pictureBox3.Dock = DockStyle.Fill;
-            pictureBox3.Image = Properties.Resources.Hình_ảnh_trà_sữa_hoạt_hình_cute_nhất___Ảnh_đẹp_Free;
+            pictureBox3.Image = Properties.Resources.tra_sua_truyen_thong;
             pictureBox3.Location = new Point(0, 0);
             pictureBox3.Margin = new Padding(3, 4, 3, 4);
             pictureBox3.Name = "pictureBox3";
@@ -910,6 +984,53 @@
             panel4.Size = new Size(1016, 623);
             panel4.TabIndex = 2;
             // 
+            // panel9
+            // 
+            panel9.Controls.Add(roundedButton2);
+            panel9.Controls.Add(roundedButton1);
+            panel9.Dock = DockStyle.Bottom;
+            panel9.Location = new Point(0, 547);
+            panel9.Name = "panel9";
+            panel9.Padding = new Padding(15);
+            panel9.Size = new Size(1016, 76);
+            panel9.TabIndex = 2;
+            // 
+            // roundedButton2
+            // 
+            roundedButton2.BackColor = Color.Crimson;
+            roundedButton2.BorderColor = Color.Crimson;
+            roundedButton2.BorderRadius = 20;
+            roundedButton2.BorderSize = 0;
+            roundedButton2.Dock = DockStyle.Right;
+            roundedButton2.FlatAppearance.BorderSize = 0;
+            roundedButton2.FlatStyle = FlatStyle.Flat;
+            roundedButton2.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            roundedButton2.ForeColor = Color.White;
+            roundedButton2.Location = new Point(762, 15);
+            roundedButton2.Name = "roundedButton2";
+            roundedButton2.Size = new Size(94, 46);
+            roundedButton2.TabIndex = 1;
+            roundedButton2.Text = "Hủy";
+            roundedButton2.UseVisualStyleBackColor = false;
+            // 
+            // roundedButton1
+            // 
+            roundedButton1.BackColor = Color.DodgerBlue;
+            roundedButton1.BorderColor = Color.DodgerBlue;
+            roundedButton1.BorderRadius = 20;
+            roundedButton1.BorderSize = 0;
+            roundedButton1.Dock = DockStyle.Right;
+            roundedButton1.FlatAppearance.BorderSize = 0;
+            roundedButton1.FlatStyle = FlatStyle.Flat;
+            roundedButton1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            roundedButton1.ForeColor = Color.White;
+            roundedButton1.Location = new Point(856, 15);
+            roundedButton1.Name = "roundedButton1";
+            roundedButton1.Size = new Size(145, 46);
+            roundedButton1.TabIndex = 0;
+            roundedButton1.Text = "Xác nhận";
+            roundedButton1.UseVisualStyleBackColor = false;
+            // 
             // panel3
             // 
             panel3.Controls.Add(panel4);
@@ -933,127 +1054,6 @@
             panel1.Size = new Size(1897, 703);
             panel1.TabIndex = 1;
             // 
-            // panel43
-            // 
-            panel43.Controls.Add(panel44);
-            panel43.Controls.Add(label13);
-            panel43.Dock = DockStyle.Left;
-            panel43.Location = new Point(169, 0);
-            panel43.Name = "panel43";
-            panel43.Size = new Size(270, 76);
-            panel43.TabIndex = 4;
-            // 
-            // label13
-            // 
-            label13.Dock = DockStyle.Left;
-            label13.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label13.Location = new Point(0, 0);
-            label13.Name = "label13";
-            label13.Size = new Size(84, 76);
-            label13.TabIndex = 0;
-            label13.Text = "Loại: ";
-            label13.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // panel44
-            // 
-            panel44.Controls.Add(roundedComboBox2);
-            panel44.Dock = DockStyle.Fill;
-            panel44.Location = new Point(84, 0);
-            panel44.Name = "panel44";
-            panel44.Size = new Size(186, 76);
-            panel44.TabIndex = 1;
-            // 
-            // roundedComboBox2
-            // 
-            roundedComboBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            roundedComboBox2.BackColor = Color.White;
-            roundedComboBox2.BorderColor = Color.Gray;
-            roundedComboBox2.BorderRadius = 15;
-            roundedComboBox2.BorderSize = 1;
-            roundedComboBox2.DrawMode = DrawMode.OwnerDrawFixed;
-            roundedComboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
-            roundedComboBox2.FlatStyle = FlatStyle.Flat;
-            roundedComboBox2.FocusBorderColor = Color.DeepSkyBlue;
-            roundedComboBox2.Font = new Font("Segoe UI", 10F);
-            roundedComboBox2.FormattingEnabled = true;
-            roundedComboBox2.ItemHeight = 30;
-            roundedComboBox2.Location = new Point(6, 19);
-            roundedComboBox2.Name = "roundedComboBox2";
-            roundedComboBox2.Size = new Size(151, 36);
-            roundedComboBox2.TabIndex = 0;
-            // 
-            // h
-            // 
-            h.Controls.Add(roundedTextBox1);
-            h.Dock = DockStyle.Right;
-            h.Location = new Point(439, 0);
-            h.Name = "h";
-            h.Padding = new Padding(15);
-            h.Size = new Size(237, 76);
-            h.TabIndex = 5;
-            // 
-            // roundedTextBox1
-            // 
-            roundedTextBox1.BackColor = Color.White;
-            roundedTextBox1.BorderColor = Color.Gray;
-            roundedTextBox1.BorderRadius = 20;
-            roundedTextBox1.Dock = DockStyle.Fill;
-            roundedTextBox1.FocusBorderColor = Color.DeepSkyBlue;
-            roundedTextBox1.Location = new Point(15, 15);
-            roundedTextBox1.Name = "roundedTextBox1";
-            roundedTextBox1.Padding = new Padding(10, 5, 40, 5);
-            roundedTextBox1.Placeholder = "Từ khóa tìm kiếm...";
-            roundedTextBox1.Size = new Size(207, 46);
-            roundedTextBox1.TabIndex = 0;
-            roundedTextBox1.TextValue = "";
-            // 
-            // panel9
-            // 
-            panel9.Controls.Add(roundedButton2);
-            panel9.Controls.Add(roundedButton1);
-            panel9.Dock = DockStyle.Bottom;
-            panel9.Location = new Point(0, 547);
-            panel9.Name = "panel9";
-            panel9.Padding = new Padding(15);
-            panel9.Size = new Size(1016, 76);
-            panel9.TabIndex = 2;
-            // 
-            // roundedButton1
-            // 
-            roundedButton1.BackColor = Color.DodgerBlue;
-            roundedButton1.BorderColor = Color.DodgerBlue;
-            roundedButton1.BorderRadius = 20;
-            roundedButton1.BorderSize = 0;
-            roundedButton1.Dock = DockStyle.Right;
-            roundedButton1.FlatAppearance.BorderSize = 0;
-            roundedButton1.FlatStyle = FlatStyle.Flat;
-            roundedButton1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            roundedButton1.ForeColor = Color.White;
-            roundedButton1.Location = new Point(856, 15);
-            roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(145, 46);
-            roundedButton1.TabIndex = 0;
-            roundedButton1.Text = "Xác nhận";
-            roundedButton1.UseVisualStyleBackColor = false;
-            // 
-            // roundedButton2
-            // 
-            roundedButton2.BackColor = Color.Crimson;
-            roundedButton2.BorderColor = Color.Crimson;
-            roundedButton2.BorderRadius = 20;
-            roundedButton2.BorderSize = 0;
-            roundedButton2.Dock = DockStyle.Right;
-            roundedButton2.FlatAppearance.BorderSize = 0;
-            roundedButton2.FlatStyle = FlatStyle.Flat;
-            roundedButton2.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            roundedButton2.ForeColor = Color.White;
-            roundedButton2.Location = new Point(762, 15);
-            roundedButton2.Name = "roundedButton2";
-            roundedButton2.Size = new Size(94, 46);
-            roundedButton2.TabIndex = 1;
-            roundedButton2.Text = "Hủy";
-            roundedButton2.UseVisualStyleBackColor = false;
-            // 
             // EditDiscountForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -1072,6 +1072,9 @@
             panel42.ResumeLayout(false);
             panel42.PerformLayout();
             panel11.ResumeLayout(false);
+            h.ResumeLayout(false);
+            panel43.ResumeLayout(false);
+            panel44.ResumeLayout(false);
             panel7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             panel41.ResumeLayout(false);
@@ -1111,12 +1114,9 @@
             panel34.ResumeLayout(false);
             panel8.ResumeLayout(false);
             panel4.ResumeLayout(false);
+            panel9.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel1.ResumeLayout(false);
-            panel43.ResumeLayout(false);
-            panel44.ResumeLayout(false);
-            h.ResumeLayout(false);
-            panel9.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
