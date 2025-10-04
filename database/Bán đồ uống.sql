@@ -1,4 +1,4 @@
-CREATE TABLE `SanPham` (
+SizeCREATE TABLE `SanPham` (
   `MaSP` int PRIMARY KEY AUTO_INCREMENT,
   `TenSP` varchar(100) NOT NULL,
   `Gia` decimal(12,2) NOT NULL,
@@ -146,6 +146,7 @@ CREATE TABLE `ChiPhi` (
   `Ngay` int NOT NULL,
   `Thang` int NOT NULL,
   `Nam` int NOT NULL,
+  `Gio` time NOT NULL,
   `MaSP` int,
   `MaLoai` int,
   `MaKM` int,
