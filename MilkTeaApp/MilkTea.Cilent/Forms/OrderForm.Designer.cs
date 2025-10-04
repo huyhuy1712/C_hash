@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.Load += new System.EventHandler(this.OrderForm_Load); //load dữ liệu api sản phẩm
-
             components = new System.ComponentModel.Container();
             OrderPanel = new Panel();
             RightPanel = new Panel();
@@ -717,10 +715,10 @@
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.ColumnCount = 4;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 42.55319F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 19.1489372F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 19.1489372F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 19.1489372F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30.681818F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 18.66883F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 17.37013F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.1168823F));
             tableLayoutPanel1.Controls.Add(comboBox3, 3, 0);
             tableLayoutPanel1.Controls.Add(roundedTextBox1, 0, 0);
             tableLayoutPanel1.Controls.Add(roundedButton1, 1, 0);
@@ -739,12 +737,13 @@
             comboBox3.Anchor = AnchorStyles.None;
             comboBox3.FormattingEnabled = true;
             comboBox3.Items.AddRange(new object[] { "Loại" });
-            comboBox3.Location = new Point(500, 10);
+            comboBox3.Location = new Point(419, 10);
             comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(111, 28);
+            comboBox3.Size = new Size(189, 28);
             comboBox3.TabIndex = 3;
             comboBox3.TabStop = false;
             comboBox3.Text = "Loại";
+            comboBox3.SelectedIndexChanged += comboBox3_SelectedIndexChanged;
             // 
             // roundedTextBox1
             // 
@@ -757,7 +756,7 @@
             roundedTextBox1.Name = "roundedTextBox1";
             roundedTextBox1.Padding = new Padding(10, 5, 40, 5);
             roundedTextBox1.Placeholder = "Từ khóa tìm kiếm...";
-            roundedTextBox1.Size = new Size(256, 31);
+            roundedTextBox1.Size = new Size(180, 31);
             roundedTextBox1.TabIndex = 0;
             roundedTextBox1.TextValue = "";
             // 
@@ -772,9 +771,9 @@
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             roundedButton1.ForeColor = Color.White;
-            roundedButton1.Location = new Point(265, 3);
+            roundedButton1.Location = new Point(192, 3);
             roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(111, 36);
+            roundedButton1.Size = new Size(107, 36);
             roundedButton1.TabIndex = 1;
             roundedButton1.Text = "Thêm";
             roundedButton1.UseVisualStyleBackColor = false;
@@ -785,9 +784,9 @@
             sort_comboBox.Anchor = AnchorStyles.None;
             sort_comboBox.FormattingEnabled = true;
             sort_comboBox.Items.AddRange(new object[] { "Sắp xếp" });
-            sort_comboBox.Location = new Point(382, 10);
+            sort_comboBox.Location = new Point(314, 10);
             sort_comboBox.Name = "sort_comboBox";
-            sort_comboBox.Size = new Size(111, 28);
+            sort_comboBox.Size = new Size(87, 28);
             sort_comboBox.TabIndex = 2;
             sort_comboBox.TabStop = false;
             sort_comboBox.Text = "Sắp xếp";
@@ -953,6 +952,7 @@
             Controls.Add(OrderPanel);
             Name = "OrderForm";
             Text = "OrderForm";
+            Load += OrderForm_Load;
             OrderPanel.ResumeLayout(false);
             RightPanel.ResumeLayout(false);
             Section_Right_Panel.ResumeLayout(false);
