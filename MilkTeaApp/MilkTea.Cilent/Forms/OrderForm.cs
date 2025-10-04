@@ -17,11 +17,13 @@ namespace MilkTea.Client.Forms
     public partial class OrderForm : Form
     {
         private readonly SanPhamService _sanPhamService;
+        private readonly LoaiService _loaiService;
 
         public OrderForm()
         {
             InitializeComponent();
             _sanPhamService = new SanPhamService();
+            _loaiService = new LoaiService();
         }
 
 
@@ -30,6 +32,12 @@ namespace MilkTea.Client.Forms
             try
             {
                 var sanPhams = await _sanPhamService.GetSanPhamsAsync();
+
+                // 1Load danh sách loại (category)
+                var loais = await _loaiService.GetLoaisAsync();
+                comboBox3.DataSource = loais;
+                comboBox3.DisplayMember = "TenLoai"; 
+                comboBox3.ValueMember = "MaLoai";
 
                 // Xóa hết control cũ trong flowLayoutPanel 
                 layout_product.Controls.Clear();
@@ -58,7 +66,7 @@ namespace MilkTea.Client.Forms
 
         }
 
- 
+
 
         private void label17_Click(object sender, EventArgs e)
         {
@@ -83,14 +91,14 @@ namespace MilkTea.Client.Forms
 
         }
 
-      
+
 
         private void label29_Click(object sender, EventArgs e)
         {
 
         }
 
-       
+
 
         private void popup_Opening(object sender, CancelEventArgs e)
         {
@@ -132,6 +140,11 @@ namespace MilkTea.Client.Forms
         }
 
         private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
