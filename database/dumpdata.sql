@@ -13,7 +13,7 @@ INSERT INTO Loai (TenLoai, MoTa) VALUES
 ('Trà sữa matcha socola', 'Trà sữa matcha + socola'),
 ('Trà sữa hoàng kim', 'Trà sữa đặc biệt');
 
--- 2. SanPham
+-- 2. SanPham`
 INSERT INTO SanPham (TenSP, Gia, Anh, SLDuKien, TrangThai, MaLoai) VALUES
 ('Trà sữa truyền thống', 25000, 'trasua1.jpg', 50, 1, 1),
 ('Trà sữa matcha', 30000, 'trasua2.jpg', 40, 1, 2),
