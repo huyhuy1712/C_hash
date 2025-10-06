@@ -78,6 +78,7 @@
             Header_Left_Panel = new Panel();
             pictureBox1 = new PictureBox();
             label1 = new Label();
+            roundedButton2 = new MilkTea.Client.Controls.RoundedButton();
             OrderPanel.SuspendLayout();
             RightPanel.SuspendLayout();
             Section_Right_Panel.SuspendLayout();
@@ -381,8 +382,9 @@
             // 
             // panel2
             // 
+            panel2.Controls.Add(roundedButton2);
             panel2.Controls.Add(btnXuatDon);
-            panel2.Dock = DockStyle.Fill;
+            panel2.Dock = DockStyle.Right;
             panel2.Location = new Point(703, 0);
             panel2.Name = "panel2";
             panel2.Padding = new Padding(17);
@@ -415,10 +417,10 @@
             panel1.Controls.Add(comboBox2);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(label3);
-            panel1.Dock = DockStyle.Left;
+            panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(703, 70);
+            panel1.Size = new Size(1003, 70);
             panel1.TabIndex = 7;
             // 
             // comboBox1
@@ -749,6 +751,26 @@
             label1.TextAlign = ContentAlignment.MiddleCenter;
             label1.Click += label1_Click_1;
             // 
+            // roundedButton2
+            // 
+            roundedButton2.BackColor = Color.Crimson;
+            roundedButton2.BorderColor = Color.DodgerBlue;
+            roundedButton2.BorderRadius = 20;
+            roundedButton2.BorderSize = 0;
+            roundedButton2.Cursor = Cursors.Hand;
+            roundedButton2.Dock = DockStyle.Left;
+            roundedButton2.FlatAppearance.BorderSize = 0;
+            roundedButton2.FlatStyle = FlatStyle.Flat;
+            roundedButton2.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            roundedButton2.ForeColor = Color.White;
+            roundedButton2.Location = new Point(17, 17);
+            roundedButton2.Name = "roundedButton2";
+            roundedButton2.Size = new Size(110, 36);
+            roundedButton2.TabIndex = 3;
+            roundedButton2.Text = "Xóa";
+            roundedButton2.UseVisualStyleBackColor = false;
+            roundedButton2.Click += roundedButton2_Click_1;
+            // 
             // OrderForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -838,5 +860,6 @@
         private ComboBox comboBox3;
         private ComboBox sort_comboBox;
         private Label label4;
+        private Controls.RoundedButton roundedButton2;
     }
 }

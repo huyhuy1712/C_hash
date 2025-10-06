@@ -172,7 +172,6 @@
             size_comboBox1.Size = new Size(84, 28);
             size_comboBox1.TabIndex = 10;
             size_comboBox1.Tag = "S";
-            size_comboBox1.Leave += textBox1_leave;
             // 
             // panel8
             // 
@@ -261,7 +260,7 @@
         private Label SL_dc_label;
         private Label lb;
         private PictureBox pictureBox9;
-        private ComboBox size_comboBox1;
+        public ComboBox size_comboBox1;
         private Label three_dots_label;
         private Panel panel8;
         private TextBox textBox1;

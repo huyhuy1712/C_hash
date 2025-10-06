@@ -19,15 +19,18 @@ namespace MilkTea.Client.Forms
         private readonly SanPhamService _sanPhamService;
         private readonly LoaiService _loaiService;
         private readonly CTKhuyenMaiService _ctKhuyenMaiService;
+        private readonly SizeService _sizeService;
+
         public OrderForm()
         {
             InitializeComponent();
             _sanPhamService = new SanPhamService();
             _loaiService = new LoaiService();
             _ctKhuyenMaiService = new CTKhuyenMaiService();
+            _sizeService = new SizeService();
         }
 
-
+        // ==================== LOAD FORM ====================
         private async void OrderForm_Load(object sender, EventArgs e)
         {
             try
@@ -40,52 +43,68 @@ namespace MilkTea.Client.Forms
                 comboBox3.DisplayMember = "TenLoai";
                 comboBox3.ValueMember = "MaLoai";
 
-                // Xóa hết control cũ trong flowLayoutPanel 
+                // Xóa control cũ trước khi thêm mới
                 layout_product.Controls.Clear();
 
+                // Tạo danh sách sản phẩm hiển thị
                 foreach (var sp in sanPhams)
                 {
-                    // Tạo một ProductItem (UserControl đã làm)
-                    var item = new Controls.ProductItem();
-
-                    // Set data từ SanPham
+                    var item = new ProductItem();
                     item.SetData(sp);
-
-                    // Gắn sự kiện click sản phẩm
                     item.OnProductSelected += ProductItem_OnProductSelected;
-
-                    // Add vào flowLayoutPanel hiển thị menu
                     layout_product.Controls.Add(item);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi gọi API: " + ex.Message);
+                MessageBox.Show("Lỗi khi tải danh sách sản phẩm: " + ex.Message,
+                                "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-
+        // ==================== KHI CLICK CHỌN SẢN PHẨM ====================
         private async void ProductItem_OnProductSelected(object sender, ProductItem.SanPhamEventArgs e)
         {
             try
             {
-                // Lấy dữ liệu sản phẩm từ event args
                 var sp = e.SanPham;
 
-                //  Gọi lại API chi tiết sản phẩm theo ID vaf chương trình khuyến mãi của sản phẩm (nếu có)
+                // Lấy thông tin chi tiết sản phẩm và khuyến mãi
                 var chiTiet = await _sanPhamService.GetSanPhamsByIdAsync(sp.MaSP);
                 var ctkhuyenmai = await _ctKhuyenMaiService.GetByMaSP(sp.MaSP);
+                var allSizes = await _sizeService.GetAll();
 
-                // Tạo control product_item_order mới
-                var orderItem = new Controls.product_item_order();
+                // Lấy các size đã dùng cho sản phẩm này trong danh sách order
+                var usedSizes = section_table_panel.Controls
+                    .OfType<product_item_order>()
+                    .Where(x => x.TenSP.Contains(chiTiet.TenSP))
+                    .Select(x => x.SelectedSize)
+                    .ToList();
 
-                // Gán dữ liệu
-                orderItem.TenSP = $"{chiTiet.TenSP} ({chiTiet.Gia:N0} VND)";
-                orderItem.Gia = chiTiet.Gia;
-                orderItem.Anh = chiTiet.Anh;
+                // Tìm size đầu tiên chưa bị trùng
+                var availableSize = allSizes.FirstOrDefault(s => !usedSizes.Contains(s.TenSize));
 
-                //Kiểm tra xem sản phẩm có đang dc khuyến mãi không
-                if(ctkhuyenmai == null)
+                if (availableSize == null)
+                {
+                    MessageBox.Show($"Tất cả size của {chiTiet.TenSP} đã có trong danh sách!",
+                                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // ============= Tạo sản phẩm order mới =============
+                var orderItem = new product_item_order
+                {
+                    TenSP = $"{chiTiet.TenSP} ({chiTiet.Gia:N0} VND)",
+                    Gia = chiTiet.Gia,
+                    Anh = chiTiet.Anh,
+                    DefaultSelectedSize = availableSize.TenSize
+                };
+
+                // Gắn event khi đổi size (để kiểm tra trùng)
+                orderItem.OnSizeChanged += OrderItem_OnSizeChanged;
+
+                // Thông tin khuyến mãi
+                if (ctkhuyenmai == null)
                 {
                     orderItem.khuyenmai = "Không có";
                     orderItem.phantramgiam = 0;
@@ -96,97 +115,98 @@ namespace MilkTea.Client.Forms
                     orderItem.phantramgiam = ctkhuyenmai.PhanTramKhuyenMai;
                 }
 
+                // Hiển thị dữ liệu lên control
                 orderItem.setData();
 
-                // Thêm control vào panel chứa danh sách order
+                // Thêm control vào danh sách order
                 section_table_panel.Controls.Add(orderItem);
-
-                // Đặt dock kiểu Top (để stack control từ trên xuống)
                 orderItem.Dock = DockStyle.Top;
-                orderItem.BringToFront(); // để control mới nằm trên cùng
-
+                orderItem.BringToFront();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi thêm sản phẩm vào order: " + ex.Message);
+                MessageBox.Show("Lỗi khi thêm sản phẩm vào order: " + ex.Message,
+                                "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-
-
-
-        private void label1_Click_1(object sender, EventArgs e)
+        // ==================== CHECK TRÙNG SIZE ====================
+        private void OrderItem_OnSizeChanged(string tenSP, string selectedSize, product_item_order currentItem)
         {
+            foreach (product_item_order item in section_table_panel.Controls.OfType<product_item_order>())
+            {
+                if (item != currentItem && item.TenSP == tenSP && item.SelectedSize == selectedSize)
+                {
+                    MessageBox.Show($"Sản phẩm '{tenSP}' với size '{selectedSize}' đã có trong danh sách!",
+                                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
+                    // Giữ lại size cũ
+                    int oldIndex = currentItem.size_comboBox1.FindStringExact(currentItem.PreviousSize);
+                    if (oldIndex >= 0)
+                        currentItem.size_comboBox1.SelectedIndex = oldIndex;
+
+                    return;
+                }
+            }
         }
 
+        // ==================== CÁC CHỨC NĂNG KHÁC ====================
 
-
-        private void label17_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label25_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        // Xuất đơn hàng
         private void btnXuatDon_Click(object sender, EventArgs e)
         {
-            InvoiceOrder invoiceForm = new InvoiceOrder();
+            var invoiceForm = new InvoiceOrder();
             invoiceForm.ShowDialog();
-
         }
 
-
-        private void section_table_panel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-
-
-        private void label29_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-        private void popup_Opening(object sender, CancelEventArgs e)
-        {
-
-        }
-
-
-        private void Topping_Click(object sender, EventArgs e)
-        {
-            ToppingForm toppingForm = new ToppingForm();
-            toppingForm.ShowDialog();
-
-        }
-
-        private void product_edit_btn1_Click(object sender, EventArgs e)
-        {
-            EditProductForm editProductForm = new EditProductForm();
-            editProductForm.ShowDialog();
-        }
-
+        // Nút thêm sản phẩm mới
         private void roundedButton1_Click_1(object sender, EventArgs e)
         {
-            AddProductForm addProductForm = new AddProductForm();
+            var addProductForm = new AddProductForm();
             addProductForm.ShowDialog();
         }
 
-        private void label3_Click(object sender, EventArgs e)
+        // ==================== NÚT XÓA DANH SÁCH ORDER ====================
+        private void roundedButton2_Click_1(object sender, EventArgs e)
         {
+            // Nếu chưa có sản phẩm nào trong danh sách
+            if (section_table_panel.Controls.Count == 0)
+            {
+                MessageBox.Show("Hiện tại chưa có sản phẩm nào trong danh sách!",
+                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
+            // Hỏi xác nhận người dùng
+            var confirm = MessageBox.Show(
+                "Bạn có chắc chắn muốn xóa toàn bộ danh sách order không?",
+                "Xác nhận xóa",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (confirm == DialogResult.Yes)
+            {
+                // Xóa toàn bộ các sản phẩm trong danh sách
+                section_table_panel.Controls.Clear();
+
+                // Reset tổng tiền (nếu có label hiển thị tổng tiền)
+                TongTien_label.Text = "0";
+
+                // Thông báo cho người dùng
+                MessageBox.Show("Đã xóa toàn bộ danh sách order!",
+                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
-        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
-        {
+        // ==================== CÁC SỰ KIỆN KHÁC (để trống) ====================
+        private void section_table_panel_Paint(object sender, PaintEventArgs e) { }
+        private void label1_Click_1(object sender, EventArgs e) { }
+        private void label17_Click(object sender, EventArgs e) { }
+        private void label25_Click(object sender, EventArgs e) { }
+        private void label29_Click(object sender, EventArgs e) { }
+        private void label3_Click(object sender, EventArgs e) { }
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e) { }
 
-        }
     }
 }
