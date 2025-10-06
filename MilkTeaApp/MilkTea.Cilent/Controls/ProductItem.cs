@@ -13,9 +13,27 @@ namespace MilkTea.Client.Controls
 {
     public partial class ProductItem : UserControl
     {
+        private SanPham sanPham;
+
+        public event EventHandler<SanPham> OnProductSelected;
+
         public ProductItem()
         {
             InitializeComponent();
+
+            product_top_panel_1.Click += Product_Click;
+            product_picture1.Click += Product_Click;
+            ten_sp_label1.Click += Product_Click;
+            gia_label1.Click += Product_Click;
+        }
+
+        private void Product_Click(object sender, EventArgs e)
+        {
+            // Khi người dùng click panel, phát event gửi sản phẩm ra ngoài
+            if (sanPham != null)
+            {
+                OnProductSelected?.Invoke(this, sanPham);
+            }
         }
 
         // Hàm để nhận dữ liệu từ API và set vào UI
