@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MilkTea.Client.Forms.ChildForm_Order;
 
 namespace MilkTea.Client.Forms
 {
@@ -28,6 +29,11 @@ namespace MilkTea.Client.Forms
         }
 
         private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
         {
 
         }

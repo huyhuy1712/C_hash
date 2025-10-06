@@ -74,21 +74,13 @@
             LeftPanel = new Panel();
             Middle_Left_Panel_1 = new Panel();
             panel_Bottom_1 = new Panel();
-            flowLayoutPanel1 = new FlowLayoutPanel();
-            product_panel_1 = new Panel();
-            product_bottom_panel_1 = new Panel();
-            product_delete_btn1 = new PictureBox();
-            product_edit_btn1 = new PictureBox();
-            product_top_panel_1 = new Panel();
-            product_top_right_panel_1 = new Panel();
-            product_picture1 = new PictureBox();
-            product_top_left_panel = new Panel();
-            ten_sp_label1 = new Label();
-            gia_label1 = new Label();
+            layout_product = new FlowLayoutPanel();
             panel_Top = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
+            comboBox3 = new ComboBox();
             roundedTextBox1 = new MilkTea.Client.Controls.RoundedTextBox();
             roundedButton1 = new MilkTea.Client.Controls.RoundedButton();
+            sort_comboBox = new ComboBox();
             Footer_Left_Panel = new Panel();
             Layout_Footer_Left_Panel = new TableLayoutPanel();
             Size_S_label = new Label();
@@ -101,8 +93,6 @@
             popup = new ContextMenuStrip(components);
             Hủy = new ToolStripMenuItem();
             Topping = new ToolStripMenuItem();
-            sort_comboBox = new ComboBox();
-            comboBox3 = new ComboBox();
             OrderPanel.SuspendLayout();
             RightPanel.SuspendLayout();
             Section_Right_Panel.SuspendLayout();
@@ -123,15 +113,6 @@
             LeftPanel.SuspendLayout();
             Middle_Left_Panel_1.SuspendLayout();
             panel_Bottom_1.SuspendLayout();
-            flowLayoutPanel1.SuspendLayout();
-            product_panel_1.SuspendLayout();
-            product_bottom_panel_1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)product_delete_btn1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)product_edit_btn1).BeginInit();
-            product_top_panel_1.SuspendLayout();
-            product_top_right_panel_1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)product_picture1).BeginInit();
-            product_top_left_panel.SuspendLayout();
             panel_Top.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             Footer_Left_Panel.SuspendLayout();
@@ -305,7 +286,7 @@
             // pictureBox9
             // 
             pictureBox9.Dock = DockStyle.Fill;
-            pictureBox9.Image = Properties.Resources.Hình_ảnh_trà_sữa_hoạt_hình_cute_nhất___Ảnh_đẹp_Free;
+            pictureBox9.Image = Properties.Resources.tra_sua_truyen_thong;
             pictureBox9.Location = new Point(3, 3);
             pictureBox9.Name = "pictureBox9";
             pictureBox9.Size = new Size(142, 61);
@@ -705,136 +686,21 @@
             // 
             // panel_Bottom_1
             // 
-            panel_Bottom_1.Controls.Add(flowLayoutPanel1);
+            panel_Bottom_1.Controls.Add(layout_product);
             panel_Bottom_1.Dock = DockStyle.Fill;
             panel_Bottom_1.Location = new Point(0, 68);
             panel_Bottom_1.Name = "panel_Bottom_1";
             panel_Bottom_1.Size = new Size(636, 228);
             panel_Bottom_1.TabIndex = 1;
             // 
-            // flowLayoutPanel1
+            // layout_product
             // 
-            flowLayoutPanel1.AutoScroll = true;
-            flowLayoutPanel1.Controls.Add(product_panel_1);
-            flowLayoutPanel1.Dock = DockStyle.Fill;
-            flowLayoutPanel1.Location = new Point(0, 0);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(636, 228);
-            flowLayoutPanel1.TabIndex = 0;
-            // 
-            // product_panel_1
-            // 
-            product_panel_1.BorderStyle = BorderStyle.FixedSingle;
-            product_panel_1.Controls.Add(product_bottom_panel_1);
-            product_panel_1.Controls.Add(product_top_panel_1);
-            product_panel_1.Location = new Point(3, 3);
-            product_panel_1.Name = "product_panel_1";
-            product_panel_1.Size = new Size(205, 129);
-            product_panel_1.TabIndex = 3;
-            // 
-            // product_bottom_panel_1
-            // 
-            product_bottom_panel_1.BorderStyle = BorderStyle.FixedSingle;
-            product_bottom_panel_1.Controls.Add(product_delete_btn1);
-            product_bottom_panel_1.Controls.Add(product_edit_btn1);
-            product_bottom_panel_1.Dock = DockStyle.Bottom;
-            product_bottom_panel_1.Location = new Point(0, 104);
-            product_bottom_panel_1.Name = "product_bottom_panel_1";
-            product_bottom_panel_1.Size = new Size(203, 23);
-            product_bottom_panel_1.TabIndex = 1;
-            // 
-            // product_delete_btn1
-            // 
-            product_delete_btn1.Cursor = Cursors.Hand;
-            product_delete_btn1.Dock = DockStyle.Right;
-            product_delete_btn1.Image = Properties.Resources.trash;
-            product_delete_btn1.Location = new Point(161, 0);
-            product_delete_btn1.Name = "product_delete_btn1";
-            product_delete_btn1.Size = new Size(40, 21);
-            product_delete_btn1.SizeMode = PictureBoxSizeMode.Zoom;
-            product_delete_btn1.TabIndex = 1;
-            product_delete_btn1.TabStop = false;
-            product_delete_btn1.Click += product_delete_btn1_Click;
-            // 
-            // product_edit_btn1
-            // 
-            product_edit_btn1.Cursor = Cursors.Hand;
-            product_edit_btn1.Dock = DockStyle.Left;
-            product_edit_btn1.Image = Properties.Resources.edit;
-            product_edit_btn1.Location = new Point(0, 0);
-            product_edit_btn1.Name = "product_edit_btn1";
-            product_edit_btn1.Size = new Size(28, 21);
-            product_edit_btn1.SizeMode = PictureBoxSizeMode.Zoom;
-            product_edit_btn1.TabIndex = 0;
-            product_edit_btn1.TabStop = false;
-            product_edit_btn1.Click += product_edit_btn1_Click;
-            // 
-            // product_top_panel_1
-            // 
-            product_top_panel_1.Controls.Add(product_top_right_panel_1);
-            product_top_panel_1.Controls.Add(product_top_left_panel);
-            product_top_panel_1.Cursor = Cursors.Hand;
-            product_top_panel_1.Dock = DockStyle.Fill;
-            product_top_panel_1.Location = new Point(0, 0);
-            product_top_panel_1.Name = "product_top_panel_1";
-            product_top_panel_1.Size = new Size(203, 127);
-            product_top_panel_1.TabIndex = 0;
-            // 
-            // product_top_right_panel_1
-            // 
-            product_top_right_panel_1.Controls.Add(product_picture1);
-            product_top_right_panel_1.Dock = DockStyle.Fill;
-            product_top_right_panel_1.Location = new Point(119, 0);
-            product_top_right_panel_1.Name = "product_top_right_panel_1";
-            product_top_right_panel_1.Size = new Size(84, 127);
-            product_top_right_panel_1.TabIndex = 1;
-            // 
-            // product_picture1
-            // 
-            product_picture1.Dock = DockStyle.Fill;
-            product_picture1.Image = Properties.Resources.Hình_ảnh_trà_sữa_hoạt_hình_cute_nhất___Ảnh_đẹp_Free;
-            product_picture1.Location = new Point(0, 0);
-            product_picture1.Name = "product_picture1";
-            product_picture1.Size = new Size(84, 127);
-            product_picture1.SizeMode = PictureBoxSizeMode.Zoom;
-            product_picture1.TabIndex = 0;
-            product_picture1.TabStop = false;
-            // 
-            // product_top_left_panel
-            // 
-            product_top_left_panel.Controls.Add(ten_sp_label1);
-            product_top_left_panel.Controls.Add(gia_label1);
-            product_top_left_panel.Dock = DockStyle.Left;
-            product_top_left_panel.Location = new Point(0, 0);
-            product_top_left_panel.Name = "product_top_left_panel";
-            product_top_left_panel.Size = new Size(119, 127);
-            product_top_left_panel.TabIndex = 0;
-            // 
-            // ten_sp_label1
-            // 
-            ten_sp_label1.BorderStyle = BorderStyle.FixedSingle;
-            ten_sp_label1.Dock = DockStyle.Fill;
-            ten_sp_label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            ten_sp_label1.ForeColor = SystemColors.ControlText;
-            ten_sp_label1.Location = new Point(0, 25);
-            ten_sp_label1.Name = "ten_sp_label1";
-            ten_sp_label1.Size = new Size(119, 102);
-            ten_sp_label1.TabIndex = 1;
-            ten_sp_label1.Text = "Trà sữa chân trâu đường đen";
-            ten_sp_label1.TextAlign = ContentAlignment.TopCenter;
-            // 
-            // gia_label1
-            // 
-            gia_label1.BorderStyle = BorderStyle.FixedSingle;
-            gia_label1.Dock = DockStyle.Top;
-            gia_label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            gia_label1.ForeColor = SystemColors.ControlText;
-            gia_label1.Location = new Point(0, 0);
-            gia_label1.Name = "gia_label1";
-            gia_label1.Size = new Size(119, 25);
-            gia_label1.TabIndex = 0;
-            gia_label1.Text = "40.000";
-            gia_label1.TextAlign = ContentAlignment.MiddleCenter;
+            layout_product.AutoScroll = true;
+            layout_product.Dock = DockStyle.Fill;
+            layout_product.Location = new Point(0, 0);
+            layout_product.Name = "layout_product";
+            layout_product.Size = new Size(636, 228);
+            layout_product.TabIndex = 0;
             // 
             // panel_Top
             // 
@@ -849,10 +715,10 @@
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.ColumnCount = 4;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 42.55319F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 19.1489372F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 19.1489372F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 19.1489372F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30.681818F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 18.66883F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 17.37013F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.1168823F));
             tableLayoutPanel1.Controls.Add(comboBox3, 3, 0);
             tableLayoutPanel1.Controls.Add(roundedTextBox1, 0, 0);
             tableLayoutPanel1.Controls.Add(roundedButton1, 1, 0);
@@ -866,6 +732,19 @@
             tableLayoutPanel1.Size = new Size(616, 48);
             tableLayoutPanel1.TabIndex = 0;
             // 
+            // comboBox3
+            // 
+            comboBox3.Anchor = AnchorStyles.None;
+            comboBox3.FormattingEnabled = true;
+            comboBox3.Items.AddRange(new object[] { "Loại" });
+            comboBox3.Location = new Point(419, 10);
+            comboBox3.Name = "comboBox3";
+            comboBox3.Size = new Size(189, 28);
+            comboBox3.TabIndex = 3;
+            comboBox3.TabStop = false;
+            comboBox3.Text = "Loại";
+            comboBox3.SelectedIndexChanged += comboBox3_SelectedIndexChanged;
+            // 
             // roundedTextBox1
             // 
             roundedTextBox1.BackColor = Color.White;
@@ -877,7 +756,7 @@
             roundedTextBox1.Name = "roundedTextBox1";
             roundedTextBox1.Padding = new Padding(10, 5, 40, 5);
             roundedTextBox1.Placeholder = "Từ khóa tìm kiếm...";
-            roundedTextBox1.Size = new Size(256, 31);
+            roundedTextBox1.Size = new Size(180, 31);
             roundedTextBox1.TabIndex = 0;
             roundedTextBox1.TextValue = "";
             // 
@@ -892,13 +771,25 @@
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             roundedButton1.ForeColor = Color.White;
-            roundedButton1.Location = new Point(265, 3);
+            roundedButton1.Location = new Point(192, 3);
             roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(111, 36);
+            roundedButton1.Size = new Size(107, 36);
             roundedButton1.TabIndex = 1;
             roundedButton1.Text = "Thêm";
             roundedButton1.UseVisualStyleBackColor = false;
             roundedButton1.Click += roundedButton1_Click_1;
+            // 
+            // sort_comboBox
+            // 
+            sort_comboBox.Anchor = AnchorStyles.None;
+            sort_comboBox.FormattingEnabled = true;
+            sort_comboBox.Items.AddRange(new object[] { "Sắp xếp" });
+            sort_comboBox.Location = new Point(314, 10);
+            sort_comboBox.Name = "sort_comboBox";
+            sort_comboBox.Size = new Size(87, 28);
+            sort_comboBox.TabIndex = 2;
+            sort_comboBox.TabStop = false;
+            sort_comboBox.Text = "Sắp xếp";
             // 
             // Footer_Left_Panel
             // 
@@ -1053,30 +944,6 @@
             Topping.Text = "Topping";
             Topping.Click += Topping_Click;
             // 
-            // sort_comboBox
-            // 
-            sort_comboBox.Anchor = AnchorStyles.None;
-            sort_comboBox.FormattingEnabled = true;
-            sort_comboBox.Items.AddRange(new object[] { "Sắp xếp" });
-            sort_comboBox.Location = new Point(382, 10);
-            sort_comboBox.Name = "sort_comboBox";
-            sort_comboBox.Size = new Size(111, 28);
-            sort_comboBox.TabIndex = 2;
-            sort_comboBox.TabStop = false;
-            sort_comboBox.Text = "Sắp xếp";
-            // 
-            // comboBox3
-            // 
-            comboBox3.Anchor = AnchorStyles.None;
-            comboBox3.FormattingEnabled = true;
-            comboBox3.Items.AddRange(new object[] { "Loại" });
-            comboBox3.Location = new Point(500, 10);
-            comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(111, 28);
-            comboBox3.TabIndex = 3;
-            comboBox3.TabStop = false;
-            comboBox3.Text = "Loại";
-            // 
             // OrderForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -1085,6 +952,7 @@
             Controls.Add(OrderPanel);
             Name = "OrderForm";
             Text = "OrderForm";
+            Load += OrderForm_Load;
             OrderPanel.ResumeLayout(false);
             RightPanel.ResumeLayout(false);
             Section_Right_Panel.ResumeLayout(false);
@@ -1110,15 +978,6 @@
             LeftPanel.ResumeLayout(false);
             Middle_Left_Panel_1.ResumeLayout(false);
             panel_Bottom_1.ResumeLayout(false);
-            flowLayoutPanel1.ResumeLayout(false);
-            product_panel_1.ResumeLayout(false);
-            product_bottom_panel_1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)product_delete_btn1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)product_edit_btn1).EndInit();
-            product_top_panel_1.ResumeLayout(false);
-            product_top_right_panel_1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)product_picture1).EndInit();
-            product_top_left_panel.ResumeLayout(false);
             panel_Top.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             Footer_Left_Panel.ResumeLayout(false);
@@ -1147,8 +1006,7 @@
         private Label Size_SL_Label;
         private Panel panel_Top;
         private Panel panel_Bottom_1;
-        private FlowLayoutPanel flowLayoutPanel1;
-        private Panel product_panel_1;
+        private FlowLayoutPanel layout_product;
         private TableLayoutPanel tableLayoutPanel1;
         private Controls.RoundedTextBox roundedTextBox1;
         private Controls.RoundedButton roundedButton1;
@@ -1190,15 +1048,6 @@
         private ContextMenuStrip popup;
         private ToolStripMenuItem Hủy;
         private ToolStripMenuItem Topping;
-        private Panel product_bottom_panel_1;
-        private Panel product_top_panel_1;
-        private Panel product_top_right_panel_1;
-        private Panel product_top_left_panel;
-        private Label gia_label1;
-        private PictureBox product_picture1;
-        private Label ten_sp_label1;
-        private PictureBox product_edit_btn1;
-        private PictureBox product_delete_btn1;
         private Label label3;
         private Label label2;
         private ComboBox comboBox2;
