@@ -368,6 +368,7 @@ namespace MilkTea.Client.Forms
             cbbLoai.Name = "cbbLoai";
             cbbLoai.Size = new Size(121, 36);
             cbbLoai.TabIndex = 1;
+            cbbLoai.SelectedIndexChanged += cbbLoai_SelectedIndexChanged;
             // 
             // label5
             // 
@@ -631,6 +632,7 @@ namespace MilkTea.Client.Forms
             Controls.Add(ReportPanel);
             Name = "ReportForm";
             Text = "OrderForm";
+            Load += ReportForm_Load;
             ReportPanel.ResumeLayout(false);
             Content.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
