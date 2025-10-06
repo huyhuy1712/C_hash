@@ -73,23 +73,7 @@ namespace MilkTea.Client.Forms
                 var chiTiet = await _sanPhamService.GetSanPhamsByIdAsync(sp.MaSP);
                 var ctkhuyenmai = await _ctKhuyenMaiService.GetByMaSP(sp.MaSP);
                 var allSizes = await _sizeService.GetAll();
-
-                // Lấy các size đã dùng cho sản phẩm này trong danh sách order
-                var usedSizes = section_table_panel.Controls
-                    .OfType<product_item_order>()
-                    .Where(x => x.TenSP.Contains(chiTiet.TenSP))
-                    .Select(x => x.SelectedSize)
-                    .ToList();
-
-                // Tìm size đầu tiên chưa bị trùng
-                var availableSize = allSizes.FirstOrDefault(s => !usedSizes.Contains(s.TenSize));
-
-                if (availableSize == null)
-                {
-                    MessageBox.Show($"Tất cả size của {chiTiet.TenSP} đã có trong danh sách!",
-                                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
+                    
 
                 // ============= Tạo sản phẩm order mới =============
                 var orderItem = new product_item_order
@@ -97,11 +81,8 @@ namespace MilkTea.Client.Forms
                     TenSP = $"{chiTiet.TenSP} ({chiTiet.Gia:N0} VND)",
                     Gia = chiTiet.Gia,
                     Anh = chiTiet.Anh,
-                    DefaultSelectedSize = availableSize.TenSize
                 };
 
-                // Gắn event khi đổi size (để kiểm tra trùng)
-                orderItem.OnSizeChanged += OrderItem_OnSizeChanged;
 
                 // Thông tin khuyến mãi
                 if (ctkhuyenmai == null)
@@ -127,26 +108,6 @@ namespace MilkTea.Client.Forms
             {
                 MessageBox.Show("Lỗi khi thêm sản phẩm vào order: " + ex.Message,
                                 "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        // ==================== CHECK TRÙNG SIZE ====================
-        private void OrderItem_OnSizeChanged(string tenSP, string selectedSize, product_item_order currentItem)
-        {
-            foreach (product_item_order item in section_table_panel.Controls.OfType<product_item_order>())
-            {
-                if (item != currentItem && item.TenSP == tenSP && item.SelectedSize == selectedSize)
-                {
-                    MessageBox.Show($"Sản phẩm '{tenSP}' với size '{selectedSize}' đã có trong danh sách!",
-                                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                    // Giữ lại size cũ
-                    int oldIndex = currentItem.size_comboBox1.FindStringExact(currentItem.PreviousSize);
-                    if (oldIndex >= 0)
-                        currentItem.size_comboBox1.SelectedIndex = oldIndex;
-
-                    return;
-                }
             }
         }
 
