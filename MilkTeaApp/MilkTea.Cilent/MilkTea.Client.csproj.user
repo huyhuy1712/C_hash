@@ -5,6 +5,9 @@
     <Compile Update="Controls\ProductItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Update="Controls\product_item_order.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Controls\RoundedButton.cs">
       <SubType>Component</SubType>
     </Compile>

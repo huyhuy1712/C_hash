@@ -33,10 +33,10 @@ namespace MilkTea.Client.Forms
             {
                 var sanPhams = await _sanPhamService.GetSanPhamsAsync();
 
-                // 1Load danh sách loại (category)
+                // Load danh sách loại (category)
                 var loais = await _loaiService.GetLoaisAsync();
                 comboBox3.DataSource = loais;
-                comboBox3.DisplayMember = "TenLoai"; 
+                comboBox3.DisplayMember = "TenLoai";
                 comboBox3.ValueMember = "MaLoai";
 
                 // Xóa hết control cũ trong flowLayoutPanel 
@@ -45,12 +45,15 @@ namespace MilkTea.Client.Forms
                 foreach (var sp in sanPhams)
                 {
                     // Tạo một ProductItem (UserControl đã làm)
-                    var item = new ProductItem();
+                    var item = new Controls.ProductItem();
 
                     // Set data từ SanPham
                     item.SetData(sp);
 
-                    // Add vào flowLayoutPanel
+                    // Gắn sự kiện click sản phẩm
+                    //item.OnProductSelected += ProductItem_OnProductSelected;
+
+                    // Add vào flowLayoutPanel hiển thị menu
                     layout_product.Controls.Add(item);
                 }
             }
@@ -59,6 +62,42 @@ namespace MilkTea.Client.Forms
                 MessageBox.Show("Lỗi khi gọi API: " + ex.Message);
             }
         }
+
+
+        //private async void ProductItem_OnProductSelected(object sender, MilkTea.Client.Models.SanPham sp)
+        //{
+        //    try
+        //    {
+        //        //  Gọi lại API chi tiết sản phẩm theo ID (nếu cần)
+        //        var chiTiet = await _sanPhamService.GetSanPhamByIdAsync(sp.MaSP);
+
+        //        // Tạo control product_item_order mới
+        //        var orderItem = new Controls.product_item_order();
+
+        //        // Gán dữ liệu
+        //        orderItem.TenSP = $"{chiTiet.TenSP} ({chiTiet.Gia:N0} VND)";
+        //        orderItem.Gia = chiTiet.Gia;
+        //        orderItem.SoLuong = 1;
+        //        orderItem.Anh = chiTiet.Anh;
+
+        //        // Cập nhật giao diện của control (set ảnh, text,...)
+        //        orderItem.CapNhatHienThi();
+
+        //        // 🔹 Thêm control vào panel chứa danh sách order
+        //        section_table_panel.Controls.Add(orderItem);
+
+        //        // Đặt dock kiểu Top (để stack control từ trên xuống)
+        //        orderItem.Dock = DockStyle.Top;
+        //        orderItem.BringToFront(); // để control mới nằm trên cùng
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Lỗi khi thêm sản phẩm vào order: " + ex.Message);
+        //    }
+        //}
+
+
 
 
         private void label1_Click_1(object sender, EventArgs e)
@@ -105,20 +144,6 @@ namespace MilkTea.Client.Forms
 
         }
 
-        private void three_dots_label_click(object sender, EventArgs e)
-        {
-            // Lấy vị trí Label trên màn hình
-            var location = three_dots_label.PointToScreen(new Point(0, three_dots_label.Height));
-
-            // Hiển thị menu ngay dưới label
-            popup.Show(location);
-        }
-
-
-        private void product_delete_btn1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void Topping_Click(object sender, EventArgs e)
         {
