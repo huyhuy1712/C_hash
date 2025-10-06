@@ -29,15 +29,16 @@ namespace MilkTea.Client.Forms
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImportForm));
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel2 = new Panel();
             label1 = new Label();
             panel3 = new Panel();
             panel7 = new Panel();
-            roundedTextBox2 = new MilkTea.Client.Controls.RoundedTextBox();
+            panel8 = new Panel();
             roundedComboBox2 = new MilkTea.Client.Controls.RoundedComboBox();
+            roundedTextBox2 = new MilkTea.Client.Controls.RoundedTextBox();
             panel6 = new Panel();
             roundedButton2 = new MilkTea.Client.Controls.RoundedButton();
             roundedButton1 = new MilkTea.Client.Controls.RoundedButton();
@@ -55,16 +56,15 @@ namespace MilkTea.Client.Forms
             thongTin_Tb_iPort = new DataGridViewImageColumn();
             xoa_Tb_iPort = new DataGridViewImageColumn();
             panel1 = new Panel();
-            panel8 = new Panel();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel7.SuspendLayout();
+            panel8.SuspendLayout();
             panel6.SuspendLayout();
             panel4.SuspendLayout();
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel1.SuspendLayout();
-            panel8.SuspendLayout();
             SuspendLayout();
             // 
             // panel2
@@ -112,20 +112,14 @@ namespace MilkTea.Client.Forms
             panel7.Size = new Size(484, 54);
             panel7.TabIndex = 1;
             // 
-            // roundedTextBox2
+            // panel8
             // 
-            roundedTextBox2.BackColor = Color.White;
-            roundedTextBox2.BorderColor = Color.Gray;
-            roundedTextBox2.BorderRadius = 20;
-            roundedTextBox2.Dock = DockStyle.Left;
-            roundedTextBox2.FocusBorderColor = Color.DeepSkyBlue;
-            roundedTextBox2.Location = new Point(9, 8);
-            roundedTextBox2.Name = "roundedTextBox2";
-            roundedTextBox2.Padding = new Padding(10, 5, 40, 5);
-            roundedTextBox2.Placeholder = "Từ khóa tìm kiếm...";
-            roundedTextBox2.Size = new Size(295, 38);
-            roundedTextBox2.TabIndex = 1;
-            roundedTextBox2.TextValue = "";
+            panel8.Controls.Add(roundedComboBox2);
+            panel8.Dock = DockStyle.Right;
+            panel8.Location = new Point(324, 8);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(151, 38);
+            panel8.TabIndex = 2;
             // 
             // roundedComboBox2
             // 
@@ -145,6 +139,21 @@ namespace MilkTea.Client.Forms
             roundedComboBox2.Name = "roundedComboBox2";
             roundedComboBox2.Size = new Size(151, 36);
             roundedComboBox2.TabIndex = 0;
+            // 
+            // roundedTextBox2
+            // 
+            roundedTextBox2.BackColor = Color.White;
+            roundedTextBox2.BorderColor = Color.Gray;
+            roundedTextBox2.BorderRadius = 20;
+            roundedTextBox2.Dock = DockStyle.Left;
+            roundedTextBox2.FocusBorderColor = Color.DeepSkyBlue;
+            roundedTextBox2.Location = new Point(9, 8);
+            roundedTextBox2.Name = "roundedTextBox2";
+            roundedTextBox2.Padding = new Padding(10, 5, 40, 5);
+            roundedTextBox2.Placeholder = "Từ khóa tìm kiếm...";
+            roundedTextBox2.Size = new Size(295, 38);
+            roundedTextBox2.TabIndex = 1;
+            roundedTextBox2.TextValue = "";
             // 
             // panel6
             // 
@@ -317,10 +326,10 @@ namespace MilkTea.Client.Forms
             // 
             // thongTin_Tb_iPort
             // 
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.NullValue = resources.GetObject("dataGridViewCellStyle3.NullValue");
-            dataGridViewCellStyle3.Padding = new Padding(3);
-            thongTin_Tb_iPort.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.NullValue = resources.GetObject("dataGridViewCellStyle1.NullValue");
+            dataGridViewCellStyle1.Padding = new Padding(3);
+            thongTin_Tb_iPort.DefaultCellStyle = dataGridViewCellStyle1;
             thongTin_Tb_iPort.HeaderText = "Thông tin";
             thongTin_Tb_iPort.Image = Properties.Resources.information;
             thongTin_Tb_iPort.ImageLayout = DataGridViewImageCellLayout.Zoom;
@@ -332,10 +341,10 @@ namespace MilkTea.Client.Forms
             // 
             // xoa_Tb_iPort
             // 
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.NullValue = resources.GetObject("dataGridViewCellStyle4.NullValue");
-            dataGridViewCellStyle4.Padding = new Padding(3);
-            xoa_Tb_iPort.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.NullValue = resources.GetObject("dataGridViewCellStyle2.NullValue");
+            dataGridViewCellStyle2.Padding = new Padding(3);
+            xoa_Tb_iPort.DefaultCellStyle = dataGridViewCellStyle2;
             xoa_Tb_iPort.HeaderText = "Xóa";
             xoa_Tb_iPort.Image = Properties.Resources.trash;
             xoa_Tb_iPort.MinimumWidth = 6;
@@ -357,15 +366,6 @@ namespace MilkTea.Client.Forms
             panel1.Size = new Size(1684, 703);
             panel1.TabIndex = 0;
             // 
-            // panel8
-            // 
-            panel8.Controls.Add(roundedComboBox2);
-            panel8.Dock = DockStyle.Right;
-            panel8.Location = new Point(324, 8);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(151, 38);
-            panel8.TabIndex = 2;
-            // 
             // ImportForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -378,12 +378,12 @@ namespace MilkTea.Client.Forms
             panel2.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel7.ResumeLayout(false);
+            panel8.ResumeLayout(false);
             panel6.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             panel1.ResumeLayout(false);
-            panel8.ResumeLayout(false);
             ResumeLayout(false);
         }
 
