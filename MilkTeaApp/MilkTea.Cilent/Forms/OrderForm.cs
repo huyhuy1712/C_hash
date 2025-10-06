@@ -51,7 +51,7 @@ namespace MilkTea.Client.Forms
                     item.SetData(sp);
 
                     // Gắn sự kiện click sản phẩm
-                    item.OnProductSelected += ProductItem_OnProductSelected;
+                    //item.OnProductSelected += ProductItem_OnProductSelected;
 
                     // Add vào flowLayoutPanel hiển thị menu
                     layout_product.Controls.Add(item);
@@ -64,38 +64,38 @@ namespace MilkTea.Client.Forms
         }
 
 
-        private async void ProductItem_OnProductSelected(object sender, MilkTea.Client.Models.SanPham sp)
-        {
-            try
-            {
-                //  Gọi lại API chi tiết sản phẩm theo ID (nếu cần)
-                var chiTiet = await _sanPhamService.GetSanPhamByIdAsync(sp.MaSP);
+        //private async void ProductItem_OnProductSelected(object sender, MilkTea.Client.Models.SanPham sp)
+        //{
+        //    try
+        //    {
+        //        //  Gọi lại API chi tiết sản phẩm theo ID (nếu cần)
+        //        var chiTiet = await _sanPhamService.GetSanPhamByIdAsync(sp.MaSP);
 
-                // Tạo control product_item_order mới
-                var orderItem = new Controls.product_item_order();
+        //        // Tạo control product_item_order mới
+        //        var orderItem = new Controls.product_item_order();
 
-                // Gán dữ liệu
-                orderItem.TenSP = $"{chiTiet.TenSP} ({chiTiet.Gia:N0} VND)";
-                orderItem.Gia = chiTiet.Gia;
-                orderItem.SoLuong = 1;
-                orderItem.Anh = chiTiet.Anh;
+        //        // Gán dữ liệu
+        //        orderItem.TenSP = $"{chiTiet.TenSP} ({chiTiet.Gia:N0} VND)";
+        //        orderItem.Gia = chiTiet.Gia;
+        //        orderItem.SoLuong = 1;
+        //        orderItem.Anh = chiTiet.Anh;
 
-                // Cập nhật giao diện của control (set ảnh, text,...)
-                orderItem.CapNhatHienThi();
+        //        // Cập nhật giao diện của control (set ảnh, text,...)
+        //        orderItem.CapNhatHienThi();
 
-                // 🔹 Thêm control vào panel chứa danh sách order
-                section_table_panel.Controls.Add(orderItem);
+        //        // 🔹 Thêm control vào panel chứa danh sách order
+        //        section_table_panel.Controls.Add(orderItem);
 
-                // Đặt dock kiểu Top (để stack control từ trên xuống)
-                orderItem.Dock = DockStyle.Top;
-                orderItem.BringToFront(); // để control mới nằm trên cùng
+        //        // Đặt dock kiểu Top (để stack control từ trên xuống)
+        //        orderItem.Dock = DockStyle.Top;
+        //        orderItem.BringToFront(); // để control mới nằm trên cùng
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi thêm sản phẩm vào order: " + ex.Message);
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Lỗi khi thêm sản phẩm vào order: " + ex.Message);
+        //    }
+        //}
 
 
 
