@@ -707,7 +707,7 @@
             Size_SL_Label.Name = "Size_SL_Label";
             Size_SL_Label.Size = new Size(149, 50);
             Size_SL_Label.TabIndex = 3;
-            Size_SL_Label.Text = "SL: 25.000";
+            Size_SL_Label.Text = "XL: 25.000";
             Size_SL_Label.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // Header_Left_Panel
