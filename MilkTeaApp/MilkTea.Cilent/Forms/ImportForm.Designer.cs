@@ -47,7 +47,7 @@ namespace MilkTea.Client.Forms
             panel4 = new Panel();
             label2 = new Label();
             panel5 = new Panel();
-            dataGridView1 = new DataGridView();
+            dGV_phieuNhap = new DataGridView();
             maPhieuNhap_Tb_iPort = new DataGridViewTextBoxColumn();
             ngayNhap_Tb_iPort = new DataGridViewTextBoxColumn();
             soLuong_Tb_iPort = new DataGridViewTextBoxColumn();
@@ -63,7 +63,7 @@ namespace MilkTea.Client.Forms
             panel6.SuspendLayout();
             panel4.SuspendLayout();
             panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dGV_phieuNhap).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -263,7 +263,7 @@ namespace MilkTea.Client.Forms
             // panel5
             // 
             panel5.BackColor = SystemColors.ActiveBorder;
-            panel5.Controls.Add(dataGridView1);
+            panel5.Controls.Add(dGV_phieuNhap);
             panel5.Dock = DockStyle.Fill;
             panel5.Location = new Point(0, 168);
             panel5.Margin = new Padding(3, 4, 3, 4);
@@ -273,21 +273,21 @@ namespace MilkTea.Client.Forms
             panel5.TabIndex = 3;
             panel5.TabStop = true;
             // 
-            // dataGridView1
+            // dGV_phieuNhap
             // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.BackgroundColor = SystemColors.ButtonFace;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { maPhieuNhap_Tb_iPort, ngayNhap_Tb_iPort, soLuong_Tb_iPort, tenNVN_Tb_iPort, tongTien_Tb_iPort, thongTin_Tb_iPort, xoa_Tb_iPort });
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(23, 27);
-            dataGridView1.Margin = new Padding(3, 4, 3, 4);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersVisible = false;
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(1638, 481);
-            dataGridView1.TabIndex = 0;
-            dataGridView1.CellClick += dataGridView1_CellClick;
+            dGV_phieuNhap.AllowUserToAddRows = false;
+            dGV_phieuNhap.BackgroundColor = SystemColors.ButtonFace;
+            dGV_phieuNhap.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dGV_phieuNhap.Columns.AddRange(new DataGridViewColumn[] { maPhieuNhap_Tb_iPort, ngayNhap_Tb_iPort, soLuong_Tb_iPort, tenNVN_Tb_iPort, tongTien_Tb_iPort, thongTin_Tb_iPort, xoa_Tb_iPort });
+            dGV_phieuNhap.Dock = DockStyle.Fill;
+            dGV_phieuNhap.Location = new Point(23, 27);
+            dGV_phieuNhap.Margin = new Padding(3, 4, 3, 4);
+            dGV_phieuNhap.Name = "dGV_phieuNhap";
+            dGV_phieuNhap.RowHeadersVisible = false;
+            dGV_phieuNhap.RowHeadersWidth = 51;
+            dGV_phieuNhap.Size = new Size(1638, 481);
+            dGV_phieuNhap.TabIndex = 0;
+            dGV_phieuNhap.CellClick += dataGridView1_CellClick;
             // 
             // maPhieuNhap_Tb_iPort
             // 
@@ -382,7 +382,7 @@ namespace MilkTea.Client.Forms
             panel6.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dGV_phieuNhap).EndInit();
             panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -400,7 +400,7 @@ namespace MilkTea.Client.Forms
         private Panel panel4;
         private Label label2;
         private Panel panel5;
-        private DataGridView dataGridView1;
+        private DataGridView dGV_phieuNhap;
         private Panel panel1;
         private DataGridViewTextBoxColumn maPhieuNhap_Tb_iPort;
         private DataGridViewTextBoxColumn ngayNhap_Tb_iPort;

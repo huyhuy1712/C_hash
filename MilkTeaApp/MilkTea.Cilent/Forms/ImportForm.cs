@@ -1,4 +1,6 @@
-﻿using MilkTea.Client.Forms.ChildForm_Import;
+﻿using MilkTea.Client.Controls;
+using MilkTea.Client.Forms.ChildForm_Import;
+using MilkTea.Client.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,20 +10,55 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace MilkTea.Client.Forms
 {
     public partial class ImportForm : Form
     {
+        private readonly PhieuNhapService _phieuNhapService;
+        private readonly NhanVienService _nhanVienService;
         public ImportForm()
         {
             InitializeComponent();
+            _phieuNhapService = new PhieuNhapService();
+            _nhanVienService = new NhanVienService();  
         }
 
-        private void ImportForm_Load(object sender, EventArgs e)
+        private async void ImportForm_Load(object sender, EventArgs e)
         {
-            int index = dataGridView1.Rows.Add();
+            try
+            {
+                // Lấy danh sách phiếu nhập từ service
+                var phieuNhaps = await _phieuNhapService.GetPhieuNhapsAsync();
 
+                // Kiểm tra nếu danh sách không rỗng
+                if (phieuNhaps != null && phieuNhaps.Any())
+                {
+                    // Xóa hết hàng cũ trong DataGridView
+                    dGV_phieuNhap.Rows.Clear();
+                    foreach (var pn in phieuNhaps)
+                    {
+                        var nhanvien = await _nhanVienService.GetByMaNV(pn.MaNV);
+                        int rowIndex = dGV_phieuNhap.Rows.Add();
+                        dGV_phieuNhap.Rows[rowIndex].Cells["maPhieuNhap_Tb_iPort"].Value = pn.MaPN;
+                        dGV_phieuNhap.Rows[rowIndex].Cells["ngayNhap_Tb_iPort"].Value = pn.NgayNhap?.ToString("dd/MM/yyyy");
+                        dGV_phieuNhap.Rows[rowIndex].Cells["soLuong_Tb_iPort"].Value = pn.SoLuong;
+                        dGV_phieuNhap.Rows[rowIndex].Cells["tenNVN_Tb_iPort"].Value = nhanvien.TenNV;
+                        dGV_phieuNhap.Rows[rowIndex].Cells["tongTien_Tb_iPort"].Value = pn.TongTien;
+                    }
+                }
+                else
+                {
+                    // Xóa hết hàng nếu không có dữ liệu
+                    dGV_phieuNhap.Rows.Clear();
+                    MessageBox.Show("Không có dữ liệu phiếu nhập để hiển thị.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi gọi API: " + ex.Message);
+            }
         }
 
         private void add_Import_btn_Click(object sender, EventArgs e)
@@ -42,10 +79,10 @@ namespace MilkTea.Client.Forms
             if (e.RowIndex < 0) return;
 
             // Kiểm tra cột được click
-            if (dataGridView1.Columns[e.ColumnIndex].Name == "thongTin_Tb_iPort")
+            if (dGV_phieuNhap.Columns[e.ColumnIndex].Name == "thongTin_Tb_iPort")
             {
                 // Lấy dữ liệu của dòng được chọn
-                string id = dataGridView1.Rows[e.RowIndex].Cells["maPhieuNhap_Tb_iPort"].Value?.ToString();
+                string id = dGV_phieuNhap.Rows[e.RowIndex].Cells["maPhieuNhap_Tb_iPort"].Value?.ToString();
                 // Mở form sửa (ví dụ FormEditAccount)
                 using (var frm = new ImportForm_Info())
                 {

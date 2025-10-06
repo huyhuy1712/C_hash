@@ -13,12 +13,9 @@ namespace MilkTea.Client.Services
     {
         public async Task<List<PhieuNhap>> GetPhieuNhapsAsync()
         {
-            return await _http.GetFromJsonAsync<List<PhieuNhap>>("/api/phieunhap");
+            return await _http.GetFromJsonAsync<List<PhieuNhap>>("/api/phieunhap"); 
         }
 
-        public async Task<PhieuNhap?> GetPhieuNhapsByIdAsync(int id)
-        {
-            return await _http.GetFromJsonAsync<PhieuNhap>($"/api/phieunhap/{id}");
-        }
+
     }
 }

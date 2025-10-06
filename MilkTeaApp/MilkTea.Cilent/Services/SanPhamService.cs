@@ -17,7 +17,7 @@ namespace MilkTea.Client.Services
             return await _http.GetFromJsonAsync<List<SanPham>>("/api/sanpham");
         }
 
-        public async Task<SanPham?> GetSanPhamByIdAsync(int id)
+        public async Task<SanPham?> GetSanPhamsByIdAsync(int id)
         {
             return await _http.GetFromJsonAsync<SanPham>($"/api/sanpham/{id}");
         }
