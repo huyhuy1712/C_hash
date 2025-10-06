@@ -18,12 +18,13 @@ namespace MilkTea.Client.Forms
     {
         private readonly SanPhamService _sanPhamService;
         private readonly LoaiService _loaiService;
-
+        private readonly CTKhuyenMaiService _ctKhuyenMaiService;
         public OrderForm()
         {
             InitializeComponent();
             _sanPhamService = new SanPhamService();
             _loaiService = new LoaiService();
+            _ctKhuyenMaiService = new CTKhuyenMaiService();
         }
 
 
@@ -51,7 +52,7 @@ namespace MilkTea.Client.Forms
                     item.SetData(sp);
 
                     // Gắn sự kiện click sản phẩm
-                    //item.OnProductSelected += ProductItem_OnProductSelected;
+                    item.OnProductSelected += ProductItem_OnProductSelected;
 
                     // Add vào flowLayoutPanel hiển thị menu
                     layout_product.Controls.Add(item);
@@ -64,38 +65,53 @@ namespace MilkTea.Client.Forms
         }
 
 
-        //private async void ProductItem_OnProductSelected(object sender, MilkTea.Client.Models.SanPham sp)
-        //{
-        //    try
-        //    {
-        //        //  Gọi lại API chi tiết sản phẩm theo ID (nếu cần)
-        //        var chiTiet = await _sanPhamService.GetSanPhamByIdAsync(sp.MaSP);
+        private async void ProductItem_OnProductSelected(object sender, ProductItem.SanPhamEventArgs e)
+        {
+            try
+            {
+                // Lấy dữ liệu sản phẩm từ event args
+                var sp = e.SanPham;
 
-        //        // Tạo control product_item_order mới
-        //        var orderItem = new Controls.product_item_order();
+                //  Gọi lại API chi tiết sản phẩm theo ID vaf chương trình khuyến mãi của sản phẩm (nếu có)
+                var chiTiet = await _sanPhamService.GetSanPhamsByIdAsync(sp.MaSP);
+                var ctkhuyenmai = await _ctKhuyenMaiService.GetByMaSP(sp.MaSP);
 
-        //        // Gán dữ liệu
-        //        orderItem.TenSP = $"{chiTiet.TenSP} ({chiTiet.Gia:N0} VND)";
-        //        orderItem.Gia = chiTiet.Gia;
-        //        orderItem.SoLuong = 1;
-        //        orderItem.Anh = chiTiet.Anh;
+                // Tạo control product_item_order mới
+                var orderItem = new Controls.product_item_order();
 
-        //        // Cập nhật giao diện của control (set ảnh, text,...)
-        //        orderItem.CapNhatHienThi();
+                // Gán dữ liệu
+                orderItem.TenSP = $"{chiTiet.TenSP} ({chiTiet.Gia:N0} VND)";
+                orderItem.Gia = chiTiet.Gia;
+                orderItem.SoLuong = 1;
+                orderItem.Anh = chiTiet.Anh;
 
-        //        // 🔹 Thêm control vào panel chứa danh sách order
-        //        section_table_panel.Controls.Add(orderItem);
+                //Kiểm tra xem sản phẩm có đang dc khuyến mãi không
+                if(ctkhuyenmai == null)
+                {
+                    orderItem.khuyenmai = "Không có";
+                    orderItem.phantramgiam = 0;
+                }
+                else
+                {
+                    orderItem.khuyenmai = ctkhuyenmai.TenCTKhuyenMai;
+                    orderItem.phantramgiam = ctkhuyenmai.PhanTramKhuyenMai;
+                }
 
-        //        // Đặt dock kiểu Top (để stack control từ trên xuống)
-        //        orderItem.Dock = DockStyle.Top;
-        //        orderItem.BringToFront(); // để control mới nằm trên cùng
+                orderItem.setData();
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Lỗi khi thêm sản phẩm vào order: " + ex.Message);
-        //    }
-        //}
+                // Thêm control vào panel chứa danh sách order
+                section_table_panel.Controls.Add(orderItem);
+
+                // Đặt dock kiểu Top (để stack control từ trên xuống)
+                orderItem.Dock = DockStyle.Top;
+                orderItem.BringToFront(); // để control mới nằm trên cùng
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi thêm sản phẩm vào order: " + ex.Message);
+            }
+        }
 
 
 

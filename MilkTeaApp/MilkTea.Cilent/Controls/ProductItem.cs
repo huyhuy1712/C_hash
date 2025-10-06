@@ -1,51 +1,64 @@
 ﻿using MilkTea.Client.Models;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 
 namespace MilkTea.Client.Controls
 {
     public partial class ProductItem : UserControl
     {
+        // Biến lưu sản phẩm hiện tại để khi click có thể dùng lại
         private SanPham sanPham;
 
-        public event EventHandler<SanPham> OnProductSelected;
+        // Định nghĩa EventArgs tùy chỉnh để truyền dữ liệu sản phẩm ra ngoài
+        public class SanPhamEventArgs : EventArgs
+        {
+            public SanPham SanPham { get; set; }
 
+            public SanPhamEventArgs(SanPham sp)
+            {
+                SanPham = sp;
+            }
+        }
+
+        // Sự kiện phát ra khi người dùng click chọn sản phẩm
+        public event EventHandler<SanPhamEventArgs> OnProductSelected;
+
+        //  Constructor
         public ProductItem()
         {
             InitializeComponent();
 
+            // Gắn sự kiện click cho các thành phần chính
             product_top_panel_1.Click += Product_Click;
             product_picture1.Click += Product_Click;
             ten_sp_label1.Click += Product_Click;
             gia_label1.Click += Product_Click;
         }
 
+        // Hàm gọi khi người dùng click vào sản phẩm
         private void Product_Click(object sender, EventArgs e)
         {
-            // Khi người dùng click panel, phát event gửi sản phẩm ra ngoài
+            // Nếu có dữ liệu sản phẩm thì phát event ra ngoài
             if (sanPham != null)
             {
-                OnProductSelected?.Invoke(this, sanPham);
+                OnProductSelected?.Invoke(this, new SanPhamEventArgs(sanPham));
             }
         }
 
-        // Hàm để nhận dữ liệu từ API và set vào UI
+        // Nhận dữ liệu từ API và hiển thị lên giao diện
         public void SetData(SanPham sp)
         {
+            sanPham = sp; // lưu lại dữ liệu sản phẩm để khi click còn dùng
+
             // Hiển thị tên và giá
             ten_sp_label1.Text = sp.TenSP;
             gia_label1.Text = sp.Gia.ToString("N0") + " VND";
 
             try
             {
-                // Đường dẫn ảnh tuyệt đối
+                // Tạo đường dẫn tuyệt đối tới ảnh
                 string imgPath = Path.Combine(Application.StartupPath, "images", "tra_sua", sp.Anh ?? "");
 
                 if (!string.IsNullOrEmpty(sp.Anh) && File.Exists(imgPath))
@@ -65,6 +78,8 @@ namespace MilkTea.Client.Controls
                 product_picture1.Image = Properties.Resources.tra_sua_truyen_thong;
             }
         }
+    
+
 
     }
 }
