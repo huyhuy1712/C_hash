@@ -20,8 +20,9 @@ namespace MilkTea.Client.Forms
 
         private void AccountForm_Load(object sender, EventArgs e)
         {
-            int index = dataGridView1.Rows.Add();
-            dataGridView1.Rows.Add();
+            //int index = dataGridView1.Rows.Add();
+
+
             dataGridView1.CellClick += dataGridView1_CellClick;
         }
 
@@ -87,6 +88,22 @@ namespace MilkTea.Client.Forms
         {
             var frm = new DanhSachQuyenForm();
             frm.ShowDialog();
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            // Code làm mới dữ liệu trong DataGridView
+            dataGridView1.Rows.Clear();
+            // Giả sử bạn có một phương thức LoadData() để tải lại dữ liệu
+            LoadData();
+        }
+
+        private void LoadData()
+        {
+            // Ví dụ: Thêm dữ liệu mẫu vào DataGridView
+            dataGridView1.Rows.Add("1", "user1", "Admin");
+            dataGridView1.Rows.Add("2", "user2", "User");
+            dataGridView1.Rows.Add("3", "user3", "Guest");
         }
     }
 }
