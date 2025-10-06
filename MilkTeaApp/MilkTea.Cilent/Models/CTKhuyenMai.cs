@@ -18,7 +18,7 @@ namespace MilkTea.Client.Models
         public DateTime? NgayKetThuc { get; set; }
 
         // Phần trăm khuyến mãi (ví dụ: 10, 20, 50…)
-        public int PhanTramKhuyenMai { get; set; }
+        public decimal PhanTramKhuyenMai { get; set; }
 
         // Trạng thái (1 = đang áp dụng, 0 = ngừng, …)
         public int TrangThai { get; set; }

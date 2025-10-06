@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             item_right_panel = new Panel();
             tableLayoutPanel3 = new TableLayoutPanel();
             label19 = new Label();
@@ -40,10 +41,14 @@
             panel8 = new Panel();
             textBox1 = new TextBox();
             three_dots_label = new Label();
+            popup = new ContextMenuStrip(components);
+            huy = new ToolStripMenuItem();
+            Topping = new ToolStripMenuItem();
             item_right_panel.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox9).BeginInit();
             panel8.SuspendLayout();
+            popup.SuspendLayout();
             SuspendLayout();
             // 
             // item_right_panel
@@ -96,7 +101,6 @@
             label19.Name = "label19";
             label19.Size = new Size(84, 77);
             label19.TabIndex = 8;
-            label19.Text = "30.000";
             label19.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label26
@@ -109,7 +113,6 @@
             label26.Name = "label26";
             label26.Size = new Size(84, 77);
             label26.TabIndex = 7;
-            label26.Text = "10.000";
             label26.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label27
@@ -122,7 +125,6 @@
             label27.Name = "label27";
             label27.Size = new Size(84, 77);
             label27.TabIndex = 6;
-            label27.Text = "8/8";
             label27.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // SL_dc_label
@@ -135,7 +137,6 @@
             SL_dc_label.Name = "SL_dc_label";
             SL_dc_label.Size = new Size(84, 77);
             SL_dc_label.TabIndex = 5;
-            SL_dc_label.Text = "10";
             SL_dc_label.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lb
@@ -148,13 +149,11 @@
             lb.Name = "lb";
             lb.Size = new Size(218, 77);
             lb.TabIndex = 0;
-            lb.Text = "Trà sữa chân châu (40.000)";
             lb.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // pictureBox9
             // 
             pictureBox9.Dock = DockStyle.Fill;
-            pictureBox9.Image = Properties.Resources.tra_sua_truyen_thong;
             pictureBox9.Location = new Point(3, 3);
             pictureBox9.Name = "pictureBox9";
             pictureBox9.Size = new Size(142, 71);
@@ -172,6 +171,8 @@
             size_comboBox1.Name = "size_comboBox1";
             size_comboBox1.Size = new Size(84, 28);
             size_comboBox1.TabIndex = 10;
+            size_comboBox1.Tag = "S";
+            size_comboBox1.Leave += textBox1_leave;
             // 
             // panel8
             // 
@@ -186,12 +187,12 @@
             // 
             textBox1.BorderStyle = BorderStyle.None;
             textBox1.Cursor = Cursors.IBeam;
-            textBox1.Location = new Point(0, 16);
+            textBox1.Location = new Point(0, 25);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(84, 20);
             textBox1.TabIndex = 0;
-            textBox1.Text = "5";
             textBox1.TextAlign = HorizontalAlignment.Center;
+            textBox1.KeyPress += textBox1_KeyPress;
             // 
             // three_dots_label
             // 
@@ -204,6 +205,34 @@
             three_dots_label.Size = new Size(87, 77);
             three_dots_label.TabIndex = 12;
             three_dots_label.TextAlign = ContentAlignment.MiddleCenter;
+            three_dots_label.Click += three_dots_label_Click;
+            // 
+            // popup
+            // 
+            popup.BackColor = SystemColors.ActiveBorder;
+            popup.ImageScalingSize = new Size(20, 20);
+            popup.Items.AddRange(new ToolStripItem[] { huy, Topping });
+            popup.Name = "popup";
+            popup.Size = new Size(160, 64);
+            // 
+            // huy
+            // 
+            huy.Alignment = ToolStripItemAlignment.Right;
+            huy.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            huy.Image = Properties.Resources.X;
+            huy.Name = "huy";
+            huy.Size = new Size(159, 30);
+            huy.Text = "Hủy";
+            huy.Click += huy_Click;
+            // 
+            // Topping
+            // 
+            Topping.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            Topping.ForeColor = SystemColors.ActiveCaptionText;
+            Topping.Image = Properties.Resources.topping;
+            Topping.Name = "Topping";
+            Topping.Size = new Size(159, 30);
+            Topping.Text = "Topping";
             // 
             // product_item_order
             // 
@@ -218,6 +247,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox9).EndInit();
             panel8.ResumeLayout(false);
             panel8.PerformLayout();
+            popup.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -235,5 +265,8 @@
         private Label three_dots_label;
         private Panel panel8;
         private TextBox textBox1;
+        private ContextMenuStrip popup;
+        private ToolStripMenuItem huy;
+        private ToolStripMenuItem Topping;
     }
 }
