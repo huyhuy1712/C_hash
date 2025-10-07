@@ -212,7 +212,7 @@
             popup.ImageScalingSize = new Size(20, 20);
             popup.Items.AddRange(new ToolStripItem[] { huy, Topping });
             popup.Name = "popup";
-            popup.Size = new Size(160, 64);
+            popup.Size = new Size(215, 92);
             // 
             // huy
             // 
@@ -220,7 +220,7 @@
             huy.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             huy.Image = Properties.Resources.X;
             huy.Name = "huy";
-            huy.Size = new Size(159, 30);
+            huy.Size = new Size(214, 30);
             huy.Text = "Hủy";
             huy.Click += huy_Click;
             // 
@@ -230,8 +230,9 @@
             Topping.ForeColor = SystemColors.ActiveCaptionText;
             Topping.Image = Properties.Resources.topping;
             Topping.Name = "Topping";
-            Topping.Size = new Size(159, 30);
+            Topping.Size = new Size(214, 30);
             Topping.Text = "Topping";
+            Topping.Click += Topping_Click;
             // 
             // product_item_order
             // 
