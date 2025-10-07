@@ -15,8 +15,7 @@ namespace MilkTea.Client.Controls
     public partial class product_item_order : UserControl
     {
         private readonly SizeService _sizeService;
-        private string _previousSize = string.Empty;  // Lưu size trước đó
-        private bool _isInitializing = false;         // Chặn event khi đang load dữ liệu
+
 
         // ===================== PROPERTY =====================
         public string TenSP { get; set; }
@@ -24,19 +23,6 @@ namespace MilkTea.Client.Controls
         public string Anh { get; set; }
         public string khuyenmai { get; set; }
         public decimal phantramgiam { get; set; }
-        public string DefaultSelectedSize { get; set; }
-        public string PreviousSize => _previousSize;
-
-        // Lấy size hiện tại đang chọn
-        public string SelectedSize
-        {
-            get
-            {
-                if (size_comboBox1.SelectedItem is MilkTea.Client.Models.Size selected)
-                    return selected.TenSize;
-                return string.Empty;
-            }
-        }
 
         // ===================== CONSTRUCTOR =====================
         public product_item_order()
@@ -49,7 +35,6 @@ namespace MilkTea.Client.Controls
         // ===================== SET DATA =====================
         public async void setData()
         {
-            _isInitializing = true; // 🔒 Chặn sự kiện SelectedIndexChanged
 
             lb.Text = TenSP;
             textBox1.Text = "1";
@@ -60,18 +45,7 @@ namespace MilkTea.Client.Controls
             size_comboBox1.DisplayMember = "TenSize";
             size_comboBox1.ValueMember = "MaSize";
 
-            // Nếu có size mặc định thì chọn nó
-            if (!string.IsNullOrEmpty(DefaultSelectedSize))
-            {
-                int index = size_comboBox1.FindStringExact(DefaultSelectedSize);
-                if (index >= 0)
-                    size_comboBox1.SelectedIndex = index;
-            }
-
-            // Ghi nhớ size hiện tại
-            if (size_comboBox1.SelectedItem is MilkTea.Client.Models.Size selected)
-                _previousSize = selected.TenSize;
-
+      
             // Khuyến mãi
             SL_dc_label.Text = "10";
             label27.Text = khuyenmai?.ToString() ?? "Không có";
@@ -92,7 +66,6 @@ namespace MilkTea.Client.Controls
             }
             catch { }
 
-            _isInitializing = false; // Cho phép event hoạt động lại
         }
 
         // ===================== LOAD EVENT =====================
@@ -104,16 +77,6 @@ namespace MilkTea.Client.Controls
             // Khi người dùng đổi size
             size_comboBox1.SelectedIndexChanged += (s, ev) =>
             {
-                // Nếu đang load dữ liệu thì bỏ qua
-                if (_isInitializing)
-                    return;
-
-                if (size_comboBox1.SelectedItem is MilkTea.Client.Models.Size selectedSize)
-                {
-                    // Gửi sự kiện ra ngoài cho OrderForm
-                    OnSizeChanged?.Invoke(TenSP, selectedSize.TenSize, this);
-                    _previousSize = selectedSize.TenSize;
-                }
 
                 UpdateThanhTien();
             };
@@ -124,24 +87,24 @@ namespace MilkTea.Client.Controls
         {
             try
             {
-                // 1️⃣ Lấy số lượng
+                // 1️ Lấy số lượng
                 int soLuong = 1;
                 if (!int.TryParse(textBox1.Text, out soLuong) || soLuong <= 0)
                     soLuong = 1;
 
-                // 2️⃣ Lấy giá phụ thu từ size
+                // 2️ Lấy giá phụ thu từ size
                 decimal sizePhuThu = 0;
                 if (size_comboBox1.SelectedItem is MilkTea.Client.Models.Size selectedSize)
                     sizePhuThu = selectedSize.PhuThu;
 
-                // 3️⃣ Tính tiền giảm theo số lượng
+                // 3️ Tính tiền giảm theo số lượng
                 decimal tienGiamMotSP = (Gia * phantramgiam / 100);
                 decimal tienGiamTong = tienGiamMotSP * soLuong;
 
-                // 4️⃣ Thành tiền
+                // 4️ Thành tiền
                 decimal thanhTien = ((Gia + sizePhuThu) * soLuong) - tienGiamTong;
 
-                // 5️⃣ Cập nhật hiển thị
+                // 5️ Cập nhật hiển thị
                 label26.Text = tienGiamTong.ToString("N0");
                 label19.Text = thanhTien.ToString("N0");
             }
@@ -176,8 +139,6 @@ namespace MilkTea.Client.Controls
                 textBox1.Text = "1";
         }
 
-        // ===================== EVENT CALLBACK =====================
-        // Sự kiện gửi ra ngoài (được OrderForm bắt để check trùng size)
-        public event Action<string, string, product_item_order> OnSizeChanged;
+
     }
 }
