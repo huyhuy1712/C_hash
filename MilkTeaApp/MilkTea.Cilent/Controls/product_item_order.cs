@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MilkTea.Client.Forms.ChildForm_Order;
+using MilkTea.Client.Models;
 using MilkTea.Client.Services;
 
 namespace MilkTea.Client.Controls
@@ -23,6 +25,8 @@ namespace MilkTea.Client.Controls
         public string Anh { get; set; }
         public string khuyenmai { get; set; }
         public decimal phantramgiam { get; set; }
+
+        public List<Topping> DSTopping { get; set; } = new List<Topping>();
 
         // ===================== CONSTRUCTOR =====================
         public product_item_order()
@@ -45,7 +49,7 @@ namespace MilkTea.Client.Controls
             size_comboBox1.DisplayMember = "TenSize";
             size_comboBox1.ValueMember = "MaSize";
 
-      
+
             // Khuyến mãi
             SL_dc_label.Text = "10";
             label27.Text = khuyenmai?.ToString() ?? "Không có";
@@ -139,6 +143,10 @@ namespace MilkTea.Client.Controls
                 textBox1.Text = "1";
         }
 
-
+        private void Topping_Click(object sender, EventArgs e)
+        {
+            ToppingForm tp = new ToppingForm(this);
+            tp.ShowDialog();
+        }
     }
 }
