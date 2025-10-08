@@ -1,4 +1,5 @@
 ﻿using MilkTea.Client.Forms.ChildForm_Account;
+using MilkTea.Client.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,17 +14,17 @@ namespace MilkTea.Client.Forms
 {
     public partial class AccountForm : Form
     {
+        private readonly TaiKhoanService _taiKhoanService;
         public AccountForm()
         {
             InitializeComponent();
+            _taiKhoanService = new TaiKhoanService();
         }
 
         private void AccountForm_Load(object sender, EventArgs e)
         {
-            //int index = dataGridView1.Rows.Add();
-
-
             dataGridView1.CellClick += dataGridView1_CellClick;
+            LoadData();
         }
 
         private void btnThemAccount_Click(object sender, EventArgs e)
@@ -90,20 +91,44 @@ namespace MilkTea.Client.Forms
             frm.ShowDialog();
         }
 
-        private void btnRefresh_Click(object sender, EventArgs e)
+        private async void btnRefresh_Click(object sender, EventArgs e)
         {
             // Code làm mới dữ liệu trong DataGridView
             dataGridView1.Rows.Clear();
             // Giả sử bạn có một phương thức LoadData() để tải lại dữ liệu
-            LoadData();
+            await LoadData();
         }
 
-        private void LoadData()
+        private async Task LoadData()
         {
-            // Ví dụ: Thêm dữ liệu mẫu vào DataGridView
-            dataGridView1.Rows.Add("1", "user1", "Admin");
-            dataGridView1.Rows.Add("2", "user2", "User");
-            dataGridView1.Rows.Add("3", "user3", "Guest");
+            try
+            {
+                var listTaiKhoan = await _taiKhoanService.GetAccountsAsync();
+                if (listTaiKhoan != null && listTaiKhoan.Any())
+                {
+                    // Xóa hết hàng cũ trong DataGridView
+                    dataGridView1.Rows.Clear();
+                    foreach (var tk in listTaiKhoan)
+                    {
+                        int rowIndex = dataGridView1.Rows.Add();
+                        dataGridView1.Rows[rowIndex].Cells["ID"].Value = tk.MaTK;
+                        dataGridView1.Rows[rowIndex].Cells["taiKhoan"].Value = tk.TenTaiKhoan;
+                        dataGridView1.Rows[rowIndex].Cells["hoVaTen"].Value = tk.anh ?? "";
+                        dataGridView1.Rows[rowIndex].Cells["trangThai"].Value = tk.TrangThai == 1 ? "Hoạt động" : "Khóa";
+                        dataGridView1.Rows[rowIndex].Cells["ngayTao"].Value = DateTime.Now.ToString("dd/MM/yyyy");
+                        dataGridView1.Rows[rowIndex].Cells["quyen"].Value = tk.MaQuyen;
+                    }
+                }
+                else
+                {
+                    dataGridView1.Rows.Clear();
+                    MessageBox.Show("Không có dữ liệu tài khoản để hiển thị.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi load dữ liệu: " + ex.Message);
+            }
         }
     }
 }
