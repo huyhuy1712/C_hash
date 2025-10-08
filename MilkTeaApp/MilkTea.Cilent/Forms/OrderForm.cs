@@ -19,8 +19,8 @@ namespace MilkTea.Client.Forms
         private readonly SanPhamService _sanPhamService;
         private readonly LoaiService _loaiService;
         private readonly CTKhuyenMaiService _ctKhuyenMaiService;
-        private readonly SizeService _sizeService;
         private readonly CTCongThucService _ctCongThucService;
+        private readonly NguyenLieuService _nguyenLieuService;
 
         public OrderForm()
         {
@@ -29,7 +29,7 @@ namespace MilkTea.Client.Forms
             _loaiService = new LoaiService();
             _ctKhuyenMaiService = new CTKhuyenMaiService();
             _ctCongThucService = new CTCongThucService();
-            _sizeService = new SizeService();
+            _nguyenLieuService = new NguyenLieuService();
         }
 
         // ==================== LOAD FORM ====================
@@ -100,7 +100,7 @@ namespace MilkTea.Client.Forms
 
                     MessageBox.Show(
                         message,
-                        "Thông báo",
+                        "Cảnh báo",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Warning
                     );
@@ -115,7 +115,10 @@ namespace MilkTea.Client.Forms
                     TenSP = $"{chiTiet.TenSP} ({chiTiet.Gia:N0} VND)",
                     Gia = chiTiet.Gia,
                     Anh = chiTiet.Anh,
+                    SanPhamId = chiTiet.MaSP,
                 };
+                // Đăng ký sự kiện khi thành tiền thay đổi
+                orderItem.ThanhTienChanged += (s, e) => CapNhatTongTien();
 
                 // Thông tin khuyến mãi
                 if (ctkhuyenmai == null)
@@ -139,6 +142,13 @@ namespace MilkTea.Client.Forms
                 section_table_panel.Controls.Add(orderItem);
                 orderItem.Dock = DockStyle.Top;
                 orderItem.BringToFront();
+
+                // Trừ nguyên liệu trong kho
+                foreach (var ct in dscongthuc)
+                {
+                    await _nguyenLieuService.TruNguyenLieuAsync(ct.MaNL, ct.SoLuongCanDung);
+                }
+                CapNhatTongTien();
             }
             catch (Exception ex)
             {
@@ -164,7 +174,7 @@ namespace MilkTea.Client.Forms
         }
 
         // ==================== NÚT XÓA DANH SÁCH ORDER ====================
-        private void roundedButton2_Click_1(object sender, EventArgs e)
+        private async void roundedButton2_Click_1(object sender, EventArgs e)
         {
             // Nếu chưa có sản phẩm nào trong danh sách
             if (section_table_panel.Controls.Count == 0)
@@ -176,7 +186,8 @@ namespace MilkTea.Client.Forms
 
             // Hỏi xác nhận người dùng
             var confirm = MessageBox.Show(
-                "Bạn có chắc chắn muốn xóa toàn bộ danh sách order không?",
+                "Bạn có chắc chắn muốn xóa toàn bộ danh sách order không? " +
+                "Các nguyên liệu đã trừ sẽ được hoàn lại vào kho.",
                 "Xác nhận xóa",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question
@@ -184,15 +195,41 @@ namespace MilkTea.Client.Forms
 
             if (confirm == DialogResult.Yes)
             {
-                // Xóa toàn bộ các sản phẩm trong danh sách
-                section_table_panel.Controls.Clear();
+                try
+                {
+                    var ctService = new CTCongThucService();
+                    var nlService = new NguyenLieuService();
 
-                // Reset tổng tiền (nếu có label hiển thị tổng tiền)
-                TongTien_label.Text = "0";
+                    // Duyệt qua từng sản phẩm trong danh sách
+                    foreach (var ctrl in section_table_panel.Controls.OfType<product_item_order>())
+                    {
+                        int maSP = ctrl.SanPhamId; 
+                        string tenSP = ctrl.TenSP;
 
-                // Thông báo cho người dùng
-                MessageBox.Show("Đã xóa toàn bộ danh sách order!",
-                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        // Lấy danh sách công thức của sản phẩm
+                        var dsCongThuc = await ctService.GetChiTietCongThucTheoSPAsync(maSP);
+
+                        if (dsCongThuc != null && dsCongThuc.Count > 0)
+                        {
+                            foreach (var ct in dsCongThuc)
+                            {
+                                await nlService.CongNguyenLieuAsync(ct.MaNL, ct.SoLuongCanDung);
+                            }
+                        }
+                    }
+
+                    // Sau khi hoàn nguyên xong, xóa danh sách
+                    section_table_panel.Controls.Clear();
+                    TongTien_label.Text = "0";
+
+                    MessageBox.Show("Đã hoàn nguyên nguyên liệu và xóa toàn bộ danh sách order!",
+                                    "Hoàn tất", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi hoàn nguyên nguyên liệu: {ex.Message}",
+                                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -211,6 +248,24 @@ namespace MilkTea.Client.Forms
                 return 0;
 
             return listSL.Min(); // lấy nguyên liệu giới hạn nhất
+        }
+
+        // ==================== Hàm cập nhật tổng tiền ====================
+        public void CapNhatTongTien()
+        {
+            decimal tongTien = 0;
+
+            // Duyệt qua tất cả các sản phẩm trong panel
+            foreach (var item in section_table_panel.Controls.OfType<product_item_order>())
+            {
+                // Lấy label thành tiền trong product_item_order
+                if (decimal.TryParse(item.thanhtien_lb.Text.Replace(",", "").Trim(), out decimal thanhTien))
+                {
+                    tongTien += thanhTien;
+                }
+            }
+
+            TongTien_label.Text = tongTien.ToString("N0");
         }
 
         // ==================== CÁC SỰ KIỆN KHÁC (để trống) ====================

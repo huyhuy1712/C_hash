@@ -31,7 +31,7 @@
             components = new System.ComponentModel.Container();
             item_right_panel = new Panel();
             tableLayoutPanel3 = new TableLayoutPanel();
-            label19 = new Label();
+            thanhtien_lb = new Label();
             label26 = new Label();
             label27 = new Label();
             SL_dc_label = new Label();
@@ -74,7 +74,7 @@
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.963151F));
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.963151F));
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.963151F));
-            tableLayoutPanel3.Controls.Add(label19, 7, 0);
+            tableLayoutPanel3.Controls.Add(thanhtien_lb, 7, 0);
             tableLayoutPanel3.Controls.Add(label26, 6, 0);
             tableLayoutPanel3.Controls.Add(label27, 5, 0);
             tableLayoutPanel3.Controls.Add(SL_dc_label, 4, 0);
@@ -91,17 +91,17 @@
             tableLayoutPanel3.Size = new Size(1005, 77);
             tableLayoutPanel3.TabIndex = 1;
             // 
-            // label19
+            // thanhtien_lb
             // 
-            label19.AutoSize = true;
-            label19.Dock = DockStyle.Fill;
-            label19.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label19.ForeColor = SystemColors.ControlText;
-            label19.Location = new Point(825, 0);
-            label19.Name = "label19";
-            label19.Size = new Size(84, 77);
-            label19.TabIndex = 8;
-            label19.TextAlign = ContentAlignment.MiddleCenter;
+            thanhtien_lb.AutoSize = true;
+            thanhtien_lb.Dock = DockStyle.Fill;
+            thanhtien_lb.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            thanhtien_lb.ForeColor = SystemColors.ControlText;
+            thanhtien_lb.Location = new Point(825, 0);
+            thanhtien_lb.Name = "thanhtien_lb";
+            thanhtien_lb.Size = new Size(84, 77);
+            thanhtien_lb.TabIndex = 8;
+            thanhtien_lb.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label26
             // 
@@ -212,7 +212,7 @@
             popup.ImageScalingSize = new Size(20, 20);
             popup.Items.AddRange(new ToolStripItem[] { huy, Topping });
             popup.Name = "popup";
-            popup.Size = new Size(215, 92);
+            popup.Size = new Size(160, 64);
             // 
             // huy
             // 
@@ -220,7 +220,7 @@
             huy.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             huy.Image = Properties.Resources.X;
             huy.Name = "huy";
-            huy.Size = new Size(214, 30);
+            huy.Size = new Size(159, 30);
             huy.Text = "Hủy";
             huy.Click += huy_Click;
             // 
@@ -230,7 +230,7 @@
             Topping.ForeColor = SystemColors.ActiveCaptionText;
             Topping.Image = Properties.Resources.topping;
             Topping.Name = "Topping";
-            Topping.Size = new Size(214, 30);
+            Topping.Size = new Size(159, 30);
             Topping.Text = "Topping";
             Topping.Click += Topping_Click;
             // 
@@ -255,7 +255,7 @@
 
         private Panel item_right_panel;
         private TableLayoutPanel tableLayoutPanel3;
-        private Label label19;
+        public Label thanhtien_lb;
         private Label label26;
         private Label label27;
         private Label SL_dc_label;
