@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MilkTea.Client.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,7 @@ namespace MilkTea.Client.Forms.ChildForm_Account
 {
     public partial class DanhSachQuyenForm : Form
     {
+        private readonly QuyenService _quyenService = new();
         public DanhSachQuyenForm()
         {
             InitializeComponent();
@@ -24,9 +26,8 @@ namespace MilkTea.Client.Forms.ChildForm_Account
 
         private void DanhSachQuyenForm_Load(object sender, EventArgs e)
         {
-            int index = dataGridView1.Rows.Add();
-            dataGridView1.Rows.Add();
             dataGridView1.CellClick += dataGridView1_CellClick;
+            LoadData();
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -66,6 +67,42 @@ namespace MilkTea.Client.Forms.ChildForm_Account
         {
             var frm = new AddQuyenForm();
             frm.ShowDialog();
+        }
+
+        private async Task LoadData()
+        {
+            lblStatus.ForeColor = Color.Gray;
+            lblStatus.Text = "🔄 Đang tải dữ liệu...";
+
+            try
+            {
+                var listQuyen = await _quyenService.GetQuyensAsync();
+
+                if (listQuyen != null)
+                {
+                    dataGridView1.Rows.Clear();
+
+                    foreach (var q in listQuyen)
+                    {
+                        int rowIndex = dataGridView1.Rows.Add();
+
+                        dataGridView1.Rows[rowIndex].Cells["tenQuyen"].Value = q.TenQuyen;
+                    }
+                    lblStatus.ForeColor = Color.ForestGreen;
+                    lblStatus.Text = $"✅ Đã tải {listQuyen.Count} Quyền.";
+                }
+
+                else
+                {
+                    dataGridView1.Rows.Clear();
+                    lblStatus.ForeColor = Color.DarkOrange;
+                    lblStatus.Text = "⚠️ Không có dữ liệu quyền để hiển thị.";
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi load dữ liệu: " + ex.Message);
+            }
         }
     }
 }

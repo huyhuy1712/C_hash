@@ -15,10 +15,12 @@ namespace MilkTea.Client.Forms
     public partial class AccountForm : Form
     {
         private readonly TaiKhoanService _taiKhoanService;
+        private readonly NhanVienService _nhanVienService;
         public AccountForm()
         {
             InitializeComponent();
-            _taiKhoanService = new TaiKhoanService();
+            _taiKhoanService = new();
+            _nhanVienService = new();
         }
 
         private void AccountForm_Load(object sender, EventArgs e)
@@ -101,28 +103,39 @@ namespace MilkTea.Client.Forms
 
         private async Task LoadData()
         {
+            lblStatus.ForeColor = Color.Gray;
+            lblStatus.Text = "🔄 Đang tải dữ liệu...";
+
             try
             {
                 var listTaiKhoan = await _taiKhoanService.GetAccountsAsync();
+                var listNhanVien = await _nhanVienService.GetNhanVienAsync();
+
                 if (listTaiKhoan != null && listTaiKhoan.Any())
                 {
-                    // Xóa hết hàng cũ trong DataGridView
                     dataGridView1.Rows.Clear();
+
                     foreach (var tk in listTaiKhoan)
                     {
+                        var nv = listNhanVien.FirstOrDefault(n => n.MaTK == tk.MaTK);
                         int rowIndex = dataGridView1.Rows.Add();
+
                         dataGridView1.Rows[rowIndex].Cells["ID"].Value = tk.MaTK;
                         dataGridView1.Rows[rowIndex].Cells["taiKhoan"].Value = tk.TenTaiKhoan;
-                        dataGridView1.Rows[rowIndex].Cells["hoVaTen"].Value = tk.TenTaiKhoan ?? "";
+                        dataGridView1.Rows[rowIndex].Cells["hoVaTen"].Value = nv?.TenNV ?? "Chưa có nhân viên";
                         dataGridView1.Rows[rowIndex].Cells["trangThai"].Value = tk.TrangThai == 1 ? "Hoạt động" : "Khóa";
                         dataGridView1.Rows[rowIndex].Cells["ngayTao"].Value = DateTime.Now.ToString("dd/MM/yyyy");
                         dataGridView1.Rows[rowIndex].Cells["quyen"].Value = tk.MaQuyen;
                     }
+                    lblStatus.ForeColor = Color.ForestGreen;
+                    lblStatus.Text = $"✅ Đã tải {listTaiKhoan.Count} tài khoản.";
                 }
+
                 else
                 {
                     dataGridView1.Rows.Clear();
-                    MessageBox.Show("Không có dữ liệu tài khoản để hiển thị.");
+                    lblStatus.ForeColor = Color.DarkOrange;
+                    lblStatus.Text = "⚠️ Không có dữ liệu tài khoản để hiển thị.";
                 }
             }
             catch (Exception ex)
