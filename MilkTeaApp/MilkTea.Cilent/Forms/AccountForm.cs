@@ -17,7 +17,7 @@ namespace MilkTea.Client.Forms
         public AccountForm()
         {
             InitializeComponent();
-            _presenter = new AccountPresenter(this, new TaiKhoanService());
+            _presenter = new AccountPresenter(this, new TaiKhoanService(), new NhanVienService());
         }
 
         private async void AccountForm_Load(object sender, EventArgs e)

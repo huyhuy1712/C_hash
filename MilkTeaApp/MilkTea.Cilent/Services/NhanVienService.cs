@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MilkTea.Client.Services
 {
-    internal class NhanVienService : ApiServiceBase
+    public class NhanVienService : ApiServiceBase
     {
         public async Task<NhanVien?> GetByMaNV(int? maNV)
         {

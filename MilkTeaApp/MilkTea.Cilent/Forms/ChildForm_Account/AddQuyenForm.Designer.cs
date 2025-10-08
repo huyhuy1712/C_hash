@@ -33,6 +33,8 @@
             panel4 = new Panel();
             Table = new Panel();
             dataGridView1 = new DataGridView();
+            chucNang = new DataGridViewTextBoxColumn();
+            chon = new DataGridViewCheckBoxColumn();
             TimKiem = new Panel();
             textBox1 = new TextBox();
             Button = new Panel();
@@ -46,8 +48,6 @@
             label2 = new Label();
             Title = new Panel();
             label1 = new Label();
-            chucNang = new DataGridViewTextBoxColumn();
-            chon = new DataGridViewCheckBoxColumn();
             panel1.SuspendLayout();
             panel4.SuspendLayout();
             Table.SuspendLayout();
@@ -67,7 +67,7 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(800, 450);
+            panel1.Size = new Size(800, 771);
             panel1.TabIndex = 0;
             // 
             // panel4
@@ -82,7 +82,7 @@
             panel4.Location = new Point(0, 100);
             panel4.Name = "panel4";
             panel4.Padding = new Padding(20);
-            panel4.Size = new Size(800, 350);
+            panel4.Size = new Size(800, 671);
             panel4.TabIndex = 1;
             // 
             // Table
@@ -91,7 +91,7 @@
             Table.Dock = DockStyle.Fill;
             Table.Location = new Point(20, 110);
             Table.Name = "Table";
-            Table.Size = new Size(760, 130);
+            Table.Size = new Size(760, 451);
             Table.TabIndex = 1;
             // 
             // dataGridView1
@@ -108,14 +108,37 @@
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(760, 130);
+            dataGridView1.Size = new Size(760, 451);
             dataGridView1.TabIndex = 0;
+            // 
+            // chucNang
+            // 
+            chucNang.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            chucNang.HeaderText = "Chức Năng";
+            chucNang.MinimumWidth = 6;
+            chucNang.Name = "chucNang";
+            chucNang.ReadOnly = true;
+            chucNang.Resizable = DataGridViewTriState.False;
+            // 
+            // chon
+            // 
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.NullValue = false;
+            dataGridViewCellStyle1.Padding = new Padding(3);
+            chon.DefaultCellStyle = dataGridViewCellStyle1;
+            chon.HeaderText = "";
+            chon.MinimumWidth = 6;
+            chon.Name = "chon";
+            chon.ReadOnly = true;
+            chon.Resizable = DataGridViewTriState.True;
+            chon.SortMode = DataGridViewColumnSortMode.Automatic;
+            chon.Width = 125;
             // 
             // TimKiem
             // 
             TimKiem.Controls.Add(textBox1);
             TimKiem.Dock = DockStyle.Bottom;
-            TimKiem.Location = new Point(20, 240);
+            TimKiem.Location = new Point(20, 561);
             TimKiem.Name = "TimKiem";
             TimKiem.Size = new Size(760, 40);
             TimKiem.TabIndex = 2;
@@ -137,7 +160,7 @@
             Button.Controls.Add(btnXacNhan);
             Button.Controls.Add(panel2);
             Button.Dock = DockStyle.Bottom;
-            Button.Location = new Point(20, 280);
+            Button.Location = new Point(20, 601);
             Button.Name = "Button";
             Button.Padding = new Padding(0, 10, 0, 0);
             Button.Size = new Size(760, 50);
@@ -264,34 +287,11 @@
             label1.Text = "Thêm Quyền";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // chucNang
-            // 
-            chucNang.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            chucNang.HeaderText = "Chức Năng";
-            chucNang.MinimumWidth = 6;
-            chucNang.Name = "chucNang";
-            chucNang.ReadOnly = true;
-            chucNang.Resizable = DataGridViewTriState.False;
-            // 
-            // chon
-            // 
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.NullValue = false;
-            dataGridViewCellStyle1.Padding = new Padding(3);
-            chon.DefaultCellStyle = dataGridViewCellStyle1;
-            chon.HeaderText = "";
-            chon.MinimumWidth = 6;
-            chon.Name = "chon";
-            chon.ReadOnly = true;
-            chon.Resizable = DataGridViewTriState.True;
-            chon.SortMode = DataGridViewColumnSortMode.Automatic;
-            chon.Width = 125;
-            // 
             // AddQuyenForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 771);
             Controls.Add(panel1);
             Name = "AddQuyenForm";
             Text = "Quyền";
