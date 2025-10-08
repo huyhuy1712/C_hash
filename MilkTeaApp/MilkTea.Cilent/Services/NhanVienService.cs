@@ -8,11 +8,15 @@ using System.Threading.Tasks;
 
 namespace MilkTea.Client.Services
 {
-    internal class NhanVienService : ApiServiceBase
+    public class NhanVienService : ApiServiceBase
     {
         public async Task<NhanVien?> GetByMaNV(int? maNV)
         {
             return await _http.GetFromJsonAsync<NhanVien>($"/api/nhanvien/searchID/{maNV}");
+        }
+        public async Task<List<NhanVien>> GetNhanVienAsync()
+        {
+            return await _http.GetFromJsonAsync<List<NhanVien>>("/api/nhanvien") ?? new List<NhanVien>();
         }
     }
 }
