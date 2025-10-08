@@ -15,12 +15,15 @@ namespace MilkTea.Client.Controls
         private readonly SizeService _sizeService;
 
         public string TenSP { get; set; }
+        public int SanPhamId { get; set; }
         public decimal Gia { get; set; }
         public string Anh { get; set; }
         public string khuyenmai { get; set; }
         public decimal phantramgiam { get; set; }
         public int SLMuaDuoc { get; set; }  
         public List<Topping> DSTopping { get; set; } = new List<Topping>();
+        public event EventHandler ThanhTienChanged;
+
 
         public product_item_order()
         {
@@ -47,7 +50,7 @@ namespace MilkTea.Client.Controls
             label26.Text = tienGiam.ToString("N0");
 
             decimal thanhTien = Gia - tienGiam + 10000;
-            label19.Text = thanhTien.ToString("N0");
+            thanhtien_lb.Text = thanhTien.ToString("N0");
 
             try
             {
@@ -79,11 +82,12 @@ namespace MilkTea.Client.Controls
                 decimal thanhTien = ((Gia + sizePhuThu) * soLuong) - tienGiamTong;
 
                 label26.Text = tienGiamTong.ToString("N0");
-                label19.Text = thanhTien.ToString("N0");
+                thanhtien_lb.Text = thanhTien.ToString("N0");
+                ThanhTienChanged?.Invoke(this, EventArgs.Empty);
             }
             catch
             {
-                label19.Text = Gia.ToString("N0");
+                thanhtien_lb.Text = Gia.ToString("N0");
             }
         }
 
@@ -92,11 +96,36 @@ namespace MilkTea.Client.Controls
             popup.Show(three_dots_label, new Point(0, three_dots_label.Height));
         }
 
-        private void huy_Click(object sender, EventArgs e)
+        private async void huy_Click(object sender, EventArgs e)
         {
-            this.Parent?.Controls.Remove(this);
-            this.Dispose();
+            try
+            {
+                // Gọi service công lại nguyên liệu
+                var ctService = new CTCongThucService();
+                var nlService = new NguyenLieuService();
+
+                // Lấy danh sách công thức của sản phẩm này
+                var dsCongThuc = await ctService.GetChiTietCongThucTheoSPAsync(SanPhamId); 
+
+                foreach (var ct in dsCongThuc)
+                {
+                    await nlService.CongNguyenLieuAsync(ct.MaNL, ct.SoLuongCanDung);
+                }
+
+                MessageBox.Show($"Đã hoàn lại nguyên liệu cho sản phẩm {TenSP}.",
+                                "Trả kho", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Xóa control sản phẩm khỏi danh sách order
+                this.Parent?.Controls.Remove(this);
+                this.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi hoàn nguyên nguyên liệu: {ex.Message}",
+                                "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -136,7 +165,9 @@ namespace MilkTea.Client.Controls
             decimal tienGiamTong = tienGiamMotSP * soLuong;
             decimal thanhTien = ((Gia + sizePhuThu + tongTopping) * soLuong) - tienGiamTong;
 
-            label19.Text = thanhTien.ToString("N0");
+            thanhtien_lb.Text = thanhTien.ToString("N0");
+            ThanhTienChanged?.Invoke(this, EventArgs.Empty);
+
         }
     }
 }
