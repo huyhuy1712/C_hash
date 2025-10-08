@@ -51,6 +51,7 @@
             label17 = new Label();
             Footer_Right_Panel = new Panel();
             panel2 = new Panel();
+            roundedButton2 = new MilkTea.Client.Controls.RoundedButton();
             btnXuatDon = new MilkTea.Client.Controls.RoundedButton();
             panel1 = new Panel();
             comboBox1 = new ComboBox();
@@ -78,7 +79,6 @@
             Header_Left_Panel = new Panel();
             pictureBox1 = new PictureBox();
             label1 = new Label();
-            roundedButton2 = new MilkTea.Client.Controls.RoundedButton();
             OrderPanel.SuspendLayout();
             RightPanel.SuspendLayout();
             Section_Right_Panel.SuspendLayout();
@@ -255,7 +255,7 @@
             label22.Name = "label22";
             label22.Size = new Size(84, 44);
             label22.TabIndex = 5;
-            label22.Text = "SL mua được";
+            label22.Text = "SL còn lại";
             label22.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label21
@@ -386,6 +386,26 @@
             panel2.Padding = new Padding(17);
             panel2.Size = new Size(300, 70);
             panel2.TabIndex = 8;
+            // 
+            // roundedButton2
+            // 
+            roundedButton2.BackColor = Color.Crimson;
+            roundedButton2.BorderColor = Color.DodgerBlue;
+            roundedButton2.BorderRadius = 20;
+            roundedButton2.BorderSize = 0;
+            roundedButton2.Cursor = Cursors.Hand;
+            roundedButton2.Dock = DockStyle.Left;
+            roundedButton2.FlatAppearance.BorderSize = 0;
+            roundedButton2.FlatStyle = FlatStyle.Flat;
+            roundedButton2.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            roundedButton2.ForeColor = Color.White;
+            roundedButton2.Location = new Point(17, 17);
+            roundedButton2.Name = "roundedButton2";
+            roundedButton2.Size = new Size(110, 36);
+            roundedButton2.TabIndex = 3;
+            roundedButton2.Text = "Xóa";
+            roundedButton2.UseVisualStyleBackColor = false;
+            roundedButton2.Click += roundedButton2_Click_1;
             // 
             // btnXuatDon
             // 
@@ -607,7 +627,7 @@
             roundedButton1.TabIndex = 1;
             roundedButton1.Text = "Thêm";
             roundedButton1.UseVisualStyleBackColor = false;
-            roundedButton1.Click += roundedButton1_Click_1;
+            //roundedButton1.Click += roundedButton1_Click_1;
             // 
             // sort_comboBox
             // 
@@ -744,26 +764,6 @@
             label1.TabIndex = 0;
             label1.Text = "Thức uống";
             label1.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // roundedButton2
-            // 
-            roundedButton2.BackColor = Color.Crimson;
-            roundedButton2.BorderColor = Color.DodgerBlue;
-            roundedButton2.BorderRadius = 20;
-            roundedButton2.BorderSize = 0;
-            roundedButton2.Cursor = Cursors.Hand;
-            roundedButton2.Dock = DockStyle.Left;
-            roundedButton2.FlatAppearance.BorderSize = 0;
-            roundedButton2.FlatStyle = FlatStyle.Flat;
-            roundedButton2.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            roundedButton2.ForeColor = Color.White;
-            roundedButton2.Location = new Point(17, 17);
-            roundedButton2.Name = "roundedButton2";
-            roundedButton2.Size = new Size(110, 36);
-            roundedButton2.TabIndex = 3;
-            roundedButton2.Text = "Xóa";
-            roundedButton2.UseVisualStyleBackColor = false;
-            roundedButton2.Click += roundedButton2_Click_1;
             // 
             // OrderForm
             // 

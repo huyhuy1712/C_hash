@@ -4,11 +4,7 @@ using MilkTea.Client.Models;
 using MilkTea.Client.Services;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -21,6 +17,9 @@ namespace MilkTea.Client.Forms
         private readonly CTKhuyenMaiService _ctKhuyenMaiService;
         private readonly CTCongThucService _ctCongThucService;
         private readonly NguyenLieuService _nguyenLieuService;
+
+        // 🧠 Bộ nhớ tạm lưu nguyên liệu đã dùng (chỉ trong phiên order)
+        private readonly Dictionary<int, decimal> _nguyenLieuDaDungTam = new();
 
         public OrderForm()
         {
@@ -39,16 +38,13 @@ namespace MilkTea.Client.Forms
             {
                 var sanPhams = await _sanPhamService.GetSanPhamsAsync();
 
-                // Load danh sách loại (category)
                 var loais = await _loaiService.GetLoaisAsync();
                 comboBox3.DataSource = loais;
                 comboBox3.DisplayMember = "TenLoai";
                 comboBox3.ValueMember = "MaLoai";
 
-                // Xóa control cũ trước khi thêm mới
                 layout_product.Controls.Clear();
 
-                // Tạo danh sách sản phẩm hiển thị
                 foreach (var sp in sanPhams)
                 {
                     var item = new ProductItem();
@@ -59,217 +55,215 @@ namespace MilkTea.Client.Forms
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi tải danh sách sản phẩm: " + ex.Message,
+                MessageBox.Show($"Lỗi khi tải sản phẩm: {ex.Message}",
                                 "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        // ==================== KHI CLICK CHỌN SẢN PHẨM ====================
+        // ==================== KHI CHỌN 1 SẢN PHẨM ====================
         private async void ProductItem_OnProductSelected(object sender, ProductItem.SanPhamEventArgs e)
         {
             try
             {
                 var sp = e.SanPham;
 
-                // Lấy thông tin chi tiết sản phẩm và khuyến mãi
+                // Lấy chi tiết SP + KM + công thức
                 var chiTiet = await _sanPhamService.GetSanPhamsByIdAsync(sp.MaSP);
-                var ctkhuyenmai = await _ctKhuyenMaiService.GetByMaSP(sp.MaSP);
+                var ctkm = await _ctKhuyenMaiService.GetByMaSP(sp.MaSP);
+                var dsCT = await _ctCongThucService.GetChiTietCongThucTheoSPAsync(sp.MaSP);
 
-                //Tính số lượng có thể mua được
-                var dscongthuc = await _ctCongThucService.GetChiTietCongThucTheoSPAsync(sp.MaSP);
-
-                var nguyenLieuThieu = new List<string>();
-
-                foreach (var nl in dscongthuc)
+                // Kiểm tra nguyên liệu đủ không
+                var nlThieu = new List<string>();
+                foreach (var nl in dsCT)
                 {
                     if (nl.SoLuongTonKho < nl.SoLuongCanDung)
-                    {
-                        int thieu = nl.SoLuongCanDung - nl.SoLuongTonKho;
-                        nguyenLieuThieu.Add($"- {nl.TenNguyenLieu} (cần {nl.SoLuongCanDung}, còn {nl.SoLuongTonKho})");
-                    }
+                        nlThieu.Add($"- {nl.TenNguyenLieu} (cần {nl.SoLuongCanDung}, còn {nl.SoLuongTonKho})");
                 }
 
-                //  Nếu có nguyên liệu thiếu hoặc không có công thức
-                if (nguyenLieuThieu.Count > 0 || dscongthuc.Count == 0)
+                if (nlThieu.Count > 0 || dsCT.Count == 0)
                 {
-                    string message = $"Hiện tại không đủ nguyên liệu để pha chế món '{sp.TenSP}'.";
-                    if (nguyenLieuThieu.Count > 0)
-                    {
-                        message += "\n\nNguyên liệu thiếu:\n" + string.Join("\n", nguyenLieuThieu);
-                    }
+                    string msg = $"Không đủ nguyên liệu để pha chế món '{sp.TenSP}'.";
+                    if (nlThieu.Count > 0)
+                        msg += "\n\nThiếu:\n" + string.Join("\n", nlThieu);
 
-                    MessageBox.Show(
-                        message,
-                        "Cảnh báo",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
-
-                    return; // Không thêm vào danh sách order
+                    MessageBox.Show(msg, "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
                 }
 
-                // ============= Tạo sản phẩm order mới =============
-                var slMuaDuoc = TinhSoLuongCoTheMua(dscongthuc);
+                // Tính số lượng có thể mua
+                int slMuaDuoc = TinhSoLuongCoTheMua(dsCT);
+
+                // Tạo item
                 var orderItem = new product_item_order
                 {
                     TenSP = $"{chiTiet.TenSP} ({chiTiet.Gia:N0} VND)",
                     Gia = chiTiet.Gia,
                     Anh = chiTiet.Anh,
                     SanPhamId = chiTiet.MaSP,
+                    SLMuaDuoc = slMuaDuoc,
+                    khuyenmai = ctkm?.TenCTKhuyenMai ?? "Không có",
+                    phantramgiam = ctkm?.PhanTramKhuyenMai ?? 0
                 };
-                // Đăng ký sự kiện khi thành tiền thay đổi
-                orderItem.ThanhTienChanged += (s, e) => CapNhatTongTien();
 
-                // Thông tin khuyến mãi
-                if (ctkhuyenmai == null)
+                // Đăng ký event cập nhật
+                orderItem.ThanhTienChanged += (s, ev) => CapNhatTongTien();
+                orderItem.OnOrderUpdated += async (s, ev) =>
                 {
-                    orderItem.khuyenmai = "Không có";
-                    orderItem.phantramgiam = 0;
-                }
-                else
-                {
-                    orderItem.khuyenmai = ctkhuyenmai.TenCTKhuyenMai;
-                    orderItem.phantramgiam = ctkhuyenmai.PhanTramKhuyenMai;
-                }
+                    await CapNhatLaiSLMuaDuocChoTatCaSanPham();
+                };
 
-                orderItem.SLMuaDuoc = slMuaDuoc; //số lượng mua được
-
-
-                // Hiển thị dữ liệu lên control
                 orderItem.setData();
-
-                // Thêm control vào danh sách order
                 section_table_panel.Controls.Add(orderItem);
                 orderItem.Dock = DockStyle.Top;
                 orderItem.BringToFront();
 
-                // Trừ nguyên liệu trong kho
-                foreach (var ct in dscongthuc)
+                // ✅ Cập nhật nguyên liệu đã dùng tạm (RAM)
+                foreach (var ct in dsCT)
                 {
-                    await _nguyenLieuService.TruNguyenLieuAsync(ct.MaNL, ct.SoLuongCanDung);
+                    if (_nguyenLieuDaDungTam.ContainsKey(ct.MaNL))
+                        _nguyenLieuDaDungTam[ct.MaNL] += ct.SoLuongCanDung;
+                    else
+                        _nguyenLieuDaDungTam[ct.MaNL] = ct.SoLuongCanDung;
                 }
+
                 CapNhatTongTien();
+                await CapNhatLaiSLMuaDuocChoTatCaSanPham();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi thêm sản phẩm vào order: " + ex.Message,
+                MessageBox.Show($"Lỗi khi thêm sản phẩm: {ex.Message}",
                                 "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        // ==================== CÁC CHỨC NĂNG KHÁC ====================
-
-        // Xuất đơn hàng
-        private void btnXuatDon_Click(object sender, EventArgs e)
+        // ==================== XUẤT ĐƠN (TRỪ THẬT) ====================
+        private async void btnXuatDon_Click(object sender, EventArgs e)
         {
-            var invoiceForm = new InvoiceOrder();
-            invoiceForm.ShowDialog();
+            try
+            {
+                if (section_table_panel.Controls.Count == 0)
+                {
+                    MessageBox.Show("Không có sản phẩm để xuất đơn!",
+                                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                var confirm = MessageBox.Show("Bạn có chắc muốn xuất đơn và trừ nguyên liệu trong kho?",
+                                              "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (confirm != DialogResult.Yes) return;
+
+                var ctService = new CTCongThucService();
+                var nlService = new NguyenLieuService();
+
+                // Duyệt từng sản phẩm
+                foreach (var item in section_table_panel.Controls.OfType<product_item_order>())
+                {
+                    var dsCT = await ctService.GetChiTietCongThucTheoSPAsync(item.SanPhamId);
+                    int soLuong = int.TryParse(item.textBox1.Text, out var sl) ? sl : 1;
+
+                    foreach (var ct in dsCT)
+                    {
+                        // Trừ thật trong DB
+                        await nlService.TruNguyenLieuAsync(ct.MaNL, ct.SoLuongCanDung * soLuong);
+                    }
+                }
+
+                // Sau khi xuất đơn: reset
+                _nguyenLieuDaDungTam.Clear();
+                section_table_panel.Controls.Clear();
+                TongTien_label.Text = "0";
+
+                MessageBox.Show("Xuất đơn thành công! Nguyên liệu đã được trừ thật trong kho.",
+                                "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi xuất đơn: {ex.Message}",
+                                "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        // Nút thêm sản phẩm mới
-        private void roundedButton1_Click_1(object sender, EventArgs e)
+        // ==================== XÓA TẤT CẢ ORDER ====================
+        private void roundedButton2_Click_1(object sender, EventArgs e)
         {
-            var addProductForm = new AddProductForm();
-            addProductForm.ShowDialog();
-        }
-
-        // ==================== NÚT XÓA DANH SÁCH ORDER ====================
-        private async void roundedButton2_Click_1(object sender, EventArgs e)
-        {
-            // Nếu chưa có sản phẩm nào trong danh sách
             if (section_table_panel.Controls.Count == 0)
             {
-                MessageBox.Show("Hiện tại chưa có sản phẩm nào trong danh sách!",
+                MessageBox.Show("Không có sản phẩm trong danh sách!",
                                 "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            // Hỏi xác nhận người dùng
-            var confirm = MessageBox.Show(
-                "Bạn có chắc chắn muốn xóa toàn bộ danh sách order không? " +
-                "Các nguyên liệu đã trừ sẽ được hoàn lại vào kho.",
-                "Xác nhận xóa",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Question
-            );
-
+            var confirm = MessageBox.Show("Xóa toàn bộ order (nguyên liệu tạm sẽ được hoàn)?",
+                                          "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm == DialogResult.Yes)
             {
-                try
-                {
-                    var ctService = new CTCongThucService();
-                    var nlService = new NguyenLieuService();
-
-                    // Duyệt qua từng sản phẩm trong danh sách
-                    foreach (var ctrl in section_table_panel.Controls.OfType<product_item_order>())
-                    {
-                        int maSP = ctrl.SanPhamId; 
-                        string tenSP = ctrl.TenSP;
-
-                        // Lấy danh sách công thức của sản phẩm
-                        var dsCongThuc = await ctService.GetChiTietCongThucTheoSPAsync(maSP);
-
-                        if (dsCongThuc != null && dsCongThuc.Count > 0)
-                        {
-                            foreach (var ct in dsCongThuc)
-                            {
-                                await nlService.CongNguyenLieuAsync(ct.MaNL, ct.SoLuongCanDung);
-                            }
-                        }
-                    }
-
-                    // Sau khi hoàn nguyên xong, xóa danh sách
-                    section_table_panel.Controls.Clear();
-                    TongTien_label.Text = "0";
-
-                    MessageBox.Show("Đã hoàn nguyên nguyên liệu và xóa toàn bộ danh sách order!",
-                                    "Hoàn tất", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Lỗi khi hoàn nguyên nguyên liệu: {ex.Message}",
-                                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                section_table_panel.Controls.Clear();
+                _nguyenLieuDaDungTam.Clear();
+                TongTien_label.Text = "0";
             }
         }
 
-        // ==================== Hàm tính số lượng có thể mua ====================
-        private int TinhSoLuongCoTheMua(List<CTCongThucSP> dsCongThuc)
-        {
-            if (dsCongThuc == null || dsCongThuc.Count == 0)
-                return 0;
+        // ==================== HÀM PHỤ ====================
 
-            var listSL = dsCongThuc
+        private int TinhSoLuongCoTheMua(List<CTCongThucSP> dsCT)
+        {
+            if (dsCT == null || dsCT.Count == 0) return 0;
+
+            var listSL = dsCT
                 .Where(x => x.SoLuongCanDung > 0)
-                .Select(x => (int)Math.Floor((decimal)x.SoLuongTonKho / x.SoLuongCanDung))
+                .Select(x =>
+                {
+                    decimal tonKho = x.SoLuongTonKho;
+                    if (_nguyenLieuDaDungTam.ContainsKey(x.MaNL))
+                        tonKho -= _nguyenLieuDaDungTam[x.MaNL];
+
+                    if (tonKho < 0) tonKho = 0;
+                    return (int)Math.Floor(tonKho / x.SoLuongCanDung);
+                })
                 .ToList();
 
-            if (listSL.Count == 0)
-                return 0;
-
-            return listSL.Min(); // lấy nguyên liệu giới hạn nhất
+            return listSL.Count == 0 ? 0 : listSL.Min();
         }
 
-        // ==================== Hàm cập nhật tổng tiền ====================
         public void CapNhatTongTien()
         {
-            decimal tongTien = 0;
-
-            // Duyệt qua tất cả các sản phẩm trong panel
+            decimal tong = 0;
             foreach (var item in section_table_panel.Controls.OfType<product_item_order>())
             {
-                // Lấy label thành tiền trong product_item_order
-                if (decimal.TryParse(item.thanhtien_lb.Text.Replace(",", "").Trim(), out decimal thanhTien))
-                {
-                    tongTien += thanhTien;
-                }
+                if (decimal.TryParse(item.thanhtien_lb.Text.Replace(",", ""), out decimal thanhTien))
+                    tong += thanhTien;
             }
-
-            TongTien_label.Text = tongTien.ToString("N0");
+            TongTien_label.Text = tong.ToString("N0");
         }
 
-        // ==================== CÁC SỰ KIỆN KHÁC (để trống) ====================
+        private async Task CapNhatLaiSLMuaDuocChoTatCaSanPham()
+        {
+            var ctService = new CTCongThucService();
+
+            foreach (var item in section_table_panel.Controls.OfType<product_item_order>())
+            {
+                var dsCT = await ctService.GetChiTietCongThucTheoSPAsync(item.SanPhamId);
+                var listSL = dsCT
+                    .Where(x => x.SoLuongCanDung > 0)
+                    .Select(x =>
+                    {
+                        decimal tonKho = x.SoLuongTonKho;
+                        if (_nguyenLieuDaDungTam.ContainsKey(x.MaNL))
+                            tonKho -= _nguyenLieuDaDungTam[x.MaNL];
+                        if (tonKho < 0) tonKho = 0;
+                        return (int)Math.Floor(tonKho / x.SoLuongCanDung);
+                    })
+                    .ToList();
+
+                int sl = listSL.Count == 0 ? 0 : listSL.Min();
+                item.SL_dc_label.Text = sl.ToString();
+                item.SLMuaDuoc = sl;
+            }
+        }
+
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e) { }
 
+        // Cho phép product_item_order truy cập dictionary này
+        public Dictionary<int, decimal> GetNguyenLieuDaDungTam() => _nguyenLieuDaDungTam;
     }
 }

@@ -132,7 +132,7 @@
             SL_dc_label.AutoSize = true;
             SL_dc_label.Dock = DockStyle.Fill;
             SL_dc_label.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            SL_dc_label.ForeColor = SystemColors.ControlText;
+            SL_dc_label.ForeColor = Color.Red;
             SL_dc_label.Location = new Point(555, 0);
             SL_dc_label.Name = "SL_dc_label";
             SL_dc_label.Size = new Size(84, 77);
@@ -191,6 +191,7 @@
             textBox1.Size = new Size(84, 20);
             textBox1.TabIndex = 0;
             textBox1.TextAlign = HorizontalAlignment.Center;
+            textBox1.TextChanged += textBox1_TextChanged;
             textBox1.KeyPress += textBox1_KeyPress;
             // 
             // three_dots_label
@@ -258,13 +259,13 @@
         public Label thanhtien_lb;
         private Label label26;
         private Label label27;
-        private Label SL_dc_label;
+        public Label SL_dc_label;
         private Label lb;
         private PictureBox pictureBox9;
         public ComboBox size_comboBox1;
         private Label three_dots_label;
         private Panel panel8;
-        private TextBox textBox1;
+        public TextBox textBox1;
         private ContextMenuStrip popup;
         private ToolStripMenuItem huy;
         private ToolStripMenuItem Topping;

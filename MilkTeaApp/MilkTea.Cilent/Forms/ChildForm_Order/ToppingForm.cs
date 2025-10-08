@@ -111,32 +111,59 @@ namespace MilkTea.Client.Forms.ChildForm_Order
             this.Close();
         }
 
-        private void XacNhan_btn_Click(object sender, EventArgs e)
+        private async void XacNhan_btn_Click(object sender, EventArgs e)
         {
-            List<Topping> selectedToppings = new List<Topping>();
-
-            foreach (Toppingitem item in topping_table_panel.Controls.OfType<Toppingitem>())
+            try
             {
-                if (item.IsChecked()) // nếu topping được chọn
+                List<Topping> selectedToppings = new List<Topping>();
+                var nlService = new NguyenLieuService(); // để gọi API trừ nguyên liệu
+
+                foreach (Toppingitem item in topping_table_panel.Controls.OfType<Toppingitem>())
                 {
-                    var nl = item.GetData();
-                    var topping = new Topping
+                    if (item.IsChecked()) // nếu topping được chọn
                     {
-                        MaNL = nl.MaNL,
-                        ten = nl.Ten,
-                        SL = nl.SoLuong,
-                        gia = item.GetGiaTopping(),
+                        var nl = item.GetData();
 
-                    };
-                    selectedToppings.Add(topping);
+                        // Xác định khối lượng topping tương ứng theo phần trăm
+                        decimal gramToTru = 0;
+                        string comboValue = item.GetSelectedComboText(); // vd: "25% - 1,000 VND"
+                        if (comboValue.Contains("25%")) gramToTru = 3;    // 25% = 3g
+                        else if (comboValue.Contains("50%")) gramToTru = 10; // 50% = 10g
+                        else if (comboValue.Contains("75%")) gramToTru = 20; // 75% = 20g
+
+                        // Trừ topping trong kho (DB)
+                        await nlService.CapNhatNguyenLieuTheoToppingAsync(nl.MaNL, gramToTru);
+
+                        // Tạo object topping để gửi về product_item_order
+                        var topping = new Topping
+                        {
+                            MaNL = nl.MaNL,
+                            ten = nl.Ten,
+                            SL = nl.SoLuong,
+                            gia = item.GetGiaTopping()
+                        };
+
+                        selectedToppings.Add(topping);
+                    }
                 }
+
+                // Gửi danh sách topping đã chọn về product_item_order
+                OnToppingConfirmed?.Invoke(this, selectedToppings);
+
+                // Hiển thị thông báo
+                MessageBox.Show("Đã chọn topping và cập nhật kho nguyên liệu!", "Thành công",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Đóng form topping
+                this.Close();
             }
-
-            // Gửi danh sách topping ra ngoài
-            OnToppingConfirmed?.Invoke(this, selectedToppings);
-
-            this.Close();
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi xác nhận topping: {ex.Message}",
+                                "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
 
         private string BuildComboFromPrice(int maNL, decimal gia)
         {

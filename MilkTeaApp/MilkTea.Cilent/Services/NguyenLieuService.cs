@@ -26,6 +26,37 @@ namespace MilkTea.Client.Services
             return response.IsSuccessStatusCode;
         }
 
+        // Hàm cập nhật thay đổi số lượng nguyên liệu (âm: trừ, dương: cộng)
+        public async Task<bool> CapNhatNguyenLieuAsync(int maNL, int soLuongThayDoi)
+        {
+            var response = await _http.PutAsJsonAsync($"/api/nguyenlieu/capnhatsoluong/{maNL}", soLuongThayDoi);
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> CapNhatNguyenLieuTheoToppingAsync(int maNL, decimal gram)
+        {
+            try
+            {
+                // Gọi API PUT /api/nguyenlieu/topping
+                var response = await _http.PutAsJsonAsync("/api/nguyenlieu/topping", new
+                {
+                    MaNL = maNL,
+                    Gram = gram
+                });
+
+                if (response.IsSuccessStatusCode)
+                    return true;
+
+                var error = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"[CapNhatNguyenLieuTheoToppingAsync] Lỗi: {error}");
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi khi cập nhật topping: {ex.Message}");
+                return false;
+            }
+        }
 
     }
 }
