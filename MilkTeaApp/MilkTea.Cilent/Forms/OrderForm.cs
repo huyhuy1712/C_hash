@@ -18,7 +18,7 @@ namespace MilkTea.Client.Forms
         private readonly CTCongThucService _ctCongThucService;
         private readonly NguyenLieuService _nguyenLieuService;
 
-        // 🧠 Bộ nhớ tạm lưu nguyên liệu đã dùng (chỉ trong phiên order)
+        //  Bộ nhớ tạm lưu nguyên liệu đã dùng (chỉ trong phiên order)
         private readonly Dictionary<int, decimal> _nguyenLieuDaDungTam = new();
 
         public OrderForm()
@@ -72,28 +72,46 @@ namespace MilkTea.Client.Forms
                 var ctkm = await _ctKhuyenMaiService.GetByMaSP(sp.MaSP);
                 var dsCT = await _ctCongThucService.GetChiTietCongThucTheoSPAsync(sp.MaSP);
 
-                // Kiểm tra nguyên liệu đủ không
-                var nlThieu = new List<string>();
+                // Lấy dictionary tạm
+                var dict = _nguyenLieuDaDungTam;
+                var nguyenLieuThieu = new List<string>();
+
+                // ================== KIỂM TRA NGUYÊN LIỆU ==================
                 foreach (var nl in dsCT)
                 {
-                    if (nl.SoLuongTonKho < nl.SoLuongCanDung)
-                        nlThieu.Add($"- {nl.TenNguyenLieu} (cần {nl.SoLuongCanDung}, còn {nl.SoLuongTonKho})");
+                    decimal daDung = dict.ContainsKey(nl.MaNL) ? dict[nl.MaNL] : 0;
+                    decimal tonThucTe = nl.SoLuongTonKho - daDung;
+
+                    if (tonThucTe < nl.SoLuongCanDung)
+                    {
+                        nguyenLieuThieu.Add($"- {nl.TenNguyenLieu} (cần {nl.SoLuongCanDung}, còn {tonThucTe})");
+                    }
                 }
 
-                if (nlThieu.Count > 0 || dsCT.Count == 0)
+                // Nếu thiếu nguyên liệu thì báo lỗi và dừng lại
+                if (nguyenLieuThieu.Count > 0)
                 {
-                    string msg = $"Không đủ nguyên liệu để pha chế món '{sp.TenSP}'.";
-                    if (nlThieu.Count > 0)
-                        msg += "\n\nThiếu:\n" + string.Join("\n", nlThieu);
+                    string msg = $"Không đủ nguyên liệu để pha chế món '{sp.TenSP}'.\n\nThiếu:\n" +
+                                 string.Join("\n", nguyenLieuThieu);
 
                     MessageBox.Show(msg, "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                // Tính số lượng có thể mua
-                int slMuaDuoc = TinhSoLuongCoTheMua(dsCT);
+                // ================== TÍNH SL CÓ THỂ MUA (theo kho ảo) ==================
+                var listSL = dsCT
+                    .Where(x => x.SoLuongCanDung > 0)
+                    .Select(x =>
+                    {
+                        decimal daDung = dict.ContainsKey(x.MaNL) ? dict[x.MaNL] : 0;
+                        decimal tonThucTe = x.SoLuongTonKho - daDung;
+                        return (int)Math.Floor(tonThucTe / x.SoLuongCanDung);
+                    })
+                    .ToList();
 
-                // Tạo item
+                int slMuaDuoc = listSL.Count == 0 ? 0 : listSL.Min();
+
+                // ================== TẠO ITEM ==================
                 var orderItem = new product_item_order
                 {
                     TenSP = $"{chiTiet.TenSP} ({chiTiet.Gia:N0} VND)",
@@ -105,25 +123,26 @@ namespace MilkTea.Client.Forms
                     phantramgiam = ctkm?.PhanTramKhuyenMai ?? 0
                 };
 
-                // Đăng ký event cập nhật
+                // ================== ĐĂNG KÝ SỰ KIỆN ==================
                 orderItem.ThanhTienChanged += (s, ev) => CapNhatTongTien();
                 orderItem.OnOrderUpdated += async (s, ev) =>
                 {
                     await CapNhatLaiSLMuaDuocChoTatCaSanPham();
                 };
 
+                // ================== HIỂN THỊ VÀ THÊM ==================
                 orderItem.setData();
                 section_table_panel.Controls.Add(orderItem);
                 orderItem.Dock = DockStyle.Top;
                 orderItem.BringToFront();
 
-                // ✅ Cập nhật nguyên liệu đã dùng tạm (RAM)
+                // ================== CẬP NHẬT NGUYÊN LIỆU TẠM ==================
                 foreach (var ct in dsCT)
                 {
-                    if (_nguyenLieuDaDungTam.ContainsKey(ct.MaNL))
-                        _nguyenLieuDaDungTam[ct.MaNL] += ct.SoLuongCanDung;
+                    if (dict.ContainsKey(ct.MaNL))
+                        dict[ct.MaNL] += ct.SoLuongCanDung;
                     else
-                        _nguyenLieuDaDungTam[ct.MaNL] = ct.SoLuongCanDung;
+                        dict[ct.MaNL] = ct.SoLuongCanDung;
                 }
 
                 CapNhatTongTien();
@@ -184,7 +203,7 @@ namespace MilkTea.Client.Forms
         }
 
         // ==================== XÓA TẤT CẢ ORDER ====================
-        private void roundedButton2_Click_1(object sender, EventArgs e)
+        private async void roundedButton2_Click_1(object sender, EventArgs e)
         {
             if (section_table_panel.Controls.Count == 0)
             {
@@ -193,37 +212,46 @@ namespace MilkTea.Client.Forms
                 return;
             }
 
-            var confirm = MessageBox.Show("Xóa toàn bộ order (nguyên liệu tạm sẽ được hoàn)?",
-                                          "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var confirm = MessageBox.Show(
+                "Xóa toàn bộ order?",
+                "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
             if (confirm == DialogResult.Yes)
             {
-                section_table_panel.Controls.Clear();
-                _nguyenLieuDaDungTam.Clear();
-                TongTien_label.Text = "0";
+                try
+                {
+                    var ctService = new CTCongThucService();
+
+                    // Duyệt qua tất cả sản phẩm trong danh sách
+                    foreach (var ctrl in section_table_panel.Controls.OfType<product_item_order>())
+                    {
+                        int maSP = ctrl.SanPhamId;
+                        var dsCongThuc = await ctService.GetChiTietCongThucTheoSPAsync(maSP);
+
+                        //  Hoàn lại nguyên liệu trong RAM
+                        foreach (var ct in dsCongThuc)
+                        {
+                            if (_nguyenLieuDaDungTam.ContainsKey(ct.MaNL))
+                            {
+                                _nguyenLieuDaDungTam[ct.MaNL] -= ct.SoLuongCanDung;
+                                if (_nguyenLieuDaDungTam[ct.MaNL] <= 0)
+                                    _nguyenLieuDaDungTam.Remove(ct.MaNL);
+                            }
+                        }
+                    }
+
+                    //  Xóa toàn bộ sản phẩm khỏi giao diện
+                    section_table_panel.Controls.Clear();
+                    TongTien_label.Text = "0";
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi hoàn nguyên nguyên liệu: {ex.Message}",
+                                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
-        // ==================== HÀM PHỤ ====================
-
-        private int TinhSoLuongCoTheMua(List<CTCongThucSP> dsCT)
-        {
-            if (dsCT == null || dsCT.Count == 0) return 0;
-
-            var listSL = dsCT
-                .Where(x => x.SoLuongCanDung > 0)
-                .Select(x =>
-                {
-                    decimal tonKho = x.SoLuongTonKho;
-                    if (_nguyenLieuDaDungTam.ContainsKey(x.MaNL))
-                        tonKho -= _nguyenLieuDaDungTam[x.MaNL];
-
-                    if (tonKho < 0) tonKho = 0;
-                    return (int)Math.Floor(tonKho / x.SoLuongCanDung);
-                })
-                .ToList();
-
-            return listSL.Count == 0 ? 0 : listSL.Min();
-        }
 
         public void CapNhatTongTien()
         {

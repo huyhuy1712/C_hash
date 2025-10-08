@@ -162,8 +162,21 @@ namespace MilkTea.Client.Controls
                 if (!int.TryParse(textBox1.Text, out int slMoi) || slMoi <= 0)
                     slMoi = 1;
 
+                // Kiểm tra nếu nhập vượt quá số lượng có thể mua
+                if (slMoi > SLMuaDuoc)
+                {
+                    MessageBox.Show($"Số lượng nhập ({slMoi}) vượt quá số lượng còn lại ({SLMuaDuoc})!",
+                                    "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    // Trả về giá trị cũ (slCu)
+                    textBox1.Text = slCu.ToString();
+                    return;
+                }
+
+                // Cập nhật nguyên liệu theo chênh lệch
                 await CapNhatNguyenLieuTheoSoLuongMoi(slMoi);
 
+                // Cập nhật lại tiền và báo form cha
                 UpdateThanhTien();
                 OnOrderUpdated?.Invoke(this, EventArgs.Empty);
             }
@@ -235,5 +248,11 @@ namespace MilkTea.Client.Controls
             thanhtien_lb.Text = thanhTien.ToString("N0");
             ThanhTienChanged?.Invoke(this, EventArgs.Empty);
         }
+    
+public void RaiseOrderUpdated()
+        {
+            OnOrderUpdated?.Invoke(this, EventArgs.Empty);
+        }
+
     }
-}
+    }
