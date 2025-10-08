@@ -1,4 +1,4 @@
-namespace MilkTea.Client.Models
+namespace MilkTea.Server.Models
 {
     public class DoanhThu
     {
@@ -32,7 +32,13 @@ namespace MilkTea.Client.Models
         // Mã size (FK tới Size nếu có)
         public int? MaSize { get; set; }
 
+        // Tổng chi phí
+        public decimal TongChiPhi { get; set; }
+
         // Tổng doanh thu
         public decimal TongDoanhThu { get; set; }
+
+        
     }
+
 }

@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             OrderPanel = new Panel();
             RightPanel = new Panel();
             Section_Right_Panel = new Panel();
@@ -36,6 +35,7 @@
             section_table_panel = new Panel();
             Header_Table_panel = new Panel();
             tableLayoutPanel2 = new TableLayoutPanel();
+            label4 = new Label();
             label25 = new Label();
             label24 = new Label();
             label23 = new Label();
@@ -78,10 +78,7 @@
             Header_Left_Panel = new Panel();
             pictureBox1 = new PictureBox();
             label1 = new Label();
-            popup = new ContextMenuStrip(components);
-            Hủy = new ToolStripMenuItem();
-            Topping = new ToolStripMenuItem();
-            label4 = new Label();
+            roundedButton2 = new MilkTea.Client.Controls.RoundedButton();
             OrderPanel.SuspendLayout();
             RightPanel.SuspendLayout();
             Section_Right_Panel.SuspendLayout();
@@ -103,7 +100,6 @@
             Layout_Footer_Left_Panel.SuspendLayout();
             Header_Left_Panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            popup.SuspendLayout();
             SuspendLayout();
             // 
             // OrderPanel
@@ -197,6 +193,19 @@
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel2.Size = new Size(1003, 44);
             tableLayoutPanel2.TabIndex = 0;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Dock = DockStyle.Fill;
+            label4.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            label4.ForeColor = SystemColors.ControlText;
+            label4.Location = new Point(3, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(142, 44);
+            label4.TabIndex = 9;
+            label4.Text = "Ảnh sản phẩm";
+            label4.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label25
             // 
@@ -373,8 +382,9 @@
             // 
             // panel2
             // 
+            panel2.Controls.Add(roundedButton2);
             panel2.Controls.Add(btnXuatDon);
-            panel2.Dock = DockStyle.Fill;
+            panel2.Dock = DockStyle.Right;
             panel2.Location = new Point(703, 0);
             panel2.Name = "panel2";
             panel2.Padding = new Padding(17);
@@ -407,10 +417,10 @@
             panel1.Controls.Add(comboBox2);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(label3);
-            panel1.Dock = DockStyle.Left;
+            panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(703, 70);
+            panel1.Size = new Size(1003, 70);
             panel1.TabIndex = 7;
             // 
             // comboBox1
@@ -699,7 +709,7 @@
             Size_SL_Label.Name = "Size_SL_Label";
             Size_SL_Label.Size = new Size(149, 50);
             Size_SL_Label.TabIndex = 3;
-            Size_SL_Label.Text = "SL: 25.000";
+            Size_SL_Label.Text = "XL: 25.000";
             Size_SL_Label.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // Header_Left_Panel
@@ -741,46 +751,25 @@
             label1.TextAlign = ContentAlignment.MiddleCenter;
             label1.Click += label1_Click_1;
             // 
-            // popup
+            // roundedButton2
             // 
-            popup.BackColor = SystemColors.ActiveBorder;
-            popup.ImageScalingSize = new Size(20, 20);
-            popup.Items.AddRange(new ToolStripItem[] { Hủy, Topping });
-            popup.Name = "popup";
-            popup.Size = new Size(160, 64);
-            popup.Opening += popup_Opening;
-            // 
-            // Hủy
-            // 
-            Hủy.Alignment = ToolStripItemAlignment.Right;
-            Hủy.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            Hủy.Image = Properties.Resources.X;
-            Hủy.Name = "Hủy";
-            Hủy.Size = new Size(159, 30);
-            Hủy.Text = "Hủy";
-            // 
-            // Topping
-            // 
-            Topping.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            Topping.ForeColor = SystemColors.ActiveCaptionText;
-            Topping.Image = Properties.Resources.topping;
-            Topping.Name = "Topping";
-            Topping.Size = new Size(159, 30);
-            Topping.Text = "Topping";
-            Topping.Click += Topping_Click;
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Dock = DockStyle.Fill;
-            label4.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label4.ForeColor = SystemColors.ControlText;
-            label4.Location = new Point(3, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(142, 44);
-            label4.TabIndex = 9;
-            label4.Text = "Ảnh sản phẩm";
-            label4.TextAlign = ContentAlignment.MiddleCenter;
+            roundedButton2.BackColor = Color.Crimson;
+            roundedButton2.BorderColor = Color.DodgerBlue;
+            roundedButton2.BorderRadius = 20;
+            roundedButton2.BorderSize = 0;
+            roundedButton2.Cursor = Cursors.Hand;
+            roundedButton2.Dock = DockStyle.Left;
+            roundedButton2.FlatAppearance.BorderSize = 0;
+            roundedButton2.FlatStyle = FlatStyle.Flat;
+            roundedButton2.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            roundedButton2.ForeColor = Color.White;
+            roundedButton2.Location = new Point(17, 17);
+            roundedButton2.Name = "roundedButton2";
+            roundedButton2.Size = new Size(110, 36);
+            roundedButton2.TabIndex = 3;
+            roundedButton2.Text = "Xóa";
+            roundedButton2.UseVisualStyleBackColor = false;
+            roundedButton2.Click += roundedButton2_Click_1;
             // 
             // OrderForm
             // 
@@ -816,7 +805,6 @@
             Layout_Footer_Left_Panel.PerformLayout();
             Header_Left_Panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            popup.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -864,9 +852,6 @@
         private Panel panel9;
         private Label label29;
         private Label TongTien_label;
-        private ContextMenuStrip popup;
-        private ToolStripMenuItem Hủy;
-        private ToolStripMenuItem Topping;
         private Label label3;
         private Label label2;
         private ComboBox comboBox2;
@@ -875,5 +860,6 @@
         private ComboBox comboBox3;
         private ComboBox sort_comboBox;
         private Label label4;
+        private Controls.RoundedButton roundedButton2;
     }
 }
