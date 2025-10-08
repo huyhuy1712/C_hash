@@ -2,7 +2,7 @@
 
 namespace MilkTea.Client.Interfaces
 {
-    public interface ITaiKhoanForm
+    public interface IAccountForm
     {
         DataGridView GridTaiKhoan { get; }
         Label LblStatus { get; }

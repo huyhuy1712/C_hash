@@ -309,6 +309,7 @@ namespace MilkTea.Client.Forms
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(1618, 223);
             dataGridView1.TabIndex = 0;
+            dataGridView1.CellClick += dataGridView1_CellClick;
             // 
             // ID
             // 

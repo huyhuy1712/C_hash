@@ -12,8 +12,8 @@ namespace MilkTea.Client.Presenters
     public class AccountPresenter
     {
         private readonly TaiKhoanService _taiKhoanService;
-        private readonly ITaiKhoanForm _form;
-        public AccountPresenter(ITaiKhoanForm form, TaiKhoanService taiKhoanService)
+        private readonly IAccountForm _form;
+        public AccountPresenter(IAccountForm form, TaiKhoanService taiKhoanService)
         {
             _form = form;
             _taiKhoanService = taiKhoanService;

@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace MilkTea.Client.Forms
 {
-    public partial class AccountForm : Form, ITaiKhoanForm
+    public partial class AccountForm : Form, IAccountForm
     {
         private readonly AccountPresenter _presenter;
         public DataGridView GridTaiKhoan => dataGridView1;
@@ -22,14 +22,26 @@ namespace MilkTea.Client.Forms
 
         private async void AccountForm_Load(object sender, EventArgs e)
         {
-            dataGridView1.CellClick += dataGridView1_CellClick;
-            await _presenter.LoadDataAsync();
+            try
+            {
+                await _presenter.LoadDataAsync();
+            }
+            catch (Exception ex)
+            {
+                lblStatus.Text = "⚠️ Lỗi khi tải dữ liệu.";
+                Console.WriteLine(ex.Message);
+            }
         }
 
         private void btnThemAccount_Click(object sender, EventArgs e)
         {
-            AddAccountForm themTaiKhoan = new AddAccountForm();
-            themTaiKhoan.ShowDialog();
+            using (var frm = new AddAccountForm())
+            {
+                if (frm.ShowDialog() == DialogResult.OK)
+                {
+                    _ = _presenter.LoadDataAsync(); // load lại danh sách sau khi thêm
+                }
+            }
         }
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
