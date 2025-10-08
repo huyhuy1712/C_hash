@@ -113,7 +113,7 @@ namespace MilkTea.Client.Forms
                         int rowIndex = dataGridView1.Rows.Add();
                         dataGridView1.Rows[rowIndex].Cells["ID"].Value = tk.MaTK;
                         dataGridView1.Rows[rowIndex].Cells["taiKhoan"].Value = tk.TenTaiKhoan;
-                        dataGridView1.Rows[rowIndex].Cells["hoVaTen"].Value = tk.anh ?? "";
+                        dataGridView1.Rows[rowIndex].Cells["hoVaTen"].Value = tk.TenTaiKhoan ?? "";
                         dataGridView1.Rows[rowIndex].Cells["trangThai"].Value = tk.TrangThai == 1 ? "Hoạt động" : "Khóa";
                         dataGridView1.Rows[rowIndex].Cells["ngayTao"].Value = DateTime.Now.ToString("dd/MM/yyyy");
                         dataGridView1.Rows[rowIndex].Cells["quyen"].Value = tk.MaQuyen;
