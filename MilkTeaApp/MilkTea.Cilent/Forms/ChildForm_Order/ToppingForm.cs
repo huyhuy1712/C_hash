@@ -3,33 +3,28 @@ using MilkTea.Client.Models;
 using MilkTea.Client.Services;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MilkTea.Client.Forms.ChildForm_Order
 {
     public partial class ToppingForm : Form
     {
-        private product_item_order _sanphamHienTai;
+        private readonly product_item_order _sanphamHienTai;
         private List<NguyenLieu> _allNguyenLieu = new List<NguyenLieu>();
         private readonly NguyenLieuService _nguyenLieuService;
 
         public event EventHandler<List<Topping>> OnToppingConfirmed;
 
-
-        public ToppingForm(Controls.product_item_order sanpham)
+        public ToppingForm(product_item_order sanpham)
         {
             InitializeComponent();
             _sanphamHienTai = sanpham;
             _nguyenLieuService = new NguyenLieuService();
-
             this.Load += FormLoad;
         }
 
-        //  class lưu trạng thái topping khi cần refresh
+        // ================== class lưu trạng thái topping ===================
         private class ToppingState
         {
             public int MaNguyenLieu { get; set; }
@@ -46,7 +41,6 @@ namespace MilkTea.Client.Forms.ChildForm_Order
             _allNguyenLieu = listNL.ToList();
 
             var previous = new List<ToppingState>();
-
             if (_sanphamHienTai.DSTopping != null && _sanphamHienTai.DSTopping.Count > 0)
             {
                 foreach (var t in _sanphamHienTai.DSTopping)
@@ -55,14 +49,13 @@ namespace MilkTea.Client.Forms.ChildForm_Order
                     {
                         MaNguyenLieu = t.MaNL,
                         Checked = true,
-                        GiaTriCombo = BuildComboFromPrice(t.MaNL, t.gia) // xác định combo từ giá
+                        GiaTriCombo = BuildComboFromPrice(t.MaNL, t.gia)
                     });
                 }
             }
 
             HienThiNguyenLieu(_allNguyenLieu, previous);
         }
-
 
         // ================== HIỂN THỊ DANH SÁCH ===================
         private void HienThiNguyenLieu(List<NguyenLieu> danhSach, List<ToppingState> previousStates = null)
@@ -75,7 +68,7 @@ namespace MilkTea.Client.Forms.ChildForm_Order
                 toppingItem.SetData(item);
                 toppingItem.ToppingChanged += (s, e) => CapNhatTongTien();
 
-                //  Khôi phục trạng thái nếu có
+                // Khôi phục trạng thái cũ nếu có
                 if (previousStates != null)
                 {
                     var old = previousStates.FirstOrDefault(x => x.MaNguyenLieu == item.MaNL);
@@ -96,13 +89,7 @@ namespace MilkTea.Client.Forms.ChildForm_Order
         // ================== CẬP NHẬT TỔNG TIỀN ===================
         private void CapNhatTongTien()
         {
-            decimal tong = 0;
-
-            foreach (Toppingitem item in topping_table_panel.Controls.OfType<Toppingitem>())
-            {
-                tong += item.GetGiaTopping();
-            }
-
+            decimal tong = topping_table_panel.Controls.OfType<Toppingitem>().Sum(item => item.GetGiaTopping());
             total_label.Text = $"{tong:N0} VND";
         }
 
@@ -111,33 +98,75 @@ namespace MilkTea.Client.Forms.ChildForm_Order
             this.Close();
         }
 
-        private void XacNhan_btn_Click(object sender, EventArgs e)
+        // ================== XÁC NHẬN CHỌN TOPPING ===================
+        private async void XacNhan_btn_Click(object sender, EventArgs e)
         {
-            List<Topping> selectedToppings = new List<Topping>();
-
-            foreach (Toppingitem item in topping_table_panel.Controls.OfType<Toppingitem>())
+            try
             {
-                if (item.IsChecked()) // nếu topping được chọn
+                var selectedToppings = new List<Topping>();
+
+                // 🔹 Lấy form cha (OrderForm) để cập nhật dictionary tạm
+                var parentForm = _sanphamHienTai.FindForm() as OrderForm;
+                if (parentForm == null)
                 {
-                    var nl = item.GetData();
-                    var topping = new Topping
-                    {
-                        MaNL = nl.MaNL,
-                        ten = nl.Ten,
-                        SL = nl.SoLuong,
-                        gia = item.GetGiaTopping(),
-
-                    };
-                    selectedToppings.Add(topping);
+                    MessageBox.Show("Không tìm thấy form OrderForm!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
+
+                var dict = parentForm.GetNguyenLieuDaDungTam();
+
+                foreach (Toppingitem item in topping_table_panel.Controls.OfType<Toppingitem>())
+                {
+                    if (item.IsChecked())
+                    {
+                        var nl = item.GetData();
+
+                        // Xác định số gram topping theo % (quy tắc)
+                        decimal gramToTru = 0;
+                        string comboValue = item.GetSelectedComboText();
+
+                        if (comboValue.Contains("25%")) gramToTru = 3;
+                        else if (comboValue.Contains("50%")) gramToTru = 10;
+                        else if (comboValue.Contains("75%")) gramToTru = 20;
+
+                        // ✅ Cập nhật vào dictionary tạm thay vì DB
+                        if (dict.ContainsKey(nl.MaNL))
+                            dict[nl.MaNL] += gramToTru;
+                        else
+                            dict[nl.MaNL] = gramToTru;
+
+                        // Tạo object topping để gửi về product_item_order
+                        var topping = new Topping
+                        {
+                            MaNL = nl.MaNL,
+                            ten = nl.Ten,
+                            SL = nl.SoLuong,
+                            gia = item.GetGiaTopping()
+                        };
+
+                        selectedToppings.Add(topping);
+                    }
+                }
+
+                // Gửi danh sách topping về lại product_item_order
+                OnToppingConfirmed?.Invoke(this, selectedToppings);
+
+                // Báo cập nhật lại OrderForm (SL mua được)
+                _sanphamHienTai?.RaiseOrderUpdated();
+
+                MessageBox.Show("Đã chọn topping (nguyên liệu tạm đã cập nhật)!",
+                                "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                this.Close();
             }
-
-            // Gửi danh sách topping ra ngoài
-            OnToppingConfirmed?.Invoke(this, selectedToppings);
-
-            this.Close();
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi xác nhận topping: {ex.Message}",
+                                "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
+        // ================== Xây chuỗi combo theo giá ===================
         private string BuildComboFromPrice(int maNL, decimal gia)
         {
             var nl = _allNguyenLieu.FirstOrDefault(x => x.MaNL == maNL);
@@ -147,8 +176,10 @@ namespace MilkTea.Client.Forms.ChildForm_Order
             if (gia == nl.GiaBan * 2) return $"50% - {(nl.GiaBan * 2):N0} VND";
             if (gia == nl.GiaBan * 3) return $"75% - {(nl.GiaBan * 3):N0} VND";
 
-            return $"25% - {nl.GiaBan:N0} VND"; // mặc định nếu không khớp
+            return $"25% - {nl.GiaBan:N0} VND";
         }
 
+
     }
+
 }

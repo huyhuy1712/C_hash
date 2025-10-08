@@ -1,12 +1,13 @@
-﻿using System;
+﻿using MilkTea.Client.Forms;
+using MilkTea.Client.Forms.ChildForm_Order;
+using MilkTea.Client.Models;
+using MilkTea.Client.Services;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using MilkTea.Client.Forms.ChildForm_Order;
-using MilkTea.Client.Models;
-using MilkTea.Client.Services;
 
 namespace MilkTea.Client.Controls
 {
@@ -20,10 +21,13 @@ namespace MilkTea.Client.Controls
         public string Anh { get; set; }
         public string khuyenmai { get; set; }
         public decimal phantramgiam { get; set; }
-        public int SLMuaDuoc { get; set; }  
+        public int SLMuaDuoc { get; set; }
         public List<Topping> DSTopping { get; set; } = new List<Topping>();
-        public event EventHandler ThanhTienChanged;
 
+        private int slCu = 1; // số lượng cũ để tính chênh lệch
+
+        public event EventHandler ThanhTienChanged;
+        public event EventHandler OnOrderUpdated;
 
         public product_item_order()
         {
@@ -32,6 +36,7 @@ namespace MilkTea.Client.Controls
             product_item_order_Load(this, EventArgs.Empty);
         }
 
+        // ===================== Hiển thị dữ liệu sản phẩm =====================
         public async void setData()
         {
             lb.Text = TenSP;
@@ -42,10 +47,9 @@ namespace MilkTea.Client.Controls
             size_comboBox1.DisplayMember = "TenSize";
             size_comboBox1.ValueMember = "MaSize";
 
-            SL_dc_label.Text = "10";
+            SL_dc_label.Text = SLMuaDuoc.ToString();
             label27.Text = khuyenmai?.ToString() ?? "Không có";
 
-            SL_dc_label.Text = SLMuaDuoc.ToString();
             decimal tienGiam = (Gia * phantramgiam) / 100;
             label26.Text = tienGiam.ToString("N0");
 
@@ -61,12 +65,14 @@ namespace MilkTea.Client.Controls
             catch { }
         }
 
+        // ===================== Load event =====================
         private void product_item_order_Load(object sender, EventArgs e)
         {
             textBox1.TextChanged += (s, ev) => UpdateThanhTien();
             size_comboBox1.SelectedIndexChanged += (s, ev) => UpdateThanhTien();
         }
 
+        // ===================== Cập nhật thành tiền =====================
         private void UpdateThanhTien()
         {
             try
@@ -83,6 +89,7 @@ namespace MilkTea.Client.Controls
 
                 label26.Text = tienGiamTong.ToString("N0");
                 thanhtien_lb.Text = thanhTien.ToString("N0");
+
                 ThanhTienChanged?.Invoke(this, EventArgs.Empty);
             }
             catch
@@ -91,31 +98,39 @@ namespace MilkTea.Client.Controls
             }
         }
 
+        // ===================== Popup 3 chấm =====================
         private void three_dots_label_Click(object sender, EventArgs e)
         {
             popup.Show(three_dots_label, new Point(0, three_dots_label.Height));
         }
 
+        // ===================== Hủy sản phẩm (hoàn nguyên liệu tạm) =====================
         private async void huy_Click(object sender, EventArgs e)
         {
             try
             {
-                // Gọi service công lại nguyên liệu
+                var parentForm = this.FindForm() as OrderForm;
+                if (parentForm == null) return;
+
                 var ctService = new CTCongThucService();
-                var nlService = new NguyenLieuService();
+                var dsCongThuc = await ctService.GetChiTietCongThucTheoSPAsync(SanPhamId);
 
-                // Lấy danh sách công thức của sản phẩm này
-                var dsCongThuc = await ctService.GetChiTietCongThucTheoSPAsync(SanPhamId); 
-
+                // Cộng lại nguyên liệu đã dùng tạm
                 foreach (var ct in dsCongThuc)
                 {
-                    await nlService.CongNguyenLieuAsync(ct.MaNL, ct.SoLuongCanDung);
+                    var dict = parentForm.GetNguyenLieuDaDungTam();
+                    if (dict.ContainsKey(ct.MaNL))
+                    {
+                        dict[ct.MaNL] -= ct.SoLuongCanDung * slCu;
+                        if (dict[ct.MaNL] <= 0)
+                            dict.Remove(ct.MaNL);
+                    }
                 }
 
-                MessageBox.Show($"Đã hoàn lại nguyên liệu cho sản phẩm {TenSP}.",
-                                "Trả kho", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Báo cập nhật lại toàn bộ danh sách
+                OnOrderUpdated?.Invoke(this, EventArgs.Empty);
 
-                // Xóa control sản phẩm khỏi danh sách order
+                // Xóa khỏi giao diện
                 this.Parent?.Controls.Remove(this);
                 this.Dispose();
             }
@@ -126,7 +141,7 @@ namespace MilkTea.Client.Controls
             }
         }
 
-
+        // ==================== Ô nhập số lượng ====================
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
@@ -139,6 +154,70 @@ namespace MilkTea.Client.Controls
                 textBox1.Text = "1";
         }
 
+        // Khi thay đổi số lượng
+        private async void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                if (!int.TryParse(textBox1.Text, out int slMoi) || slMoi <= 0)
+                    slMoi = 1;
+
+                // Kiểm tra nếu nhập vượt quá số lượng có thể mua
+                if (slMoi > SLMuaDuoc)
+                {
+                    MessageBox.Show($"Số lượng nhập ({slMoi}) vượt quá số lượng còn lại ({SLMuaDuoc})!",
+                                    "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    // Trả về giá trị cũ (slCu)
+                    textBox1.Text = slCu.ToString();
+                    return;
+                }
+
+                // Cập nhật nguyên liệu theo chênh lệch
+                await CapNhatNguyenLieuTheoSoLuongMoi(slMoi);
+
+                // Cập nhật lại tiền và báo form cha
+                UpdateThanhTien();
+                OnOrderUpdated?.Invoke(this, EventArgs.Empty);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi cập nhật số lượng: {ex.Message}",
+                                "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // ===================== Cập nhật nguyên liệu tạm theo SL mới =====================
+        private async Task CapNhatNguyenLieuTheoSoLuongMoi(int slMoi)
+        {
+            var parentForm = this.FindForm() as OrderForm;
+            if (parentForm == null) return;
+
+            var dict = parentForm.GetNguyenLieuDaDungTam();
+            var ctService = new CTCongThucService();
+            var dsCongThuc = await ctService.GetChiTietCongThucTheoSPAsync(SanPhamId);
+
+            int chenhLech = slMoi - slCu;
+
+            if (chenhLech != 0)
+            {
+                foreach (var ct in dsCongThuc)
+                {
+                    if (dict.ContainsKey(ct.MaNL))
+                        dict[ct.MaNL] += ct.SoLuongCanDung * chenhLech;
+                    else
+                        dict[ct.MaNL] = ct.SoLuongCanDung * chenhLech;
+
+                    if (dict[ct.MaNL] < 0)
+                        dict[ct.MaNL] = 0;
+                }
+
+                slCu = slMoi;
+                OnOrderUpdated?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        // ===================== Topping =====================
         private void Topping_Click(object sender, EventArgs e)
         {
             var tp = new ToppingForm(this);
@@ -147,6 +226,7 @@ namespace MilkTea.Client.Controls
             {
                 DSTopping = toppings;
                 CapNhatThanhTienTheoTopping();
+                OnOrderUpdated?.Invoke(this, EventArgs.Empty);
             };
 
             tp.ShowDialog();
@@ -167,7 +247,12 @@ namespace MilkTea.Client.Controls
 
             thanhtien_lb.Text = thanhTien.ToString("N0");
             ThanhTienChanged?.Invoke(this, EventArgs.Empty);
-
         }
+    
+public void RaiseOrderUpdated()
+        {
+            OnOrderUpdated?.Invoke(this, EventArgs.Empty);
+        }
+
     }
-}
+    }
