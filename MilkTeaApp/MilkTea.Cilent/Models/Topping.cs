@@ -8,8 +8,10 @@ namespace MilkTea.Client.Models
 {
     public class Topping
     {
+        public int MaNL { get; set; }
         public int SL { get; set; }
         public string ten { get; set; }
         public decimal gia { get; set; }
+
     }
 }

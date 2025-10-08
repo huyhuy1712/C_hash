@@ -276,6 +276,7 @@
             XacNhan_btn.TabIndex = 0;
             XacNhan_btn.Text = "Xác nhận";
             XacNhan_btn.UseVisualStyleBackColor = false;
+            XacNhan_btn.Click += XacNhan_btn_Click;
             // 
             // ToppingForm
             // 

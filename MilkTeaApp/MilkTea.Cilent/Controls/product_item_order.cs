@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MilkTea.Client.Forms.ChildForm_Order;
 using MilkTea.Client.Models;
@@ -18,17 +14,14 @@ namespace MilkTea.Client.Controls
     {
         private readonly SizeService _sizeService;
 
-
-        // ===================== PROPERTY =====================
         public string TenSP { get; set; }
         public decimal Gia { get; set; }
         public string Anh { get; set; }
         public string khuyenmai { get; set; }
         public decimal phantramgiam { get; set; }
-
+        public int SLMuaDuoc { get; set; }  
         public List<Topping> DSTopping { get; set; } = new List<Topping>();
 
-        // ===================== CONSTRUCTOR =====================
         public product_item_order()
         {
             InitializeComponent();
@@ -36,32 +29,26 @@ namespace MilkTea.Client.Controls
             product_item_order_Load(this, EventArgs.Empty);
         }
 
-        // ===================== SET DATA =====================
         public async void setData()
         {
-
             lb.Text = TenSP;
             textBox1.Text = "1";
 
-            // Load size từ DB
             var sizes = await _sizeService.GetAll();
             size_comboBox1.DataSource = sizes;
             size_comboBox1.DisplayMember = "TenSize";
             size_comboBox1.ValueMember = "MaSize";
 
-
-            // Khuyến mãi
             SL_dc_label.Text = "10";
             label27.Text = khuyenmai?.ToString() ?? "Không có";
 
+            SL_dc_label.Text = SLMuaDuoc.ToString();
             decimal tienGiam = (Gia * phantramgiam) / 100;
             label26.Text = tienGiam.ToString("N0");
 
-            // Thành tiền ban đầu
             decimal thanhTien = Gia - tienGiam + 10000;
             label19.Text = thanhTien.ToString("N0");
 
-            // Ảnh sản phẩm
             try
             {
                 string imgPath = Path.Combine(Application.StartupPath, "images", "tra_sua", Anh ?? "");
@@ -69,46 +56,28 @@ namespace MilkTea.Client.Controls
                     pictureBox9.Image = Image.FromFile(imgPath);
             }
             catch { }
-
         }
 
-        // ===================== LOAD EVENT =====================
         private void product_item_order_Load(object sender, EventArgs e)
         {
-            // Khi số lượng thay đổi
             textBox1.TextChanged += (s, ev) => UpdateThanhTien();
-
-            // Khi người dùng đổi size
-            size_comboBox1.SelectedIndexChanged += (s, ev) =>
-            {
-
-                UpdateThanhTien();
-            };
+            size_comboBox1.SelectedIndexChanged += (s, ev) => UpdateThanhTien();
         }
 
-        // ===================== CẬP NHẬT THÀNH TIỀN =====================
         private void UpdateThanhTien()
         {
             try
             {
-                // 1️ Lấy số lượng
-                int soLuong = 1;
-                if (!int.TryParse(textBox1.Text, out soLuong) || soLuong <= 0)
-                    soLuong = 1;
+                int soLuong = int.TryParse(textBox1.Text, out var sl) && sl > 0 ? sl : 1;
 
-                // 2️ Lấy giá phụ thu từ size
                 decimal sizePhuThu = 0;
                 if (size_comboBox1.SelectedItem is MilkTea.Client.Models.Size selectedSize)
                     sizePhuThu = selectedSize.PhuThu;
 
-                // 3️ Tính tiền giảm theo số lượng
-                decimal tienGiamMotSP = (Gia * phantramgiam / 100);
+                decimal tienGiamMotSP = Gia * phantramgiam / 100;
                 decimal tienGiamTong = tienGiamMotSP * soLuong;
-
-                // 4️ Thành tiền
                 decimal thanhTien = ((Gia + sizePhuThu) * soLuong) - tienGiamTong;
 
-                // 5️ Cập nhật hiển thị
                 label26.Text = tienGiamTong.ToString("N0");
                 label19.Text = thanhTien.ToString("N0");
             }
@@ -118,7 +87,6 @@ namespace MilkTea.Client.Controls
             }
         }
 
-        // ===================== CÁC NÚT KHÁC =====================
         private void three_dots_label_Click(object sender, EventArgs e)
         {
             popup.Show(three_dots_label, new Point(0, three_dots_label.Height));
@@ -132,7 +100,6 @@ namespace MilkTea.Client.Controls
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // Chỉ cho phép nhập số
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
                 e.Handled = true;
         }
@@ -145,8 +112,31 @@ namespace MilkTea.Client.Controls
 
         private void Topping_Click(object sender, EventArgs e)
         {
-            ToppingForm tp = new ToppingForm(this);
+            var tp = new ToppingForm(this);
+
+            tp.OnToppingConfirmed += (s, toppings) =>
+            {
+                DSTopping = toppings;
+                CapNhatThanhTienTheoTopping();
+            };
+
             tp.ShowDialog();
+        }
+
+        private void CapNhatThanhTienTheoTopping()
+        {
+            decimal tongTopping = DSTopping.Sum(t => t.gia);
+
+            decimal sizePhuThu = 0;
+            if (size_comboBox1.SelectedItem is MilkTea.Client.Models.Size selectedSize)
+                sizePhuThu = selectedSize.PhuThu;
+
+            int soLuong = int.TryParse(textBox1.Text, out var sl) ? sl : 1;
+            decimal tienGiamMotSP = Gia * phantramgiam / 100;
+            decimal tienGiamTong = tienGiamMotSP * soLuong;
+            decimal thanhTien = ((Gia + sizePhuThu + tongTopping) * soLuong) - tienGiamTong;
+
+            label19.Text = thanhTien.ToString("N0");
         }
     }
 }

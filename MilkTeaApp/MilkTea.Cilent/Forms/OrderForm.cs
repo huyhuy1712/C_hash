@@ -20,6 +20,7 @@ namespace MilkTea.Client.Forms
         private readonly LoaiService _loaiService;
         private readonly CTKhuyenMaiService _ctKhuyenMaiService;
         private readonly SizeService _sizeService;
+        private readonly CTCongThucService _ctCongThucService;
 
         public OrderForm()
         {
@@ -27,6 +28,7 @@ namespace MilkTea.Client.Forms
             _sanPhamService = new SanPhamService();
             _loaiService = new LoaiService();
             _ctKhuyenMaiService = new CTKhuyenMaiService();
+            _ctCongThucService = new CTCongThucService();
             _sizeService = new SizeService();
         }
 
@@ -72,17 +74,48 @@ namespace MilkTea.Client.Forms
                 // Lấy thông tin chi tiết sản phẩm và khuyến mãi
                 var chiTiet = await _sanPhamService.GetSanPhamsByIdAsync(sp.MaSP);
                 var ctkhuyenmai = await _ctKhuyenMaiService.GetByMaSP(sp.MaSP);
-                var allSizes = await _sizeService.GetAll();
-                    
+
+                //Tính số lượng có thể mua được
+                var dscongthuc = await _ctCongThucService.GetChiTietCongThucTheoSPAsync(sp.MaSP);
+
+                var nguyenLieuThieu = new List<string>();
+
+                foreach (var nl in dscongthuc)
+                {
+                    if (nl.SoLuongTonKho < nl.SoLuongCanDung)
+                    {
+                        int thieu = nl.SoLuongCanDung - nl.SoLuongTonKho;
+                        nguyenLieuThieu.Add($"- {nl.TenNguyenLieu} (cần {nl.SoLuongCanDung}, còn {nl.SoLuongTonKho})");
+                    }
+                }
+
+                //  Nếu có nguyên liệu thiếu hoặc không có công thức
+                if (nguyenLieuThieu.Count > 0 || dscongthuc.Count == 0)
+                {
+                    string message = $"Hiện tại không đủ nguyên liệu để pha chế món '{sp.TenSP}'.";
+                    if (nguyenLieuThieu.Count > 0)
+                    {
+                        message += "\n\nNguyên liệu thiếu:\n" + string.Join("\n", nguyenLieuThieu);
+                    }
+
+                    MessageBox.Show(
+                        message,
+                        "Thông báo",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+
+                    return; // Không thêm vào danh sách order
+                }
 
                 // ============= Tạo sản phẩm order mới =============
+                var slMuaDuoc = TinhSoLuongCoTheMua(dscongthuc);
                 var orderItem = new product_item_order
                 {
                     TenSP = $"{chiTiet.TenSP} ({chiTiet.Gia:N0} VND)",
                     Gia = chiTiet.Gia,
                     Anh = chiTiet.Anh,
                 };
-
 
                 // Thông tin khuyến mãi
                 if (ctkhuyenmai == null)
@@ -95,6 +128,9 @@ namespace MilkTea.Client.Forms
                     orderItem.khuyenmai = ctkhuyenmai.TenCTKhuyenMai;
                     orderItem.phantramgiam = ctkhuyenmai.PhanTramKhuyenMai;
                 }
+
+                orderItem.SLMuaDuoc = slMuaDuoc; //số lượng mua được
+
 
                 // Hiển thị dữ liệu lên control
                 orderItem.setData();
@@ -160,13 +196,24 @@ namespace MilkTea.Client.Forms
             }
         }
 
+        // ==================== Hàm tính số lượng có thể mua ====================
+        private int TinhSoLuongCoTheMua(List<CTCongThucSP> dsCongThuc)
+        {
+            if (dsCongThuc == null || dsCongThuc.Count == 0)
+                return 0;
+
+            var listSL = dsCongThuc
+                .Where(x => x.SoLuongCanDung > 0)
+                .Select(x => (int)Math.Floor((decimal)x.SoLuongTonKho / x.SoLuongCanDung))
+                .ToList();
+
+            if (listSL.Count == 0)
+                return 0;
+
+            return listSL.Min(); // lấy nguyên liệu giới hạn nhất
+        }
+
         // ==================== CÁC SỰ KIỆN KHÁC (để trống) ====================
-        private void section_table_panel_Paint(object sender, PaintEventArgs e) { }
-        private void label1_Click_1(object sender, EventArgs e) { }
-        private void label17_Click(object sender, EventArgs e) { }
-        private void label25_Click(object sender, EventArgs e) { }
-        private void label29_Click(object sender, EventArgs e) { }
-        private void label3_Click(object sender, EventArgs e) { }
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e) { }
 
     }
