@@ -19,6 +19,7 @@ namespace MilkTea.Client.Controls
         public string Anh { get; set; }
         public string khuyenmai { get; set; }
         public decimal phantramgiam { get; set; }
+        public int SLMuaDuoc { get; set; }  
         public List<Topping> DSTopping { get; set; } = new List<Topping>();
 
         public product_item_order()
@@ -41,6 +42,7 @@ namespace MilkTea.Client.Controls
             SL_dc_label.Text = "10";
             label27.Text = khuyenmai?.ToString() ?? "Không có";
 
+            SL_dc_label.Text = SLMuaDuoc.ToString();
             decimal tienGiam = (Gia * phantramgiam) / 100;
             label26.Text = tienGiam.ToString("N0");
 

@@ -155,7 +155,6 @@
             section_table_panel.Name = "section_table_panel";
             section_table_panel.Size = new Size(1003, 202);
             section_table_panel.TabIndex = 1;
-            section_table_panel.Paint += section_table_panel_Paint;
             // 
             // Header_Table_panel
             // 
@@ -219,7 +218,6 @@
             label25.TabIndex = 8;
             label25.Text = "Thành tiền";
             label25.TextAlign = ContentAlignment.MiddleCenter;
-            label25.Click += label25_Click;
             // 
             // label24
             // 
@@ -344,7 +342,6 @@
             label29.TabIndex = 0;
             label29.Text = "Tổng Tiền:";
             label29.TextAlign = ContentAlignment.MiddleRight;
-            label29.Click += label29_Click;
             // 
             // Ten_NV_Label
             // 
@@ -366,7 +363,6 @@
             label17.Size = new Size(87, 20);
             label17.TabIndex = 0;
             label17.Text = "NV phục vụ:";
-            label17.Click += label17_Click;
             // 
             // Footer_Right_Panel
             // 
@@ -469,7 +465,6 @@
             label3.Size = new Size(110, 25);
             label3.TabIndex = 6;
             label3.Text = "Thanh toán";
-            label3.Click += label3_Click;
             // 
             // Header_Right_Panel
             // 
@@ -749,7 +744,6 @@
             label1.TabIndex = 0;
             label1.Text = "Thức uống";
             label1.TextAlign = ContentAlignment.MiddleCenter;
-            label1.Click += label1_Click_1;
             // 
             // roundedButton2
             // 

@@ -12,10 +12,10 @@ namespace MilkTea.Client.Services
 
     public class CTCongThucService : ApiServiceBase
     {
-        public async Task<List<ChiTietCongThuc>> GetChiTietCongThucTheoSPAsync(int maSP)
+        public async Task<List<CTCongThucSP>> GetChiTietCongThucTheoSPAsync(int maSP)
         {
-            return await _http.GetChiTietCongThucTheoSPAsync<List<ChiTietCongThuc>>($"/api/chitietcongthuc/masp/{maSP}");
+            return await _http.GetFromJsonAsync<List<CTCongThucSP>>($"/api/chitietcongthuc/masp/{maSP}");
+
         }
     }
-
 }
