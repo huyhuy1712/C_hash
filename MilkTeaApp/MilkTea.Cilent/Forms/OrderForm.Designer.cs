@@ -55,7 +55,7 @@
             btnXuatDon = new MilkTea.Client.Controls.RoundedButton();
             panel1 = new Panel();
             comboBox1 = new ComboBox();
-            comboBox2 = new ComboBox();
+            comboBox_pttt = new ComboBox();
             label2 = new Label();
             label3 = new Label();
             Header_Right_Panel = new Panel();
@@ -425,12 +425,12 @@
             btnXuatDon.TabIndex = 2;
             btnXuatDon.Text = "Xuất đơn";
             btnXuatDon.UseVisualStyleBackColor = false;
-            btnXuatDon.Click += btnXuatDon_Click;
+            btnXuatDon.Click += xuatDon_btn_Click;
             // 
             // panel1
             // 
             panel1.Controls.Add(comboBox1);
-            panel1.Controls.Add(comboBox2);
+            panel1.Controls.Add(comboBox_pttt);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(label3);
             panel1.Dock = DockStyle.Fill;
@@ -446,22 +446,24 @@
             comboBox1.FlatStyle = FlatStyle.Flat;
             comboBox1.ForeColor = SystemColors.WindowText;
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(142, 24);
+            comboBox1.Location = new Point(160, 24);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(103, 28);
+            comboBox1.Size = new Size(70, 28);
             comboBox1.TabIndex = 3;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
-            // comboBox2
+            // comboBox_pttt
             // 
-            comboBox2.BackColor = SystemColors.ActiveBorder;
-            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox2.FlatStyle = FlatStyle.Flat;
-            comboBox2.ForeColor = SystemColors.WindowText;
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(397, 20);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(258, 28);
-            comboBox2.TabIndex = 4;
+            comboBox_pttt.BackColor = SystemColors.ActiveBorder;
+            comboBox_pttt.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox_pttt.FlatStyle = FlatStyle.Flat;
+            comboBox_pttt.ForeColor = SystemColors.WindowText;
+            comboBox_pttt.FormattingEnabled = true;
+            comboBox_pttt.Items.AddRange(new object[] { "Tiền mặt", "Chuyển khoản" });
+            comboBox_pttt.Location = new Point(397, 20);
+            comboBox_pttt.Name = "comboBox_pttt";
+            comboBox_pttt.Size = new Size(150, 28);
+            comboBox_pttt.TabIndex = 4;
             // 
             // label2
             // 
@@ -627,7 +629,6 @@
             roundedButton1.TabIndex = 1;
             roundedButton1.Text = "Thêm";
             roundedButton1.UseVisualStyleBackColor = false;
-            //roundedButton1.Click += roundedButton1_Click_1;
             // 
             // sort_comboBox
             // 
@@ -848,7 +849,7 @@
         private Label TongTien_label;
         private Label label3;
         private Label label2;
-        private ComboBox comboBox2;
+        private ComboBox comboBox_pttt;
         private Panel panel1;
         private Panel panel2;
         private ComboBox comboBox3;

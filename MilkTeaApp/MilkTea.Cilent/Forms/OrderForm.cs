@@ -16,7 +16,7 @@ namespace MilkTea.Client.Forms
         private readonly LoaiService _loaiService;
         private readonly CTKhuyenMaiService _ctKhuyenMaiService;
         private readonly CTCongThucService _ctCongThucService;
-        private readonly NguyenLieuService _nguyenLieuService;
+        private readonly buzzerService _buzzerService;
 
         //  Bộ nhớ tạm lưu nguyên liệu đã dùng (chỉ trong phiên order)
         private readonly Dictionary<int, decimal> _nguyenLieuDaDungTam = new();
@@ -28,7 +28,7 @@ namespace MilkTea.Client.Forms
             _loaiService = new LoaiService();
             _ctKhuyenMaiService = new CTKhuyenMaiService();
             _ctCongThucService = new CTCongThucService();
-            _nguyenLieuService = new NguyenLieuService();
+            _buzzerService = new buzzerService();
         }
 
         // ==================== LOAD FORM ====================
@@ -38,11 +38,19 @@ namespace MilkTea.Client.Forms
             {
                 var sanPhams = await _sanPhamService.GetSanPhamsAsync();
 
+                // Load loại sản phẩm vào combobox
                 var loais = await _loaiService.GetLoaisAsync();
                 comboBox3.DataSource = loais;
                 comboBox3.DisplayMember = "TenLoai";
                 comboBox3.ValueMember = "MaLoai";
 
+                //Load dữ liệu buzzer vào combobox
+                var buzzers = await _buzzerService.GetBuzzerByTrangThai(1);
+                comboBox1.DataSource = buzzers;
+                comboBox1.DisplayMember = "SoHieu";
+                comboBox1.ValueMember = "MaBuzzer";
+
+                // Hiển thị tất cả sản phẩm
                 layout_product.Controls.Clear();
 
                 foreach (var sp in sanPhams)
@@ -156,51 +164,61 @@ namespace MilkTea.Client.Forms
         }
 
         // ==================== XUẤT ĐƠN (TRỪ THẬT) ====================
-        private async void btnXuatDon_Click(object sender, EventArgs e)
+        private void xuatDon_btn_Click(object sender, EventArgs e)
         {
-            try
+            // Lấy thông tin từ các combobox
+            string phuongThucThanhToan = comboBox_pttt.Text?.Trim();
+            string maMay = comboBox1.Text?.Trim();
+
+            // Kiểm tra bắt buộc
+            if (string.IsNullOrEmpty(phuongThucThanhToan) || string.IsNullOrEmpty(maMay))
             {
-                if (section_table_panel.Controls.Count == 0)
-                {
-                    MessageBox.Show("Không có sản phẩm để xuất đơn!",
-                                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-
-                var confirm = MessageBox.Show("Bạn có chắc muốn xuất đơn và trừ nguyên liệu trong kho?",
-                                              "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (confirm != DialogResult.Yes) return;
-
-                var ctService = new CTCongThucService();
-                var nlService = new NguyenLieuService();
-
-                // Duyệt từng sản phẩm
-                foreach (var item in section_table_panel.Controls.OfType<product_item_order>())
-                {
-                    var dsCT = await ctService.GetChiTietCongThucTheoSPAsync(item.SanPhamId);
-                    int soLuong = int.TryParse(item.textBox1.Text, out var sl) ? sl : 1;
-
-                    foreach (var ct in dsCT)
-                    {
-                        // Trừ thật trong DB
-                        await nlService.TruNguyenLieuAsync(ct.MaNL, ct.SoLuongCanDung * soLuong);
-                    }
-                }
-
-                // Sau khi xuất đơn: reset
-                _nguyenLieuDaDungTam.Clear();
-                section_table_panel.Controls.Clear();
-                TongTien_label.Text = "0";
-
-                MessageBox.Show("Xuất đơn thành công! Nguyên liệu đã được trừ thật trong kho.",
-                                "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Vui lòng chọn đầy đủ phương thức thanh toán và mã máy trước khi xuất đơn!",
+                                "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            catch (Exception ex)
+
+            // Lấy danh sách sản phẩm hiện tại
+            var sanPhamDaMua = section_table_panel.Controls
+                .OfType<product_item_order>()
+                .Select(item => new InvoiceItem
+                {
+                    TenSP = item.TenSP,
+                    Size = item.size_comboBox1.Text,
+                    SoLuong = int.TryParse(item.textBox1.Text, out int sl) ? sl : 1,
+                    DonGia = item.Gia,
+                    TienGiam = decimal.Parse(item.label26.Text),
+                    TongTien = decimal.Parse(item.thanhtien_lb.Text),
+                    Toppings = item.DSTopping
+                })
+                .ToList();
+
+            // Tính tổng tiền toàn bộ
+            decimal tongCong = sanPhamDaMua.Sum(x => x.TongTien);
+
+            // ===== Kiểm tra có sản phẩm nào không =====
+            if (sanPhamDaMua == null || sanPhamDaMua.Count == 0)
             {
-                MessageBox.Show($"Lỗi khi xuất đơn: {ex.Message}",
-                                "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Không có sản phẩm nào được chọn để xuất đơn!",
+                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
+
+
+            // Mở hóa đơn
+            var invoice = new InvoiceOrder
+            {
+                NhanVien = Ten_NV_Label.Text, 
+                PhuongThucThanhToan = phuongThucThanhToan,
+                MaMay = maMay,
+                SanPhamDaMua = sanPhamDaMua,
+                TongCong = tongCong
+            };
+
+            invoice.ShowDialog();
         }
+
+
 
         // ==================== XÓA TẤT CẢ ORDER ====================
         private async void roundedButton2_Click_1(object sender, EventArgs e)
@@ -293,5 +311,10 @@ namespace MilkTea.Client.Forms
 
         // Cho phép product_item_order truy cập dictionary này
         public Dictionary<int, decimal> GetNguyenLieuDaDungTam() => _nguyenLieuDaDungTam;
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

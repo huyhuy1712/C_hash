@@ -129,7 +129,7 @@ namespace MilkTea.Client.Forms.ChildForm_Order
                         else if (comboValue.Contains("50%")) gramToTru = 10;
                         else if (comboValue.Contains("75%")) gramToTru = 20;
 
-                        // ✅ Cập nhật vào dictionary tạm thay vì DB
+                        //  Cập nhật vào dictionary tạm thay vì DB
                         if (dict.ContainsKey(nl.MaNL))
                             dict[nl.MaNL] += gramToTru;
                         else
@@ -140,7 +140,7 @@ namespace MilkTea.Client.Forms.ChildForm_Order
                         {
                             MaNL = nl.MaNL,
                             ten = nl.Ten,
-                            SL = nl.SoLuong,
+                            SL = item.GetSelectedPercent(),
                             gia = item.GetGiaTopping()
                         };
 
@@ -153,10 +153,6 @@ namespace MilkTea.Client.Forms.ChildForm_Order
 
                 // Báo cập nhật lại OrderForm (SL mua được)
                 _sanphamHienTai?.RaiseOrderUpdated();
-
-                MessageBox.Show("Đã chọn topping (nguyên liệu tạm đã cập nhật)!",
-                                "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                 this.Close();
             }
             catch (Exception ex)
