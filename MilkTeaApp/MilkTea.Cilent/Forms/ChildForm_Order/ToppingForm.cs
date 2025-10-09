@@ -154,7 +154,7 @@ namespace MilkTea.Client.Forms.ChildForm_Order
                 // Báo cập nhật lại OrderForm (SL mua được)
                 _sanphamHienTai?.RaiseOrderUpdated();
 
-                MessageBox.Show("Đã chọn topping (nguyên liệu tạm đã cập nhật)!",
+                MessageBox.Show("Đã chọn topping",
                                 "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 this.Close();
