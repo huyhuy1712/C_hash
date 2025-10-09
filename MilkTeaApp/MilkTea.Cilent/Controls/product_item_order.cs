@@ -248,11 +248,15 @@ namespace MilkTea.Client.Controls
             thanhtien_lb.Text = thanhTien.ToString("N0");
             ThanhTienChanged?.Invoke(this, EventArgs.Empty);
         }
-    
-public void RaiseOrderUpdated()
+
+        public void RaiseOrderUpdated()
         {
             OnOrderUpdated?.Invoke(this, EventArgs.Empty);
         }
 
+        private void label26_Click(object sender, EventArgs e)
+        {
+
+        }
     }
-    }
+}

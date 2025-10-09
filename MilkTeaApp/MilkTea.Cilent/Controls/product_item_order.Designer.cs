@@ -114,6 +114,7 @@
             label26.Size = new Size(84, 77);
             label26.TabIndex = 7;
             label26.TextAlign = ContentAlignment.MiddleCenter;
+            label26.Click += label26_Click;
             // 
             // label27
             // 
@@ -257,7 +258,7 @@
         private Panel item_right_panel;
         private TableLayoutPanel tableLayoutPanel3;
         public Label thanhtien_lb;
-        private Label label26;
+        public Label label26;
         private Label label27;
         public Label SL_dc_label;
         private Label lb;

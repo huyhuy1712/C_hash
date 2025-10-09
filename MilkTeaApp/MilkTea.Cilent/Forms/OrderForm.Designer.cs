@@ -425,7 +425,7 @@
             btnXuatDon.TabIndex = 2;
             btnXuatDon.Text = "Xuất đơn";
             btnXuatDon.UseVisualStyleBackColor = false;
-            btnXuatDon.Click += btnXuatDon_Click;
+            btnXuatDon.Click += xuatDon_btn_Click;
             // 
             // panel1
             // 

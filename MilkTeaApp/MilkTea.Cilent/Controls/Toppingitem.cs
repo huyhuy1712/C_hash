@@ -85,5 +85,15 @@ namespace MilkTea.Client.Controls
                 return gia;
             return 0;
         }
+
+        public int GetSelectedPercent()
+        {
+            var text = GetSelectedComboText() ?? "";   
+            if (text.StartsWith("25%")) return 25;
+            if (text.StartsWith("50%")) return 50;
+            if (text.StartsWith("75%")) return 75;
+            return 25; // mặc định
+        }
+
     }
 }

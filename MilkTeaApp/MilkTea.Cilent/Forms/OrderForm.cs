@@ -164,10 +164,58 @@ namespace MilkTea.Client.Forms
         }
 
         // ==================== XUẤT ĐƠN (TRỪ THẬT) ====================
-        private async void btnXuatDon_Click(object sender, EventArgs e)
+        private void xuatDon_btn_Click(object sender, EventArgs e)
         {
-            InvoiceOrder form = new InvoiceOrder();
-            form.ShowDialog();
+            // Lấy thông tin từ các combobox
+            string phuongThucThanhToan = comboBox_pttt.Text?.Trim();
+            string maMay = comboBox1.Text?.Trim();
+
+            // Kiểm tra bắt buộc
+            if (string.IsNullOrEmpty(phuongThucThanhToan) || string.IsNullOrEmpty(maMay))
+            {
+                MessageBox.Show("Vui lòng chọn đầy đủ phương thức thanh toán và mã máy trước khi xuất đơn!",
+                                "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Lấy danh sách sản phẩm hiện tại
+            var sanPhamDaMua = section_table_panel.Controls
+                .OfType<product_item_order>()
+                .Select(item => new InvoiceItem
+                {
+                    TenSP = item.TenSP,
+                    Size = item.size_comboBox1.Text,
+                    SoLuong = int.TryParse(item.textBox1.Text, out int sl) ? sl : 1,
+                    DonGia = item.Gia,
+                    TienGiam = decimal.Parse(item.label26.Text),
+                    TongTien = decimal.Parse(item.thanhtien_lb.Text),
+                    Toppings = item.DSTopping
+                })
+                .ToList();
+
+            // Tính tổng tiền toàn bộ
+            decimal tongCong = sanPhamDaMua.Sum(x => x.TongTien);
+
+            // ===== Kiểm tra có sản phẩm nào không =====
+            if (sanPhamDaMua == null || sanPhamDaMua.Count == 0)
+            {
+                MessageBox.Show("Không có sản phẩm nào được chọn để xuất đơn!",
+                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+
+            // Mở hóa đơn
+            var invoice = new InvoiceOrder
+            {
+                NhanVien = Ten_NV_Label.Text, 
+                PhuongThucThanhToan = phuongThucThanhToan,
+                MaMay = maMay,
+                SanPhamDaMua = sanPhamDaMua,
+                TongCong = tongCong
+            };
+
+            invoice.ShowDialog();
         }
 
 
