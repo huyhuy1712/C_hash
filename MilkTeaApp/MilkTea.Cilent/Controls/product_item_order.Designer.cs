@@ -31,7 +31,7 @@
             components = new System.ComponentModel.Container();
             item_right_panel = new Panel();
             tableLayoutPanel3 = new TableLayoutPanel();
-            label19 = new Label();
+            thanhtien_lb = new Label();
             label26 = new Label();
             label27 = new Label();
             SL_dc_label = new Label();
@@ -74,7 +74,7 @@
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.963151F));
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.963151F));
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.963151F));
-            tableLayoutPanel3.Controls.Add(label19, 7, 0);
+            tableLayoutPanel3.Controls.Add(thanhtien_lb, 7, 0);
             tableLayoutPanel3.Controls.Add(label26, 6, 0);
             tableLayoutPanel3.Controls.Add(label27, 5, 0);
             tableLayoutPanel3.Controls.Add(SL_dc_label, 4, 0);
@@ -91,17 +91,17 @@
             tableLayoutPanel3.Size = new Size(1005, 77);
             tableLayoutPanel3.TabIndex = 1;
             // 
-            // label19
+            // thanhtien_lb
             // 
-            label19.AutoSize = true;
-            label19.Dock = DockStyle.Fill;
-            label19.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            label19.ForeColor = SystemColors.ControlText;
-            label19.Location = new Point(825, 0);
-            label19.Name = "label19";
-            label19.Size = new Size(84, 77);
-            label19.TabIndex = 8;
-            label19.TextAlign = ContentAlignment.MiddleCenter;
+            thanhtien_lb.AutoSize = true;
+            thanhtien_lb.Dock = DockStyle.Fill;
+            thanhtien_lb.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            thanhtien_lb.ForeColor = SystemColors.ControlText;
+            thanhtien_lb.Location = new Point(825, 0);
+            thanhtien_lb.Name = "thanhtien_lb";
+            thanhtien_lb.Size = new Size(84, 77);
+            thanhtien_lb.TabIndex = 8;
+            thanhtien_lb.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label26
             // 
@@ -114,6 +114,7 @@
             label26.Size = new Size(84, 77);
             label26.TabIndex = 7;
             label26.TextAlign = ContentAlignment.MiddleCenter;
+            label26.Click += label26_Click;
             // 
             // label27
             // 
@@ -132,7 +133,7 @@
             SL_dc_label.AutoSize = true;
             SL_dc_label.Dock = DockStyle.Fill;
             SL_dc_label.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            SL_dc_label.ForeColor = SystemColors.ControlText;
+            SL_dc_label.ForeColor = Color.Red;
             SL_dc_label.Location = new Point(555, 0);
             SL_dc_label.Name = "SL_dc_label";
             SL_dc_label.Size = new Size(84, 77);
@@ -191,6 +192,7 @@
             textBox1.Size = new Size(84, 20);
             textBox1.TabIndex = 0;
             textBox1.TextAlign = HorizontalAlignment.Center;
+            textBox1.TextChanged += textBox1_TextChanged;
             textBox1.KeyPress += textBox1_KeyPress;
             // 
             // three_dots_label
@@ -232,6 +234,7 @@
             Topping.Name = "Topping";
             Topping.Size = new Size(159, 30);
             Topping.Text = "Topping";
+            Topping.Click += Topping_Click;
             // 
             // product_item_order
             // 
@@ -254,16 +257,16 @@
 
         private Panel item_right_panel;
         private TableLayoutPanel tableLayoutPanel3;
-        private Label label19;
-        private Label label26;
+        public Label thanhtien_lb;
+        public Label label26;
         private Label label27;
-        private Label SL_dc_label;
+        public Label SL_dc_label;
         private Label lb;
         private PictureBox pictureBox9;
         public ComboBox size_comboBox1;
         private Label three_dots_label;
         private Panel panel8;
-        private TextBox textBox1;
+        public TextBox textBox1;
         private ContextMenuStrip popup;
         private ToolStripMenuItem huy;
         private ToolStripMenuItem Topping;

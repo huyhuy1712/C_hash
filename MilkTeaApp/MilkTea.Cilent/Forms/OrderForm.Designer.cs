@@ -51,10 +51,11 @@
             label17 = new Label();
             Footer_Right_Panel = new Panel();
             panel2 = new Panel();
+            roundedButton2 = new MilkTea.Client.Controls.RoundedButton();
             btnXuatDon = new MilkTea.Client.Controls.RoundedButton();
             panel1 = new Panel();
             comboBox1 = new ComboBox();
-            comboBox2 = new ComboBox();
+            comboBox_pttt = new ComboBox();
             label2 = new Label();
             label3 = new Label();
             Header_Right_Panel = new Panel();
@@ -78,7 +79,6 @@
             Header_Left_Panel = new Panel();
             pictureBox1 = new PictureBox();
             label1 = new Label();
-            roundedButton2 = new MilkTea.Client.Controls.RoundedButton();
             OrderPanel.SuspendLayout();
             RightPanel.SuspendLayout();
             Section_Right_Panel.SuspendLayout();
@@ -155,7 +155,6 @@
             section_table_panel.Name = "section_table_panel";
             section_table_panel.Size = new Size(1003, 202);
             section_table_panel.TabIndex = 1;
-            section_table_panel.Paint += section_table_panel_Paint;
             // 
             // Header_Table_panel
             // 
@@ -219,7 +218,6 @@
             label25.TabIndex = 8;
             label25.Text = "Thành tiền";
             label25.TextAlign = ContentAlignment.MiddleCenter;
-            label25.Click += label25_Click;
             // 
             // label24
             // 
@@ -257,7 +255,7 @@
             label22.Name = "label22";
             label22.Size = new Size(84, 44);
             label22.TabIndex = 5;
-            label22.Text = "SL mua được";
+            label22.Text = "SL còn lại";
             label22.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label21
@@ -344,7 +342,6 @@
             label29.TabIndex = 0;
             label29.Text = "Tổng Tiền:";
             label29.TextAlign = ContentAlignment.MiddleRight;
-            label29.Click += label29_Click;
             // 
             // Ten_NV_Label
             // 
@@ -366,7 +363,6 @@
             label17.Size = new Size(87, 20);
             label17.TabIndex = 0;
             label17.Text = "NV phục vụ:";
-            label17.Click += label17_Click;
             // 
             // Footer_Right_Panel
             // 
@@ -391,6 +387,26 @@
             panel2.Size = new Size(300, 70);
             panel2.TabIndex = 8;
             // 
+            // roundedButton2
+            // 
+            roundedButton2.BackColor = Color.Crimson;
+            roundedButton2.BorderColor = Color.DodgerBlue;
+            roundedButton2.BorderRadius = 20;
+            roundedButton2.BorderSize = 0;
+            roundedButton2.Cursor = Cursors.Hand;
+            roundedButton2.Dock = DockStyle.Left;
+            roundedButton2.FlatAppearance.BorderSize = 0;
+            roundedButton2.FlatStyle = FlatStyle.Flat;
+            roundedButton2.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            roundedButton2.ForeColor = Color.White;
+            roundedButton2.Location = new Point(17, 17);
+            roundedButton2.Name = "roundedButton2";
+            roundedButton2.Size = new Size(110, 36);
+            roundedButton2.TabIndex = 3;
+            roundedButton2.Text = "Xóa";
+            roundedButton2.UseVisualStyleBackColor = false;
+            roundedButton2.Click += roundedButton2_Click_1;
+            // 
             // btnXuatDon
             // 
             btnXuatDon.BackColor = Color.DodgerBlue;
@@ -409,12 +425,12 @@
             btnXuatDon.TabIndex = 2;
             btnXuatDon.Text = "Xuất đơn";
             btnXuatDon.UseVisualStyleBackColor = false;
-            btnXuatDon.Click += btnXuatDon_Click;
+            btnXuatDon.Click += xuatDon_btn_Click;
             // 
             // panel1
             // 
             panel1.Controls.Add(comboBox1);
-            panel1.Controls.Add(comboBox2);
+            panel1.Controls.Add(comboBox_pttt);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(label3);
             panel1.Dock = DockStyle.Fill;
@@ -430,22 +446,24 @@
             comboBox1.FlatStyle = FlatStyle.Flat;
             comboBox1.ForeColor = SystemColors.WindowText;
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(142, 24);
+            comboBox1.Location = new Point(160, 24);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(103, 28);
+            comboBox1.Size = new Size(70, 28);
             comboBox1.TabIndex = 3;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
-            // comboBox2
+            // comboBox_pttt
             // 
-            comboBox2.BackColor = SystemColors.ActiveBorder;
-            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox2.FlatStyle = FlatStyle.Flat;
-            comboBox2.ForeColor = SystemColors.WindowText;
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(397, 20);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(258, 28);
-            comboBox2.TabIndex = 4;
+            comboBox_pttt.BackColor = SystemColors.ActiveBorder;
+            comboBox_pttt.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox_pttt.FlatStyle = FlatStyle.Flat;
+            comboBox_pttt.ForeColor = SystemColors.WindowText;
+            comboBox_pttt.FormattingEnabled = true;
+            comboBox_pttt.Items.AddRange(new object[] { "Tiền mặt", "Chuyển khoản" });
+            comboBox_pttt.Location = new Point(397, 20);
+            comboBox_pttt.Name = "comboBox_pttt";
+            comboBox_pttt.Size = new Size(150, 28);
+            comboBox_pttt.TabIndex = 4;
             // 
             // label2
             // 
@@ -469,7 +487,6 @@
             label3.Size = new Size(110, 25);
             label3.TabIndex = 6;
             label3.Text = "Thanh toán";
-            label3.Click += label3_Click;
             // 
             // Header_Right_Panel
             // 
@@ -612,7 +629,6 @@
             roundedButton1.TabIndex = 1;
             roundedButton1.Text = "Thêm";
             roundedButton1.UseVisualStyleBackColor = false;
-            roundedButton1.Click += roundedButton1_Click_1;
             // 
             // sort_comboBox
             // 
@@ -749,27 +765,6 @@
             label1.TabIndex = 0;
             label1.Text = "Thức uống";
             label1.TextAlign = ContentAlignment.MiddleCenter;
-            label1.Click += label1_Click_1;
-            // 
-            // roundedButton2
-            // 
-            roundedButton2.BackColor = Color.Crimson;
-            roundedButton2.BorderColor = Color.DodgerBlue;
-            roundedButton2.BorderRadius = 20;
-            roundedButton2.BorderSize = 0;
-            roundedButton2.Cursor = Cursors.Hand;
-            roundedButton2.Dock = DockStyle.Left;
-            roundedButton2.FlatAppearance.BorderSize = 0;
-            roundedButton2.FlatStyle = FlatStyle.Flat;
-            roundedButton2.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            roundedButton2.ForeColor = Color.White;
-            roundedButton2.Location = new Point(17, 17);
-            roundedButton2.Name = "roundedButton2";
-            roundedButton2.Size = new Size(110, 36);
-            roundedButton2.TabIndex = 3;
-            roundedButton2.Text = "Xóa";
-            roundedButton2.UseVisualStyleBackColor = false;
-            roundedButton2.Click += roundedButton2_Click_1;
             // 
             // OrderForm
             // 
@@ -854,7 +849,7 @@
         private Label TongTien_label;
         private Label label3;
         private Label label2;
-        private ComboBox comboBox2;
+        private ComboBox comboBox_pttt;
         private Panel panel1;
         private Panel panel2;
         private ComboBox comboBox3;
