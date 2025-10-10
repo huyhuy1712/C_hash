@@ -16,5 +16,20 @@ namespace MilkTea.Client.Services
         {
             return await _http.GetFromJsonAsync<List<Buzzer>>($"/api/buzzer/trangthai/{trangthai}");
         }
+
+        // Lấy MaMay theo sohieu
+        public async Task<int?> GetMaMayBySoHieuAsync(string sohieu)
+        {
+            var response = await _http.GetAsync($"/api/buzzer/mamay-by-sohieu?sohieu={sohieu}");
+
+            if (!response.IsSuccessStatusCode)
+                return null;
+
+            var result = await response.Content.ReadFromJsonAsync<Dictionary<string, int>>();
+            if (result != null && result.ContainsKey("MaMay"))
+                return result["MaMay"];
+
+            return null;
+        }
     }
 }

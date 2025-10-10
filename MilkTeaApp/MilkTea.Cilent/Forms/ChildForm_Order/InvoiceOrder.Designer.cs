@@ -153,6 +153,7 @@
             import_btn.TabIndex = 0;
             import_btn.Text = "In đơn";
             import_btn.UseVisualStyleBackColor = false;
+            import_btn.Click += import_btn_Click;
             // 
             // label23
             // 

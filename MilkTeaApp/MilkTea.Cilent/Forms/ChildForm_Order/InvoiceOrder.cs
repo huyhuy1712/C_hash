@@ -1,4 +1,6 @@
 ﻿using MilkTea.Client.Models;
+using MilkTea.Client.Services;
+using MilkTea.Server.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -232,11 +234,72 @@ namespace MilkTea.Client.Forms.ChildForm_Order
         {
 
         }
+        private async void import_btn_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            // . Gọi service thêm đơn hàng
+            var donHangService = new DonHangService();
+            var NhanVienService = new NhanVienService();
+            var BuzzerService = new buzzerService();
+            var nhanVienId = await NhanVienService.GetMaNVByTenAsync(ten_thu_ngan_label.Text); // lấy id nhân viên
+            var buzzerID = await BuzzerService.GetMaMayBySoHieuAsync(mamay_label.Text); // lấy id buzzer
+                var donHang = new DonHang
+            {
+                MaNV = nhanVienId, 
+                NgayLap = DateTime.Now,
+                GioLap = DateTime.Now.TimeOfDay,
+                TrangThai = 0,
+                MaBuzzer = buzzerID,
+                PhuongThucThanhToan = PhuongThucThanhToan == "Tiền mặt" ? 0 : 1,
+                TongGia = TongCong
+            };
+
+            // thêm đơn hàng, lấy kết quả (id mới)
+            int maDH = await donHangService.AddDonHangAsync(donHang);
+
+            // Thêm chi tiết từng sản phẩm
+
+            foreach (var item in SanPhamDaMua)
+            {
+                var chiTiet = new ChiTietDonHang
+                {
+                    MaDH = maDH,
+                    MaSP = item.MaSP,       
+                    MaSize = item.SizeId,   
+                    SoLuong = item.SoLuong,
+                    GiaVon = item.DonGia,
+                    TongGia = item.TongTien,
+                    Toppings = item.Toppings.Select(tp => new ctdonhang_topping
+                    {
+                        MaNL = tp.MaNL,
+                        SL = tp.SL
+                    }).ToList()
+                };
+
+                await donHangService.AddChiTietDonHangAsync(chiTiet);
+            }
+
+            //
+            // Thông báo thành công
+            MessageBox.Show("Đã lưu đơn hàng thành công!", "Thành công",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            this.Close();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Lỗi khi lưu đơn hàng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
     }
+
+}
 }
 
 public class InvoiceItem
 {
+    public int MaSP { get; set; }      
+    public int SizeId { get; set; }   
     public string TenSP { get; set; }
     public string Size { get; set; }
     public int SoLuong { get; set; }
