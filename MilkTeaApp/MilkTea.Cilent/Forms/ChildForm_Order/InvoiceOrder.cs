@@ -21,6 +21,9 @@ namespace MilkTea.Client.Forms.ChildForm_Order
         public List<InvoiceItem> SanPhamDaMua { get; set; } = new List<InvoiceItem>();
         public decimal TongCong { get; set; }
 
+        public event EventHandler ReloadRequested;
+
+
         public InvoiceOrder()
         {
             InitializeComponent();
@@ -238,12 +241,13 @@ namespace MilkTea.Client.Forms.ChildForm_Order
     {
         try
         {
-            // . Gọi service thêm đơn hàng
+            /// Gọi service thêm đơn hàng
             var donHangService = new DonHangService();
             var NhanVienService = new NhanVienService();
             var BuzzerService = new buzzerService();
             var nhanVienId = await NhanVienService.GetMaNVByTenAsync(ten_thu_ngan_label.Text); // lấy id nhân viên
             var buzzerID = await BuzzerService.GetMaMayBySoHieuAsync(mamay_label.Text); // lấy id buzzer
+
                 var donHang = new DonHang
             {
                 MaNV = nhanVienId, 
@@ -278,14 +282,16 @@ namespace MilkTea.Client.Forms.ChildForm_Order
                 };
 
                 await donHangService.AddChiTietDonHangAsync(chiTiet);
-            }
+                //await BuzzerService.UpdateTrangThaiAsync(mamay_label.Text, 0); //cập nhật lại trạng thái máy buzzer
+                }
 
             //
             // Thông báo thành công
             MessageBox.Show("Đã lưu đơn hàng thành công!", "Thành công",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            this.Close();
+                ReloadRequested?.Invoke(this, EventArgs.Empty); //gọi sự kiện reload lại cho orderForm
+                this.Close();
         }
         catch (Exception ex)
         {

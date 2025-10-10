@@ -350,9 +350,9 @@
             Ten_NV_Label.ForeColor = SystemColors.ActiveCaptionText;
             Ten_NV_Label.Location = new Point(141, 12);
             Ten_NV_Label.Name = "Ten_NV_Label";
-            Ten_NV_Label.Size = new Size(70, 20);
+            Ten_NV_Label.Size = new Size(109, 20);
             Ten_NV_Label.TabIndex = 1;
-            Ten_NV_Label.Text = "Anh Huy";
+            Ten_NV_Label.Text = "Nguyen Van A";
             // 
             // label17
             // 
