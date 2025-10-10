@@ -13,8 +13,8 @@ namespace MilkTea.Client.Presenters
     {
         private readonly TaiKhoanService _taiKhoanService;
         private readonly NhanVienService _nhanVienService;
-        private readonly IAccountForm _form;
-        public AccountPresenter(IAccountForm form, TaiKhoanService taiKhoanService, NhanVienService nhanVienService)
+        private readonly IBaseForm _form;
+        public AccountPresenter(IBaseForm form, TaiKhoanService taiKhoanService, NhanVienService nhanVienService)
         {
             _form = form;
             _taiKhoanService = taiKhoanService;
@@ -24,7 +24,7 @@ namespace MilkTea.Client.Presenters
         {
             if (string.IsNullOrEmpty(id)) return;
 
-            using (var frm = new EditAccountForm())
+            using (var frm = new EditQuyentForm())
             {
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
@@ -60,14 +60,13 @@ namespace MilkTea.Client.Presenters
         }
         public async Task LoadDataAsync()
         {
-            var grid = _form.GridTaiKhoan;
+            var grid = _form.Grid;
             var lbl = _form.LblStatus;
 
             lbl.ForeColor = Color.Gray;
             lbl.Text = "🔄 Đang tải dữ liệu...";
 
-            var dataGridView1 = _form.GridTaiKhoan;
-
+            var dataGridView1 = _form.Grid;
             try
             {
                 var listTaiKhoan = await _taiKhoanService.GetAccountsAsync();

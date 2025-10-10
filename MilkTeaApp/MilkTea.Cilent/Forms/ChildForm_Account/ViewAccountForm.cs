@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MilkTea.Client.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,11 @@ namespace MilkTea.Client.Forms.ChildForm_Account
 {
     public partial class ViewAccountForm : Form
     {
+        private TaiKhoan _taiKhoan;
         public ViewAccountForm()
         {
             InitializeComponent();
+            //_taiKhoan = taiKhoan;
         }
 
         private void btnDong_Click(object sender, EventArgs e)

@@ -8,10 +8,10 @@ using System.Windows.Forms;
 
 namespace MilkTea.Client.Forms
 {
-    public partial class AccountForm : Form, IAccountForm
+    public partial class AccountForm : Form, IBaseForm
     {
         private readonly AccountPresenter _presenter;
-        public DataGridView GridTaiKhoan => dataGridView1;
+        public DataGridView Grid => dataGridView1;
         public Label LblStatus => lblStatus;
 
         public AccountForm()
@@ -22,15 +22,7 @@ namespace MilkTea.Client.Forms
 
         private async void AccountForm_Load(object sender, EventArgs e)
         {
-            try
-            {
-                await _presenter.LoadDataAsync();
-            }
-            catch (Exception ex)
-            {
-                lblStatus.Text = "⚠️ Lỗi khi tải dữ liệu.";
-                Console.WriteLine(ex.Message);
-            }
+            await _presenter.LoadDataAsync();
         }
 
         private void btnThemAccount_Click(object sender, EventArgs e)

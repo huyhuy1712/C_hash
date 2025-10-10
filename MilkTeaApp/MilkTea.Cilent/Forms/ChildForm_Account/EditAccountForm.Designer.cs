@@ -1,6 +1,6 @@
 ﻿namespace MilkTea.Client.Forms.ChildForm_Account
 {
-    partial class EditAccountForm
+    partial class EditQuyentForm
     {
         /// <summary>
         /// Required designer variable.
