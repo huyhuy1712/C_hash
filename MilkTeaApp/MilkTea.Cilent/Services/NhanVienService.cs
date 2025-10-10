@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,21 +21,24 @@ namespace MilkTea.Client.Services
         }
 
         // Lấy MaNV theo tên nhân viên
-        public async Task<int?> GetMaNVByTenAsync(string tenNV)
+        public class NhanVienResponse
         {
-            // Gọi API: /api/nhanvien/manv-by-ten?tenNV={tenNV}
-            var response = await _http.GetAsync($"/api/nhanvien/manv-by-ten?tenNV={tenNV}");
-
-            if (!response.IsSuccessStatusCode)
-                return null;
-
-            var result = await response.Content.ReadFromJsonAsync<Dictionary<string, int>>();
-            if (result != null && result.ContainsKey("MaNV"))
-                return result["MaNV"];
-
-            return null;
+            public int MaNV { get; set; }
         }
 
+        public async Task<int> GetMaNVByTenAsync(string tenNV)
+        {
+            var encodedName = WebUtility.UrlEncode(tenNV);
+            var response = await _http.GetAsync($"/api/nhanvien/manv-by-ten?tenNV={encodedName}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var result = await response.Content.ReadFromJsonAsync<NhanVienResponse>();
+                return result?.MaNV ?? 0;
+            }
+
+            return 0;
+        }
 
     }
 }

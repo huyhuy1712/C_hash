@@ -218,6 +218,24 @@ namespace MilkTea.Client.Forms
                 TongCong = tongCong
             };
 
+            // Khi InvoiceOrder xác nhận -> reload lại combobox máy buzzer
+            invoice.ReloadRequested += async (s, ev) =>
+            {
+                try
+                {
+                    var buzzers = await _buzzerService.GetBuzzerByTrangThai(1);
+                    comboBox1.DataSource = null;
+                    comboBox1.DataSource = buzzers;
+                    comboBox1.DisplayMember = "SoHieu";
+                    comboBox1.ValueMember = "MaBuzzer";
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi reload máy buzzer: {ex.Message}",
+                                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            };
+
             invoice.ShowDialog();
         }
 
