@@ -1,4 +1,6 @@
 ﻿using MilkTea.Client.Models;
+using MilkTea.Client.Services;
+using MilkTea.Server.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +20,9 @@ namespace MilkTea.Client.Forms.ChildForm_Order
         public string MaMay { get; set; }
         public List<InvoiceItem> SanPhamDaMua { get; set; } = new List<InvoiceItem>();
         public decimal TongCong { get; set; }
+
+        public event EventHandler ReloadRequested;
+
 
         public InvoiceOrder()
         {
@@ -232,11 +237,117 @@ namespace MilkTea.Client.Forms.ChildForm_Order
         {
 
         }
+        private async void import_btn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var donHangService = new DonHangService();
+                var nhanVienService = new NhanVienService();
+                var buzzerService = new buzzerService();
+                var nguyenLieuService = new NguyenLieuService();
+                var congThucService = new CTCongThucService(); 
+
+                var nhanVienId = await nhanVienService.GetMaNVByTenAsync(ten_thu_ngan_label.Text);
+                var buzzerID = await buzzerService.GetMaMayBySoHieuAsync(mamay_label.Text);
+
+                var donHang = new DonHang
+                {
+                    MaNV = nhanVienId,
+                    NgayLap = DateTime.Now,
+                    GioLap = DateTime.Now.TimeOfDay,
+                    TrangThai = 0,
+                    MaBuzzer = buzzerID,
+                    PhuongThucThanhToan = PhuongThucThanhToan == "Tiền mặt" ? 0 : 1,
+                    TongGia = TongCong
+                };
+
+                int maDH = await donHangService.AddDonHangAsync(donHang);
+
+                foreach (var item in SanPhamDaMua)
+                {
+                    var chiTiet = new ChiTietDonHang
+                    {
+                        MaDH = maDH,
+                        MaSP = item.MaSP,
+                        MaSize = item.SizeId,
+                        SoLuong = item.SoLuong,
+                        GiaVon = item.DonGia,
+                        TongGia = item.TongTien,
+                        Toppings = item.Toppings.Select(tp => new ctdonhang_topping
+                        {
+                            MaNL = tp.MaNL,
+                            SL = tp.SL
+                        }).ToList()
+                    };
+
+                    await donHangService.AddChiTietDonHangAsync(chiTiet);
+
+                    //  1. Trừ nguyên liệu chính theo công thức
+                    var congThuc = await congThucService.GetChiTietCongThucTheoSPAsync(item.MaSP);
+                    if (congThuc != null && congThuc.Count > 0)
+                    {
+                        int tongSLTopping = item.Toppings?.Sum(tp => tp.SL) ?? 0;
+
+                        int soLuongCongThem = 0;
+                        if (tongSLTopping >= 75)
+                            soLuongCongThem = 10;
+                        else if (tongSLTopping >= 50)
+                            soLuongCongThem = 5;
+                        else if (tongSLTopping >= 25)
+                            soLuongCongThem = 3;
+
+                        foreach (var nl in congThuc)
+                        {
+                            int soLuongTru = (nl.SoLuongCanDung * item.SoLuong) + soLuongCongThem;
+
+                            bool ok = await nguyenLieuService.TruNguyenLieuAsync(nl.MaNL, soLuongTru);
+                            if (!ok)
+                            {
+                                MessageBox.Show($"Không đủ nguyên liệu '{nl.TenNguyenLieu}' để pha {item.TenSP}.",
+                                                "Thiếu nguyên liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+                    }
+
+
+                    //  2. Trừ topping
+                    if (item.Toppings != null && item.Toppings.Count > 0)
+                    {
+                        foreach (var tp in item.Toppings)
+                        {
+                            bool ok = await nguyenLieuService.TruNguyenLieuAsync(tp.MaNL, tp.SL);
+                            if (!ok)
+                            {
+                                MessageBox.Show($"Không thể trừ topping '{tp.MaNL}'.",
+                                                "Thiếu topping", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+                    }
+
+                    // 3. Cập nhật buzzer
+                    await buzzerService.UpdateTrangThaiAsync(mamay_label.Text, 0);
+                }
+
+                MessageBox.Show(" Xuất đơn thành công!",
+                                "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                ReloadRequested?.Invoke(this, EventArgs.Empty);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($" Lỗi khi xuất đơn: {ex.Message}", "Lỗi",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
 }
 
 public class InvoiceItem
 {
+    public int MaSP { get; set; }      
+    public int SizeId { get; set; }   
     public string TenSP { get; set; }
     public string Size { get; set; }
     public int SoLuong { get; set; }
