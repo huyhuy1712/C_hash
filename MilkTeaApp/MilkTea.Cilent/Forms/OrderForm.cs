@@ -69,7 +69,7 @@ namespace MilkTea.Client.Forms
             try
             {
                 //  Gọi lại API chi tiết sản phẩm theo ID (nếu cần)
-                var chiTiet = await _sanPhamService.GetSanPhamByIdAsync(sp.MaSP);
+                var chiTiet = await _sanPhamService.GetSanPhamsByIdAsync(sp.MaSP);
 
                 // Tạo control product_item_order mới
                 var orderItem = new Controls.product_item_order();

@@ -22,7 +22,7 @@ namespace MilkTea.Client.Forms
         {
             InitializeComponent();
             _phieuNhapService = new PhieuNhapService();
-            _nhanVienService = new NhanVienService();  
+            _nhanVienService = new NhanVienService();
         }
 
         private async void ImportForm_Load(object sender, EventArgs e)
@@ -69,30 +69,9 @@ namespace MilkTea.Client.Forms
 
         private void excel_Import_btn_Click(object sender, EventArgs e)
         {
-            ImportForm_Info form = new ImportForm_Info();
-            form.ShowDialog();
+
         }
 
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // Bỏ qua nếu click vào header hoặc dòng không hợp lệ
-            if (e.RowIndex < 0) return;
-
-            // Kiểm tra cột được click
-            if (dGV_phieuNhap.Columns[e.ColumnIndex].Name == "thongTin_Tb_iPort")
-            {
-                // Lấy dữ liệu của dòng được chọn
-                string id = dGV_phieuNhap.Rows[e.RowIndex].Cells["maPhieuNhap_Tb_iPort"].Value?.ToString();
-                // Mở form sửa (ví dụ FormEditAccount)
-                using (var frm = new ImportForm_Info())
-                {
-                    if (frm.ShowDialog() == DialogResult.OK)
-                    {
-                        // Sau khi form con đóng và bấm OK thì refresh lại grid
-                    }
-                }
-            }
-        }
 
 
         private void roundedButton1_Click_1(object sender, EventArgs e)
@@ -103,8 +82,29 @@ namespace MilkTea.Client.Forms
 
         private void roundedButton2_Click(object sender, EventArgs e)
         {
-            ImportForm_Info form = new ImportForm_Info();
-            form.ShowDialog();
+
+        }
+
+        private void dGV_phieuNhap_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            if (dGV_phieuNhap.Columns[e.ColumnIndex].Name == "thongTin_Tb_iPort")
+            {
+                string maPN = dGV_phieuNhap.Rows[e.RowIndex].Cells["maPhieuNhap_Tb_iPort"].Value?.ToString();
+
+                if (!string.IsNullOrEmpty(maPN) && int.TryParse(maPN, out int maPNValue))
+                {
+                    using (var frm = new ImportForm_Info(maPNValue))
+                    {
+                        frm.ShowDialog();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy mã phiếu nhập hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

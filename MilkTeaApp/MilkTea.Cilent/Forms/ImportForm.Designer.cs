@@ -30,7 +30,6 @@ namespace MilkTea.Client.Forms
         private void InitializeComponent()
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImportForm));
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel2 = new Panel();
             label1 = new Label();
@@ -287,7 +286,7 @@ namespace MilkTea.Client.Forms
             dGV_phieuNhap.RowHeadersWidth = 51;
             dGV_phieuNhap.Size = new Size(1638, 481);
             dGV_phieuNhap.TabIndex = 0;
-            dGV_phieuNhap.CellClick += dataGridView1_CellClick;
+            dGV_phieuNhap.CellClick += dGV_phieuNhap_CellClick;
             // 
             // maPhieuNhap_Tb_iPort
             // 
@@ -327,7 +326,7 @@ namespace MilkTea.Client.Forms
             // thongTin_Tb_iPort
             // 
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.NullValue = resources.GetObject("dataGridViewCellStyle1.NullValue");
+            dataGridViewCellStyle1.NullValue = null;
             dataGridViewCellStyle1.Padding = new Padding(3);
             thongTin_Tb_iPort.DefaultCellStyle = dataGridViewCellStyle1;
             thongTin_Tb_iPort.HeaderText = "Thông tin";
@@ -342,7 +341,7 @@ namespace MilkTea.Client.Forms
             // xoa_Tb_iPort
             // 
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.NullValue = resources.GetObject("dataGridViewCellStyle2.NullValue");
+            dataGridViewCellStyle2.NullValue = null;
             dataGridViewCellStyle2.Padding = new Padding(3);
             xoa_Tb_iPort.DefaultCellStyle = dataGridViewCellStyle2;
             xoa_Tb_iPort.HeaderText = "Xóa";
