@@ -9,5 +9,9 @@
         public int SLDuKien { get; set; }
         public int TrangThai { get; set; }
         public int MaLoai { get; set; }
+        public override string ToString()
+        {
+            return TenSP;
+        }
     }
 }

@@ -426,7 +426,7 @@ namespace MilkTea.Client.Forms
             dateFrom.Name = "dateFrom";
             dateFrom.Size = new Size(135, 43);
             dateFrom.TabIndex = 0;
-            dateFrom.ValueChanged += dateTimePicker1_ValueChanged_1;
+            dateFrom.ValueChanged += dateFrom_ValueChanged;
             // 
             // label3
             // 
@@ -478,7 +478,7 @@ namespace MilkTea.Client.Forms
             dateTo.Name = "dateTo";
             dateTo.Size = new Size(122, 43);
             dateTo.TabIndex = 0;
-            dateTo.ValueChanged += dateTimePicker2_ValueChanged;
+            dateTo.ValueChanged += dateTo_ValueChanged;
             // 
             // label4
             // 
@@ -566,6 +566,7 @@ namespace MilkTea.Client.Forms
             cbbSize.Name = "cbbSize";
             cbbSize.Size = new Size(122, 36);
             cbbSize.TabIndex = 1;
+            cbbSize.SelectedIndexChanged += cbbSize_SelectedIndexChanged;
             // 
             // label7
             // 
@@ -597,6 +598,7 @@ namespace MilkTea.Client.Forms
             btnLayDuLieu.TabIndex = 10;
             btnLayDuLieu.Text = "Lấy dữ liệu";
             btnLayDuLieu.UseVisualStyleBackColor = false;
+            btnLayDuLieu.Click += btnLayDuLieu_Click;
             // 
             // Header
             // 

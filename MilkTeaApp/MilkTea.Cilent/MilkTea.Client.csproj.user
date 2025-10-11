@@ -23,6 +23,9 @@
     <Compile Update="Controls\ToggleButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Update="Controls\Toppingitem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Forms\AccountForm.cs">
       <SubType>Form</SubType>
     </Compile>
