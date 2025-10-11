@@ -27,10 +27,10 @@ namespace MilkTea.Client.Presenters
                 var account = await _taiKhoanService.GetAccountsByIdAsync(int.Parse(_id));
                 try
                 {
-                    var nhanVien = await _nhanVienService.GetByMaNV(account.MaTK);
+                    var nhanVien = await _nhanVienService.GetByMaNV(int.Parse(_id));
                     try
                     {
-                        var quyen = await _quyenService.GetQuyenByIdAsync(account.MaQuyen);
+                        var quyen = await _quyenService.GetQuyenByIdAsync(int.Parse(_id));
 
                         if (account != null || nhanVien != null || quyen != null)
                         {
