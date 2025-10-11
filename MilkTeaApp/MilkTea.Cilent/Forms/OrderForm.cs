@@ -183,8 +183,10 @@ namespace MilkTea.Client.Forms
                 .OfType<product_item_order>()
                 .Select(item => new InvoiceItem
                 {
+                    MaSP = item.SanPhamId,
                     TenSP = item.TenSP,
                     Size = item.size_comboBox1.Text,
+                    SizeId = Convert.ToInt32(item.size_comboBox1.SelectedValue),
                     SoLuong = int.TryParse(item.textBox1.Text, out int sl) ? sl : 1,
                     DonGia = item.Gia,
                     TienGiam = decimal.Parse(item.label26.Text),
@@ -210,9 +212,28 @@ namespace MilkTea.Client.Forms
             {
                 NhanVien = Ten_NV_Label.Text, 
                 PhuongThucThanhToan = phuongThucThanhToan,
+
                 MaMay = maMay,
                 SanPhamDaMua = sanPhamDaMua,
                 TongCong = tongCong
+            };
+
+            // Khi InvoiceOrder xác nhận -> reload lại combobox máy buzzer
+            invoice.ReloadRequested += async (s, ev) =>
+            {
+                try
+                {
+                    var buzzers = await _buzzerService.GetBuzzerByTrangThai(1);
+                    comboBox1.DataSource = null;
+                    comboBox1.DataSource = buzzers;
+                    comboBox1.DisplayMember = "SoHieu";
+                    comboBox1.ValueMember = "MaBuzzer";
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi reload máy buzzer: {ex.Message}",
+                                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             };
 
             invoice.ShowDialog();

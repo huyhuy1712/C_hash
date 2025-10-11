@@ -153,6 +153,7 @@
             import_btn.TabIndex = 0;
             import_btn.Text = "In đơn";
             import_btn.UseVisualStyleBackColor = false;
+            import_btn.Click += import_btn_Click;
             // 
             // label23
             // 
@@ -261,7 +262,7 @@
             ten_thu_ngan_label.Font = new Font("Segoe UI", 11F);
             ten_thu_ngan_label.Location = new Point(104, 0);
             ten_thu_ngan_label.Name = "ten_thu_ngan_label";
-            ten_thu_ngan_label.Size = new Size(127, 34);
+            ten_thu_ngan_label.Size = new Size(338, 34);
             ten_thu_ngan_label.TabIndex = 1;
             // 
             // label1
