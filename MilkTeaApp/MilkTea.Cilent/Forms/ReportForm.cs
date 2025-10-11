@@ -37,7 +37,6 @@ namespace MilkTea.Client.Forms
         {
             try
             {
-                // 1Load danh sách loại (category)
                 var loais = await _loaiService.GetLoaisAsync();
                 loais.Insert(0, new Loai
                 {
@@ -64,13 +63,13 @@ namespace MilkTea.Client.Forms
                 cbbSize.DataSource = sizes;
                 cbbSize.DisplayMember = "TenSize";
                 cbbSize.ValueMember = "MaSize";
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi gọi API: " + ex.Message);
             }
         }
+
         private void label2_Click(object sender, EventArgs e)
         {
 
@@ -173,12 +172,16 @@ namespace MilkTea.Client.Forms
                 // Hiển thị dữ liệu lên DataGridView
                 foreach (var item in list)
                 {
+                    var sp = await _SanPhamService.GetSanPhamsByIdAsync(item.MaSP.Value);
+                    string tenSP = sp?.TenSP ?? "Không xác định";
+                    var size = await _sizeService.GetSizeByIdAsync(item.MaSize.Value);
+                    string tenSize = size?.TenSize ?? "Không xác định";
                     DateTime date = new DateTime(item.Nam, item.Thang, item.Ngay);
                     string thoiGian = date.ToString("dd/MM/yyyy");
                     dataGridView1.Rows.Add(
                         thoiGian,
-                        item.MaSP,
-                        item.MaSize,
+                        tenSP,
+                        tenSize,
                         item.SLBan,
                         item.MaKM,
                         (10000).ToString("N0") + " ₫",

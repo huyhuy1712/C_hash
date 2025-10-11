@@ -1,13 +1,14 @@
-﻿using System;
+﻿using MilkTea.Client.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
-using MilkTea.Client.Models;
-using System.Net.Http.Json;
 
 namespace MilkTea.Client.Services
 {
+    using System.Collections;
     using System.Net.Http.Json;
 
     public class SanPhamService : ApiServiceBase
@@ -21,6 +22,9 @@ namespace MilkTea.Client.Services
         {
             return await _http.GetFromJsonAsync<SanPham>($"/api/sanpham/{id}");
         }
+
+     
+
     }
 
 }
