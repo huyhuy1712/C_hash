@@ -2,7 +2,6 @@
 using MilkTea.Client.Interfaces;
 using MilkTea.Client.Presenters;
 using MilkTea.Client.Services;
-using MilkTea.Client.Models;
 using System;
 using System.Windows.Forms;
 
@@ -41,14 +40,8 @@ namespace MilkTea.Client.Forms
             if (e.RowIndex < 0) return; // bỏ qua header
 
             string columnName = dataGridView1.Columns[e.ColumnIndex].Name;
-            ChiTietTaiKhoan tk = new();
 
             var id = dataGridView1.Rows[e.RowIndex].Cells["ID"].Value?.ToString();
-            tk.Anh = dataGridView1.Rows[e.RowIndex].Cells["anh"].Value?.ToString();
-            tk.TenTaiKhoan = dataGridView1.Rows[e.RowIndex].Cells["taiKhoan"].Value?.ToString();
-            tk.HoVaTen = dataGridView1.Rows[e.RowIndex].Cells["hoVaTen"].Value?.ToString();
-            tk.Quyen = dataGridView1.Rows[e.RowIndex].Cells["quyen"].Value?.ToString();
-            tk.TrangThai = dataGridView1.Rows[e.RowIndex].Cells["trangThai"].Value?.ToString() == "Hoạt động" ? 1 : 0;
 
             switch (columnName)
             {
@@ -57,7 +50,7 @@ namespace MilkTea.Client.Forms
                     break;
 
                 case "chiTiet":
-                    _presenter.ViewAccount(tk);
+                    _presenter.ViewAccount(id);
                     break;
 
                 case "xoa":

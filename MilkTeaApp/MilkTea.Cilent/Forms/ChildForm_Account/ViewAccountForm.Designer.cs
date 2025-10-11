@@ -50,6 +50,7 @@
             picAnh = new PictureBox();
             panel2 = new Panel();
             label1 = new Label();
+            lblStatus = new Label();
             panel1.SuspendLayout();
             panel11.SuspendLayout();
             panel3.SuspendLayout();
@@ -89,6 +90,7 @@
             // panel3
             // 
             panel3.BackColor = Color.Transparent;
+            panel3.Controls.Add(lblStatus);
             panel3.Controls.Add(btnDong);
             panel3.Dock = DockStyle.Bottom;
             panel3.Location = new Point(20, 249);
@@ -308,6 +310,15 @@
             label1.Text = "Thông Tin Tài Khoản";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // lblStatus
+            // 
+            lblStatus.Dock = DockStyle.Top;
+            lblStatus.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblStatus.Location = new Point(0, 0);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(760, 25);
+            lblStatus.TabIndex = 1;
+            // 
             // ViewAccountForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -357,5 +368,6 @@
         private Label lblHoTen;
         private Controls.RoundedButton btnDong;
         private Panel panel11;
+        private Label lblStatus;
     }
 }

@@ -1,23 +1,24 @@
-﻿using MilkTea.Client.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using MilkTea.Client.Interfaces;
+using MilkTea.Client.Presenters;
 
 namespace MilkTea.Client.Forms.ChildForm_Account
 {
-    public partial class ViewAccountForm : Form
+    public partial class ViewAccountForm : Form, IViewAccountForm
     {
-        private ChiTietTaiKhoan _taiKhoan;
-        public ViewAccountForm(ChiTietTaiKhoan taiKhoan)
+        private readonly string _id;
+        public Label LblTaiKhoan => lblTaiKhoan;
+        public Label LblHoTen => lblHoTen;
+        public Label LblQuyen => lblQuyen;
+        public Label LblTrangThai => lblTrangThai;
+        public Label LblStatus => lblStatus;
+        public PictureBox PicAnh => picAnh;
+        private readonly ViewAccountPresenter _presenter;
+
+        public ViewAccountForm(string id)
         {
             InitializeComponent();
-            _taiKhoan = taiKhoan;
+            _id = id;
+            _presenter = new ViewAccountPresenter(this, _id);
         }
 
         private void btnDong_Click(object sender, EventArgs e)
@@ -25,9 +26,9 @@ namespace MilkTea.Client.Forms.ChildForm_Account
             this.Close();
         }
 
-        private void ViewAccountForm_Load(object sender, EventArgs e)
+        private async void ViewAccountForm_Load(object sender, EventArgs e)
         {
-
+            await _presenter.LoadDataAsync();
         }
     }
 }
