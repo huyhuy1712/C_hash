@@ -13,6 +13,6 @@ namespace MilkTea.Client.Interfaces
         TaiKhoan GetTaiKhoanInput();
 
         // Hiển thị kết quả thêm tài khoản
-        void ShowResult(string message, bool success);
+        //void ShowResult(string message, bool success);
     }
 }

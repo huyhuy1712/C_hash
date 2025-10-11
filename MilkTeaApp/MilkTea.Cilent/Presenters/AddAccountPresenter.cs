@@ -14,16 +14,15 @@ namespace MilkTea.Client.Presenters
     {
         TaiKhoan GetTaiKhoanInput();
     }
-    public class AddAccountPresenter : IAddAccountForm
+    public class AddAccountPresenter
     {
         private readonly IAddAccountForm _view;
         private readonly TaiKhoanService _service;
         public AddAccountPresenter(IAddAccountForm view) 
         {
             _view = view;
-            _service = new TaiKhoanService();
+            _service = new();
         }
-
         public async Task<bool> AddAccountAsync()
         {
             var tk = _view.GetTaiKhoanInput();

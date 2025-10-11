@@ -17,9 +17,9 @@ namespace MilkTea.Client.Interfaces
         Label LblStatus { get; }
         PictureBox PicAnh { get; }
         // Presenter gọi hàm này để đổ danh sách tài khoản ra UI
-        void ShowTaiKhoanList(List<TaiKhoan> danhSach);
+        //void ShowTaiKhoanList(List<TaiKhoan> danhSach);
 
         // Thông báo lỗi, loading, v.v.
-        void ShowError(string message);
+        //void ShowError(string message);
     }
 }

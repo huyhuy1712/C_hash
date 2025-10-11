@@ -10,7 +10,7 @@ namespace MilkTea.Client.Forms.ChildForm_Account
         public AddAccountForm()
         {
             InitializeComponent();
-            _presenter = new AddAccountPresenter();
+            _presenter = new AddAccountPresenter(this);
         }
         public TaiKhoan GetTaiKhoanInput()
         {
