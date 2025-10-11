@@ -33,11 +33,11 @@ namespace MilkTea.Client.Forms
             Panel panel4;
             Panel Tool;
             Panel Table;
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AccountForm));
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             label1 = new Label();
             label2 = new Label();
             ButtonQuyen = new Panel();
@@ -98,7 +98,7 @@ namespace MilkTea.Client.Forms
             // 
             label1.Dock = DockStyle.Fill;
             label1.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.Red;
+            label1.ForeColor = Color.DodgerBlue;
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
             label1.Size = new Size(1658, 100);
@@ -380,12 +380,12 @@ namespace MilkTea.Client.Forms
             // chiTiet
             // 
             chiTiet.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.NullValue = resources.GetObject("dataGridViewCellStyle5.NullValue");
-            dataGridViewCellStyle5.Padding = new Padding(3);
-            chiTiet.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.NullValue = resources.GetObject("dataGridViewCellStyle1.NullValue");
+            dataGridViewCellStyle1.Padding = new Padding(3);
+            chiTiet.DefaultCellStyle = dataGridViewCellStyle1;
             chiTiet.HeaderText = "Chi Tiết";
-            chiTiet.Image = Properties.Resources.circle_user;
+            chiTiet.Image = Properties.Resources.info;
             chiTiet.ImageLayout = DataGridViewImageCellLayout.Zoom;
             chiTiet.MinimumWidth = 6;
             chiTiet.Name = "chiTiet";
@@ -395,10 +395,10 @@ namespace MilkTea.Client.Forms
             // 
             // sua
             // 
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.NullValue = resources.GetObject("dataGridViewCellStyle6.NullValue");
-            dataGridViewCellStyle6.Padding = new Padding(3);
-            sua.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.NullValue = resources.GetObject("dataGridViewCellStyle2.NullValue");
+            dataGridViewCellStyle2.Padding = new Padding(3);
+            sua.DefaultCellStyle = dataGridViewCellStyle2;
             sua.HeaderText = "Sửa";
             sua.Image = Properties.Resources.edit;
             sua.ImageLayout = DataGridViewImageCellLayout.Zoom;
@@ -410,10 +410,10 @@ namespace MilkTea.Client.Forms
             // 
             // khoa
             // 
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.NullValue = resources.GetObject("dataGridViewCellStyle7.NullValue");
-            dataGridViewCellStyle7.Padding = new Padding(3);
-            khoa.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.NullValue = resources.GetObject("dataGridViewCellStyle3.NullValue");
+            dataGridViewCellStyle3.Padding = new Padding(3);
+            khoa.DefaultCellStyle = dataGridViewCellStyle3;
             khoa.HeaderText = "Khóa";
             khoa.Image = Properties.Resources.padlock;
             khoa.ImageLayout = DataGridViewImageCellLayout.Zoom;
@@ -425,10 +425,10 @@ namespace MilkTea.Client.Forms
             // 
             // xoa
             // 
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.NullValue = resources.GetObject("dataGridViewCellStyle8.NullValue");
-            dataGridViewCellStyle8.Padding = new Padding(3);
-            xoa.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.NullValue = resources.GetObject("dataGridViewCellStyle4.NullValue");
+            dataGridViewCellStyle4.Padding = new Padding(3);
+            xoa.DefaultCellStyle = dataGridViewCellStyle4;
             xoa.HeaderText = "Xóa";
             xoa.Image = Properties.Resources.trash;
             xoa.ImageLayout = DataGridViewImageCellLayout.Zoom;
@@ -504,16 +504,6 @@ namespace MilkTea.Client.Forms
         private Panel panel1;
         private Controls.RoundedButton btnThemAccount;
         private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn ID;
-        private DataGridViewTextBoxColumn taiKhoan;
-        private DataGridViewTextBoxColumn hoVaTen;
-        private DataGridViewTextBoxColumn trangThai;
-        private DataGridViewTextBoxColumn ngayTao;
-        private DataGridViewTextBoxColumn quyen;
-        private DataGridViewImageColumn chiTiet;
-        private DataGridViewImageColumn sua;
-        private DataGridViewImageColumn khoa;
-        private DataGridViewImageColumn xoa;
         private Label label2;
         private Label label1;
         private Panel ButtonThem;
@@ -528,5 +518,15 @@ namespace MilkTea.Client.Forms
         private Panel panel3;
         private Label lblStatus;
         private Panel panel5;
+        private DataGridViewTextBoxColumn ID;
+        private DataGridViewTextBoxColumn taiKhoan;
+        private DataGridViewTextBoxColumn hoVaTen;
+        private DataGridViewTextBoxColumn trangThai;
+        private DataGridViewTextBoxColumn ngayTao;
+        private DataGridViewTextBoxColumn quyen;
+        private DataGridViewImageColumn chiTiet;
+        private DataGridViewImageColumn sua;
+        private DataGridViewImageColumn khoa;
+        private DataGridViewImageColumn xoa;
     }
 }

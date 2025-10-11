@@ -13,16 +13,21 @@ namespace MilkTea.Client.Forms.ChildForm_Account
 {
     public partial class ViewAccountForm : Form
     {
-        private TaiKhoan _taiKhoan;
-        public ViewAccountForm()
+        private ChiTietTaiKhoan _taiKhoan;
+        public ViewAccountForm(ChiTietTaiKhoan taiKhoan)
         {
             InitializeComponent();
-            //_taiKhoan = taiKhoan;
+            _taiKhoan = taiKhoan;
         }
 
         private void btnDong_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void ViewAccountForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

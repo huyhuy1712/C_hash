@@ -34,11 +34,9 @@ namespace MilkTea.Client.Presenters
             }
         }
 
-        public void ViewAccount(string id)
+        public void ViewAccount(ChiTietTaiKhoan taikhoan)
         {
-            if (string.IsNullOrEmpty(id)) return;
-
-            using (var frm = new ViewAccountForm())
+            using (var frm = new ViewAccountForm(taikhoan))
             {
                 frm.ShowDialog();
             }

@@ -317,6 +317,7 @@
             Name = "ViewAccountForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ViewAccountForm";
+            Load += ViewAccountForm_Load;
             panel1.ResumeLayout(false);
             panel11.ResumeLayout(false);
             panel3.ResumeLayout(false);
