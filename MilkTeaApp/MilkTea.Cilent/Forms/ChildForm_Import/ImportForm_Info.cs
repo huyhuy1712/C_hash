@@ -15,12 +15,14 @@ namespace MilkTea.Client.Forms.ChildForm_Import
     public partial class ImportForm_Info : Form
     {
         private readonly ChiTietPhieuNhapService _chiTietPhieuNhapService;
+        private readonly NguyenLieuService _nguyenLieuService;
         private readonly int _maPN;
 
         public ImportForm_Info(int maPN)
         {
             InitializeComponent();
             _chiTietPhieuNhapService = new ChiTietPhieuNhapService();
+            _nguyenLieuService = new NguyenLieuService();
             _maPN = maPN;
         }
 
@@ -37,10 +39,11 @@ namespace MilkTea.Client.Forms.ChildForm_Import
                 {
                     foreach (var ctpn in chiTietPhieuNhaps)
                     {
+                        var nguyenLieu = await _nguyenLieuService.GetById(ctpn.MaNguyenLieu);
                         int rowIndex = dGV_chitietphieunhap.Rows.Add();
                         dGV_chitietphieunhap.Rows[rowIndex].Cells["maPhieuNhap_tb_info"].Value = ctpn.MaChiTietPhieuNhap;
                         dGV_chitietphieunhap.Rows[rowIndex].Cells["soLuong_tb_add"].Value = ctpn.SoLuong;
-                        dGV_chitietphieunhap.Rows[rowIndex].Cells["tenNL_tb_info"].Value = ctpn.MaNguyenLieu;
+                        dGV_chitietphieunhap.Rows[rowIndex].Cells["tenNL_tb_info"].Value = nguyenLieu.Ten;
                         dGV_chitietphieunhap.Rows[rowIndex].Cells["donGia_tb_info"].Value = ctpn.DonGiaNhap; // Định dạng số với dấu phân cách hàng nghìn
                         dGV_chitietphieunhap.Rows[rowIndex].Cells["tongTien_tb_info"].Value = ctpn.TongGia;
                     }

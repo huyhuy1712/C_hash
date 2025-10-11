@@ -73,7 +73,7 @@ namespace MilkTea.Client.Forms
         {
             try
             {
-
+                var sp = e.SanPham;
 
                 // Lấy chi tiết SP + KM + công thức
                 var chiTiet = await _sanPhamService.GetSanPhamsByIdAsync(sp.MaSP);
