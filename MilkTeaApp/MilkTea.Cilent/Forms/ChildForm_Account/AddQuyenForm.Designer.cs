@@ -33,11 +33,12 @@
             panel4 = new Panel();
             Table = new Panel();
             dataGridView1 = new DataGridView();
-            tenQuyen = new DataGridViewTextBoxColumn();
+            chucNang = new DataGridViewTextBoxColumn();
             chon = new DataGridViewCheckBoxColumn();
             TimKiem = new Panel();
             textBox1 = new TextBox();
             Button = new Panel();
+            lblStatus = new Label();
             btnXacNhan = new MilkTea.Client.Controls.RoundedButton();
             panel2 = new Panel();
             btnDong = new MilkTea.Client.Controls.RoundedButton();
@@ -66,7 +67,7 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(800, 450);
+            panel1.Size = new Size(800, 771);
             panel1.TabIndex = 0;
             // 
             // panel4
@@ -81,7 +82,7 @@
             panel4.Location = new Point(0, 100);
             panel4.Name = "panel4";
             panel4.Padding = new Padding(20);
-            panel4.Size = new Size(800, 350);
+            panel4.Size = new Size(800, 671);
             panel4.TabIndex = 1;
             // 
             // Table
@@ -90,31 +91,34 @@
             Table.Dock = DockStyle.Fill;
             Table.Location = new Point(20, 110);
             Table.Name = "Table";
-            Table.Size = new Size(760, 130);
+            Table.Size = new Size(760, 451);
             Table.TabIndex = 1;
             // 
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToDeleteRows = false;
+            dataGridView1.AllowUserToResizeColumns = false;
+            dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.BackgroundColor = SystemColors.Control;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { tenQuyen, chon });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { chucNang, chon });
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(0, 0);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(760, 130);
+            dataGridView1.Size = new Size(760, 451);
             dataGridView1.TabIndex = 0;
             // 
-            // tenQuyen
+            // chucNang
             // 
-            tenQuyen.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            tenQuyen.HeaderText = "Chức Năng";
-            tenQuyen.MinimumWidth = 6;
-            tenQuyen.Name = "tenQuyen";
-            tenQuyen.ReadOnly = true;
-            tenQuyen.Resizable = DataGridViewTriState.False;
+            chucNang.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            chucNang.HeaderText = "Chức Năng";
+            chucNang.MinimumWidth = 6;
+            chucNang.Name = "chucNang";
+            chucNang.ReadOnly = true;
+            chucNang.Resizable = DataGridViewTriState.False;
             // 
             // chon
             // 
@@ -134,7 +138,7 @@
             // 
             TimKiem.Controls.Add(textBox1);
             TimKiem.Dock = DockStyle.Bottom;
-            TimKiem.Location = new Point(20, 240);
+            TimKiem.Location = new Point(20, 561);
             TimKiem.Name = "TimKiem";
             TimKiem.Size = new Size(760, 40);
             TimKiem.TabIndex = 2;
@@ -152,14 +156,24 @@
             // 
             // Button
             // 
+            Button.Controls.Add(lblStatus);
             Button.Controls.Add(btnXacNhan);
             Button.Controls.Add(panel2);
             Button.Dock = DockStyle.Bottom;
-            Button.Location = new Point(20, 280);
+            Button.Location = new Point(20, 601);
             Button.Name = "Button";
             Button.Padding = new Padding(0, 10, 0, 0);
             Button.Size = new Size(760, 50);
             Button.TabIndex = 3;
+            // 
+            // lblStatus
+            // 
+            lblStatus.Dock = DockStyle.Left;
+            lblStatus.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblStatus.Location = new Point(0, 10);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(456, 40);
+            lblStatus.TabIndex = 3;
             // 
             // btnXacNhan
             // 
@@ -277,7 +291,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 771);
             Controls.Add(panel1);
             Name = "AddQuyenForm";
             Text = "Quyền";
@@ -306,8 +320,6 @@
         private Controls.RoundedTextBox txtbTenQuyen;
         private Panel Table;
         private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn tenQuyen;
-        private DataGridViewCheckBoxColumn chon;
         private Panel TimKiem;
         private Panel Button;
         private Controls.RoundedButton btnXacNhan;
@@ -316,5 +328,8 @@
         private TextBox textBox1;
         private Panel TextBox;
         private Panel panel2;
+        private Label lblStatus;
+        private DataGridViewTextBoxColumn chucNang;
+        private DataGridViewCheckBoxColumn chon;
     }
 }
