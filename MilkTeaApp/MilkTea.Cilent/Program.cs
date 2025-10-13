@@ -23,14 +23,19 @@ namespace MilkTea.Client
             services.AddTransient<TaiKhoanService>();
 
             // 3. Đăng ký Form (có thể inject service vào Form)
+      
             services.AddTransient<MainForm>();
+            services.AddTransient<LoginForm>();
 
             // 4. Build provider
             ServiceProvider = services.BuildServiceProvider();
 
             // 5. Lấy MainForm từ DI
-            var mainForm = ServiceProvider.GetRequiredService<MainForm>();
-            Application.Run(new MainForm());
+            //var mainForm = ServiceProvider.GetRequiredService<MainForm>();
+            //Application.Run(new MainForm()); 
+
+            var loginForm = ServiceProvider.GetRequiredService<LoginForm>();
+            Application.Run(loginForm);
         }
     }
 }

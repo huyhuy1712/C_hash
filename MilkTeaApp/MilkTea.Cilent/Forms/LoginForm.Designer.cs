@@ -71,6 +71,7 @@
             roundedButton_Login.TabIndex = 5;
             roundedButton_Login.Text = "LOGIN";
             roundedButton_Login.UseVisualStyleBackColor = false;
+            roundedButton_Login.Click += roundedButton_Login_Click;
             // 
             // pictureBox2
             // 

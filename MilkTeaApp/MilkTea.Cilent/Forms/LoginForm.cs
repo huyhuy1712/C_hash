@@ -1,10 +1,14 @@
-﻿using System;
+﻿using MilkTea.Client.Models;
+using MilkTea.Client.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,9 +16,12 @@ namespace MilkTea.Client.Forms
 {
     public partial class LoginForm : Form
     {
+        private readonly TaiKhoanService _taiKhoanService;
+
         public LoginForm()
         {
             InitializeComponent();
+            _taiKhoanService = new TaiKhoanService();
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
@@ -64,10 +71,7 @@ namespace MilkTea.Client.Forms
             }
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
 
-        }
 
         private void roundedTextBox_TenTK_Load(object sender, EventArgs e)
         {
@@ -79,9 +83,54 @@ namespace MilkTea.Client.Forms
 
         }
 
-        private void label_TaoTaiKhoan_Click(object sender, EventArgs e)
-        {
+        private async void roundedButton_Login_Click(object sender, EventArgs e)
 
+        {
+            var username = roundedTextBox_TenTK.TextValue.Trim();
+            var password = roundedTextBox_Password.TextValue.Trim();
+
+            if (string.IsNullOrEmpty(username))
+            {
+                MessageBox.Show("Tên tài khoản không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Kiểm tra password
+            if (string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Mật khẩu không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Kiểm tra định dạng số điện thoại (10 hoặc 11 chữ số, có thể tùy chỉnh theo nhu cầu)
+            var phonePattern = @"^\d{10,11}$";
+            if (!Regex.IsMatch(password, phonePattern))
+            {
+                MessageBox.Show("Mật khẩu phải là số điện thoại hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            TaiKhoan account = await CheckLoginAsync(username, password);
+            if (account == null) {
+                MessageBox.Show("Không có tài khoản", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+           MainForm mainForm = new MainForm(account);
+            mainForm.ShowDialog();
+            this.Close();
+        }
+
+        // Hàm kiểm tra đăng nhập
+        public async Task<TaiKhoan?> CheckLoginAsync(string username, string password)
+        {
+            var list = await _taiKhoanService.GetAccountsAsync();
+
+
+            // Tìm tài khoản theo username và password
+            var account = list.FirstOrDefault(tk => tk.TenTaiKhoan == username && tk.MatKhau == password);
+
+            return account; // Nếu không tìm thấy thì trả về null
         }
     }
 }
