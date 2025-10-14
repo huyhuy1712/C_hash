@@ -1,4 +1,5 @@
 ﻿using MilkTea.Client.Forms;
+using MilkTea.Client.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,8 +14,10 @@ namespace MilkTea.Client.Forms
 {
     public partial class MainForm : Form
     {
-        public MainForm()
+        private TaiKhoan _account;
+        public MainForm(TaiKhoan account)
         {
+            _account = account;
             InitializeComponent();
         }
 
@@ -32,7 +35,21 @@ namespace MilkTea.Client.Forms
         private void MainForm_Load(object sender, EventArgs e)
         {
             // Mặc định load Trang Chủ khi mở form
-            LoadForm(new OrderForm());
+            LoadForm(new OrderForm(_account));
+            username.Text = _account.TenTaiKhoan;
+
+            string imgPath = Path.Combine(Application.StartupPath, "images", "nhan_vien", _account.anh ?? "");
+
+            if (!string.IsNullOrEmpty(sp.Anh) && File.Exists(imgPath))
+            {
+                // Load ảnh từ file
+                avatarUser.Image = Image.FromFile(imgPath);
+            }
+            else
+            {
+                // fallback ảnh mặc định nếu không tìm thấy
+                //avatarUser.Image = Properties.Resources;
+            }
         }
 
 
@@ -40,7 +57,7 @@ namespace MilkTea.Client.Forms
 
         private void btnOrder_Click(object sender, EventArgs e)
         {
-            LoadForm(new OrderForm());  // Form Order
+            LoadForm(new OrderForm(_account));  // Form Order
 
         }
 
