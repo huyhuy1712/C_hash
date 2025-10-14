@@ -1,5 +1,6 @@
 ﻿using MilkTea.Client.Forms;
 using MilkTea.Client.Models;
+using MilkTea.Client.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +16,7 @@ namespace MilkTea.Client.Forms
     public partial class MainForm : Form
     {
         private TaiKhoan _account;
+        private readonly AuthService _authService = new();
         public MainForm(TaiKhoan account)
         {
             _account = account;
@@ -32,7 +34,7 @@ namespace MilkTea.Client.Forms
             frm.Show();
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private async void MainForm_Load(object sender, EventArgs e)
         {
             // Mặc định load Trang Chủ khi mở form
             LoadForm(new OrderForm(_account));
@@ -40,7 +42,10 @@ namespace MilkTea.Client.Forms
 
             string imgPath = Path.Combine(Application.StartupPath, "images", "nhan_vien", _account.anh ?? "");
 
-            if (!string.IsNullOrEmpty(sp.Anh) && File.Exists(imgPath))
+            //Mặc định tắt các button
+            btnTaiKhoan.Enabled = false;
+
+            if (!string.IsNullOrEmpty(_account.anh) && File.Exists(imgPath))
             {
                 // Load ảnh từ file
                 avatarUser.Image = Image.FromFile(imgPath);
@@ -50,6 +55,13 @@ namespace MilkTea.Client.Forms
                 // fallback ảnh mặc định nếu không tìm thấy
                 //avatarUser.Image = Properties.Resources;
             }
+
+            //Kiểm tra quyền để hiển thị button
+            if (await _authService.HasPermissionAsync("Xem tài khoản"))
+            {
+                btnTaiKhoan.Enabled = true;
+            }
+
         }
 
 
@@ -99,6 +111,11 @@ namespace MilkTea.Client.Forms
         private void panelContent_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void btnDangXuat_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

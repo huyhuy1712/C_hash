@@ -14,5 +14,10 @@ namespace MilkTea.Client.Services
         {
             return await _http.GetFromJsonAsync<List<ChucNang>>("/api/chucnang") ?? new List<ChucNang>();
         }
+        public async Task<List<ChucNang>> GetChucNangsByMaQuyenAsync(int maQuyen)
+        {
+            return await _http.GetFromJsonAsync<List<ChucNang>>($"/api/chucnang/{maQuyen}")
+                   ?? new List<ChucNang>();
+        }
     }
 }

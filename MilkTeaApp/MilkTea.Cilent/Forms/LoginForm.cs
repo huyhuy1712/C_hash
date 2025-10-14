@@ -1,4 +1,5 @@
-﻿using MilkTea.Client.Models;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using MilkTea.Client.Models;
 using MilkTea.Client.Services;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,13 @@ namespace MilkTea.Client.Forms
     public partial class LoginForm : Form
     {
         private readonly TaiKhoanService _taiKhoanService;
+        private readonly AuthService _authService;
 
         public LoginForm()
         {
             InitializeComponent();
             _taiKhoanService = new TaiKhoanService();
+            _authService = new();
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
@@ -111,14 +114,18 @@ namespace MilkTea.Client.Forms
             }
 
             TaiKhoan account = await CheckLoginAsync(username, password);
-            if (account == null) {
+            if (account == null)
+            {
                 MessageBox.Show("Không có tài khoản", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-           MainForm mainForm = new MainForm(account);
-            mainForm.ShowDialog();
-            this.Close();
+            MainForm mainForm = new MainForm(account);
+
+            // Lưu thông tin vào session
+            _authService.StoreUserSession(account);
+
+            mainForm.Show();
         }
 
         // Hàm kiểm tra đăng nhập
