@@ -22,5 +22,9 @@ namespace MilkTea.Client.Models
 
         // Trạng thái (1 = đang áp dụng, 0 = ngừng, …)
         public int TrangThai { get; set; }
+        public override string ToString()
+        {
+            return TenCTKhuyenMai;
+        }
     }
 }

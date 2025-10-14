@@ -164,6 +164,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Control;
             Controls.Add(product_panel_1);
             Name = "ProductItem";
             Size = new Size(205, 129);
