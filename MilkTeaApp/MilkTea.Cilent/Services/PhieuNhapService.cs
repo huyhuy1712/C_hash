@@ -15,7 +15,11 @@ namespace MilkTea.Client.Services
         {
             return await _http.GetFromJsonAsync<List<PhieuNhap>>("/api/phieunhap"); 
         }
-
+        public async Task<List<PhieuNhap>> SearchAsync(string column, string value)
+        {
+            var query = $"/api/phieunhap/search?column={column}&value={Uri.EscapeDataString(value)}";
+            return await _http.GetFromJsonAsync<List<PhieuNhap>>(query);
+        }
 
     }
 }
