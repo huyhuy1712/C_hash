@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,6 @@ namespace MilkTea.Client.Forms
     public partial class MainForm : Form
     {
         private TaiKhoan _account;
-        private readonly AuthService _authService = new();
         public MainForm(TaiKhoan account)
         {
             _account = account;
@@ -34,16 +34,13 @@ namespace MilkTea.Client.Forms
             frm.Show();
         }
 
-        private async void MainForm_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
             // Mặc định load Trang Chủ khi mở form
             LoadForm(new OrderForm(_account));
             username.Text = _account.TenTaiKhoan;
 
             string imgPath = Path.Combine(Application.StartupPath, "images", "nhan_vien", _account.anh ?? "");
-
-            //Mặc định tắt các button
-            btnTaiKhoan.Enabled = false;
 
             if (!string.IsNullOrEmpty(_account.anh) && File.Exists(imgPath))
             {
@@ -57,11 +54,17 @@ namespace MilkTea.Client.Forms
             }
 
             //Kiểm tra quyền để hiển thị button
-            if (await _authService.HasPermissionAsync("Xem tài khoản"))
+            btnOrder.Enabled = Session.HasPermission("Vào order");
+            btnHoaDon.Enabled = Session.HasPermission("Vào hóa đơn");
+            btnThongKe.Enabled = Session.HasPermission("Vào thống kê");
+            btnKhuyenMai.Enabled = Session.HasPermission("Vào khuyến mãi");
+            btnPhieuNhap.Enabled = Session.HasPermission("Vào nhập hàng");
+            btnTaiKhoan.Enabled = Session.HasPermission("Vào tài khoản");
+            if (Session.AllowedFunctions.Count == 0)
             {
-                btnTaiKhoan.Enabled = true;
+                Debug.WriteLine("khong co quyen");
             }
-
+            Session.AllowedFunctions.ForEach(cn => Debug.WriteLine(cn.TenChucNang));
         }
 
 

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net.WebSockets;
@@ -18,13 +19,13 @@ namespace MilkTea.Client.Forms
     public partial class LoginForm : Form
     {
         private readonly TaiKhoanService _taiKhoanService;
-        private readonly AuthService _authService;
-
+        private readonly ChucNangService _chucNangService;
         public LoginForm()
         {
             InitializeComponent();
             _taiKhoanService = new TaiKhoanService();
-            _authService = new();
+            _chucNangService = new();
+            this.KeyPreview = true;
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
@@ -123,9 +124,8 @@ namespace MilkTea.Client.Forms
             MainForm mainForm = new MainForm(account);
 
             // Lưu thông tin vào session
-            _authService.StoreUserSession(account);
-
-            mainForm.Show();
+            Session.AllowedFunctions = await _chucNangService.GetChucNangsByMaQuyenAsync(account.MaQuyen);
+            mainForm.ShowDialog();
         }
 
         // Hàm kiểm tra đăng nhập
@@ -138,6 +138,14 @@ namespace MilkTea.Client.Forms
             var account = list.FirstOrDefault(tk => tk.TenTaiKhoan == username && tk.MatKhau == password);
 
             return account; // Nếu không tìm thấy thì trả về null
+        }
+
+        private void roundedTextBox_Password_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                roundedButton_Login.PerformClick();
+            }
         }
     }
 }

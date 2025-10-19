@@ -55,6 +55,12 @@ namespace MilkTea.Client.Controls
                 this.Invalidate();
             };
 
+            // Forward KeyDown từ textBox ra ngoài
+            textBox.KeyDown += (s, e) =>
+            {
+                this.OnKeyDown(e);
+            };
+
             // --- Icon ---
             icon = new PictureBox();
             icon.Image = Properties.Resources.search; // icon search
