@@ -40,16 +40,16 @@ namespace MilkTea.Client.Forms
 
             string imgPath = Path.Combine(Application.StartupPath, "images", "nhan_vien", _account.anh ?? "");
 
-            if (!string.IsNullOrEmpty(sp.Anh) && File.Exists(imgPath))
-            {
-                // Load ảnh từ file
-                avatarUser.Image = Image.FromFile(imgPath);
-            }
-            else
-            {
-                // fallback ảnh mặc định nếu không tìm thấy
-                //avatarUser.Image = Properties.Resources;
-            }
+            //if (!string.IsNullOrEmpty(sp.Anh) && File.Exists(imgPath))
+            //{
+            //    // Load ảnh từ file
+            //    avatarUser.Image = Image.FromFile(imgPath);
+            //}
+            //else
+            //{
+            //    // fallback ảnh mặc định nếu không tìm thấy
+            //    //avatarUser.Image = Properties.Resources;
+            //}
         }
 
 
