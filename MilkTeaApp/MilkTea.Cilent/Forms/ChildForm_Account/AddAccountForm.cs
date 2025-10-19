@@ -1,22 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using MilkTea.Client.Models;
+using MilkTea.Client.Presenters;
+using MilkTea.Client.Interfaces; 
 
 namespace MilkTea.Client.Forms.ChildForm_Account
 {
-    public partial class AddAccountForm : Form
+    public partial class AddAccountForm : Form, IAddAccountForm
     {
+        private readonly AddAccountPresenter _presenter;
         public AddAccountForm()
         {
             InitializeComponent();
+            _presenter = new AddAccountPresenter(this);
         }
-
+        public TaiKhoan GetTaiKhoanInput()
+        {
+            return new TaiKhoan
+            {
+                TenTaiKhoan = txtbTenTaiKhoan.Text,
+                MatKhau = txtbMatKhau.Text,
+                MaQuyen = int.Parse(cbxQuyen.SelectedValue.ToString()),
+                TrangThai = 1,
+                anh = txtAnh.Text
+            };
+        }
         private void btnChonAnh_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -33,6 +39,20 @@ namespace MilkTea.Client.Forms.ChildForm_Account
         private void btnThoatTTK_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private async void btnThemTTK_Click(object sender, EventArgs e)
+        {
+            bool success = await _presenter.AddAccountAsync();
+            if (success)
+            {
+                MessageBox.Show("Thêm tài khoản thành công!");
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Thêm thất bại.");
+            }
         }
     }
 }

@@ -1,8 +1,11 @@
 ﻿using MilkTea.Client.Forms;
+using MilkTea.Client.Models;
+using MilkTea.Client.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -13,8 +16,10 @@ namespace MilkTea.Client.Forms
 {
     public partial class MainForm : Form
     {
-        public MainForm()
+        private TaiKhoan _account;
+        public MainForm(TaiKhoan account)
         {
+            _account = account;
             InitializeComponent();
         }
 
@@ -32,7 +37,34 @@ namespace MilkTea.Client.Forms
         private void MainForm_Load(object sender, EventArgs e)
         {
             // Mặc định load Trang Chủ khi mở form
-            LoadForm(new OrderForm());
+            LoadForm(new OrderForm(_account));
+            username.Text = _account.TenTaiKhoan;
+
+            string imgPath = Path.Combine(Application.StartupPath, "images", "nhan_vien", _account.anh ?? "");
+
+            if (!string.IsNullOrEmpty(_account.anh) && File.Exists(imgPath))
+            {
+                // Load ảnh từ file
+                avatarUser.Image = Image.FromFile(imgPath);
+            }
+            else
+            {
+                // fallback ảnh mặc định nếu không tìm thấy
+                //avatarUser.Image = Properties.Resources;
+            }
+
+            //Kiểm tra quyền để hiển thị button
+            btnOrder.Enabled = Session.HasPermission("Vào order");
+            btnHoaDon.Enabled = Session.HasPermission("Vào hóa đơn");
+            btnThongKe.Enabled = Session.HasPermission("Vào thống kê");
+            btnKhuyenMai.Enabled = Session.HasPermission("Vào khuyến mãi");
+            btnPhieuNhap.Enabled = Session.HasPermission("Vào nhập hàng");
+            btnTaiKhoan.Enabled = Session.HasPermission("Vào tài khoản");
+            if (Session.AllowedFunctions.Count == 0)
+            {
+                Debug.WriteLine("khong co quyen");
+            }
+            Session.AllowedFunctions.ForEach(cn => Debug.WriteLine(cn.TenChucNang));
         }
 
 
@@ -40,7 +72,7 @@ namespace MilkTea.Client.Forms
 
         private void btnOrder_Click(object sender, EventArgs e)
         {
-            LoadForm(new OrderForm());  // Form Order
+            LoadForm(new OrderForm(_account));  // Form Order
 
         }
 
@@ -82,6 +114,11 @@ namespace MilkTea.Client.Forms
         private void panelContent_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void btnDangXuat_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

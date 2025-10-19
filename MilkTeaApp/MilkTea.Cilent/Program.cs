@@ -14,23 +14,28 @@ namespace MilkTea.Client
         [STAThread]
         static void Main()
         {
-            ApplicationConfiguration.Initialize();
-            // 1. Tạo service collection
-            var services = new ServiceCollection();
+                ApplicationConfiguration.Initialize();
+                // 1. Tạo service collection
+                var services = new ServiceCollection();
 
-            // 2. Đăng ký HttpClient + service
-            services.AddSingleton<HttpClient>();
-            services.AddTransient<TaiKhoanService>();
+                // 2. Đăng ký HttpClient + service
+                services.AddSingleton<HttpClient>();
+                services.AddTransient<TaiKhoanService>();
 
-            // 3. Đăng ký Form (có thể inject service vào Form)
-            services.AddTransient<MainForm>();
+                // 3. Đăng ký Form (có thể inject service vào Form)
 
-            // 4. Build provider
-            ServiceProvider = services.BuildServiceProvider();
+                services.AddTransient<MainForm>();
+                services.AddTransient<LoginForm>();
 
-            // 5. Lấy MainForm từ DI
-            var mainForm = ServiceProvider.GetRequiredService<MainForm>();
-            Application.Run(new MainForm());
+                // 4. Build provider
+                ServiceProvider = services.BuildServiceProvider();
+
+                // 5. Lấy MainForm từ DI
+                //var mainForm = ServiceProvider.GetRequiredService<MainForm>();
+                //Application.Run(new MainForm()); 
+
+                var loginForm = ServiceProvider.GetRequiredService<LoginForm>();
+                Application.Run(loginForm);
         }
     }
 }

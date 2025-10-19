@@ -1,10 +1,11 @@
+﻿using MilkTea.Client.Models;
 using System.Windows.Forms;
 
 namespace MilkTea.Client.Interfaces
 {
-    public interface IChucNangForm
+    public interface IBaseForm
     {
-        DataGridView GridChucNang { get; }
+        DataGridView Grid { get; }
         Label LblStatus { get; }
     }
 }

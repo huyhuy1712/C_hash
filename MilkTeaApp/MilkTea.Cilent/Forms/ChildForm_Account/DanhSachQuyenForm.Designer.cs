@@ -35,9 +35,6 @@
             panel3 = new Panel();
             Table = new Panel();
             dataGridView1 = new DataGridView();
-            tenQuyen = new DataGridViewTextBoxColumn();
-            sua = new DataGridViewImageColumn();
-            xoa = new DataGridViewImageColumn();
             Button = new Panel();
             lblStatus = new Label();
             btnDong = new MilkTea.Client.Controls.RoundedButton();
@@ -47,6 +44,10 @@
             txtbSearchQuyen = new MilkTea.Client.Controls.RoundedTextBox();
             panel2 = new Panel();
             label1 = new Label();
+            ID = new DataGridViewTextBoxColumn();
+            tenQuyen = new DataGridViewTextBoxColumn();
+            sua = new DataGridViewImageColumn();
+            xoa = new DataGridViewImageColumn();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             Table.SuspendLayout();
@@ -96,7 +97,7 @@
             dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.BackgroundColor = SystemColors.Control;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { tenQuyen, sua, xoa });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { ID, tenQuyen, sua, xoa });
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(0, 0);
             dataGridView1.Name = "dataGridView1";
@@ -104,44 +105,6 @@
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(760, 210);
             dataGridView1.TabIndex = 0;
-            // 
-            // tenQuyen
-            // 
-            tenQuyen.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            tenQuyen.HeaderText = "Tên Quyền";
-            tenQuyen.MinimumWidth = 6;
-            tenQuyen.Name = "tenQuyen";
-            tenQuyen.ReadOnly = true;
-            tenQuyen.Resizable = DataGridViewTriState.False;
-            // 
-            // sua
-            // 
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.NullValue = resources.GetObject("dataGridViewCellStyle1.NullValue");
-            dataGridViewCellStyle1.Padding = new Padding(3);
-            sua.DefaultCellStyle = dataGridViewCellStyle1;
-            sua.HeaderText = "Sửa";
-            sua.Image = Properties.Resources.edit;
-            sua.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            sua.MinimumWidth = 6;
-            sua.Name = "sua";
-            sua.ReadOnly = true;
-            sua.Resizable = DataGridViewTriState.True;
-            sua.SortMode = DataGridViewColumnSortMode.Automatic;
-            sua.Width = 125;
-            // 
-            // xoa
-            // 
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.NullValue = resources.GetObject("dataGridViewCellStyle2.NullValue");
-            dataGridViewCellStyle2.Padding = new Padding(3);
-            xoa.DefaultCellStyle = dataGridViewCellStyle2;
-            xoa.HeaderText = "Xóa";
-            xoa.Image = Properties.Resources.trash;
-            xoa.MinimumWidth = 6;
-            xoa.Name = "xoa";
-            xoa.ReadOnly = true;
-            xoa.Width = 125;
             // 
             // Button
             // 
@@ -257,6 +220,53 @@
             label1.Text = "Quyền";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // ID
+            // 
+            ID.HeaderText = "ID";
+            ID.MinimumWidth = 6;
+            ID.Name = "ID";
+            ID.ReadOnly = true;
+            ID.Resizable = DataGridViewTriState.False;
+            ID.Width = 75;
+            // 
+            // tenQuyen
+            // 
+            tenQuyen.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            tenQuyen.HeaderText = "Tên Quyền";
+            tenQuyen.MinimumWidth = 6;
+            tenQuyen.Name = "tenQuyen";
+            tenQuyen.ReadOnly = true;
+            tenQuyen.Resizable = DataGridViewTriState.False;
+            // 
+            // sua
+            // 
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.NullValue = resources.GetObject("dataGridViewCellStyle1.NullValue");
+            dataGridViewCellStyle1.Padding = new Padding(3);
+            sua.DefaultCellStyle = dataGridViewCellStyle1;
+            sua.HeaderText = "Sửa";
+            sua.Image = Properties.Resources.edit;
+            sua.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            sua.MinimumWidth = 6;
+            sua.Name = "sua";
+            sua.ReadOnly = true;
+            sua.Resizable = DataGridViewTriState.True;
+            sua.SortMode = DataGridViewColumnSortMode.Automatic;
+            sua.Width = 125;
+            // 
+            // xoa
+            // 
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.NullValue = resources.GetObject("dataGridViewCellStyle2.NullValue");
+            dataGridViewCellStyle2.Padding = new Padding(3);
+            xoa.DefaultCellStyle = dataGridViewCellStyle2;
+            xoa.HeaderText = "Xóa";
+            xoa.Image = Properties.Resources.trash;
+            xoa.MinimumWidth = 6;
+            xoa.Name = "xoa";
+            xoa.ReadOnly = true;
+            xoa.Width = 125;
+            // 
             // DanhSachQuyenForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -288,13 +298,14 @@
         private Controls.RoundedButton btnDong;
         private Panel Table;
         private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn tenQuyen;
-        private DataGridViewImageColumn sua;
-        private DataGridViewImageColumn xoa;
         private Panel Tool;
         private Controls.RoundedTextBox txtbSearchQuyen;
         private Controls.RoundedButton btnThemQuyen;
         private Panel panel7;
         private Label lblStatus;
+        private DataGridViewTextBoxColumn ID;
+        private DataGridViewTextBoxColumn tenQuyen;
+        private DataGridViewImageColumn sua;
+        private DataGridViewImageColumn xoa;
     }
 }

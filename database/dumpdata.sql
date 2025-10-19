@@ -48,7 +48,6 @@ INSERT IGNORE INTO ChucNang (TenChucNang, MoTa) VALUES
 ('Thêm tài khoản', 'Thêm tài khoản'),
 ('Sửa tài khoản', 'Sửa tài khoản'),
 ('Xóa tài khoản', 'Xóa tài khoản'),
-('Xem tài khoản', 'Xem tài khoản'),
 ('Thêm quyền', 'Thêm quyền'),
 ('Sửa quyền', 'Sửa quyền'),
 ('Xóa quyền', 'Xóa quyền'),

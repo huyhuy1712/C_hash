@@ -18,12 +18,15 @@ namespace MilkTea.Client.Forms
         private readonly CTCongThucService _ctCongThucService;
         private readonly buzzerService _buzzerService;
 
+        private TaiKhoan _current_account;
+
         //  Bộ nhớ tạm lưu nguyên liệu đã dùng (chỉ trong phiên order)
         private readonly Dictionary<int, decimal> _nguyenLieuDaDungTam = new();
 
-        public OrderForm()
+        public OrderForm(TaiKhoan account)
         {
             InitializeComponent();
+            _current_account = account;
             _sanPhamService = new SanPhamService();
             _loaiService = new LoaiService();
             _ctKhuyenMaiService = new CTKhuyenMaiService();
@@ -37,6 +40,9 @@ namespace MilkTea.Client.Forms
             try
             {
                 var sanPhams = await _sanPhamService.GetSanPhamsAsync();
+
+                //ghi username hiên tại 
+                Ten_NV_Label.Text = _current_account.TenTaiKhoan;
 
                 // Load loại sản phẩm vào combobox
                 var loais = await _loaiService.GetLoaisAsync();
