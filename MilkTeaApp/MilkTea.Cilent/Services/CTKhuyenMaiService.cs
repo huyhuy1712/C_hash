@@ -21,6 +21,15 @@ namespace MilkTea.Client.Services
         {
             return await _http.GetFromJsonAsync<CTKhuyenMai>($"/api/sanphamkhuyenmai/ctkhuyenmai/{MaSP}");
         }
+        public async Task<CTKhuyenMai> GetCTKhuyenMaiByIdAsync(int id)
+        {
+            var list = await _http.GetFromJsonAsync<List<CTKhuyenMai>>(
+        $"/api/ctkhuyenmai/search?column=MaCTKhuyenMai&value={id}"
+    );
+
+            // Trả về phần tử đầu tiên nếu có, hoặc null nếu rỗng
+            return list?.FirstOrDefault();
+        }
     }
 
 }
