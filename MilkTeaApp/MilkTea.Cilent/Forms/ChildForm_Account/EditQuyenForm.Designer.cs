@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             panel1 = new Panel();
             panel3 = new Panel();
             panel10 = new Panel();
@@ -141,10 +141,10 @@
             // 
             // chon
             // 
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.NullValue = false;
-            dataGridViewCellStyle2.Padding = new Padding(3);
-            chon.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.NullValue = false;
+            dataGridViewCellStyle1.Padding = new Padding(3);
+            chon.DefaultCellStyle = dataGridViewCellStyle1;
             chon.HeaderText = "";
             chon.MinimumWidth = 6;
             chon.Name = "chon";

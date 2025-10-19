@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DanhSachQuyenForm));
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel1 = new Panel();
             panel3 = new Panel();
             Table = new Panel();
@@ -38,21 +38,22 @@
             tenQuyen = new DataGridViewTextBoxColumn();
             sua = new DataGridViewImageColumn();
             xoa = new DataGridViewImageColumn();
+            Button = new Panel();
+            lblStatus = new Label();
+            btnDong = new MilkTea.Client.Controls.RoundedButton();
             Tool = new Panel();
             panel7 = new Panel();
             btnThemQuyen = new MilkTea.Client.Controls.RoundedButton();
             txtbSearchQuyen = new MilkTea.Client.Controls.RoundedTextBox();
-            Button = new Panel();
-            btnDong = new MilkTea.Client.Controls.RoundedButton();
             panel2 = new Panel();
             label1 = new Label();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             Table.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            Button.SuspendLayout();
             Tool.SuspendLayout();
             panel7.SuspendLayout();
-            Button.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
@@ -69,8 +70,8 @@
             // panel3
             // 
             panel3.BackColor = SystemColors.ScrollBar;
-            panel3.Controls.Add(Button);
             panel3.Controls.Add(Table);
+            panel3.Controls.Add(Button);
             panel3.Controls.Add(Tool);
             panel3.Dock = DockStyle.Fill;
             panel3.Location = new Point(0, 100);
@@ -85,12 +86,14 @@
             Table.Dock = DockStyle.Fill;
             Table.Location = new Point(20, 70);
             Table.Name = "Table";
-            Table.Size = new Size(760, 260);
+            Table.Size = new Size(760, 210);
             Table.TabIndex = 3;
             // 
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToResizeColumns = false;
+            dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.BackgroundColor = SystemColors.Control;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { tenQuyen, sua, xoa });
@@ -99,7 +102,7 @@
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(760, 260);
+            dataGridView1.Size = new Size(760, 210);
             dataGridView1.TabIndex = 0;
             // 
             // tenQuyen
@@ -113,10 +116,10 @@
             // 
             // sua
             // 
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.NullValue = resources.GetObject("dataGridViewCellStyle5.NullValue");
-            dataGridViewCellStyle5.Padding = new Padding(3);
-            sua.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.NullValue = resources.GetObject("dataGridViewCellStyle1.NullValue");
+            dataGridViewCellStyle1.Padding = new Padding(3);
+            sua.DefaultCellStyle = dataGridViewCellStyle1;
             sua.HeaderText = "Sửa";
             sua.Image = Properties.Resources.edit;
             sua.ImageLayout = DataGridViewImageCellLayout.Zoom;
@@ -129,16 +132,55 @@
             // 
             // xoa
             // 
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.NullValue = resources.GetObject("dataGridViewCellStyle6.NullValue");
-            dataGridViewCellStyle6.Padding = new Padding(3);
-            xoa.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.NullValue = resources.GetObject("dataGridViewCellStyle2.NullValue");
+            dataGridViewCellStyle2.Padding = new Padding(3);
+            xoa.DefaultCellStyle = dataGridViewCellStyle2;
             xoa.HeaderText = "Xóa";
             xoa.Image = Properties.Resources.trash;
             xoa.MinimumWidth = 6;
             xoa.Name = "xoa";
             xoa.ReadOnly = true;
             xoa.Width = 125;
+            // 
+            // Button
+            // 
+            Button.Controls.Add(lblStatus);
+            Button.Controls.Add(btnDong);
+            Button.Dock = DockStyle.Bottom;
+            Button.Location = new Point(20, 280);
+            Button.Name = "Button";
+            Button.Padding = new Padding(0, 10, 0, 0);
+            Button.Size = new Size(760, 50);
+            Button.TabIndex = 2;
+            // 
+            // lblStatus
+            // 
+            lblStatus.Dock = DockStyle.Left;
+            lblStatus.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblStatus.Location = new Point(0, 10);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(629, 40);
+            lblStatus.TabIndex = 1;
+            // 
+            // btnDong
+            // 
+            btnDong.BackColor = Color.Red;
+            btnDong.BorderColor = Color.DodgerBlue;
+            btnDong.BorderRadius = 20;
+            btnDong.BorderSize = 0;
+            btnDong.Dock = DockStyle.Right;
+            btnDong.FlatAppearance.BorderSize = 0;
+            btnDong.FlatStyle = FlatStyle.Flat;
+            btnDong.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnDong.ForeColor = Color.White;
+            btnDong.Location = new Point(635, 10);
+            btnDong.Name = "btnDong";
+            btnDong.Size = new Size(125, 40);
+            btnDong.TabIndex = 0;
+            btnDong.Text = "Đóng";
+            btnDong.UseVisualStyleBackColor = false;
+            btnDong.Click += btnDong_Click;
             // 
             // Tool
             // 
@@ -194,35 +236,6 @@
             txtbSearchQuyen.TabIndex = 1;
             txtbSearchQuyen.TextValue = "";
             // 
-            // Button
-            // 
-            Button.Controls.Add(btnDong);
-            Button.Dock = DockStyle.Bottom;
-            Button.Location = new Point(20, 280);
-            Button.Name = "Button";
-            Button.Padding = new Padding(0, 10, 0, 0);
-            Button.Size = new Size(760, 50);
-            Button.TabIndex = 2;
-            // 
-            // btnDong
-            // 
-            btnDong.BackColor = Color.Red;
-            btnDong.BorderColor = Color.DodgerBlue;
-            btnDong.BorderRadius = 20;
-            btnDong.BorderSize = 0;
-            btnDong.Dock = DockStyle.Right;
-            btnDong.FlatAppearance.BorderSize = 0;
-            btnDong.FlatStyle = FlatStyle.Flat;
-            btnDong.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            btnDong.ForeColor = Color.White;
-            btnDong.Location = new Point(635, 10);
-            btnDong.Name = "btnDong";
-            btnDong.Size = new Size(125, 40);
-            btnDong.TabIndex = 0;
-            btnDong.Text = "Đóng";
-            btnDong.UseVisualStyleBackColor = false;
-            btnDong.Click += btnDong_Click;
-            // 
             // panel2
             // 
             panel2.Controls.Add(label1);
@@ -258,9 +271,9 @@
             panel3.ResumeLayout(false);
             Table.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            Button.ResumeLayout(false);
             Tool.ResumeLayout(false);
             panel7.ResumeLayout(false);
-            Button.ResumeLayout(false);
             panel2.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -282,5 +295,6 @@
         private Controls.RoundedTextBox txtbSearchQuyen;
         private Controls.RoundedButton btnThemQuyen;
         private Panel panel7;
+        private Label lblStatus;
     }
 }

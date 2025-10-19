@@ -1,3 +1,5 @@
+using MilkTea.Server.Models;
+
 namespace MilkTea.Client.Models
 {
     public class ChiTietDonHang
@@ -22,5 +24,8 @@ namespace MilkTea.Client.Models
 
         // Tổng giá (SoLuong * Giá bán)
         public decimal TongGia { get; set; }
+
+        public List<ctdonhang_topping> Toppings { get; set; } = new();
+
     }
 }
