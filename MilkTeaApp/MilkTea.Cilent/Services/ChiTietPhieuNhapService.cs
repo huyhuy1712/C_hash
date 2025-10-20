@@ -14,5 +14,11 @@ namespace MilkTea.Client.Services
         {
             return await _http.GetFromJsonAsync<List<ChiTietPhieuNhap>>($"api/chitietphieunhap/by-mapn?maPN={maPN}");
         }
+
+        public async Task AddChiTietPhieuNhapAsync(ChiTietPhieuNhap ct)
+        {
+            var response = await _http.PostAsJsonAsync("/api/chitietphieunhap", ct);
+            response.EnsureSuccessStatusCode();
+        }
     }
 }
