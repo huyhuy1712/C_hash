@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -122,7 +123,8 @@ namespace MilkTea.Client.Forms.ChildForm_Import
                     TongTien = _tempChiTiets.Sum(t => t.TongGia)
                 };
 
-                int newMaPN = await _phieuNhapService.AddPhieuNhapAsync(pn);
+                int newMaPN=await _phieuNhapService.AddPhieuNhapAsync(pn);
+                Debug.WriteLine(newMaPN);
 
                 foreach (var temp in _tempChiTiets)
                 {
