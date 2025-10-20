@@ -29,13 +29,23 @@ namespace MilkTea.Client.Controls
 
             label_maDH.Text = dh.MaDH.ToString();
             label_NgayLap.Text = dh.NgayLap?.ToString("dd/MM/yyyy") ?? "N/A";
-            label_GioLap.Text = dh.GioLap?.ToString(@"hh\:mm") ?? "N/A";
+            pictureBox2.Text = dh.GioLap?.ToString(@"hh\:mm") ?? "N/A";
             label_TongGia.Text = dh.TongGia.ToString("N0") + " VND";
             label_MaBuzzer.Text = dh.MaBuzzer?.ToString() ?? "N/A";
             // các label khác tuỳ bạn thêm
         }
 
         private void pictureBox_PhuongThucThanhToan_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
         {
 
         }

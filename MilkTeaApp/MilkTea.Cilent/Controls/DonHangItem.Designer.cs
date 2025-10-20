@@ -21,30 +21,32 @@ namespace MilkTea.Client.Controls
             panel5 = new Panel();
             label_NgayLap = new Label();
             label_maDH = new Label();
-            panel6 = new Panel();
-            panel10 = new Panel();
-            panel11 = new Panel();
-            pictureBox_PhuongThucThanhToan = new PictureBox();
-            label_GioLap = new Label();
-            pictureBox8 = new PictureBox();
-            label_TongGia = new Label();
-            panel7 = new Panel();
-            label_MaBuzzer = new Label();
             tableLayoutPanel2 = new TableLayoutPanel();
             pictureBox4 = new PictureBox();
             pictureBox5 = new PictureBox();
             pictureBox6 = new PictureBox();
+            panel1 = new Panel();
+            panel2 = new Panel();
+            panel3 = new Panel();
+            panel4 = new Panel();
+            pictureBox1 = new PictureBox();
+            label_GioLap = new Label();
+            pictureBox2 = new PictureBox();
+            label_TongGia = new Label();
+            panel8 = new Panel();
+            label_MaBuzzer = new Label();
             panel5.SuspendLayout();
-            panel6.SuspendLayout();
-            panel10.SuspendLayout();
-            panel11.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox_PhuongThucThanhToan).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
-            panel7.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
+            panel3.SuspendLayout();
+            panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            panel8.SuspendLayout();
             SuspendLayout();
             // 
             // panel5
@@ -78,104 +80,6 @@ namespace MilkTea.Client.Controls
             label_maDH.TabIndex = 1;
             label_maDH.Text = "1";
             label_maDH.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // panel6
-            // 
-            panel6.BackColor = SystemColors.ControlLight;
-            panel6.Controls.Add(panel10);
-            panel6.Controls.Add(panel7);
-            panel6.Dock = DockStyle.Fill;
-            panel6.Location = new Point(0, 32);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(210, 70);
-            panel6.TabIndex = 0;
-            // 
-            // panel10
-            // 
-            panel10.BackColor = SystemColors.ButtonHighlight;
-            panel10.Controls.Add(panel11);
-            panel10.Controls.Add(label_TongGia);
-            panel10.Dock = DockStyle.Fill;
-            panel10.Location = new Point(48, 0);
-            panel10.Name = "panel10";
-            panel10.Size = new Size(162, 70);
-            panel10.TabIndex = 0;
-            // 
-            // panel11
-            // 
-            panel11.BorderStyle = BorderStyle.FixedSingle;
-            panel11.Controls.Add(pictureBox_PhuongThucThanhToan);
-            panel11.Controls.Add(label_GioLap);
-            panel11.Controls.Add(pictureBox8);
-            panel11.Dock = DockStyle.Fill;
-            panel11.Location = new Point(0, 29);
-            panel11.Name = "panel11";
-            panel11.Size = new Size(162, 41);
-            panel11.TabIndex = 0;
-            // 
-            // pictureBox_PhuongThucThanhToan
-            // 
-            pictureBox_PhuongThucThanhToan.Dock = DockStyle.Right;
-            pictureBox_PhuongThucThanhToan.Image = Properties.Resources.money;
-            pictureBox_PhuongThucThanhToan.Location = new Point(85, 0);
-            pictureBox_PhuongThucThanhToan.Name = "pictureBox_PhuongThucThanhToan";
-            pictureBox_PhuongThucThanhToan.Size = new Size(75, 39);
-            pictureBox_PhuongThucThanhToan.SizeMode = PictureBoxSizeMode.CenterImage;
-            pictureBox_PhuongThucThanhToan.TabIndex = 0;
-            pictureBox_PhuongThucThanhToan.TabStop = false;
-            pictureBox_PhuongThucThanhToan.Click += pictureBox_PhuongThucThanhToan_Click;
-            // 
-            // label_GioLap
-            // 
-            label_GioLap.Dock = DockStyle.Fill;
-            label_GioLap.Location = new Point(32, 0);
-            label_GioLap.Name = "label_GioLap";
-            label_GioLap.Size = new Size(128, 39);
-            label_GioLap.TabIndex = 1;
-            label_GioLap.Text = "14:30";
-            label_GioLap.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // pictureBox8
-            // 
-            pictureBox8.Dock = DockStyle.Left;
-            pictureBox8.Image = Properties.Resources.alarm;
-            pictureBox8.Location = new Point(0, 0);
-            pictureBox8.Name = "pictureBox8";
-            pictureBox8.Size = new Size(32, 39);
-            pictureBox8.SizeMode = PictureBoxSizeMode.CenterImage;
-            pictureBox8.TabIndex = 2;
-            pictureBox8.TabStop = false;
-            // 
-            // label_TongGia
-            // 
-            label_TongGia.Dock = DockStyle.Top;
-            label_TongGia.Location = new Point(0, 0);
-            label_TongGia.Name = "label_TongGia";
-            label_TongGia.Size = new Size(162, 29);
-            label_TongGia.TabIndex = 1;
-            label_TongGia.Text = "90.000";
-            label_TongGia.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // panel7
-            // 
-            panel7.BackColor = SystemColors.ButtonHighlight;
-            panel7.Controls.Add(label_MaBuzzer);
-            panel7.Dock = DockStyle.Left;
-            panel7.Location = new Point(0, 0);
-            panel7.Name = "panel7";
-            panel7.Size = new Size(48, 70);
-            panel7.TabIndex = 1;
-            // 
-            // label_MaBuzzer
-            // 
-            label_MaBuzzer.BorderStyle = BorderStyle.FixedSingle;
-            label_MaBuzzer.Dock = DockStyle.Fill;
-            label_MaBuzzer.Location = new Point(0, 0);
-            label_MaBuzzer.Name = "label_MaBuzzer";
-            label_MaBuzzer.Size = new Size(48, 70);
-            label_MaBuzzer.TabIndex = 0;
-            label_MaBuzzer.Text = "B1";
-            label_MaBuzzer.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // tableLayoutPanel2
             // 
@@ -228,44 +132,154 @@ namespace MilkTea.Client.Controls
             pictureBox6.TabIndex = 2;
             pictureBox6.TabStop = false;
             // 
+            // panel1
+            // 
+            panel1.Controls.Add(panel2);
+            panel1.Controls.Add(panel5);
+            panel1.Controls.Add(tableLayoutPanel2);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(210, 140);
+            panel1.TabIndex = 2;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = SystemColors.ControlLight;
+            panel2.Controls.Add(panel3);
+            panel2.Controls.Add(panel8);
+            panel2.Dock = DockStyle.Fill;
+            panel2.Location = new Point(0, 32);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(210, 70);
+            panel2.TabIndex = 2;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = SystemColors.ButtonHighlight;
+            panel3.Controls.Add(panel4);
+            panel3.Controls.Add(label_TongGia);
+            panel3.Dock = DockStyle.Fill;
+            panel3.Location = new Point(48, 0);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(162, 70);
+            panel3.TabIndex = 0;
+            // 
+            // panel4
+            // 
+            panel4.BorderStyle = BorderStyle.FixedSingle;
+            panel4.Controls.Add(pictureBox1);
+            panel4.Controls.Add(label_GioLap);
+            panel4.Controls.Add(pictureBox2);
+            panel4.Dock = DockStyle.Fill;
+            panel4.Location = new Point(0, 29);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(162, 41);
+            panel4.TabIndex = 0;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Dock = DockStyle.Right;
+            pictureBox1.Image = Properties.Resources.money;
+            pictureBox1.Location = new Point(85, 0);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(75, 39);
+            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
+            // 
+            // label_GioLap
+            // 
+            label_GioLap.Dock = DockStyle.Fill;
+            label_GioLap.Location = new Point(32, 0);
+            label_GioLap.Name = "label_GioLap";
+            label_GioLap.Size = new Size(128, 39);
+            label_GioLap.TabIndex = 1;
+            label_GioLap.Text = "14:30";
+            label_GioLap.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Dock = DockStyle.Left;
+            pictureBox2.Image = Properties.Resources.alarm;
+            pictureBox2.Location = new Point(0, 0);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(32, 39);
+            pictureBox2.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox2.TabIndex = 2;
+            pictureBox2.TabStop = false;
+            pictureBox2.Click += pictureBox2_Click;
+            // 
+            // label_TongGia
+            // 
+            label_TongGia.Dock = DockStyle.Top;
+            label_TongGia.Location = new Point(0, 0);
+            label_TongGia.Name = "label_TongGia";
+            label_TongGia.Size = new Size(162, 29);
+            label_TongGia.TabIndex = 1;
+            label_TongGia.Text = "90.000";
+            label_TongGia.TextAlign = ContentAlignment.MiddleCenter;
+            label_TongGia.Click += label2_Click;
+            // 
+            // panel8
+            // 
+            panel8.BackColor = SystemColors.ButtonHighlight;
+            panel8.Controls.Add(label_MaBuzzer);
+            panel8.Dock = DockStyle.Left;
+            panel8.Location = new Point(0, 0);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(48, 70);
+            panel8.TabIndex = 1;
+            // 
+            // label_MaBuzzer
+            // 
+            label_MaBuzzer.BorderStyle = BorderStyle.FixedSingle;
+            label_MaBuzzer.Dock = DockStyle.Fill;
+            label_MaBuzzer.Location = new Point(0, 0);
+            label_MaBuzzer.Name = "label_MaBuzzer";
+            label_MaBuzzer.Size = new Size(48, 70);
+            label_MaBuzzer.TabIndex = 0;
+            label_MaBuzzer.Text = "B1";
+            label_MaBuzzer.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // DonHangItem
             // 
-            Controls.Add(panel6);
-            Controls.Add(tableLayoutPanel2);
-            Controls.Add(panel5);
+            Controls.Add(panel1);
             Name = "DonHangItem";
             Size = new Size(210, 140);
             panel5.ResumeLayout(false);
-            panel6.ResumeLayout(false);
-            panel10.ResumeLayout(false);
-            panel11.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox_PhuongThucThanhToan).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
-            panel7.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
+            panel1.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel3.ResumeLayout(false);
+            panel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            panel8.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
         private Panel panel5;
-        private Panel panel6;
-        private Panel panel10;
-        private Panel panel11;
-        private Panel panel7;
         private TableLayoutPanel tableLayoutPanel2;
         private Label label_maDH;
         private Label label_NgayLap;
-        private Label label_MaBuzzer;
-        private Label label_GioLap;
-        private Label label_TongGia;
         private PictureBox pictureBox4;
         private PictureBox pictureBox5;
         private PictureBox pictureBox6;
-        private PictureBox pictureBox_PhuongThucThanhToan;
-        private PictureBox pictureBox8;
+        private Panel panel1;
+        private Panel panel2;
+        private Panel panel3;
+        private Panel panel4;
+        private PictureBox pictureBox1;
+        private Label label_GioLap;
+        private PictureBox pictureBox2;
+        private Label label_TongGia;
+        private Panel panel8;
+        private Label label_MaBuzzer;
     }
 }

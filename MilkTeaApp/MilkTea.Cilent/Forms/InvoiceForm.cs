@@ -31,7 +31,7 @@ namespace MilkTea.Client.Forms
             var donHangList = await _donHangService.GetAllDonHangAsync();
 
             // Xóa panel cũ trước khi thêm mới
-            tableLayoutPanel1.Controls.Clear(); // nếu dùng FlowLayoutPanel thì đổi tên
+            flowLayoutPanel1.Controls.Clear(); // nếu dùng FlowLayoutPanel thì đổi tên
 
 
 
@@ -42,7 +42,7 @@ namespace MilkTea.Client.Forms
                 item.Size = new System.Drawing.Size(210, 140); // đảm bảo đúng kích thước
                 item.Margin = new Padding(10);
 
-                tableLayoutPanel1.Controls.Add(item); // nếu dùng FlowLayoutPanel thì FlowLayoutPanel.Controls.Add(item)
+                flowLayoutPanel1.Controls.Add(item); // nếu dùng FlowLayoutPanel thì FlowLayoutPanel.Controls.Add(item)
 
             }
         }
