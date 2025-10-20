@@ -299,8 +299,23 @@ namespace MilkTea.Client.Forms
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
-                MessageBox.Show("Lỗi khi tải dữ liệu doanh thu: " + ex.Message);
+                // In chi tiết lỗi ra Console (xem trong Output Window)
+                Console.WriteLine("------ LỖI KHI LẤY DỮ LIỆU DOANH THU ------");
+                Console.WriteLine("Message: " + ex.Message);
+                if (ex.InnerException != null)
+                    Console.WriteLine("InnerException: " + ex.InnerException.Message);
+                Console.WriteLine("StackTrace: " + ex.StackTrace);
+
+                // Hiển thị lỗi đầy đủ trong MessageBox
+                MessageBox.Show(
+                    "Lỗi khi tải dữ liệu doanh thu:\n" +
+                    ex.Message +
+                    (ex.InnerException != null ? "\n\nChi tiết: " + ex.InnerException.Message : "") +
+                    "\n\n" + ex.StackTrace,
+                    "Lỗi",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
 
