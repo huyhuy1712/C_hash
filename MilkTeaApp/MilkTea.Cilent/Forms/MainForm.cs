@@ -54,7 +54,7 @@ namespace MilkTea.Client.Forms
             }
 
             //Kiểm tra quyền để hiển thị button
-            btnOrder.Enabled = Session.HasPermission("Vào order");
+            btnOrder.Enabled = Session.HasPermission("Vào đơn hàng");
             btnHoaDon.Enabled = Session.HasPermission("Vào hóa đơn");
             btnThongKe.Enabled = Session.HasPermission("Vào thống kê");
             btnKhuyenMai.Enabled = Session.HasPermission("Vào khuyến mãi");

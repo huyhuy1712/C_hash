@@ -33,6 +33,9 @@
             panel4 = new Panel();
             Table = new Panel();
             dataGridView1 = new DataGridView();
+            ID = new DataGridViewTextBoxColumn();
+            chucNang = new DataGridViewTextBoxColumn();
+            chon = new DataGridViewCheckBoxColumn();
             TimKiem = new Panel();
             textBox1 = new TextBox();
             Button = new Panel();
@@ -46,9 +49,6 @@
             label2 = new Label();
             Title = new Panel();
             label1 = new Label();
-            ID = new DataGridViewTextBoxColumn();
-            chucNang = new DataGridViewTextBoxColumn();
-            chon = new DataGridViewCheckBoxColumn();
             panel1.SuspendLayout();
             panel4.SuspendLayout();
             Table.SuspendLayout();
@@ -111,6 +111,37 @@
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(760, 451);
             dataGridView1.TabIndex = 0;
+            // 
+            // ID
+            // 
+            ID.HeaderText = "ID";
+            ID.MinimumWidth = 6;
+            ID.Name = "ID";
+            ID.ReadOnly = true;
+            ID.Width = 75;
+            // 
+            // chucNang
+            // 
+            chucNang.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            chucNang.HeaderText = "Chức Năng";
+            chucNang.MinimumWidth = 6;
+            chucNang.Name = "chucNang";
+            chucNang.ReadOnly = true;
+            chucNang.Resizable = DataGridViewTriState.False;
+            // 
+            // chon
+            // 
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.NullValue = false;
+            dataGridViewCellStyle1.Padding = new Padding(3);
+            chon.DefaultCellStyle = dataGridViewCellStyle1;
+            chon.HeaderText = "";
+            chon.MinimumWidth = 6;
+            chon.Name = "chon";
+            chon.ReadOnly = true;
+            chon.Resizable = DataGridViewTriState.True;
+            chon.SortMode = DataGridViewColumnSortMode.Automatic;
+            chon.Width = 125;
             // 
             // TimKiem
             // 
@@ -223,6 +254,7 @@
             txtbTenQuyen.Size = new Size(760, 40);
             txtbTenQuyen.TabIndex = 1;
             txtbTenQuyen.TextValue = "";
+            txtbTenQuyen.KeyDown += txtbTenQuyen_KeyDown;
             // 
             // label
             // 
@@ -264,37 +296,6 @@
             label1.TabIndex = 0;
             label1.Text = "Thêm Quyền";
             label1.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // ID
-            // 
-            ID.HeaderText = "ID";
-            ID.MinimumWidth = 6;
-            ID.Name = "ID";
-            ID.ReadOnly = true;
-            ID.Width = 75;
-            // 
-            // chucNang
-            // 
-            chucNang.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            chucNang.HeaderText = "Chức Năng";
-            chucNang.MinimumWidth = 6;
-            chucNang.Name = "chucNang";
-            chucNang.ReadOnly = true;
-            chucNang.Resizable = DataGridViewTriState.False;
-            // 
-            // chon
-            // 
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.NullValue = false;
-            dataGridViewCellStyle1.Padding = new Padding(3);
-            chon.DefaultCellStyle = dataGridViewCellStyle1;
-            chon.HeaderText = "";
-            chon.MinimumWidth = 6;
-            chon.Name = "chon";
-            chon.ReadOnly = true;
-            chon.Resizable = DataGridViewTriState.True;
-            chon.SortMode = DataGridViewColumnSortMode.Automatic;
-            chon.Width = 125;
             // 
             // AddQuyenForm
             // 

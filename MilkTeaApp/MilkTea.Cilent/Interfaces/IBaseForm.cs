@@ -1,4 +1,5 @@
-﻿using MilkTea.Client.Models;
+﻿using MilkTea.Client.Controls;
+using MilkTea.Client.Models;
 using System.Windows.Forms;
 
 namespace MilkTea.Client.Interfaces
@@ -7,5 +8,10 @@ namespace MilkTea.Client.Interfaces
     {
         DataGridView Grid { get; }
         Label LblStatus { get; }
+    }
+
+    public interface IDanhSachQuyenForm
+    {
+        TextBox Txtb { get; }
     }
 }
