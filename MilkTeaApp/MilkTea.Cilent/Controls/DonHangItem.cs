@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static MilkTea.Client.Controls.ProductItem;
 
 namespace MilkTea.Client.Controls
 {
@@ -15,7 +16,7 @@ namespace MilkTea.Client.Controls
     {
         // Biến lưu sản phẩm hiện tại để khi click có thể dùng lại
         private DonHang? donHang; // Make donHang nullable
-
+        //public event EventHandler<DonHangEventArgs> OnDonHangSelected;
         public DonHangItem()
         {
             InitializeComponent();
@@ -49,5 +50,44 @@ namespace MilkTea.Client.Controls
         {
 
         }
+        // Khai báo biến trạng thái (ở class Form)
+        private bool isImage1 = true;
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            if (isImage1)
+            {
+                pictureBox1.Image = Properties.Resources.money; // đổi sang ảnh 2
+                isImage1 = false;
+            }
+            else
+            {
+                pictureBox1.Image = Properties.Resources.card; // đổi lại ảnh 1
+                isImage1 = true;
+            }
+        }
+
+        private void pictureBox6_Click(object sender, EventArgs e)
+        {
+            // Hiển thị hộp thoại xác nhận
+            DialogResult result = MessageBox.Show(
+                "Bạn có muốn xóa đơn hàng không?", // nội dung thông báo
+                "Xác nhận xóa",                    // tiêu đề hộp thoại
+                MessageBoxButtons.YesNo,           // nút Yes/No
+                MessageBoxIcon.Question            // biểu tượng câu hỏi
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                // Người dùng chọn Yes -> thực hiện xóa đơn hàng
+                // TODO: thêm code xóa đơn hàng ở đây
+                MessageBox.Show("Đơn hàng đã được xóa!");
+            }
+            else
+            {
+                // Người dùng chọn No -> không làm gì
+                // có thể để trống
+            }
+        }
+
     }
 }

@@ -131,6 +131,7 @@ namespace MilkTea.Client.Controls
             pictureBox6.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox6.TabIndex = 2;
             pictureBox6.TabStop = false;
+            pictureBox6.Click += pictureBox6_Click;
             // 
             // panel1
             // 
@@ -179,14 +180,14 @@ namespace MilkTea.Client.Controls
             // 
             // pictureBox1
             // 
-            pictureBox1.Dock = DockStyle.Right;
-            pictureBox1.Image = Properties.Resources.money;
+            pictureBox1.Image = Properties.Resources.card;
             pictureBox1.Location = new Point(85, 0);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(75, 39);
-            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
             // 
             // label_GioLap
             // 

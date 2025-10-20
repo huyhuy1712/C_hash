@@ -17,7 +17,7 @@ namespace MilkTea.Client.Forms
         {
             InitializeComponent();
             _donHangService = new DonHangService(); // khởi tạo service
-            
+
         }
 
         private async void InvoiceForm_Load(object sender, EventArgs e)
@@ -39,6 +39,7 @@ namespace MilkTea.Client.Forms
             {
                 var item = new DonHangItem();
                 item.SetData(dh);
+                //item.OnDonHangSelected += DonHangItem_OnDonHangSelected;
                 item.Size = new System.Drawing.Size(210, 140); // đảm bảo đúng kích thước
                 item.Margin = new Padding(10);
 
@@ -46,7 +47,11 @@ namespace MilkTea.Client.Forms
 
             }
         }
-        
+        // ==================== KHI CHỌN 1 đơn hàng ====================
+        //private async void DonHangItem_OnDonHangSelected(object sender, ProductItem.SanPhamEventArgs e)
+        //{
 
+
+        //}
     }
 }
