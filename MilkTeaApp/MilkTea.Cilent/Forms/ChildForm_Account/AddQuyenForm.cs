@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -33,6 +34,12 @@ namespace MilkTea.Client.Forms.ChildForm_Account
         private async void AddQuyenForm_Load(object sender, EventArgs e)
         {
             await _presenter.LoadDataAsync();
+        }
+
+        private void txtbTenQuyen_KeyDown(object sender, KeyEventArgs e)
+        {
+            Debug.WriteLine("hello");
+            //_presenter.Search();
         }
     }
 }

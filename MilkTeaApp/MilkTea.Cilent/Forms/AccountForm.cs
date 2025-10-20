@@ -1,5 +1,6 @@
 ﻿using MilkTea.Client.Forms.ChildForm_Account;
 using MilkTea.Client.Interfaces;
+using MilkTea.Client.Models;
 using MilkTea.Client.Presenters;
 using MilkTea.Client.Services;
 using System;
@@ -23,6 +24,11 @@ namespace MilkTea.Client.Forms
         private async void AccountForm_Load(object sender, EventArgs e)
         {
             await _presenter.LoadDataAsync();
+            
+            xoa.Visible = Session.HasPermission("Xóa tài khoản");
+            sua.Visible = Session.HasPermission("Sửa tài khoản");
+
+
         }
 
         private void btnThemAccount_Click(object sender, EventArgs e)
