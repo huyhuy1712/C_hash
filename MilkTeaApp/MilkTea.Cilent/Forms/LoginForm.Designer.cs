@@ -85,10 +85,11 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.download1;
+            pictureBox1.Image = Properties.Resources.login1;
             pictureBox1.Location = new Point(51, 115);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(24, 25);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 3;
             pictureBox1.TabStop = false;
             // 
