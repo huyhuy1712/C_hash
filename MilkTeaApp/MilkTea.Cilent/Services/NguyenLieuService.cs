@@ -26,5 +26,10 @@ namespace MilkTea.Client.Services
             return response.IsSuccessStatusCode;
         }
 
+        public async Task<bool> CongNguyenLieuAsync(int maNL, int soLuong)
+        {
+            var response = await _http.PutAsync($"/api/nguyenlieu/cong/{maNL}/{soLuong}", null);
+            return response.IsSuccessStatusCode;
+        }
     }
 }
