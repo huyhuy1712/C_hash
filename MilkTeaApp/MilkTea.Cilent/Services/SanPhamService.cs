@@ -23,8 +23,10 @@ namespace MilkTea.Client.Services
             return await _http.GetFromJsonAsync<SanPham>($"/api/sanpham/{id}");
         }
 
-     
-
+        public async Task<bool> AddSanPhamAysync(SanPham sp)
+        {
+            var response = await _http.PostAsJsonAsync("/api/sanpham", sp);
+            return response.IsSuccessStatusCode;
+        }
     }
-
 }

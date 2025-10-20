@@ -27,5 +27,10 @@ namespace MilkTea.Client.Forms.ChildForm_Order
             AddRecipeForm addRecipeForm = new AddRecipeForm();
             addRecipeForm.ShowDialog();
         }
+
+        private void roundedTextBox2_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

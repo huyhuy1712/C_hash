@@ -216,7 +216,7 @@ namespace MilkTea.Client.Forms
             // Mở hóa đơn
             var invoice = new InvoiceOrder
             {
-                NhanVien = Ten_NV_Label.Text, 
+                NhanVien = Ten_NV_Label.Text,
                 PhuongThucThanhToan = phuongThucThanhToan,
 
                 MaMay = maMay,
@@ -342,6 +342,13 @@ namespace MilkTea.Client.Forms
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void roundedButton1_Click(object sender, EventArgs e)
+        {
+            AddProductForm addProductForm = new AddProductForm();
+            addProductForm.StartPosition = FormStartPosition.CenterScreen; // Giữa màn hình
+            addProductForm.ShowDialog();
         }
     }
 }

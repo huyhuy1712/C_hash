@@ -58,9 +58,9 @@
             label1.Dock = DockStyle.Top;
             label1.Font = new Font("Segoe UI", 15F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.DeepSkyBlue;
-            label1.Location = new Point(0, 0);
+            label1.Location = new Point(10, 10);
             label1.Name = "label1";
-            label1.Size = new Size(404, 58);
+            label1.Size = new Size(452, 58);
             label1.TabIndex = 0;
             label1.Text = "Thêm sản phẩm";
             label1.TextAlign = ContentAlignment.MiddleCenter;
@@ -70,10 +70,10 @@
             footer_panel.Controls.Add(huy_btn);
             footer_panel.Controls.Add(XacNhan_btn);
             footer_panel.Dock = DockStyle.Bottom;
-            footer_panel.Location = new Point(0, 364);
+            footer_panel.Location = new Point(10, 384);
             footer_panel.Name = "footer_panel";
             footer_panel.Padding = new Padding(10);
-            footer_panel.Size = new Size(404, 56);
+            footer_panel.Size = new Size(452, 56);
             footer_panel.TabIndex = 4;
             // 
             // huy_btn
@@ -88,7 +88,7 @@
             huy_btn.FlatStyle = FlatStyle.Flat;
             huy_btn.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             huy_btn.ForeColor = Color.White;
-            huy_btn.Location = new Point(188, 10);
+            huy_btn.Location = new Point(236, 10);
             huy_btn.Name = "huy_btn";
             huy_btn.Size = new Size(80, 36);
             huy_btn.TabIndex = 1;
@@ -108,7 +108,7 @@
             XacNhan_btn.FlatStyle = FlatStyle.Flat;
             XacNhan_btn.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             XacNhan_btn.ForeColor = Color.White;
-            XacNhan_btn.Location = new Point(268, 10);
+            XacNhan_btn.Location = new Point(316, 10);
             XacNhan_btn.Name = "XacNhan_btn";
             XacNhan_btn.Size = new Size(126, 36);
             XacNhan_btn.TabIndex = 0;
@@ -126,16 +126,16 @@
             panel1.Controls.Add(ten_textbox);
             panel1.Controls.Add(label2);
             panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(0, 58);
+            panel1.Location = new Point(10, 68);
             panel1.Name = "panel1";
-            panel1.Size = new Size(404, 306);
+            panel1.Size = new Size(452, 316);
             panel1.TabIndex = 5;
             // 
             // checkBox1
             // 
             checkBox1.AutoSize = true;
             checkBox1.Enabled = false;
-            checkBox1.Location = new Point(188, 275);
+            checkBox1.Location = new Point(187, 286);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(18, 17);
             checkBox1.TabIndex = 7;
@@ -152,7 +152,7 @@
             roundedButton2.FlatStyle = FlatStyle.Flat;
             roundedButton2.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             roundedButton2.ForeColor = Color.White;
-            roundedButton2.Location = new Point(8, 262);
+            roundedButton2.Location = new Point(8, 273);
             roundedButton2.Name = "roundedButton2";
             roundedButton2.Size = new Size(169, 37);
             roundedButton2.TabIndex = 6;
@@ -169,7 +169,7 @@
             panel3.Location = new Point(0, 202);
             panel3.Name = "panel3";
             panel3.Padding = new Padding(8);
-            panel3.Size = new Size(404, 54);
+            panel3.Size = new Size(452, 54);
             panel3.TabIndex = 5;
             // 
             // roundedTextBox2
@@ -177,15 +177,15 @@
             roundedTextBox2.BackColor = Color.White;
             roundedTextBox2.BorderColor = Color.Gray;
             roundedTextBox2.BorderRadius = 20;
-            roundedTextBox2.Dock = DockStyle.Left;
             roundedTextBox2.FocusBorderColor = Color.DeepSkyBlue;
-            roundedTextBox2.Location = new Point(205, 8);
+            roundedTextBox2.Location = new Point(236, 6);
             roundedTextBox2.Name = "roundedTextBox2";
             roundedTextBox2.Padding = new Padding(10, 5, 40, 5);
             roundedTextBox2.Placeholder = "File đã chọn";
             roundedTextBox2.Size = new Size(188, 38);
             roundedTextBox2.TabIndex = 5;
             roundedTextBox2.TextValue = "";
+            roundedTextBox2.Load += roundedTextBox2_Load;
             // 
             // roundedButton1
             // 
@@ -227,7 +227,7 @@
             panel2.Location = new Point(0, 148);
             panel2.Name = "panel2";
             panel2.Padding = new Padding(8);
-            panel2.Size = new Size(404, 54);
+            panel2.Size = new Size(452, 54);
             panel2.TabIndex = 4;
             // 
             // roundedComboBox1
@@ -274,7 +274,7 @@
             roundedTextBox1.Name = "roundedTextBox1";
             roundedTextBox1.Padding = new Padding(10, 5, 40, 5);
             roundedTextBox1.Placeholder = "";
-            roundedTextBox1.Size = new Size(404, 33);
+            roundedTextBox1.Size = new Size(452, 33);
             roundedTextBox1.TabIndex = 3;
             roundedTextBox1.TextValue = "";
             // 
@@ -287,7 +287,7 @@
             label3.Location = new Point(0, 74);
             label3.Name = "label3";
             label3.Padding = new Padding(5);
-            label3.Size = new Size(404, 41);
+            label3.Size = new Size(452, 41);
             label3.TabIndex = 2;
             label3.Text = "Giá sản phẩm";
             // 
@@ -303,7 +303,7 @@
             ten_textbox.Name = "ten_textbox";
             ten_textbox.Padding = new Padding(10, 5, 40, 5);
             ten_textbox.Placeholder = "";
-            ten_textbox.Size = new Size(404, 33);
+            ten_textbox.Size = new Size(452, 33);
             ten_textbox.TabIndex = 1;
             ten_textbox.TextValue = "";
             // 
@@ -316,7 +316,7 @@
             label2.Location = new Point(0, 0);
             label2.Name = "label2";
             label2.Padding = new Padding(5);
-            label2.Size = new Size(404, 41);
+            label2.Size = new Size(452, 41);
             label2.TabIndex = 0;
             label2.Text = "Tên sản phẩm";
             // 
@@ -324,11 +324,12 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(404, 420);
+            ClientSize = new Size(472, 450);
             Controls.Add(panel1);
             Controls.Add(footer_panel);
             Controls.Add(label1);
             Name = "AddProductForm";
+            Padding = new Padding(10);
             Text = "AddProductForm";
             footer_panel.ResumeLayout(false);
             panel1.ResumeLayout(false);
