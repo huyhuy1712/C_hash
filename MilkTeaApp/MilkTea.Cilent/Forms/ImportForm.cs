@@ -28,22 +28,10 @@ namespace MilkTea.Client.Forms
             await LoadPhieuNhaps();
         }
 
-        private void add_Import_btn_Click(object sender, EventArgs e)
-        {
-            ImportForm_Add form = new ImportForm_Add();
-            form.ShowDialog();
-        }
-
-        private void excel_Import_btn_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
 
         private void roundedButton1_Click_1(object sender, EventArgs e)
         {
-            ImportForm_Add form = new ImportForm_Add();
+            ImportForm_Add form = new ImportForm_Add(this);
             form.ShowDialog();
         }
 
@@ -74,7 +62,7 @@ namespace MilkTea.Client.Forms
             }
         }
 
-        private async Task LoadPhieuNhaps()
+        public async Task LoadPhieuNhaps()
         {
             try
             {
