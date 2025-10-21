@@ -41,7 +41,7 @@ namespace MilkTea.Client.Forms
             await LoadDataAsync();
         }
 
-                    private async Task LoadDataAsync()
+        private async Task LoadDataAsync()
         {
             try
             {
@@ -72,6 +72,13 @@ namespace MilkTea.Client.Forms
                     {
                         var item = new ProductItem();
                         item.SetData(sp);
+
+                        // Khi người dùng sửa sản phẩm xong → reload lại toàn bộ form
+                        item.OnProductUpdated += async (s, ev) =>
+                        {
+                            await LoadDataAsync();
+                        };
+
                         item.OnProductSelected += ProductItem_OnProductSelected;
                         layout_product.Controls.Add(item);
                     }
@@ -380,7 +387,8 @@ namespace MilkTea.Client.Forms
             addProductForm.ShowDialog();
         }
 
-
-
+        private void comboBox_pttt_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
     }
 }

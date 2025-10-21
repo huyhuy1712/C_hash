@@ -305,6 +305,7 @@ namespace MilkTea.Client.Forms.ChildForm_Order
                             {
                                 MessageBox.Show($"Không đủ nguyên liệu '{nl.TenNguyenLieu}' để pha {item.TenSP}.",
                                                 "Thiếu nguyên liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
                             }
                         }
                     }

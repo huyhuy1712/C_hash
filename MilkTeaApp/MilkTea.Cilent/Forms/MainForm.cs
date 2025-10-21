@@ -39,8 +39,10 @@ namespace MilkTea.Client.Forms
             // Mặc định load Trang Chủ khi mở form
             LoadForm(new OrderForm(_account));
             username.Text = _account.TenTaiKhoan;
+            string basePath = Directory.GetParent(Application.StartupPath).Parent.Parent.FullName;
+            string imgPath = Path.Combine(basePath, "images", "nhan_vien", _account.anh ?? "");
 
-            string imgPath = Path.Combine(Application.StartupPath, "images", "nhan_vien", _account.anh ?? "");
+
 
             if (!string.IsNullOrEmpty(_account.anh) && File.Exists(imgPath))
             {

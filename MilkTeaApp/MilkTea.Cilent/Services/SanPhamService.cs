@@ -40,6 +40,31 @@ namespace MilkTea.Client.Services
             throw new Exception($"Lỗi khi thêm sản phẩm: {response.ReasonPhrase}");
         }
 
+        // PUT: api/sanpham/5
+        public async Task<bool> UpdateSanPhamAsync(SanPham sp)
+        {
+  
+            string url = $"/api/sanpham/{sp.MaSP}";
+
+            var response = await _http.PutAsJsonAsync(url, sp);
+
+            // 3. Kiểm tra mã trạng thái trả về.
+            if (response.IsSuccessStatusCode)
+            {
+                // API trả về 200 OK, cập nhật thành công.
+                return true;
+            }
+            else if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                // Xử lý lỗi 400 Bad Request (ví dụ: lỗi id không khớp, validation...)
+                throw new Exception($"Lỗi 400 Bad Request: Dữ liệu sản phẩm không hợp lệ.");
+            }
+            else
+            {
+                // Xử lý các lỗi khác (ví dụ: 404 Not Found, 500 Internal Server Error...)
+                throw new Exception($"Lỗi khi cập nhật sản phẩm {sp.MaSP}: {response.ReasonPhrase}");
+            }
+        }
 
     }
 }

@@ -93,6 +93,7 @@
             product_edit_btn1.SizeMode = PictureBoxSizeMode.Zoom;
             product_edit_btn1.TabIndex = 0;
             product_edit_btn1.TabStop = false;
+            product_edit_btn1.Click += product_edit_btn1_Click;
             // 
             // product_top_panel_1
             // 

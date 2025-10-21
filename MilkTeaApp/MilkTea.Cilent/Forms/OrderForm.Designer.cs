@@ -461,8 +461,10 @@
             comboBox_pttt.Items.AddRange(new object[] { "Tiền mặt", "Chuyển khoản" });
             comboBox_pttt.Location = new Point(397, 20);
             comboBox_pttt.Name = "comboBox_pttt";
-            comboBox_pttt.Size = new Size(150, 28);
+            comboBox_pttt.Size = new Size(137, 28);
+            comboBox_pttt.SelectedIndex = 0;
             comboBox_pttt.TabIndex = 4;
+            comboBox_pttt.SelectedIndexChanged += comboBox_pttt_SelectedIndexChanged;
             // 
             // label2
             // 

@@ -1,4 +1,5 @@
-﻿using MilkTea.Client.Models;
+﻿using MilkTea.Client.Forms.ChildForm_Order;
+using MilkTea.Client.Models;
 using System;
 using System.Drawing;
 using System.IO;
@@ -12,6 +13,9 @@ namespace MilkTea.Client.Controls
         private SanPham sanPham;
 
         // Định nghĩa EventArgs tùy chỉnh để truyền dữ liệu sản phẩm ra ngoài
+
+        public event EventHandler OnProductUpdated;
+
         public class SanPhamEventArgs : EventArgs
         {
             public SanPham SanPham { get; set; }
@@ -78,8 +82,19 @@ namespace MilkTea.Client.Controls
                 product_picture1.Image = Properties.Resources.tra_sua_truyen_thong;
             }
         }
-    
 
+        private void product_edit_btn1_Click(object sender, EventArgs e)
+        {
+            EditProductForm editForm = new EditProductForm(sanPham);
+            editForm.StartPosition = FormStartPosition.CenterScreen;
 
+            // Bắt sự kiện từ form Edit
+            editForm.SanPhamUpdated += (s, ev) =>
+            {
+                OnProductUpdated?.Invoke(this, EventArgs.Empty); // Báo ngược lên cho OrderForm
+            };
+
+            editForm.ShowDialog();
+        }
     }
 }
