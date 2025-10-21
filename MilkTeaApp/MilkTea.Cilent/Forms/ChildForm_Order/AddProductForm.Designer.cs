@@ -33,19 +33,20 @@
             huy_btn = new MilkTea.Client.Controls.RoundedButton();
             XacNhan_btn = new MilkTea.Client.Controls.RoundedButton();
             panel1 = new Panel();
-            checkBox1 = new CheckBox();
+            checkThemCongThuc = new CheckBox();
             roundedButton2 = new MilkTea.Client.Controls.RoundedButton();
             panel3 = new Panel();
-            roundedTextBox2 = new MilkTea.Client.Controls.RoundedTextBox();
-            roundedButton1 = new MilkTea.Client.Controls.RoundedButton();
+            txtFileDaChon = new Label();
+            btn_chon_file = new MilkTea.Client.Controls.RoundedButton();
             label5 = new Label();
             panel2 = new Panel();
-            roundedComboBox1 = new MilkTea.Client.Controls.RoundedComboBox();
+            cboLoai = new MilkTea.Client.Controls.RoundedComboBox();
             label4 = new Label();
-            roundedTextBox1 = new MilkTea.Client.Controls.RoundedTextBox();
+            gia_textbox = new MilkTea.Client.Controls.RoundedTextBox();
             label3 = new Label();
             ten_textbox = new MilkTea.Client.Controls.RoundedTextBox();
             label2 = new Label();
+            openFileDialog1 = new OpenFileDialog();
             footer_panel.SuspendLayout();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
@@ -114,14 +115,15 @@
             XacNhan_btn.TabIndex = 0;
             XacNhan_btn.Text = "Xác nhận";
             XacNhan_btn.UseVisualStyleBackColor = false;
+            XacNhan_btn.Click += XacNhan_btn_Click;
             // 
             // panel1
             // 
-            panel1.Controls.Add(checkBox1);
+            panel1.Controls.Add(checkThemCongThuc);
             panel1.Controls.Add(roundedButton2);
             panel1.Controls.Add(panel3);
             panel1.Controls.Add(panel2);
-            panel1.Controls.Add(roundedTextBox1);
+            panel1.Controls.Add(gia_textbox);
             panel1.Controls.Add(label3);
             panel1.Controls.Add(ten_textbox);
             panel1.Controls.Add(label2);
@@ -131,15 +133,15 @@
             panel1.Size = new Size(452, 316);
             panel1.TabIndex = 5;
             // 
-            // checkBox1
+            // checkThemCongThuc
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Enabled = false;
-            checkBox1.Location = new Point(187, 286);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(18, 17);
-            checkBox1.TabIndex = 7;
-            checkBox1.UseVisualStyleBackColor = true;
+            checkThemCongThuc.AutoSize = true;
+            checkThemCongThuc.Enabled = false;
+            checkThemCongThuc.Location = new Point(187, 286);
+            checkThemCongThuc.Name = "checkThemCongThuc";
+            checkThemCongThuc.Size = new Size(18, 17);
+            checkThemCongThuc.TabIndex = 7;
+            checkThemCongThuc.UseVisualStyleBackColor = true;
             // 
             // roundedButton2
             // 
@@ -162,8 +164,8 @@
             // 
             // panel3
             // 
-            panel3.Controls.Add(roundedTextBox2);
-            panel3.Controls.Add(roundedButton1);
+            panel3.Controls.Add(txtFileDaChon);
+            panel3.Controls.Add(btn_chon_file);
             panel3.Controls.Add(label5);
             panel3.Dock = DockStyle.Top;
             panel3.Location = new Point(0, 202);
@@ -172,39 +174,33 @@
             panel3.Size = new Size(452, 54);
             panel3.TabIndex = 5;
             // 
-            // roundedTextBox2
+            // txtFileDaChon
             // 
-            roundedTextBox2.BackColor = Color.White;
-            roundedTextBox2.BorderColor = Color.Gray;
-            roundedTextBox2.BorderRadius = 20;
-            roundedTextBox2.FocusBorderColor = Color.DeepSkyBlue;
-            roundedTextBox2.Location = new Point(236, 6);
-            roundedTextBox2.Name = "roundedTextBox2";
-            roundedTextBox2.Padding = new Padding(10, 5, 40, 5);
-            roundedTextBox2.Placeholder = "File đã chọn";
-            roundedTextBox2.Size = new Size(188, 38);
-            roundedTextBox2.TabIndex = 5;
-            roundedTextBox2.TextValue = "";
-            roundedTextBox2.Load += roundedTextBox2_Load;
+            txtFileDaChon.Location = new Point(221, 8);
+            txtFileDaChon.Name = "txtFileDaChon";
+            txtFileDaChon.Size = new Size(119, 36);
+            txtFileDaChon.TabIndex = 5;
+            txtFileDaChon.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // roundedButton1
+            // btn_chon_file
             // 
-            roundedButton1.BackColor = Color.SlateBlue;
-            roundedButton1.BorderColor = Color.DodgerBlue;
-            roundedButton1.BorderRadius = 20;
-            roundedButton1.BorderSize = 0;
-            roundedButton1.Cursor = Cursors.Hand;
-            roundedButton1.Dock = DockStyle.Left;
-            roundedButton1.FlatAppearance.BorderSize = 0;
-            roundedButton1.FlatStyle = FlatStyle.Flat;
-            roundedButton1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            roundedButton1.ForeColor = Color.White;
-            roundedButton1.Location = new Point(79, 8);
-            roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(126, 38);
-            roundedButton1.TabIndex = 4;
-            roundedButton1.Text = "Chọn file";
-            roundedButton1.UseVisualStyleBackColor = false;
+            btn_chon_file.BackColor = Color.SlateBlue;
+            btn_chon_file.BorderColor = Color.DodgerBlue;
+            btn_chon_file.BorderRadius = 20;
+            btn_chon_file.BorderSize = 0;
+            btn_chon_file.Cursor = Cursors.Hand;
+            btn_chon_file.Dock = DockStyle.Left;
+            btn_chon_file.FlatAppearance.BorderSize = 0;
+            btn_chon_file.FlatStyle = FlatStyle.Flat;
+            btn_chon_file.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btn_chon_file.ForeColor = Color.White;
+            btn_chon_file.Location = new Point(79, 8);
+            btn_chon_file.Name = "btn_chon_file";
+            btn_chon_file.Size = new Size(126, 38);
+            btn_chon_file.TabIndex = 4;
+            btn_chon_file.Text = "Chọn file";
+            btn_chon_file.UseVisualStyleBackColor = false;
+            btn_chon_file.Click += btn_chon_file_Click;
             // 
             // label5
             // 
@@ -221,7 +217,7 @@
             // 
             // panel2
             // 
-            panel2.Controls.Add(roundedComboBox1);
+            panel2.Controls.Add(cboLoai);
             panel2.Controls.Add(label4);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 148);
@@ -230,24 +226,24 @@
             panel2.Size = new Size(452, 54);
             panel2.TabIndex = 4;
             // 
-            // roundedComboBox1
+            // cboLoai
             // 
-            roundedComboBox1.BackColor = Color.White;
-            roundedComboBox1.BorderColor = Color.Gray;
-            roundedComboBox1.BorderRadius = 15;
-            roundedComboBox1.BorderSize = 1;
-            roundedComboBox1.Dock = DockStyle.Left;
-            roundedComboBox1.DrawMode = DrawMode.OwnerDrawFixed;
-            roundedComboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            roundedComboBox1.FlatStyle = FlatStyle.Flat;
-            roundedComboBox1.FocusBorderColor = Color.DeepSkyBlue;
-            roundedComboBox1.Font = new Font("Segoe UI", 10F);
-            roundedComboBox1.FormattingEnabled = true;
-            roundedComboBox1.ItemHeight = 30;
-            roundedComboBox1.Location = new Point(79, 8);
-            roundedComboBox1.Name = "roundedComboBox1";
-            roundedComboBox1.Size = new Size(199, 36);
-            roundedComboBox1.TabIndex = 4;
+            cboLoai.BackColor = Color.White;
+            cboLoai.BorderColor = Color.Gray;
+            cboLoai.BorderRadius = 15;
+            cboLoai.BorderSize = 1;
+            cboLoai.Dock = DockStyle.Left;
+            cboLoai.DrawMode = DrawMode.OwnerDrawFixed;
+            cboLoai.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboLoai.FlatStyle = FlatStyle.Flat;
+            cboLoai.FocusBorderColor = Color.DeepSkyBlue;
+            cboLoai.Font = new Font("Segoe UI", 10F);
+            cboLoai.FormattingEnabled = true;
+            cboLoai.ItemHeight = 30;
+            cboLoai.Location = new Point(79, 8);
+            cboLoai.Name = "cboLoai";
+            cboLoai.Size = new Size(237, 36);
+            cboLoai.TabIndex = 4;
             // 
             // label4
             // 
@@ -262,21 +258,22 @@
             label4.TabIndex = 3;
             label4.Text = "Loại";
             // 
-            // roundedTextBox1
+            // gia_textbox
             // 
-            roundedTextBox1.BackColor = Color.White;
-            roundedTextBox1.BorderColor = Color.Gray;
-            roundedTextBox1.BorderRadius = 20;
-            roundedTextBox1.Cursor = Cursors.IBeam;
-            roundedTextBox1.Dock = DockStyle.Top;
-            roundedTextBox1.FocusBorderColor = Color.DeepSkyBlue;
-            roundedTextBox1.Location = new Point(0, 115);
-            roundedTextBox1.Name = "roundedTextBox1";
-            roundedTextBox1.Padding = new Padding(10, 5, 40, 5);
-            roundedTextBox1.Placeholder = "";
-            roundedTextBox1.Size = new Size(452, 33);
-            roundedTextBox1.TabIndex = 3;
-            roundedTextBox1.TextValue = "";
+            gia_textbox.BackColor = Color.White;
+            gia_textbox.BorderColor = Color.Gray;
+            gia_textbox.BorderRadius = 20;
+            gia_textbox.Cursor = Cursors.IBeam;
+            gia_textbox.Dock = DockStyle.Top;
+            gia_textbox.FocusBorderColor = Color.DeepSkyBlue;
+            gia_textbox.Location = new Point(0, 115);
+            gia_textbox.Name = "gia_textbox";
+            gia_textbox.Padding = new Padding(10, 5, 40, 5);
+            gia_textbox.Placeholder = "";
+            gia_textbox.Size = new Size(452, 33);
+            gia_textbox.TabIndex = 3;
+            gia_textbox.TextValue = "";
+            gia_textbox.Load += gia_textbox_Load;
             // 
             // label3
             // 
@@ -320,6 +317,10 @@
             label2.TabIndex = 0;
             label2.Text = "Tên sản phẩm";
             // 
+            // openFileDialog1
+            // 
+            openFileDialog1.FileName = "openFileDialog1";
+            // 
             // AddProductForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -349,15 +350,16 @@
         private Label label2;
         private Panel panel2;
         private Label label4;
-        private Controls.RoundedTextBox roundedTextBox1;
+        private Controls.RoundedTextBox gia_textbox;
         private Label label3;
         private Controls.RoundedTextBox ten_textbox;
-        private Controls.RoundedComboBox roundedComboBox1;
+        private Controls.RoundedComboBox cboLoai;
         private Panel panel3;
         private Label label5;
-        private Controls.RoundedTextBox roundedTextBox2;
-        private Controls.RoundedButton roundedButton1;
-        private CheckBox checkBox1;
+        private Controls.RoundedButton btn_chon_file;
+        private CheckBox checkThemCongThuc;
         private Controls.RoundedButton roundedButton2;
+        private OpenFileDialog openFileDialog1;
+        private Label txtFileDaChon;
     }
 }

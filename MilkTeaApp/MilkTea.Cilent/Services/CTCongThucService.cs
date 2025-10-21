@@ -17,5 +17,12 @@ namespace MilkTea.Client.Services
             return await _http.GetFromJsonAsync<List<CTCongThucSP>>($"/api/chitietcongthuc/masp/{maSP}");
 
         }
+
+        // POST api/chitietcongthuc
+        public async Task<bool> AddCTCongThucAsync(ChiTietCongThuc ct)
+        {
+            var response = await _http.PostAsJsonAsync("/api/chitietcongthuc", ct);
+            return response.IsSuccessStatusCode;
+        }
     }
 }

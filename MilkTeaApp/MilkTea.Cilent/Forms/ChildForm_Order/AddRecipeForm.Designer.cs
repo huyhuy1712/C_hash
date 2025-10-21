@@ -33,33 +33,25 @@
             huy_btn = new MilkTea.Client.Controls.RoundedButton();
             XacNhan_btn = new MilkTea.Client.Controls.RoundedButton();
             panel1 = new Panel();
-            label4 = new Label();
-            panel2 = new Panel();
-            label3 = new Label();
-            label2 = new Label();
-            roundedTextBox1 = new MilkTea.Client.Controls.RoundedTextBox();
             topping_opt_panel = new Panel();
-            textBox1 = new TextBox();
             topping_table_panel = new Panel();
-            nguyenlieu_item_panel = new Panel();
-            tableLayoutPanel2 = new TableLayoutPanel();
-            label6 = new Label();
-            textBox2 = new TextBox();
-            checkBox1 = new CheckBox();
+            txtSearch_NL = new TextBox();
             header_panel = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
             label7 = new Label();
             label5 = new Label();
             label12 = new Label();
+            txtTenCongThuc = new MilkTea.Client.Controls.RoundedTextBox();
+            label4 = new Label();
+            panel2 = new Panel();
+            tenSP_lbl = new Label();
+            label2 = new Label();
             footer_panel.SuspendLayout();
             panel1.SuspendLayout();
-            panel2.SuspendLayout();
             topping_opt_panel.SuspendLayout();
-            topping_table_panel.SuspendLayout();
-            nguyenlieu_item_panel.SuspendLayout();
-            tableLayoutPanel2.SuspendLayout();
             header_panel.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // label1
@@ -124,11 +116,12 @@
             XacNhan_btn.TabIndex = 0;
             XacNhan_btn.Text = "Xác nhận";
             XacNhan_btn.UseVisualStyleBackColor = false;
+            XacNhan_btn.Click += XacNhan_btn_Click;
             // 
             // panel1
             // 
             panel1.Controls.Add(topping_opt_panel);
-            panel1.Controls.Add(roundedTextBox1);
+            panel1.Controls.Add(txtTenCongThuc);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(panel2);
             panel1.Dock = DockStyle.Fill;
@@ -137,6 +130,122 @@
             panel1.Padding = new Padding(5);
             panel1.Size = new Size(421, 434);
             panel1.TabIndex = 5;
+            // 
+            // topping_opt_panel
+            // 
+            topping_opt_panel.AutoScroll = true;
+            topping_opt_panel.Controls.Add(topping_table_panel);
+            topping_opt_panel.Controls.Add(txtSearch_NL);
+            topping_opt_panel.Controls.Add(header_panel);
+            topping_opt_panel.Dock = DockStyle.Fill;
+            topping_opt_panel.Location = new Point(5, 116);
+            topping_opt_panel.Name = "topping_opt_panel";
+            topping_opt_panel.Padding = new Padding(10);
+            topping_opt_panel.Size = new Size(411, 313);
+            topping_opt_panel.TabIndex = 5;
+            // 
+            // topping_table_panel
+            // 
+            topping_table_panel.AutoScroll = true;
+            topping_table_panel.Dock = DockStyle.Fill;
+            topping_table_panel.Location = new Point(10, 49);
+            topping_table_panel.Name = "topping_table_panel";
+            topping_table_panel.Size = new Size(391, 221);
+            topping_table_panel.TabIndex = 3;
+            // 
+            // txtSearch_NL
+            // 
+            txtSearch_NL.BorderStyle = BorderStyle.FixedSingle;
+            txtSearch_NL.Cursor = Cursors.IBeam;
+            txtSearch_NL.Dock = DockStyle.Bottom;
+            txtSearch_NL.Location = new Point(10, 270);
+            txtSearch_NL.Multiline = true;
+            txtSearch_NL.Name = "txtSearch_NL";
+            txtSearch_NL.PlaceholderText = "----Tìm kiếm----";
+            txtSearch_NL.Size = new Size(391, 33);
+            txtSearch_NL.TabIndex = 2;
+            txtSearch_NL.TextAlign = HorizontalAlignment.Center;
+            txtSearch_NL.KeyDown += txtSearch_NL_KeyDown;
+            // 
+            // header_panel
+            // 
+            header_panel.BackColor = Color.Gainsboro;
+            header_panel.Controls.Add(tableLayoutPanel1);
+            header_panel.Dock = DockStyle.Top;
+            header_panel.Location = new Point(10, 10);
+            header_panel.Name = "header_panel";
+            header_panel.Size = new Size(391, 39);
+            header_panel.TabIndex = 0;
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
+            tableLayoutPanel1.ColumnCount = 3;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 32.05128F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 36.1538467F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 31.7948723F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.Controls.Add(label7, 2, 0);
+            tableLayoutPanel1.Controls.Add(label5, 1, 0);
+            tableLayoutPanel1.Controls.Add(label12, 0, 0);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(0, 0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Size = new Size(391, 39);
+            tableLayoutPanel1.TabIndex = 0;
+            // 
+            // label7
+            // 
+            label7.AccessibleRole = AccessibleRole.None;
+            label7.Dock = DockStyle.Fill;
+            label7.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label7.ForeColor = Color.DeepSkyBlue;
+            label7.Location = new Point(269, 1);
+            label7.Name = "label7";
+            label7.Size = new Size(118, 37);
+            label7.TabIndex = 3;
+            label7.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            label5.Dock = DockStyle.Fill;
+            label5.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.ForeColor = Color.DeepSkyBlue;
+            label5.Location = new Point(129, 1);
+            label5.Name = "label5";
+            label5.Size = new Size(133, 37);
+            label5.TabIndex = 1;
+            label5.Text = "Số lượng";
+            label5.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label12
+            // 
+            label12.Dock = DockStyle.Fill;
+            label12.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label12.ForeColor = Color.DeepSkyBlue;
+            label12.Location = new Point(4, 1);
+            label12.Name = "label12";
+            label12.Size = new Size(118, 37);
+            label12.TabIndex = 0;
+            label12.Text = "Nguyên liệu";
+            label12.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // txtTenCongThuc
+            // 
+            txtTenCongThuc.BackColor = Color.White;
+            txtTenCongThuc.BorderColor = Color.Gray;
+            txtTenCongThuc.BorderRadius = 20;
+            txtTenCongThuc.Dock = DockStyle.Top;
+            txtTenCongThuc.FocusBorderColor = Color.DeepSkyBlue;
+            txtTenCongThuc.Location = new Point(5, 79);
+            txtTenCongThuc.Name = "txtTenCongThuc";
+            txtTenCongThuc.Padding = new Padding(10, 5, 40, 5);
+            txtTenCongThuc.Placeholder = "";
+            txtTenCongThuc.Size = new Size(411, 37);
+            txtTenCongThuc.TabIndex = 4;
+            txtTenCongThuc.TextValue = "";
             // 
             // label4
             // 
@@ -153,7 +262,7 @@
             // 
             // panel2
             // 
-            panel2.Controls.Add(label3);
+            panel2.Controls.Add(tenSP_lbl);
             panel2.Controls.Add(label2);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(5, 5);
@@ -161,18 +270,17 @@
             panel2.Size = new Size(411, 33);
             panel2.TabIndex = 0;
             // 
-            // label3
+            // tenSP_lbl
             // 
-            label3.BackColor = SystemColors.Control;
-            label3.Dock = DockStyle.Left;
-            label3.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.ForeColor = SystemColors.ActiveCaptionText;
-            label3.Location = new Point(133, 0);
-            label3.Name = "label3";
-            label3.Padding = new Padding(5);
-            label3.Size = new Size(151, 33);
-            label3.TabIndex = 2;
-            label3.Text = "Trà sữa hạt nhài";
+            tenSP_lbl.BackColor = SystemColors.Control;
+            tenSP_lbl.Dock = DockStyle.Left;
+            tenSP_lbl.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            tenSP_lbl.ForeColor = SystemColors.ActiveCaptionText;
+            tenSP_lbl.Location = new Point(133, 0);
+            tenSP_lbl.Name = "tenSP_lbl";
+            tenSP_lbl.Padding = new Padding(5);
+            tenSP_lbl.Size = new Size(151, 33);
+            tenSP_lbl.TabIndex = 2;
             // 
             // label2
             // 
@@ -187,177 +295,6 @@
             label2.TabIndex = 1;
             label2.Text = "Tên sản phẩm:";
             // 
-            // roundedTextBox1
-            // 
-            roundedTextBox1.BackColor = Color.White;
-            roundedTextBox1.BorderColor = Color.Gray;
-            roundedTextBox1.BorderRadius = 20;
-            roundedTextBox1.Dock = DockStyle.Top;
-            roundedTextBox1.FocusBorderColor = Color.DeepSkyBlue;
-            roundedTextBox1.Location = new Point(5, 79);
-            roundedTextBox1.Name = "roundedTextBox1";
-            roundedTextBox1.Padding = new Padding(10, 5, 40, 5);
-            roundedTextBox1.Placeholder = "";
-            roundedTextBox1.Size = new Size(411, 37);
-            roundedTextBox1.TabIndex = 4;
-            roundedTextBox1.TextValue = "";
-            // 
-            // topping_opt_panel
-            // 
-            topping_opt_panel.AutoScroll = true;
-            topping_opt_panel.Controls.Add(textBox1);
-            topping_opt_panel.Controls.Add(topping_table_panel);
-            topping_opt_panel.Controls.Add(header_panel);
-            topping_opt_panel.Dock = DockStyle.Fill;
-            topping_opt_panel.Location = new Point(5, 116);
-            topping_opt_panel.Name = "topping_opt_panel";
-            topping_opt_panel.Size = new Size(411, 313);
-            topping_opt_panel.TabIndex = 5;
-            // 
-            // textBox1
-            // 
-            textBox1.BorderStyle = BorderStyle.FixedSingle;
-            textBox1.Cursor = Cursors.IBeam;
-            textBox1.Dock = DockStyle.Bottom;
-            textBox1.Location = new Point(0, 283);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "----Tìm kiếm----";
-            textBox1.Size = new Size(411, 30);
-            textBox1.TabIndex = 2;
-            textBox1.TextAlign = HorizontalAlignment.Center;
-            // 
-            // topping_table_panel
-            // 
-            topping_table_panel.AutoScroll = true;
-            topping_table_panel.Controls.Add(nguyenlieu_item_panel);
-            topping_table_panel.Dock = DockStyle.Fill;
-            topping_table_panel.Location = new Point(0, 64);
-            topping_table_panel.Name = "topping_table_panel";
-            topping_table_panel.Size = new Size(411, 249);
-            topping_table_panel.TabIndex = 1;
-            // 
-            // nguyenlieu_item_panel
-            // 
-            nguyenlieu_item_panel.Controls.Add(tableLayoutPanel2);
-            nguyenlieu_item_panel.Dock = DockStyle.Top;
-            nguyenlieu_item_panel.Location = new Point(0, 0);
-            nguyenlieu_item_panel.Name = "nguyenlieu_item_panel";
-            nguyenlieu_item_panel.Size = new Size(411, 34);
-            nguyenlieu_item_panel.TabIndex = 0;
-            // 
-            // tableLayoutPanel2
-            // 
-            tableLayoutPanel2.ColumnCount = 3;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 45.7236824F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 54.2763176F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 108F));
-            tableLayoutPanel2.Controls.Add(label6, 0, 0);
-            tableLayoutPanel2.Controls.Add(textBox2, 1, 0);
-            tableLayoutPanel2.Controls.Add(checkBox1, 2, 0);
-            tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(0, 0);
-            tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 1;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel2.Size = new Size(411, 34);
-            tableLayoutPanel2.TabIndex = 0;
-            // 
-            // label6
-            // 
-            label6.Dock = DockStyle.Fill;
-            label6.Location = new Point(3, 0);
-            label6.Name = "label6";
-            label6.Size = new Size(132, 34);
-            label6.TabIndex = 0;
-            label6.Text = "Đá";
-            label6.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new Point(141, 3);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(153, 27);
-            textBox2.TabIndex = 1;
-            textBox2.TextAlign = HorizontalAlignment.Center;
-            // 
-            // checkBox1
-            // 
-            checkBox1.AutoSize = true;
-            checkBox1.CheckAlign = ContentAlignment.MiddleCenter;
-            checkBox1.Dock = DockStyle.Fill;
-            checkBox1.Location = new Point(305, 3);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(103, 28);
-            checkBox1.TabIndex = 2;
-            checkBox1.TextAlign = ContentAlignment.MiddleCenter;
-            checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // header_panel
-            // 
-            header_panel.Controls.Add(tableLayoutPanel1);
-            header_panel.Dock = DockStyle.Top;
-            header_panel.Location = new Point(0, 0);
-            header_panel.Name = "header_panel";
-            header_panel.Size = new Size(411, 64);
-            header_panel.TabIndex = 0;
-            // 
-            // tableLayoutPanel1
-            // 
-            tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
-            tableLayoutPanel1.ColumnCount = 3;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 34.31818F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 39.5454559F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25.90909F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Controls.Add(label7, 2, 0);
-            tableLayoutPanel1.Controls.Add(label5, 1, 0);
-            tableLayoutPanel1.Controls.Add(label12, 0, 0);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(0, 0);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(411, 64);
-            tableLayoutPanel1.TabIndex = 0;
-            // 
-            // label7
-            // 
-            label7.AccessibleRole = AccessibleRole.None;
-            label7.Dock = DockStyle.Fill;
-            label7.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.ForeColor = Color.DeepSkyBlue;
-            label7.Location = new Point(306, 1);
-            label7.Name = "label7";
-            label7.Size = new Size(101, 62);
-            label7.TabIndex = 3;
-            label7.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label5
-            // 
-            label5.Dock = DockStyle.Fill;
-            label5.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.ForeColor = Color.DeepSkyBlue;
-            label5.Location = new Point(144, 1);
-            label5.Name = "label5";
-            label5.Size = new Size(155, 62);
-            label5.TabIndex = 1;
-            label5.Text = "Số lượng";
-            label5.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label12
-            // 
-            label12.Dock = DockStyle.Fill;
-            label12.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label12.ForeColor = Color.DeepSkyBlue;
-            label12.Location = new Point(4, 1);
-            label12.Name = "label12";
-            label12.Size = new Size(133, 62);
-            label12.TabIndex = 0;
-            label12.Text = "Nguyên liệu";
-            label12.TextAlign = ContentAlignment.MiddleCenter;
-            // 
             // AddRecipeForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -371,15 +308,11 @@
             Text = "AddRecipeForm";
             footer_panel.ResumeLayout(false);
             panel1.ResumeLayout(false);
-            panel2.ResumeLayout(false);
             topping_opt_panel.ResumeLayout(false);
             topping_opt_panel.PerformLayout();
-            topping_table_panel.ResumeLayout(false);
-            nguyenlieu_item_panel.ResumeLayout(false);
-            tableLayoutPanel2.ResumeLayout(false);
-            tableLayoutPanel2.PerformLayout();
             header_panel.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
+            panel2.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -391,22 +324,17 @@
         private Controls.RoundedButton XacNhan_btn;
         private Panel panel1;
         private Panel panel2;
-        private Label label3;
+        private Label tenSP_lbl;
         private Label label2;
         private Label label4;
         private Panel topping_opt_panel;
-        private TextBox textBox1;
-        private Panel topping_table_panel;
-        private Panel nguyenlieu_item_panel;
-        private TableLayoutPanel tableLayoutPanel2;
-        private Label label6;
-        private TextBox textBox2;
-        private CheckBox checkBox1;
+        private TextBox txtSearch_NL;
         private Panel header_panel;
         private TableLayoutPanel tableLayoutPanel1;
         private Label label7;
         private Label label5;
         private Label label12;
-        private Controls.RoundedTextBox roundedTextBox1;
+        private Controls.RoundedTextBox txtTenCongThuc;
+        private Panel topping_table_panel;
     }
 }

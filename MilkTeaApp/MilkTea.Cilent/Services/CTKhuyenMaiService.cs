@@ -1,35 +1,56 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Net.Http;
+using System.Net.Http.Json;
 using System.Threading.Tasks;
 using MilkTea.Client.Models;
-using System.Net.Http.Json;
 
 namespace MilkTea.Client.Services
 {
-    using System.Net.Http.Json;
-
     public class CTKhuyenMaiService : ApiServiceBase
     {
+        //  Lấy tất cả khuyến mãi
         public async Task<List<CTKhuyenMai>> GetAll()
         {
             return await _http.GetFromJsonAsync<List<CTKhuyenMai>>("/api/ctkhuyenmai");
         }
 
-        public async Task<CTKhuyenMai> GetByMaSP(int? MaSP)
+        //  Lấy khuyến mãi theo mã sản phẩm
+        public async Task<CTKhuyenMai?> GetByMaSP(int? MaSP)
         {
-            return await _http.GetFromJsonAsync<CTKhuyenMai>($"/api/sanphamkhuyenmai/ctkhuyenmai/{MaSP}");
+            try
+            {
+                // Gọi đúng endpoint API khuyến mãi theo sản phẩm
+                var response = await _http.GetAsync($"/api/sanphamkhuyenmai/ctkhuyenmai/{MaSP}");
+
+                // Nếu không tìm thấy (404) → không có khuyến mãi → return null
+                if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                    return null;
+
+                // Ném lỗi nếu mã trạng thái không thành công khác
+                response.EnsureSuccessStatusCode();
+
+                // Đọc nội dung JSON
+                var data = await response.Content.ReadFromJsonAsync<CTKhuyenMai>();
+                return data;
+            }
+            catch
+            {
+                // Nếu lỗi parse JSON hoặc body rỗng → trả về null thay vì crash
+                return null;
+            }
         }
-        public async Task<CTKhuyenMai> GetCTKhuyenMaiByIdAsync(int id)
+
+        //  Lấy khuyến mãi theo ID khuyến mãi
+        public async Task<CTKhuyenMai?> GetCTKhuyenMaiByIdAsync(int id)
         {
             var list = await _http.GetFromJsonAsync<List<CTKhuyenMai>>(
-        $"/api/ctkhuyenmai/search?column=MaCTKhuyenMai&value={id}"
-    );
+                $"/api/ctkhuyenmai/search?column=MaCTKhuyenMai&value={id}"
+            );
 
-            // Trả về phần tử đầu tiên nếu có, hoặc null nếu rỗng
+            // Trả về phần tử đầu tiên hoặc null
             return list?.FirstOrDefault();
         }
     }
-
 }

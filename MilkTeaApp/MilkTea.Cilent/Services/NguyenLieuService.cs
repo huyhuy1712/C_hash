@@ -20,6 +20,11 @@ namespace MilkTea.Client.Services
             return await _http.GetFromJsonAsync<NguyenLieu>($"api/nguyenlieu/search/byid?maNL={maNL}");
         }
 
+        public async Task<List<NguyenLieu>> GetByTen(string ten)
+        {
+            return await _http.GetFromJsonAsync<List<NguyenLieu>>($"api/nguyenlieu/search?ten={ten}");
+        }
+
         public async Task<bool> TruNguyenLieuAsync(int maNL, int soLuong)
         {
             var response = await _http.PutAsync($"/api/nguyenlieu/tru/{maNL}/{soLuong}", null);

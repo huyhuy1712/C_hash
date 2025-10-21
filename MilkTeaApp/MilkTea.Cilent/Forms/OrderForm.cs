@@ -2,6 +2,7 @@
 using MilkTea.Client.Forms.ChildForm_Order;
 using MilkTea.Client.Models;
 using MilkTea.Client.Services;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,42 +38,56 @@ namespace MilkTea.Client.Forms
         // ==================== LOAD FORM ====================
         private async void OrderForm_Load(object sender, EventArgs e)
         {
+            await LoadDataAsync();
+        }
+
+                    private async Task LoadDataAsync()
+        {
             try
             {
+                // 1️ Lấy danh sách sản phẩm
                 var sanPhams = await _sanPhamService.GetSanPhamsAsync();
 
-                //ghi username hiên tại 
+                // 2️ Ghi tên nhân viên hiện tại
                 Ten_NV_Label.Text = _current_account.TenTaiKhoan;
 
-                // Load loại sản phẩm vào combobox
+                // 3️ Load loại sản phẩm vào combobox
                 var loais = await _loaiService.GetLoaisAsync();
                 comboBox3.DataSource = loais;
                 comboBox3.DisplayMember = "TenLoai";
                 comboBox3.ValueMember = "MaLoai";
 
-                //Load dữ liệu buzzer vào combobox
+                // 4️ Load buzzer còn hoạt động
                 var buzzers = await _buzzerService.GetBuzzerByTrangThai(1);
                 comboBox1.DataSource = buzzers;
                 comboBox1.DisplayMember = "SoHieu";
                 comboBox1.ValueMember = "MaBuzzer";
 
-                // Hiển thị tất cả sản phẩm
+                // 5️ Làm mới danh sách sản phẩm hiển thị
                 layout_product.Controls.Clear();
 
                 foreach (var sp in sanPhams)
                 {
-                    var item = new ProductItem();
-                    item.SetData(sp);
-                    item.OnProductSelected += ProductItem_OnProductSelected;
-                    layout_product.Controls.Add(item);
+                    if (sp.TrangThai == 1) // chỉ hiển thị sản phẩm đang hoạt động
+                    {
+                        var item = new ProductItem();
+                        item.SetData(sp);
+                        item.OnProductSelected += ProductItem_OnProductSelected;
+                        layout_product.Controls.Add(item);
+                    }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi tải sản phẩm: {ex.Message}",
-                                "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    $"Lỗi khi tải sản phẩm: {ex.Message}",
+                    "Lỗi",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
+
 
         // ==================== KHI CHỌN 1 SẢN PHẨM ====================
         private async void ProductItem_OnProductSelected(object sender, ProductItem.SanPhamEventArgs e)
@@ -85,6 +100,7 @@ namespace MilkTea.Client.Forms
                 var chiTiet = await _sanPhamService.GetSanPhamsByIdAsync(sp.MaSP);
                 var ctkm = await _ctKhuyenMaiService.GetByMaSP(sp.MaSP);
                 var dsCT = await _ctCongThucService.GetChiTietCongThucTheoSPAsync(sp.MaSP);
+
 
                 // Lấy dictionary tạm
                 var dict = _nguyenLieuDaDungTam;
@@ -124,6 +140,13 @@ namespace MilkTea.Client.Forms
                     .ToList();
 
                 int slMuaDuoc = listSL.Count == 0 ? 0 : listSL.Min();
+                if (slMuaDuoc <= 0)
+                {
+                    MessageBox.Show(
+                        $"Sản phẩm '{sp.TenSP}' đã hết nguyên liệu trong kho, không thể thêm vào order!",
+                        "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
                 // ================== TẠO ITEM ==================
                 var orderItem = new product_item_order
@@ -347,8 +370,17 @@ namespace MilkTea.Client.Forms
         private void roundedButton1_Click(object sender, EventArgs e)
         {
             AddProductForm addProductForm = new AddProductForm();
-            addProductForm.StartPosition = FormStartPosition.CenterScreen; // Giữa màn hình
+
+            addProductForm.SanPhamAdded += async (s, args) =>
+            {
+                await LoadDataAsync(); // reload dữ liệu sau khi thêm
+            };
+
+            addProductForm.StartPosition = FormStartPosition.CenterScreen;
             addProductForm.ShowDialog();
         }
+
+
+
     }
 }
