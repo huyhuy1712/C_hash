@@ -109,6 +109,7 @@ namespace MilkTea.Client.Controls
             pictureBox4.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox4.TabIndex = 0;
             pictureBox4.TabStop = false;
+            pictureBox4.Click += pictureBox4_Click;
             // 
             // pictureBox5
             // 
@@ -187,7 +188,6 @@ namespace MilkTea.Client.Controls
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
             // 
             // label_GioLap
             // 
@@ -209,7 +209,7 @@ namespace MilkTea.Client.Controls
             pictureBox2.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox2.TabIndex = 2;
             pictureBox2.TabStop = false;
-            pictureBox2.Click += pictureBox2_Click;
+            
             // 
             // label_TongGia
             // 
@@ -220,7 +220,7 @@ namespace MilkTea.Client.Controls
             label_TongGia.TabIndex = 1;
             label_TongGia.Text = "90.000";
             label_TongGia.TextAlign = ContentAlignment.MiddleCenter;
-            label_TongGia.Click += label2_Click;
+            
             // 
             // panel8
             // 

@@ -42,10 +42,30 @@ namespace MilkTea.Client.Forms
                 //item.OnDonHangSelected += DonHangItem_OnDonHangSelected;
                 item.Size = new System.Drawing.Size(210, 140); // đảm bảo đúng kích thước
                 item.Margin = new Padding(10);
+                if (item.trangThai == 0)
+                {
+                    flowLayoutPanel1.Controls.Add(item);
+                }
+                else if (item.trangThai == 1)
+                {
+                    flowLayoutPanel2.Controls.Add(item);
+                }
 
-                flowLayoutPanel1.Controls.Add(item); // nếu dùng FlowLayoutPanel thì FlowLayoutPanel.Controls.Add(item)
+                //flowLayoutPanel1.Controls.Add(item); // nếu dùng FlowLayoutPanel thì FlowLayoutPanel.Controls.Add(item)
 
             }
+        }
+
+        private void btn_danglam_Click(object sender, EventArgs e)
+        {
+            flowLayoutPanel2.Hide();
+            flowLayoutPanel1.Show();
+        }
+
+        private void btn_lamxong_Click(object sender, EventArgs e)
+        {
+            flowLayoutPanel1.Hide();
+            flowLayoutPanel2.Show();
         }
         // ==================== KHI CHỌN 1 đơn hàng ====================
         //private async void DonHangItem_OnDonHangSelected(object sender, ProductItem.SanPhamEventArgs e)
