@@ -30,22 +30,16 @@
         {
             panel1 = new Panel();
             roundedButton_Login = new MilkTea.Client.Controls.RoundedButton();
-            pictureBox2 = new PictureBox();
-            pictureBox1 = new PictureBox();
             roundedTextBox_Password = new MilkTea.Client.Controls.RoundedTextBox();
             roundedTextBox_TenTK = new MilkTea.Client.Controls.RoundedTextBox();
             label_login = new Label();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.Controls.Add(roundedButton_Login);
-            panel1.Controls.Add(pictureBox2);
-            panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(roundedTextBox_Password);
             panel1.Controls.Add(roundedTextBox_TenTK);
             panel1.Controls.Add(label_login);
@@ -71,25 +65,7 @@
             roundedButton_Login.TabIndex = 5;
             roundedButton_Login.Text = "LOGIN";
             roundedButton_Login.UseVisualStyleBackColor = false;
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.Image = Properties.Resources.download1;
-            pictureBox2.Location = new Point(51, 171);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(24, 25);
-            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.TabIndex = 4;
-            pictureBox2.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = Properties.Resources.download1;
-            pictureBox1.Location = new Point(51, 115);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(24, 25);
-            pictureBox1.TabIndex = 3;
-            pictureBox1.TabStop = false;
+            roundedButton_Login.Click += roundedButton_Login_Click;
             // 
             // roundedTextBox_Password
             // 
@@ -100,12 +76,13 @@
             roundedTextBox_Password.Location = new Point(34, 158);
             roundedTextBox_Password.Name = "roundedTextBox_Password";
             roundedTextBox_Password.Padding = new Padding(10, 5, 40, 5);
-            roundedTextBox_Password.Placeholder = "  rk   Nhập mật khẩu";
+            roundedTextBox_Password.Placeholder = " Nhập mật khẩu";
             roundedTextBox_Password.Size = new Size(327, 51);
             roundedTextBox_Password.TabIndex = 2;
             roundedTextBox_Password.TextValue = "";
             roundedTextBox_Password.Load += roundedTextBox_Password_Load;
             roundedTextBox_Password.Enter += roundedTextBox_Password_Enter;
+            roundedTextBox_Password.KeyDown += roundedTextBox_Password_KeyDown;
             roundedTextBox_Password.Leave += roundedTextBox_Password_Leave;
             // 
             // roundedTextBox_TenTK
@@ -117,7 +94,7 @@
             roundedTextBox_TenTK.Location = new Point(34, 101);
             roundedTextBox_TenTK.Name = "roundedTextBox_TenTK";
             roundedTextBox_TenTK.Padding = new Padding(10, 5, 40, 5);
-            roundedTextBox_TenTK.Placeholder = "  rk   Nhập tên tài khoản";
+            roundedTextBox_TenTK.Placeholder = "Nhập tên tài khoản";
             roundedTextBox_TenTK.Size = new Size(327, 51);
             roundedTextBox_TenTK.TabIndex = 1;
             roundedTextBox_TenTK.TextValue = "";
@@ -146,8 +123,6 @@
             Load += LoginForm_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -158,8 +133,6 @@
         protected Label label_login;
         private Controls.RoundedTextBox roundedTextBox_TenTK;
         private Controls.RoundedTextBox roundedTextBox_Password;
-        private PictureBox pictureBox1;
-        private PictureBox pictureBox2;
         private Controls.RoundedButton roundedButton_Login;
     }
 }

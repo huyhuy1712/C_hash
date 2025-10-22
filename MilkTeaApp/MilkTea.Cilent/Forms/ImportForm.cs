@@ -18,8 +18,8 @@ namespace MilkTea.Client.Forms
         private void InitializeSearchComboBox()
         {
             //Khởi tạo ComboBox với các cột tìm kiếm
-            cbo_timkiemtheo_PN.Items.AddRange(new object[] { "Ngày Nhập", "Số Lượng", "Tên Nhân Viên", "Tổng Tiền" });
-            cbo_timkiemtheo_PN.SelectedIndex = 0; // Chọn mục đầu tiên làm mặc định
+            //cbo_timkiemtheo_PN.Items.AddRange(new object[] { "Ngày Nhập", "Số Lượng", "Tên Nhân Viên", "Tổng Tiền" });
+            //cbo_timkiemtheo_PN.SelectedIndex = 0; // Chọn mục đầu tiên làm mặc định
         }
 
 

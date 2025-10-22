@@ -34,16 +34,17 @@
             XacNhan_btn = new MilkTea.Client.Controls.RoundedButton();
             panel1 = new Panel();
             panel3 = new Panel();
-            roundedTextBox2 = new MilkTea.Client.Controls.RoundedTextBox();
+            anh_txt = new Label();
             roundedButton1 = new MilkTea.Client.Controls.RoundedButton();
             label5 = new Label();
             panel2 = new Panel();
-            roundedComboBox1 = new MilkTea.Client.Controls.RoundedComboBox();
+            loai_cbb = new MilkTea.Client.Controls.RoundedComboBox();
             label4 = new Label();
-            roundedTextBox1 = new MilkTea.Client.Controls.RoundedTextBox();
+            gia_textbox = new MilkTea.Client.Controls.RoundedTextBox();
             label3 = new Label();
             ten_textbox = new MilkTea.Client.Controls.RoundedTextBox();
             label2 = new Label();
+            openFileDialog1 = new OpenFileDialog();
             footer_panel.SuspendLayout();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
@@ -58,7 +59,7 @@
             label1.ForeColor = Color.DeepSkyBlue;
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
-            label1.Size = new Size(404, 58);
+            label1.Size = new Size(415, 58);
             label1.TabIndex = 0;
             label1.Text = "Sửa sản phẩm";
             label1.TextAlign = ContentAlignment.MiddleCenter;
@@ -68,10 +69,10 @@
             footer_panel.Controls.Add(huy_btn);
             footer_panel.Controls.Add(XacNhan_btn);
             footer_panel.Dock = DockStyle.Bottom;
-            footer_panel.Location = new Point(0, 315);
+            footer_panel.Location = new Point(0, 318);
             footer_panel.Name = "footer_panel";
             footer_panel.Padding = new Padding(10);
-            footer_panel.Size = new Size(404, 56);
+            footer_panel.Size = new Size(415, 56);
             footer_panel.TabIndex = 4;
             // 
             // huy_btn
@@ -86,7 +87,7 @@
             huy_btn.FlatStyle = FlatStyle.Flat;
             huy_btn.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             huy_btn.ForeColor = Color.White;
-            huy_btn.Location = new Point(188, 10);
+            huy_btn.Location = new Point(199, 10);
             huy_btn.Name = "huy_btn";
             huy_btn.Size = new Size(80, 36);
             huy_btn.TabIndex = 1;
@@ -106,53 +107,46 @@
             XacNhan_btn.FlatStyle = FlatStyle.Flat;
             XacNhan_btn.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             XacNhan_btn.ForeColor = Color.White;
-            XacNhan_btn.Location = new Point(268, 10);
+            XacNhan_btn.Location = new Point(279, 10);
             XacNhan_btn.Name = "XacNhan_btn";
             XacNhan_btn.Size = new Size(126, 36);
             XacNhan_btn.TabIndex = 0;
             XacNhan_btn.Text = "Xác nhận";
             XacNhan_btn.UseVisualStyleBackColor = false;
+            XacNhan_btn.Click += XacNhan_btn_Click;
             // 
             // panel1
             // 
             panel1.Controls.Add(panel3);
             panel1.Controls.Add(panel2);
-            panel1.Controls.Add(roundedTextBox1);
+            panel1.Controls.Add(gia_textbox);
             panel1.Controls.Add(label3);
             panel1.Controls.Add(ten_textbox);
             panel1.Controls.Add(label2);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 58);
             panel1.Name = "panel1";
-            panel1.Size = new Size(404, 257);
+            panel1.Size = new Size(415, 260);
             panel1.TabIndex = 5;
             // 
             // panel3
             // 
-            panel3.Controls.Add(roundedTextBox2);
+            panel3.Controls.Add(anh_txt);
             panel3.Controls.Add(roundedButton1);
             panel3.Controls.Add(label5);
             panel3.Dock = DockStyle.Top;
             panel3.Location = new Point(0, 202);
             panel3.Name = "panel3";
             panel3.Padding = new Padding(8);
-            panel3.Size = new Size(404, 54);
+            panel3.Size = new Size(415, 54);
             panel3.TabIndex = 5;
             // 
-            // roundedTextBox2
+            // anh_txt
             // 
-            roundedTextBox2.BackColor = Color.White;
-            roundedTextBox2.BorderColor = Color.Gray;
-            roundedTextBox2.BorderRadius = 20;
-            roundedTextBox2.Dock = DockStyle.Left;
-            roundedTextBox2.FocusBorderColor = Color.DeepSkyBlue;
-            roundedTextBox2.Location = new Point(205, 8);
-            roundedTextBox2.Name = "roundedTextBox2";
-            roundedTextBox2.Padding = new Padding(10, 5, 40, 5);
-            roundedTextBox2.Placeholder = "File đã chọn";
-            roundedTextBox2.Size = new Size(188, 38);
-            roundedTextBox2.TabIndex = 5;
-            roundedTextBox2.TextValue = "";
+            anh_txt.Location = new Point(187, 19);
+            anh_txt.Name = "anh_txt";
+            anh_txt.Size = new Size(206, 20);
+            anh_txt.TabIndex = 5;
             // 
             // roundedButton1
             // 
@@ -168,10 +162,11 @@
             roundedButton1.ForeColor = Color.White;
             roundedButton1.Location = new Point(79, 8);
             roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(126, 38);
+            roundedButton1.Size = new Size(102, 38);
             roundedButton1.TabIndex = 4;
             roundedButton1.Text = "Chọn file";
             roundedButton1.UseVisualStyleBackColor = false;
+            roundedButton1.Click += roundedButton1_Click;
             // 
             // label5
             // 
@@ -188,33 +183,33 @@
             // 
             // panel2
             // 
-            panel2.Controls.Add(roundedComboBox1);
+            panel2.Controls.Add(loai_cbb);
             panel2.Controls.Add(label4);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 148);
             panel2.Name = "panel2";
             panel2.Padding = new Padding(8);
-            panel2.Size = new Size(404, 54);
+            panel2.Size = new Size(415, 54);
             panel2.TabIndex = 4;
             // 
-            // roundedComboBox1
+            // loai_cbb
             // 
-            roundedComboBox1.BackColor = Color.White;
-            roundedComboBox1.BorderColor = Color.Gray;
-            roundedComboBox1.BorderRadius = 15;
-            roundedComboBox1.BorderSize = 1;
-            roundedComboBox1.Dock = DockStyle.Left;
-            roundedComboBox1.DrawMode = DrawMode.OwnerDrawFixed;
-            roundedComboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            roundedComboBox1.FlatStyle = FlatStyle.Flat;
-            roundedComboBox1.FocusBorderColor = Color.DeepSkyBlue;
-            roundedComboBox1.Font = new Font("Segoe UI", 10F);
-            roundedComboBox1.FormattingEnabled = true;
-            roundedComboBox1.ItemHeight = 30;
-            roundedComboBox1.Location = new Point(79, 8);
-            roundedComboBox1.Name = "roundedComboBox1";
-            roundedComboBox1.Size = new Size(199, 36);
-            roundedComboBox1.TabIndex = 4;
+            loai_cbb.BackColor = Color.White;
+            loai_cbb.BorderColor = Color.Gray;
+            loai_cbb.BorderRadius = 15;
+            loai_cbb.BorderSize = 1;
+            loai_cbb.Dock = DockStyle.Left;
+            loai_cbb.DrawMode = DrawMode.OwnerDrawFixed;
+            loai_cbb.DropDownStyle = ComboBoxStyle.DropDownList;
+            loai_cbb.FlatStyle = FlatStyle.Flat;
+            loai_cbb.FocusBorderColor = Color.DeepSkyBlue;
+            loai_cbb.Font = new Font("Segoe UI", 10F);
+            loai_cbb.FormattingEnabled = true;
+            loai_cbb.ItemHeight = 30;
+            loai_cbb.Location = new Point(79, 8);
+            loai_cbb.Name = "loai_cbb";
+            loai_cbb.Size = new Size(214, 36);
+            loai_cbb.TabIndex = 4;
             // 
             // label4
             // 
@@ -229,21 +224,22 @@
             label4.TabIndex = 3;
             label4.Text = "Loại";
             // 
-            // roundedTextBox1
+            // gia_textbox
             // 
-            roundedTextBox1.BackColor = Color.White;
-            roundedTextBox1.BorderColor = Color.Gray;
-            roundedTextBox1.BorderRadius = 20;
-            roundedTextBox1.Cursor = Cursors.IBeam;
-            roundedTextBox1.Dock = DockStyle.Top;
-            roundedTextBox1.FocusBorderColor = Color.DeepSkyBlue;
-            roundedTextBox1.Location = new Point(0, 115);
-            roundedTextBox1.Name = "roundedTextBox1";
-            roundedTextBox1.Padding = new Padding(10, 5, 40, 5);
-            roundedTextBox1.Placeholder = "";
-            roundedTextBox1.Size = new Size(404, 33);
-            roundedTextBox1.TabIndex = 3;
-            roundedTextBox1.TextValue = "";
+            gia_textbox.BackColor = Color.White;
+            gia_textbox.BorderColor = Color.Gray;
+            gia_textbox.BorderRadius = 20;
+            gia_textbox.Cursor = Cursors.IBeam;
+            gia_textbox.Dock = DockStyle.Top;
+            gia_textbox.FocusBorderColor = Color.DeepSkyBlue;
+            gia_textbox.Location = new Point(0, 115);
+            gia_textbox.Name = "gia_textbox";
+            gia_textbox.Padding = new Padding(10, 5, 40, 5);
+            gia_textbox.Placeholder = "";
+            gia_textbox.Size = new Size(415, 33);
+            gia_textbox.TabIndex = 3;
+            gia_textbox.TextValue = "";
+            gia_textbox.Load += gia_textbox_Load;
             // 
             // label3
             // 
@@ -254,7 +250,7 @@
             label3.Location = new Point(0, 74);
             label3.Name = "label3";
             label3.Padding = new Padding(5);
-            label3.Size = new Size(404, 41);
+            label3.Size = new Size(415, 41);
             label3.TabIndex = 2;
             label3.Text = "Giá sản phẩm";
             // 
@@ -270,7 +266,7 @@
             ten_textbox.Name = "ten_textbox";
             ten_textbox.Padding = new Padding(10, 5, 40, 5);
             ten_textbox.Placeholder = "";
-            ten_textbox.Size = new Size(404, 33);
+            ten_textbox.Size = new Size(415, 33);
             ten_textbox.TabIndex = 1;
             ten_textbox.TextValue = "";
             // 
@@ -283,15 +279,19 @@
             label2.Location = new Point(0, 0);
             label2.Name = "label2";
             label2.Padding = new Padding(5);
-            label2.Size = new Size(404, 41);
+            label2.Size = new Size(415, 41);
             label2.TabIndex = 0;
             label2.Text = "Tên sản phẩm";
+            // 
+            // openFileDialog1
+            // 
+            openFileDialog1.FileName = "openFileDialog1";
             // 
             // EditProductForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(404, 371);
+            ClientSize = new Size(415, 374);
             Controls.Add(panel1);
             Controls.Add(footer_panel);
             Controls.Add(label1);
@@ -313,14 +313,15 @@
         private Panel panel1;
         private Panel panel2;
         private Label label4;
-        private Controls.RoundedTextBox roundedTextBox1;
+        private Controls.RoundedTextBox gia_textbox;
         private Label label3;
         private Controls.RoundedTextBox ten_textbox;
-        private Controls.RoundedComboBox roundedComboBox1;
+        private Controls.RoundedComboBox loai_cbb;
         private Panel panel3;
         private Label label5;
-        private Controls.RoundedTextBox roundedTextBox2;
         private Controls.RoundedButton roundedButton1;
         private Label label2;
+        private Label anh_txt;
+        private OpenFileDialog openFileDialog1;
     }
 }

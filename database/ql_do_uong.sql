@@ -32,6 +32,7 @@ CREATE TABLE `TaiKhoan` (
 CREATE TABLE `Quyen` (
   `MaQuyen` int PRIMARY KEY AUTO_INCREMENT,
   `TenQuyen` varchar(100) UNIQUE NOT NULL,
+  `TrangThai` int,
   `Mota` text
 );
 
@@ -58,7 +59,12 @@ CREATE TABLE `NhaCungCap` (
   `MaNCC` int PRIMARY KEY AUTO_INCREMENT,
   `TenNCC` varchar(50) NOT NULL,
   `SDT` varchar(50) NOT NULL,
+<<<<<<< HEAD
+  `DiaChi` varchar(100) NOT NULL,
+  `TrangThai` int
+=======
   `DiaChi` varchar(100) NOT NULL
+>>>>>>> main
 );
 
 CREATE TABLE `Buzzer` (
@@ -102,6 +108,10 @@ CREATE TABLE `PhieuNhap` (
   `MaPN` int PRIMARY KEY AUTO_INCREMENT,
   `NgayNhap` date,
   `SoLuong` int,
+<<<<<<< HEAD
+  `TrangThai` int,
+=======
+>>>>>>> main
   `MaNCC` int,
   `MaNV` int,
   `TongTien` decimal(12,2)
@@ -120,7 +130,8 @@ CREATE TABLE `NguyenLieu` (
   `MaNL` int PRIMARY KEY AUTO_INCREMENT,
   `SoLuong` int,
   `Ten` varchar(50),
-  `GiaBan` decimal(12,2)
+  `GiaBan` decimal(12,2),
+  `TrangThai` int
 );
 
 CREATE TABLE `CongThuc` (
@@ -190,6 +201,8 @@ ALTER TABLE `PhieuNhap` ADD FOREIGN KEY (`MaNV`) REFERENCES `NhanVien` (`MaNV`);
 
 ALTER TABLE `PhieuNhap` ADD FOREIGN KEY (`MaNCC`) REFERENCES `NhaCungCap` (`MaNCC`);
 
+<<<<<<< HEAD
+=======
 ALTER TABLE `ChiTietPhieuNhap` ADD FOREIGN KEY (`MaPN`) REFERENCES `PhieuNhap` (`MaPN`);
 
 ALTER TABLE `ChiTietPhieuNhap` ADD FOREIGN KEY (`MaNguyenLieu`) REFERENCES `NguyenLieu` (`MaNL`);
@@ -620,6 +633,7 @@ ALTER TABLE `PhieuNhap` ADD FOREIGN KEY (`MaNV`) REFERENCES `NhanVien` (`MaNV`);
 
 ALTER TABLE `PhieuNhap` ADD FOREIGN KEY (`MaNCC`) REFERENCES `NhaCungCap` (`MaNCC`);
 
+>>>>>>> main
 ALTER TABLE `ChiTietPhieuNhap` ADD FOREIGN KEY (`MaPN`) REFERENCES `PhieuNhap` (`MaPN`);
 
 ALTER TABLE `ChiTietPhieuNhap` ADD FOREIGN KEY (`MaNguyenLieu`) REFERENCES `NguyenLieu` (`MaNL`);
