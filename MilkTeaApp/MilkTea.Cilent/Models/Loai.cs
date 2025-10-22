@@ -5,7 +5,10 @@
         public int MaLoai { get; set; }        // Khóa chính
         public string TenLoai { get; set; } // Tên loại đồ uống 
         public string MoTa { get; set; } // Mô tả đồ uống
-        
 
+        public override string ToString()
+        {
+            return TenLoai;
+        }
     }
-}
+    }

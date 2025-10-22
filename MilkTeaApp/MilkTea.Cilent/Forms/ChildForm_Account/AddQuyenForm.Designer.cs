@@ -33,6 +33,7 @@
             panel4 = new Panel();
             Table = new Panel();
             dataGridView1 = new DataGridView();
+            ID = new DataGridViewTextBoxColumn();
             chucNang = new DataGridViewTextBoxColumn();
             chon = new DataGridViewCheckBoxColumn();
             TimKiem = new Panel();
@@ -102,7 +103,7 @@
             dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.BackgroundColor = SystemColors.Control;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { chucNang, chon });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { ID, chucNang, chon });
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(0, 0);
             dataGridView1.Name = "dataGridView1";
@@ -110,6 +111,14 @@
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(760, 451);
             dataGridView1.TabIndex = 0;
+            // 
+            // ID
+            // 
+            ID.HeaderText = "ID";
+            ID.MinimumWidth = 6;
+            ID.Name = "ID";
+            ID.ReadOnly = true;
+            ID.Width = 75;
             // 
             // chucNang
             // 
@@ -245,6 +254,7 @@
             txtbTenQuyen.Size = new Size(760, 40);
             txtbTenQuyen.TabIndex = 1;
             txtbTenQuyen.TextValue = "";
+            txtbTenQuyen.KeyDown += txtbTenQuyen_KeyDown;
             // 
             // label
             // 
@@ -329,6 +339,7 @@
         private Panel TextBox;
         private Panel panel2;
         private Label lblStatus;
+        private DataGridViewTextBoxColumn ID;
         private DataGridViewTextBoxColumn chucNang;
         private DataGridViewCheckBoxColumn chon;
     }

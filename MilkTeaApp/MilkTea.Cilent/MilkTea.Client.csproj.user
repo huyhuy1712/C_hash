@@ -2,6 +2,9 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
+    <Compile Update="Controls\nguyenlieu_congthuc_item.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Controls\ProductItem.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -86,6 +89,9 @@
     <Compile Update="Forms\ImportForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\IngredientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\InvoiceForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,6 +105,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\ReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SupplierForm.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>

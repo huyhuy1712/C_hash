@@ -401,7 +401,7 @@ namespace MilkTea.Client.Forms
             dataGridViewCellStyle1.Padding = new Padding(3);
             chiTiet.DefaultCellStyle = dataGridViewCellStyle1;
             chiTiet.HeaderText = "Chi Tiết";
-            chiTiet.Image = Properties.Resources.circle_user;
+            chiTiet.Image = Properties.Resources.info;
             chiTiet.ImageLayout = DataGridViewImageCellLayout.Zoom;
             chiTiet.MinimumWidth = 6;
             chiTiet.Name = "chiTiet";
@@ -523,16 +523,6 @@ namespace MilkTea.Client.Forms
         private Panel panel1;
         private Controls.RoundedButton btnThemAccount;
         private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn ID;
-        private DataGridViewTextBoxColumn taiKhoan;
-        private DataGridViewTextBoxColumn hoVaTen;
-        private DataGridViewTextBoxColumn trangThai;
-        private DataGridViewTextBoxColumn ngayTao;
-        private DataGridViewTextBoxColumn quyen;
-        private DataGridViewImageColumn chiTiet;
-        private DataGridViewImageColumn sua;
-        private DataGridViewImageColumn khoa;
-        private DataGridViewImageColumn xoa;
         private Label label2;
         private Label label1;
         private Panel ButtonThem;
@@ -547,5 +537,15 @@ namespace MilkTea.Client.Forms
         private Panel panel3;
         private Label lblStatus;
         private Panel panel5;
+        private DataGridViewTextBoxColumn ID;
+        private DataGridViewTextBoxColumn taiKhoan;
+        private DataGridViewTextBoxColumn hoVaTen;
+        private DataGridViewTextBoxColumn trangThai;
+        private DataGridViewTextBoxColumn ngayTao;
+        private DataGridViewTextBoxColumn quyen;
+        private DataGridViewImageColumn chiTiet;
+        private DataGridViewImageColumn sua;
+        private DataGridViewImageColumn khoa;
+        private DataGridViewImageColumn xoa;
     }
 }

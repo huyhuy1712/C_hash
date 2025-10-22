@@ -30,12 +30,12 @@ INSERT IGNORE INTO Size (TenSize, PhuThu) VALUES
 ('XL', 25000);
 
 -- 4. Quyen
-INSERT IGNORE INTO Quyen (TenQuyen, Mota) VALUES
-('Admin', 'Quyền toàn quyền'),
-('Nhân viên bán hàng', 'Quyền bán hàng'),
-('Nhân viên kho', 'Quyền quản lý kho'),
-('Kế toán', 'Quyền xem báo cáo'),
-('Quản lý', 'Quyền quản lý tổng');
+INSERT IGNORE INTO Quyen (TenQuyen, TrangThai, Mota) VALUES
+('Admin', 1, 'Quyền toàn quyền'),
+('Nhân viên bán hàng', 1, 'Quyền bán hàng'),
+('Nhân viên kho', 1, 'Quyền quản lý kho'),
+('Kế toán', 1, 'Quyền xem báo cáo'),
+('Quản lý', 1, 'Quyền quản lý tổng');
 
 -- 5. ChucNang
 INSERT IGNORE INTO ChucNang (TenChucNang, MoTa) VALUES
@@ -63,8 +63,14 @@ INSERT IGNORE INTO ChucNang (TenChucNang, MoTa) VALUES
 ('Xóa phiếu nhập', 'Xóa phiếu nhập'),
 ('Sửa phiếu nhập', 'Sửa phiếu nhập'),
 ('Nhập excel phiếu nhập', 'Nhập excel phiếu nhập');
-
-
+('Vào nguyên liệu', 'Vào nguyên liệu');
+('Thêm nguyên liệu', 'Thêm nguyên liệu');
+('Xóa nguyên liệu', 'Xóa nguyên liệu');
+('Sửa nguyên liệu', 'Sửa nguyên liệu');
+('Vào nhà cung cấp', 'Vào nhà cung cấp');
+('Thêm nhà cung cấp', 'Thêm nhà cung cấp');
+('Xóa nhà cung cấp', 'Xóa nhà cung cấp');
+('Sửa nhà cung cấp', 'Sửa nhà cung cấp');
 
 
 -- 6. TaiKhoan
@@ -82,7 +88,7 @@ INSERT IGNORE INTO TaiKhoan (TenTaiKhoan, Anh, MatKhau, TrangThai, MaQuyen) VALU
 
 -- 7. Quyen_ChucNang
 INSERT IGNORE INTO Quyen_ChucNang (MaQuyen, MaChucNang) VALUES
-(1,1),(1,2),(1,3),(1,4),(1,5),
+(1,1),(1,2),(1,3),(1,4),(1,5),(1,6),(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(1,13),(1,14),(1,15),(1,16),(1,17),(1,18),(1,19),(1,20),(1,21),(1,22),(1,23),(1,24),(1,25),(1,26),(1,27),(1,28),(1,29),(1,30),(1,31),(1,32),
 (2,2),(2,5),
 (3,4),
 (4,5),
@@ -102,6 +108,19 @@ INSERT IGNORE INTO NhanVien (TenNV, SDT, MaTK) VALUES
 ('Pham Thi K','0901234570',10);
 
 -- 8. NhaCungCap
+<<<<<<< HEAD
+INSERT IGNORE INTO NhaCungCap (TenNCC, SDT, DiaChi, TrangThai) VALUES
+('Công ty TNHH Trà Sữa A','0901111001','123 Lê Lợi, Quận 1, TP.HCM',1),
+('Công ty TNHH Nguyên Liệu B','0901111002','45 Trần Hưng Đạo, Quận 5, TP.HCM',1),
+('Cơ Sở Cung Ứng C','0901111003','78 Nguyễn Huệ, Quận 1, TP.HCM',1),
+('Công ty TNHH Đóng Gói D','0901111004','9 Lý Thường Kiệt, Quận 11, TP.HCM',1),
+('Nhà Cung Cấp E','0901111005','210 Phan Đình Phùng, TP.Đà Lạt',1),
+('Công ty F','0901111006','56 Hai Bà Trưng, Quận 3, TP.HCM',1),
+('Cơ Sở G','0901111007','12 Trần Phú, Hà Đông, Hà Nội',1),
+('Công ty H','0901111008','88 Điện Biên Phủ, Quận Bình Thạnh, TP.HCM',1),
+('Nhà Cung Cấp I','0901111009','33 Bà Triệu, Hoàn Kiếm, Hà Nội',1),
+('Công ty J','0901111010','150 Võ Văn Kiệt, Quận 1, TP.HCM',1);
+=======
 INSERT IGNORE INTO NhaCungCap (TenNCC, SDT, DiaChi) VALUES
 ('Công ty TNHH Trà Sữa A','0901111001','123 Lê Lợi, Quận 1, TP.HCM'),
 ('Công ty TNHH Nguyên Liệu B','0901111002','45 Trần Hưng Đạo, Quận 5, TP.HCM'),
@@ -113,6 +132,7 @@ INSERT IGNORE INTO NhaCungCap (TenNCC, SDT, DiaChi) VALUES
 ('Công ty H','0901111008','88 Điện Biên Phủ, Quận Bình Thạnh, TP.HCM'),
 ('Nhà Cung Cấp I','0901111009','33 Bà Triệu, Hoàn Kiếm, Hà Nội'),
 ('Công ty J','0901111010','150 Võ Văn Kiệt, Quận 1, TP.HCM');
+>>>>>>> main
 
 -- 9. Buzzer
 INSERT IGNORE INTO Buzzer (SoHieu, TrangThai) VALUES
@@ -149,19 +169,32 @@ INSERT IGNORE INTO ctdonhang_topping (MaNL, MaCTDH, SL) VALUES
 (7,7,2);
 
 -- 12. NguyenLieu
-INSERT IGNORE INTO NguyenLieu (SoLuong, Ten, GiaBan) VALUES
-(10, 'Trà đen', 5000.00),
-(10, 'Trà xanh', 6000.00),
-(10, 'Sữa đặc', 10000.00),
-(10, 'Đường', 2000.00),
-(10, 'Trân châu đen', 15000.00),
-(10, 'Trân châu trắng', 16000.00),
-(10, 'Pudding', 12000.00),
-(10, 'Thạch dừa', 10000.00),
-(10, 'Đá viên', 1000.00),
-(10, 'Matcha bột', 20000.00);
+INSERT IGNORE INTO NguyenLieu (SoLuong, Ten, GiaBan, TrangThai) VALUES
+(10, 'Trà đen', 5000.00,1),
+(10, 'Trà xanh', 6000.00,1),
+(10, 'Sữa đặc', 10000.00,1),
+(10, 'Đường', 2000.00,1),
+(10, 'Trân châu đen', 15000.00,1),
+(10, 'Trân châu trắng', 16000.00,1),
+(10, 'Pudding', 12000.00,1),
+(10, 'Thạch dừa', 10000.00,1),
+(10, 'Đá viên', 1000.00,1),
+(10, 'Matcha bột', 20000.00,1);
 
 -- 13. NhaCungCap
+<<<<<<< HEAD
+INSERT IGNORE INTO PhieuNhap (NgayNhap, SoLuong, TrangThai, MaNCC, MaNV, TongTien) VALUES
+('2025-09-01',50,1,1,1,500000),
+('2025-09-02',30,1,2,2,300000),
+('2025-09-03',40,1,3,3,400000),
+('2025-09-04',25,1,4,4,250000),
+('2025-09-05',60,1,5,5,600000),
+('2025-09-06',35,1,6,6,350000),
+('2025-09-07',45,1,7,7,450000),
+('2025-09-08',20,1,8,8,200000),
+('2025-09-09',55,1,9,9,550000),
+('2025-09-10',50,1,9,10,500000);
+=======
 INSERT IGNORE INTO PhieuNhap (NgayNhap, SoLuong, MaNCC, MaNV, TongTien) VALUES
 ('2025-09-01',50,1,1,500000),
 ('2025-09-02',30,2,2,300000),
@@ -173,6 +206,7 @@ INSERT IGNORE INTO PhieuNhap (NgayNhap, SoLuong, MaNCC, MaNV, TongTien) VALUES
 ('2025-09-08',20,8,8,200000),
 ('2025-09-09',55,9,9,550000),
 ('2025-09-10',50,9,10,500000);
+>>>>>>> main
 
 -- 14. ChiTietPhieuNhap
 INSERT IGNORE INTO ChiTietPhieuNhap (MaPN, SoLuong, MaNguyenLieu, DonGiaNhap, TongGia) VALUES

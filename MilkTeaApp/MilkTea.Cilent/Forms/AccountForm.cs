@@ -1,5 +1,6 @@
 ﻿using MilkTea.Client.Forms.ChildForm_Account;
 using MilkTea.Client.Interfaces;
+using MilkTea.Client.Models;
 using MilkTea.Client.Presenters;
 using MilkTea.Client.Services;
 using System;
@@ -8,10 +9,10 @@ using System.Windows.Forms;
 
 namespace MilkTea.Client.Forms
 {
-    public partial class AccountForm : Form, IAccountForm
+    public partial class AccountForm : Form, IBaseForm
     {
         private readonly AccountPresenter _presenter;
-        public DataGridView GridTaiKhoan => dataGridView1;
+        public DataGridView Grid => dataGridView1;
         public Label LblStatus => lblStatus;
 
         public AccountForm()
@@ -22,15 +23,12 @@ namespace MilkTea.Client.Forms
 
         private async void AccountForm_Load(object sender, EventArgs e)
         {
-            try
-            {
-                await _presenter.LoadDataAsync();
-            }
-            catch (Exception ex)
-            {
-                lblStatus.Text = "⚠️ Lỗi khi tải dữ liệu.";
-                Console.WriteLine(ex.Message);
-            }
+            await _presenter.LoadDataAsync();
+            
+            xoa.Visible = Session.HasPermission("Xóa tài khoản");
+            sua.Visible = Session.HasPermission("Sửa tài khoản");
+
+
         }
 
         private void btnThemAccount_Click(object sender, EventArgs e)
@@ -48,6 +46,7 @@ namespace MilkTea.Client.Forms
             if (e.RowIndex < 0) return; // bỏ qua header
 
             string columnName = dataGridView1.Columns[e.ColumnIndex].Name;
+
             var id = dataGridView1.Rows[e.RowIndex].Cells["ID"].Value?.ToString();
 
             switch (columnName)
