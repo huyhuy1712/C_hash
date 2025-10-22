@@ -2,6 +2,9 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
+    <Compile Update="Controls\DonHangItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="Controls\nguyenlieu_congthuc_item.cs">
       <SubType>UserControl</SubType>
     </Compile>
