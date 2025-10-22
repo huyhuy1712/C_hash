@@ -120,6 +120,7 @@ namespace MilkTea.Client.Forms
             // Lưu thông tin vào session
             Session.AllowedFunctions = await _chucNangService.GetChucNangsByMaQuyenAsync(account.MaQuyen);
             mainForm.ShowDialog();
+            this.Hide();
         }
 
         // Hàm kiểm tra đăng nhập

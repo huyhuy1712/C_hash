@@ -89,6 +89,9 @@
     <Compile Update="Forms\ImportForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\IngredientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\InvoiceForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +105,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\ReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\SupplierForm.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
