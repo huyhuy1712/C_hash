@@ -66,5 +66,36 @@ namespace MilkTea.Client.Services
             }
         }
 
+        public async Task<List<SanPham>> SearchSanPhamAsync(string column, string value)
+        {
+            // Encode từ khóa để an toàn URL (ví dụ: "trà sữa" -> "%tr%C3%A0%20s%E1%BB%AFa")
+            string encodedValue = Uri.EscapeDataString(value);
+
+            var res = await _http.GetAsync($"/api/sanpham/search?column={column}&value={encodedValue}");
+            res.EnsureSuccessStatusCode(); // Nếu lỗi 400 hoặc 500 => ném exception
+
+            // Đọc danh sách JSON trả về từ API
+            var list = await res.Content.ReadFromJsonAsync<List<SanPham>>();
+            return list ?? new List<SanPham>();
+        }
+
+
+        public async Task<bool> DeleteSanPhamAsync(int id)
+        {
+            var res = await _http.DeleteAsync($"/api/sanpham/{id}");
+            if (res.IsSuccessStatusCode)
+            {
+                // Xóa (hoặc đổi trạng thái) thành công
+                return true;
+            }
+
+            // Nếu có lỗi, có thể đọc thêm message để hiển thị
+            var error = await res.Content.ReadAsStringAsync();
+            Console.WriteLine($"Lỗi khi xóa sản phẩm: {error}");
+            return false;
+        }
+
+
+
     }
 }

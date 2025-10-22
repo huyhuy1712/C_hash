@@ -38,9 +38,30 @@ namespace MilkTea.Client.Forms
         // ==================== LOAD FORM ====================
         private async void OrderForm_Load(object sender, EventArgs e)
         {
+            await LoadLoaiAsync();
             await LoadDataAsync();
         }
 
+        private async Task LoadLoaiAsync()
+        {
+            var loais = await _loaiService.GetLoaisAsync();
+            var loaisWithAll = new List<Loai>();
+            loaisWithAll.Add(new Loai { MaLoai = 0, TenLoai = "Tất cả" });
+            loaisWithAll.AddRange(loais);
+            loc_cbx.DataSource = loaisWithAll;
+            loc_cbx.DisplayMember = "TenLoai";
+            loc_cbx.ValueMember = "MaLoai";
+
+            //  Ghi tên nhân viên hiện tại
+            Ten_NV_Label.Text = _current_account.TenTaiKhoan;
+
+            //  Load buzzer còn hoạt động
+            var buzzers = await _buzzerService.GetBuzzerByTrangThai(1);
+            comboBox1.DataSource = buzzers;
+            comboBox1.DisplayMember = "SoHieu";
+            comboBox1.ValueMember = "MaBuzzer";
+
+        }
         private async Task LoadDataAsync()
         {
             try
@@ -48,22 +69,7 @@ namespace MilkTea.Client.Forms
                 // 1️ Lấy danh sách sản phẩm
                 var sanPhams = await _sanPhamService.GetSanPhamsAsync();
 
-                // 2️ Ghi tên nhân viên hiện tại
-                Ten_NV_Label.Text = _current_account.TenTaiKhoan;
-
-                // 3️ Load loại sản phẩm vào combobox
-                var loais = await _loaiService.GetLoaisAsync();
-                comboBox3.DataSource = loais;
-                comboBox3.DisplayMember = "TenLoai";
-                comboBox3.ValueMember = "MaLoai";
-
-                // 4️ Load buzzer còn hoạt động
-                var buzzers = await _buzzerService.GetBuzzerByTrangThai(1);
-                comboBox1.DataSource = buzzers;
-                comboBox1.DisplayMember = "SoHieu";
-                comboBox1.ValueMember = "MaBuzzer";
-
-                // 5️ Làm mới danh sách sản phẩm hiển thị
+                // 2 Làm mới danh sách sản phẩm hiển thị
                 layout_product.Controls.Clear();
 
                 foreach (var sp in sanPhams)
@@ -327,6 +333,7 @@ namespace MilkTea.Client.Forms
             }
         }
 
+        // ==================== hàm cập nhật tổng tiền ====================
 
         public void CapNhatTongTien()
         {
@@ -364,7 +371,26 @@ namespace MilkTea.Client.Forms
             }
         }
 
-        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e) { }
+        // ==================== combobox lọc sản phẩm ====================
+        private async void loc_cbx_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (loc_cbx.SelectedValue == null)
+                return;
+
+            // Nếu ValueMember là MaLoai (int)
+            int maLoai = 0;
+            if (int.TryParse(loc_cbx.SelectedValue.ToString(), out maLoai))
+            {
+                if (maLoai == 0)
+                {
+                    await LoadDataAsync(); // Hiển thị tất cả
+                }
+                else
+                {
+                    SearchSanPham("MaLoai", maLoai.ToString());
+                }
+        }
+    }
 
         // Cho phép product_item_order truy cập dictionary này
         public Dictionary<int, decimal> GetNguyenLieuDaDungTam() => _nguyenLieuDaDungTam;
@@ -373,6 +399,8 @@ namespace MilkTea.Client.Forms
         {
 
         }
+
+        // ==================== nút thêm sản phẩm ====================
 
         private void roundedButton1_Click(object sender, EventArgs e)
         {
@@ -386,9 +414,67 @@ namespace MilkTea.Client.Forms
             addProductForm.StartPosition = FormStartPosition.CenterScreen;
             addProductForm.ShowDialog();
         }
-
-        private void comboBox_pttt_SelectedIndexChanged(object sender, EventArgs e)
+        // ==================== thanh tìm kiếm sản phẩm ====================
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.Enter)
+            {
+                string text = txtSearch.Text.Trim();
+
+                if (string.IsNullOrEmpty(text))
+                {
+                    LoadDataAsync();
+                }
+                else
+                {
+                    // Gọi hàm tìm kiếm
+                    SearchSanPham("TenSP", text);
+                }
+
+                e.Handled = true; // Ngăn Enter phát tiếng beep
+                e.SuppressKeyPress = true;
+            }
         }
+        // ==================== hàm tìm kiếm và lọc sản phẩm theo cột  ====================
+
+        public async void SearchSanPham(string column, string value)
+        {
+            try
+            {
+                // 1️ Lấy danh sách sản phẩm
+                var listSP = await _sanPhamService.SearchSanPhamAsync(column, value);
+
+                // 2 Làm mới danh sách sản phẩm hiển thị
+                layout_product.Controls.Clear();
+
+                foreach (var sp in listSP)
+                {
+                    if (sp.TrangThai == 1) // chỉ hiển thị sản phẩm đang hoạt động
+                    {
+                        var item = new ProductItem();
+                        item.SetData(sp);
+
+                        // Khi người dùng sửa sản phẩm xong → reload lại toàn bộ form
+                        item.OnProductUpdated += async (s, ev) =>
+                        {
+                            await LoadDataAsync();
+                        };
+
+                        item.OnProductSelected += ProductItem_OnProductSelected;
+                        layout_product.Controls.Add(item);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Lỗi khi tải sản phẩm: {ex.Message}",
+                    "Lỗi",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
     }
 }

@@ -81,6 +81,7 @@
             product_delete_btn1.SizeMode = PictureBoxSizeMode.Zoom;
             product_delete_btn1.TabIndex = 1;
             product_delete_btn1.TabStop = false;
+            product_delete_btn1.Click += product_delete_btn1_Click_1;
             // 
             // product_edit_btn1
             // 

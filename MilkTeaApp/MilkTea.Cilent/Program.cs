@@ -41,7 +41,7 @@ namespace MilkTea.Client
                 var mainForm = ServiceProvider.GetRequiredService<MainForm>();
                 var importForm = ServiceProvider.GetRequiredService<ImportForm>();
 
-            Application.Run(loginForm);
+            Application.Run(mainForm);
         }
     }
 }

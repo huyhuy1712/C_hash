@@ -66,10 +66,9 @@
             layout_product = new FlowLayoutPanel();
             panel_Top = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
-            comboBox3 = new ComboBox();
-            roundedTextBox1 = new MilkTea.Client.Controls.RoundedTextBox();
+            loc_cbx = new ComboBox();
+            txtSearch = new MilkTea.Client.Controls.RoundedTextBox();
             roundedButton1 = new MilkTea.Client.Controls.RoundedButton();
-            sort_comboBox = new ComboBox();
             Footer_Left_Panel = new Panel();
             Layout_Footer_Left_Panel = new TableLayoutPanel();
             Size_S_label = new Label();
@@ -460,11 +459,10 @@
             comboBox_pttt.FormattingEnabled = true;
             comboBox_pttt.Items.AddRange(new object[] { "Tiền mặt", "Chuyển khoản" });
             comboBox_pttt.Location = new Point(397, 20);
+            comboBox_pttt.SelectedIndex = 0;
             comboBox_pttt.Name = "comboBox_pttt";
             comboBox_pttt.Size = new Size(137, 28);
-            comboBox_pttt.SelectedIndex = 0;
             comboBox_pttt.TabIndex = 4;
-            comboBox_pttt.SelectedIndexChanged += comboBox_pttt_SelectedIndexChanged;
             // 
             // label2
             // 
@@ -567,51 +565,50 @@
             // 
             // tableLayoutPanel1
             // 
-            tableLayoutPanel1.ColumnCount = 4;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30.681818F));
+            tableLayoutPanel1.ColumnCount = 3;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 37.2047272F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 18.66883F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 17.37013F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.1168823F));
-            tableLayoutPanel1.Controls.Add(comboBox3, 3, 0);
-            tableLayoutPanel1.Controls.Add(roundedTextBox1, 0, 0);
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 44.1558456F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.Controls.Add(loc_cbx, 2, 0);
+            tableLayoutPanel1.Controls.Add(txtSearch, 0, 0);
             tableLayoutPanel1.Controls.Add(roundedButton1, 1, 0);
-            tableLayoutPanel1.Controls.Add(sort_comboBox, 2, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(10, 10);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.Size = new Size(616, 48);
             tableLayoutPanel1.TabIndex = 0;
             // 
-            // comboBox3
+            // loc_cbx
             // 
-            comboBox3.Anchor = AnchorStyles.None;
-            comboBox3.FormattingEnabled = true;
-            comboBox3.Items.AddRange(new object[] { "Loại" });
-            comboBox3.Location = new Point(419, 10);
-            comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(189, 28);
-            comboBox3.TabIndex = 3;
-            comboBox3.TabStop = false;
-            comboBox3.Text = "Loại";
-            comboBox3.SelectedIndexChanged += comboBox3_SelectedIndexChanged;
+            loc_cbx.Anchor = AnchorStyles.None;
+            loc_cbx.FormattingEnabled = true;
+            loc_cbx.Items.AddRange(new object[] { "Loại" });
+            loc_cbx.Location = new Point(390, 10);
+            loc_cbx.Name = "loc_cbx";
+            loc_cbx.Size = new Size(179, 28);
+            loc_cbx.TabIndex = 3;
+            loc_cbx.TabStop = false;
+            loc_cbx.Text = "Loại";
+            loc_cbx.SelectedIndexChanged += loc_cbx_SelectedIndexChanged;
             // 
-            // roundedTextBox1
+            // txtSearch
             // 
-            roundedTextBox1.BackColor = Color.White;
-            roundedTextBox1.BorderColor = Color.Gray;
-            roundedTextBox1.BorderRadius = 20;
-            roundedTextBox1.Cursor = Cursors.IBeam;
-            roundedTextBox1.FocusBorderColor = Color.DeepSkyBlue;
-            roundedTextBox1.Location = new Point(3, 3);
-            roundedTextBox1.Name = "roundedTextBox1";
-            roundedTextBox1.Padding = new Padding(10, 5, 40, 5);
-            roundedTextBox1.Placeholder = "Từ khóa tìm kiếm...";
-            roundedTextBox1.Size = new Size(180, 31);
-            roundedTextBox1.TabIndex = 0;
-            roundedTextBox1.TextValue = "";
+            txtSearch.BackColor = Color.White;
+            txtSearch.BorderColor = Color.Gray;
+            txtSearch.BorderRadius = 20;
+            txtSearch.Cursor = Cursors.IBeam;
+            txtSearch.FocusBorderColor = Color.DeepSkyBlue;
+            txtSearch.Location = new Point(3, 3);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Padding = new Padding(10, 5, 40, 5);
+            txtSearch.Placeholder = "Từ khóa tìm kiếm...";
+            txtSearch.Size = new Size(223, 31);
+            txtSearch.TabIndex = 0;
+            txtSearch.TextValue = "";
+            txtSearch.KeyDown += txtSearch_KeyDown;
             // 
             // roundedButton1
             // 
@@ -624,25 +621,13 @@
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             roundedButton1.ForeColor = Color.White;
-            roundedButton1.Location = new Point(192, 3);
+            roundedButton1.Location = new Point(232, 3);
             roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(107, 36);
+            roundedButton1.Size = new Size(108, 36);
             roundedButton1.TabIndex = 1;
             roundedButton1.Text = "Thêm";
             roundedButton1.UseVisualStyleBackColor = false;
             roundedButton1.Click += roundedButton1_Click;
-            // 
-            // sort_comboBox
-            // 
-            sort_comboBox.Anchor = AnchorStyles.None;
-            sort_comboBox.FormattingEnabled = true;
-            sort_comboBox.Items.AddRange(new object[] { "Sắp xếp" });
-            sort_comboBox.Location = new Point(314, 10);
-            sort_comboBox.Name = "sort_comboBox";
-            sort_comboBox.Size = new Size(87, 28);
-            sort_comboBox.TabIndex = 2;
-            sort_comboBox.TabStop = false;
-            sort_comboBox.Text = "Sắp xếp";
             // 
             // Footer_Left_Panel
             // 
@@ -824,7 +809,7 @@
         private Panel panel_Bottom_1;
         private FlowLayoutPanel layout_product;
         private TableLayoutPanel tableLayoutPanel1;
-        private Controls.RoundedTextBox roundedTextBox1;
+        private Controls.RoundedTextBox txtSearch;
         private Controls.RoundedButton roundedButton1;
         private Panel Header_Right_Panel;
         private Panel Footer_Right_Panel;
@@ -854,8 +839,7 @@
         private ComboBox comboBox_pttt;
         private Panel panel1;
         private Panel panel2;
-        private ComboBox comboBox3;
-        private ComboBox sort_comboBox;
+        private ComboBox loc_cbx;
         private Label label4;
         private Controls.RoundedButton roundedButton2;
     }
