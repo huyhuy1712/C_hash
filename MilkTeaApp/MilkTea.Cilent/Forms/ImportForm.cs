@@ -7,19 +7,22 @@ namespace MilkTea.Client.Forms
     {
         private readonly PhieuNhapService _phieuNhapService;
         private readonly NhanVienService _nhanVienService;
+        private readonly NhaCungCapService _nhaCungCapService;
+
         public ImportForm()
         {
             InitializeComponent();
             _phieuNhapService = new PhieuNhapService();
             _nhanVienService = new NhanVienService();
+            _nhaCungCapService = new NhaCungCapService();
             InitializeSearchComboBox();
         }
 
         private void InitializeSearchComboBox()
         {
             //Khởi tạo ComboBox với các cột tìm kiếm
-            //cbo_timkiemtheo_PN.Items.AddRange(new object[] { "Ngày Nhập", "Số Lượng", "Tên Nhân Viên", "Tổng Tiền" });
-            //cbo_timkiemtheo_PN.SelectedIndex = 0; // Chọn mục đầu tiên làm mặc định
+            cbo_timkiemtheo_PN.Items.AddRange(new object[] { "Ngày Nhập", "Số Lượng", "Nhà Cung Cấp", "Tên Nhân Viên", "Tổng Tiền" });
+            cbo_timkiemtheo_PN.SelectedIndex = 0; // Chọn mục đầu tiên làm mặc định
         }
 
 
@@ -66,6 +69,7 @@ namespace MilkTea.Client.Forms
         {
             try
             {
+
                 var phieuNhaps = await _phieuNhapService.GetPhieuNhapsAsync();
                 dGV_phieuNhap.Rows.Clear();
                 if (phieuNhaps != null && phieuNhaps.Any())
@@ -74,9 +78,11 @@ namespace MilkTea.Client.Forms
                     {
                         var nhanvien = await _nhanVienService.GetByMaNV(pn.MaNV);
                         int rowIndex = dGV_phieuNhap.Rows.Add();
+                        var nhacungcap = await _nhaCungCapService.GetByMaNCC(pn.MaNCC);
                         dGV_phieuNhap.Rows[rowIndex].Cells["maPhieuNhap_Tb_iPort"].Value = pn.MaPN;
                         dGV_phieuNhap.Rows[rowIndex].Cells["ngayNhap_Tb_iPort"].Value = pn.NgayNhap?.ToString("dd/MM/yyyy");
                         dGV_phieuNhap.Rows[rowIndex].Cells["soLuong_Tb_iPort"].Value = pn.SoLuong;
+                        dGV_phieuNhap.Rows[rowIndex].Cells["nhaCungCap_Tb_iPort"].Value = nhacungcap.TenNCC;
                         dGV_phieuNhap.Rows[rowIndex].Cells["tenNVN_Tb_iPort"].Value = nhanvien.TenNV;
                         dGV_phieuNhap.Rows[rowIndex].Cells["tongTien_Tb_iPort"].Value = pn.TongTien;
                     }
@@ -115,6 +121,9 @@ namespace MilkTea.Client.Forms
                     case "Tổng Tiền":
                         columnName = "tongTien_Tb_iPort";
                         break;
+                    case "Nhà Cung Cấp":
+                        columnName = "NhaCungCap_Tb_iPort";
+                        break;
                     default:
                         return;
                 }
@@ -139,7 +148,6 @@ namespace MilkTea.Client.Forms
                         //row.Visible = false;
                         lblStatus_PN.ForeColor = Color.Red;
                         lblStatus_PN.Text = "Không tìm thấy kết quả phù hợp.";
-
                     }
                 }
                 if (visibleRowCount == 0)
