@@ -62,7 +62,7 @@ namespace MilkTea.Client.Presenters
         {
             if (string.IsNullOrEmpty(id)) return;
 
-            using (var frm = new EditQuyenForm())
+            using (var frm = new EditQuyenForm(id))
             {
                 if (frm.ShowDialog() == DialogResult.OK)
                 {

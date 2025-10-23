@@ -16,14 +16,15 @@ namespace MilkTea.Client.Forms.ChildForm_Account
 {
     public partial class AddQuyenForm : Form, IBaseForm
     {
-        private readonly ChucNangPresenter _presenter;
+        private readonly ChucNangPresenter _chucNangPresenter;
         public DataGridView Grid => dataGridView1;
         public Label LblStatus => lblStatus;
-        private readonly ChucNangService _chucNangService = new();
-        public AddQuyenForm()
+        private string _id;
+        public AddQuyenForm(string id)
         {
             InitializeComponent();
-            _presenter = new ChucNangPresenter(this, new ChucNangService());
+            _chucNangPresenter = new ChucNangPresenter(this, new ChucNangService());
+            _id = id;
         }
 
         private void btnDong_Click(object sender, EventArgs e)
@@ -33,7 +34,7 @@ namespace MilkTea.Client.Forms.ChildForm_Account
 
         private async void AddQuyenForm_Load(object sender, EventArgs e)
         {
-            await _presenter.LoadDataAsync();
+            _chucNangPresenter.LoadDataAsync(_id);
         }
 
         private void txtbTenQuyen_KeyDown(object sender, KeyEventArgs e)

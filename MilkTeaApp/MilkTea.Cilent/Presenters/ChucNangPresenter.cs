@@ -18,7 +18,7 @@ namespace MilkTea.Client.Presenters
             _chucNangService = chucNangService;
         }
 
-        public async Task LoadDataAsync()
+        public async Task LoadDataAsync(String id)
         {
             var dataGridView1 = _form.Grid;
             var lblStatus = _form.LblStatus;

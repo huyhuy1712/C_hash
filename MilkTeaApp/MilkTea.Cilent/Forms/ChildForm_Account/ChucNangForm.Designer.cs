@@ -1,6 +1,6 @@
 ﻿namespace MilkTea.Client.Forms.ChildForm_Account
 {
-    partial class EditQuyenForm
+    partial class ChucNangForm
     {
         /// <summary>
         /// Required designer variable.
@@ -35,11 +35,13 @@
             panel11 = new Panel();
             panel5 = new Panel();
             dataGridView1 = new DataGridView();
+            id = new DataGridViewTextBoxColumn();
             tenQuyen = new DataGridViewTextBoxColumn();
             chon = new DataGridViewCheckBoxColumn();
             panel6 = new Panel();
             txtbSearch = new TextBox();
             panel9 = new Panel();
+            lblStatus = new Label();
             btnXacNhan = new MilkTea.Client.Controls.RoundedButton();
             panel12 = new Panel();
             btnDong = new MilkTea.Client.Controls.RoundedButton();
@@ -121,7 +123,7 @@
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.BackgroundColor = SystemColors.Control;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { tenQuyen, chon });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { id, tenQuyen, chon });
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(0, 0);
             dataGridView1.Name = "dataGridView1";
@@ -129,6 +131,15 @@
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(760, 170);
             dataGridView1.TabIndex = 0;
+            // 
+            // id
+            // 
+            id.HeaderText = "Id";
+            id.MinimumWidth = 6;
+            id.Name = "id";
+            id.ReadOnly = true;
+            id.Resizable = DataGridViewTriState.False;
+            id.Width = 125;
             // 
             // tenQuyen
             // 
@@ -175,6 +186,7 @@
             // 
             // panel9
             // 
+            panel9.Controls.Add(lblStatus);
             panel9.Controls.Add(btnXacNhan);
             panel9.Controls.Add(panel12);
             panel9.Dock = DockStyle.Bottom;
@@ -183,6 +195,15 @@
             panel9.Padding = new Padding(0, 10, 0, 0);
             panel9.Size = new Size(760, 50);
             panel9.TabIndex = 3;
+            // 
+            // lblStatus
+            // 
+            lblStatus.Dock = DockStyle.Top;
+            lblStatus.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblStatus.Location = new Point(0, 10);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(480, 25);
+            lblStatus.TabIndex = 3;
             // 
             // btnXacNhan
             // 
@@ -302,13 +323,13 @@
             label1.Text = "Sửa Quyền";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // EditQuyenForm
+            // ChucNangForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(panel1);
-            Name = "EditQuyenForm";
+            Name = "ChucNangForm";
             Text = "Quyền";
             Load += EditQuyenForm_Load;
             panel1.ResumeLayout(false);
@@ -351,5 +372,7 @@
         private Controls.RoundedButton btnXacNhan;
         private TextBox txtbSearch;
         private Panel panel12;
+        private Label lblStatus;
+        private DataGridViewTextBoxColumn id;
     }
 }
