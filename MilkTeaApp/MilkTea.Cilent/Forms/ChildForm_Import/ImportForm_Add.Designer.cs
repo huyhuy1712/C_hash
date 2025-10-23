@@ -29,12 +29,14 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            txt_maPN_PN_ADD = new TextBox();
+            label6 = new Label();
+            cbo_NhaCungCap_PN_ADD = new ComboBox();
             btn_Xoa_PN_ADD = new MilkTea.Client.Controls.RoundedButton();
             btn_Them_PN_ADD = new MilkTea.Client.Controls.RoundedButton();
             nb_soLuong_PN_ADD = new NumericUpDown();
             cbo_HangHoa_PN_ADD = new ComboBox();
             txt_iPort_nguoitao = new TextBox();
-            txt_iPort_maphieu = new TextBox();
             dt_iPort_ngaylap = new DateTimePicker();
             label4 = new Label();
             label3 = new Label();
@@ -63,12 +65,14 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(txt_maPN_PN_ADD);
+            panel1.Controls.Add(label6);
+            panel1.Controls.Add(cbo_NhaCungCap_PN_ADD);
             panel1.Controls.Add(btn_Xoa_PN_ADD);
             panel1.Controls.Add(btn_Them_PN_ADD);
             panel1.Controls.Add(nb_soLuong_PN_ADD);
             panel1.Controls.Add(cbo_HangHoa_PN_ADD);
             panel1.Controls.Add(txt_iPort_nguoitao);
-            panel1.Controls.Add(txt_iPort_maphieu);
             panel1.Controls.Add(dt_iPort_ngaylap);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(label3);
@@ -77,8 +81,36 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1020, 185);
+            panel1.Size = new Size(1020, 226);
             panel1.TabIndex = 0;
+            // 
+            // txt_maPN_PN_ADD
+            // 
+            txt_maPN_PN_ADD.Enabled = false;
+            txt_maPN_PN_ADD.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txt_maPN_PN_ADD.Location = new Point(233, 14);
+            txt_maPN_PN_ADD.Name = "txt_maPN_PN_ADD";
+            txt_maPN_PN_ADD.Size = new Size(744, 27);
+            txt_maPN_PN_ADD.TabIndex = 13;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.Location = new Point(55, 17);
+            label6.Name = "label6";
+            label6.Size = new Size(113, 20);
+            label6.TabIndex = 12;
+            label6.Text = "Mã phiếu nhập";
+            // 
+            // cbo_NhaCungCap_PN_ADD
+            // 
+            cbo_NhaCungCap_PN_ADD.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cbo_NhaCungCap_PN_ADD.FormattingEnabled = true;
+            cbo_NhaCungCap_PN_ADD.Location = new Point(233, 47);
+            cbo_NhaCungCap_PN_ADD.Name = "cbo_NhaCungCap_PN_ADD";
+            cbo_NhaCungCap_PN_ADD.Size = new Size(744, 28);
+            cbo_NhaCungCap_PN_ADD.TabIndex = 11;
             // 
             // btn_Xoa_PN_ADD
             // 
@@ -90,7 +122,7 @@
             btn_Xoa_PN_ADD.FlatStyle = FlatStyle.Flat;
             btn_Xoa_PN_ADD.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btn_Xoa_PN_ADD.ForeColor = Color.White;
-            btn_Xoa_PN_ADD.Location = new Point(864, 139);
+            btn_Xoa_PN_ADD.Location = new Point(879, 168);
             btn_Xoa_PN_ADD.Name = "btn_Xoa_PN_ADD";
             btn_Xoa_PN_ADD.Size = new Size(98, 36);
             btn_Xoa_PN_ADD.TabIndex = 10;
@@ -108,7 +140,7 @@
             btn_Them_PN_ADD.FlatStyle = FlatStyle.Flat;
             btn_Them_PN_ADD.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btn_Them_PN_ADD.ForeColor = Color.White;
-            btn_Them_PN_ADD.Location = new Point(760, 139);
+            btn_Them_PN_ADD.Location = new Point(775, 168);
             btn_Them_PN_ADD.Name = "btn_Them_PN_ADD";
             btn_Them_PN_ADD.Size = new Size(98, 36);
             btn_Them_PN_ADD.TabIndex = 9;
@@ -119,7 +151,7 @@
             // nb_soLuong_PN_ADD
             // 
             nb_soLuong_PN_ADD.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            nb_soLuong_PN_ADD.Location = new Point(615, 145);
+            nb_soLuong_PN_ADD.Location = new Point(630, 174);
             nb_soLuong_PN_ADD.Name = "nb_soLuong_PN_ADD";
             nb_soLuong_PN_ADD.Size = new Size(113, 27);
             nb_soLuong_PN_ADD.TabIndex = 8;
@@ -128,7 +160,7 @@
             // 
             cbo_HangHoa_PN_ADD.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbo_HangHoa_PN_ADD.FormattingEnabled = true;
-            cbo_HangHoa_PN_ADD.Location = new Point(218, 144);
+            cbo_HangHoa_PN_ADD.Location = new Point(233, 173);
             cbo_HangHoa_PN_ADD.Name = "cbo_HangHoa_PN_ADD";
             cbo_HangHoa_PN_ADD.Size = new Size(358, 28);
             cbo_HangHoa_PN_ADD.TabIndex = 7;
@@ -137,25 +169,16 @@
             // 
             txt_iPort_nguoitao.Enabled = false;
             txt_iPort_nguoitao.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txt_iPort_nguoitao.Location = new Point(218, 102);
+            txt_iPort_nguoitao.Location = new Point(233, 131);
             txt_iPort_nguoitao.Name = "txt_iPort_nguoitao";
             txt_iPort_nguoitao.Size = new Size(744, 27);
             txt_iPort_nguoitao.TabIndex = 6;
-            // 
-            // txt_iPort_maphieu
-            // 
-            txt_iPort_maphieu.Enabled = false;
-            txt_iPort_maphieu.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txt_iPort_maphieu.Location = new Point(218, 18);
-            txt_iPort_maphieu.Name = "txt_iPort_maphieu";
-            txt_iPort_maphieu.Size = new Size(744, 27);
-            txt_iPort_maphieu.TabIndex = 5;
             // 
             // dt_iPort_ngaylap
             // 
             dt_iPort_ngaylap.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dt_iPort_ngaylap.Format = DateTimePickerFormat.Short;
-            dt_iPort_ngaylap.Location = new Point(218, 58);
+            dt_iPort_ngaylap.Location = new Point(233, 87);
             dt_iPort_ngaylap.Name = "dt_iPort_ngaylap";
             dt_iPort_ngaylap.Size = new Size(744, 27);
             dt_iPort_ngaylap.TabIndex = 4;
@@ -164,7 +187,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(40, 147);
+            label4.Location = new Point(55, 176);
             label4.Name = "label4";
             label4.Size = new Size(114, 20);
             label4.TabIndex = 3;
@@ -174,7 +197,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(40, 63);
+            label3.Location = new Point(55, 92);
             label3.Name = "label3";
             label3.Size = new Size(114, 20);
             label3.TabIndex = 2;
@@ -184,7 +207,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(40, 105);
+            label2.Location = new Point(55, 134);
             label2.Name = "label2";
             label2.Size = new Size(123, 20);
             label2.TabIndex = 1;
@@ -194,17 +217,17 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(40, 21);
+            label1.Location = new Point(55, 50);
             label1.Name = "label1";
-            label1.Size = new Size(74, 20);
+            label1.Size = new Size(104, 20);
             label1.TabIndex = 0;
-            label1.Text = "Mã phiếu";
+            label1.Text = "Nhà cung cấp";
             // 
             // panel2
             // 
             panel2.Controls.Add(label5);
             panel2.Dock = DockStyle.Top;
-            panel2.Location = new Point(0, 185);
+            panel2.Location = new Point(0, 226);
             panel2.Name = "panel2";
             panel2.Size = new Size(1020, 80);
             panel2.TabIndex = 1;
@@ -226,7 +249,7 @@
             panel3.Controls.Add(btn_Luu_Iport_add);
             panel3.Controls.Add(btn_Thoat_iPort_add);
             panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(0, 639);
+            panel3.Location = new Point(0, 677);
             panel3.Name = "panel3";
             panel3.Size = new Size(1020, 60);
             panel3.TabIndex = 5;
@@ -318,10 +341,10 @@
             panel5.BackColor = SystemColors.ActiveBorder;
             panel5.Controls.Add(dGV_HangHoa_PN_ADD);
             panel5.Dock = DockStyle.Fill;
-            panel5.Location = new Point(0, 265);
+            panel5.Location = new Point(0, 306);
             panel5.Name = "panel5";
             panel5.Padding = new Padding(20);
-            panel5.Size = new Size(1020, 434);
+            panel5.Size = new Size(1020, 431);
             panel5.TabIndex = 4;
             panel5.TabStop = true;
             // 
@@ -329,7 +352,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1020, 699);
+            ClientSize = new Size(1020, 737);
             Controls.Add(panel3);
             Controls.Add(panel5);
             Controls.Add(panel2);
@@ -358,7 +381,6 @@
         private Label label2;
         private Label label4;
         private TextBox txt_iPort_nguoitao;
-        private TextBox txt_iPort_maphieu;
         private DateTimePicker dt_iPort_ngaylap;
         private Controls.RoundedButton btn_Them_PN_ADD;
         private NumericUpDown nb_soLuong_PN_ADD;
@@ -377,5 +399,8 @@
         private DataGridViewTextBoxColumn tenNVN_tb_add;
         private DataGridViewTextBoxColumn tongTien_tb_add;
         private Panel panel5;
+        private ComboBox cbo_NhaCungCap_PN_ADD;
+        private TextBox txt_maPN_PN_ADD;
+        private Label label6;
     }
 }
