@@ -19,9 +19,11 @@ namespace MilkTea.Client.Forms.ChildForm_Import
         private readonly ChiTietPhieuNhapService _chiTietPhieuNhapService;
         private readonly NguyenLieuService _nguyenLieuService;
         private readonly NhanVienService _nhanVienService;
+        private readonly NhaCungCapService _nhaCungCapService;
 
         private ImportForm _parentForm;
         private List<NguyenLieu> _nguyenLieus;
+        private List<NhaCungCap> _nhaCungCaps;
         private List<TempChiTiet> _tempChiTiets = new List<TempChiTiet>();
 
         private class TempChiTiet
@@ -41,6 +43,7 @@ namespace MilkTea.Client.Forms.ChildForm_Import
             _chiTietPhieuNhapService = new ChiTietPhieuNhapService();
             _nguyenLieuService = new NguyenLieuService();
             _nhanVienService = new NhanVienService();
+            _nhaCungCapService = new NhaCungCapService();
             _parentForm = parentForm;
         }
 
@@ -49,7 +52,7 @@ namespace MilkTea.Client.Forms.ChildForm_Import
             // Lấy mã phiếu nhập cuối cùng +1
             var phieuNhaps = await _phieuNhapService.GetPhieuNhapsAsync();
             int maxMaPN = phieuNhaps.Any() ? phieuNhaps.Max(p => p.MaPN) : 0;
-            txt_iPort_maphieu.Text = (maxMaPN + 1).ToString();
+            txt_maPN_PN_ADD.Text = (maxMaPN + 1).ToString();
 
             // Ngày lập phiếu: ngày hiện tại (04/10/2025)
             dt_iPort_ngaylap.Text = DateTime.Now.ToString("MM/dd/yyyy");
@@ -57,6 +60,12 @@ namespace MilkTea.Client.Forms.ChildForm_Import
             // Người tạo phiếu: mặc định MaNV = 1, lấy tên
             var nhanVien = await _nhanVienService.GetByMaNV(1);
             txt_iPort_nguoitao.Text = nhanVien?.TenNV ?? "Nguyễn Văn A";
+
+            // Nhà cung cấp
+            _nhaCungCaps = await _nhaCungCapService.GetNhaCungCapAsync();
+            cbo_NhaCungCap_PN_ADD.DataSource = _nhaCungCaps;
+            cbo_NhaCungCap_PN_ADD.DisplayMember = "TenNCC";
+            cbo_NhaCungCap_PN_ADD.ValueMember = "MaNCC";
 
             // Load danh sách nguyên liệu vào comboBox_ChonHangHoa
             _nguyenLieus = await _nguyenLieuService.GetAll();
@@ -119,12 +128,12 @@ namespace MilkTea.Client.Forms.ChildForm_Import
                 {
                     NgayNhap = DateTime.Parse(dt_iPort_ngaylap.Text),
                     SoLuong = _tempChiTiets.Sum(t => t.SoLuong),
+                    MaNCC = (int?)cbo_NhaCungCap_PN_ADD.SelectedValue,
                     MaNV = 1,
                     TongTien = _tempChiTiets.Sum(t => t.TongGia)
                 };
 
-                int newMaPN=await _phieuNhapService.AddPhieuNhapAsync(pn);
-                Debug.WriteLine(newMaPN);
+                int newMaPN = await _phieuNhapService.AddPhieuNhapAsync(pn);
 
                 foreach (var temp in _tempChiTiets)
                 {
@@ -158,10 +167,10 @@ namespace MilkTea.Client.Forms.ChildForm_Import
         {
             this.Close();
         }
-        private void RefreshGrid()
+        private async void RefreshGrid()
         {
             dGV_HangHoa_PN_ADD.Rows.Clear();
-            string maPhieu = txt_iPort_maphieu.Text;
+            string maPhieu = Convert.ToString(txt_maPN_PN_ADD.Text);
             string ngayNhap = dt_iPort_ngaylap.Text;
             string tenNV = txt_iPort_nguoitao.Text;
 
