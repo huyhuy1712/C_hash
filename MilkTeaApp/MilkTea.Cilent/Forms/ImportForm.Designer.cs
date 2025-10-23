@@ -51,6 +51,7 @@ namespace MilkTea.Client.Forms
             maPhieuNhap_Tb_iPort = new DataGridViewTextBoxColumn();
             ngayNhap_Tb_iPort = new DataGridViewTextBoxColumn();
             soLuong_Tb_iPort = new DataGridViewTextBoxColumn();
+            NhaCungCap_Tb_iPort = new DataGridViewTextBoxColumn();
             tenNVN_Tb_iPort = new DataGridViewTextBoxColumn();
             tongTien_Tb_iPort = new DataGridViewTextBoxColumn();
             thongTin_Tb_iPort = new DataGridViewImageColumn();
@@ -285,7 +286,7 @@ namespace MilkTea.Client.Forms
             dGV_phieuNhap.AllowUserToAddRows = false;
             dGV_phieuNhap.BackgroundColor = SystemColors.ButtonFace;
             dGV_phieuNhap.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dGV_phieuNhap.Columns.AddRange(new DataGridViewColumn[] { maPhieuNhap_Tb_iPort, ngayNhap_Tb_iPort, soLuong_Tb_iPort, tenNVN_Tb_iPort, tongTien_Tb_iPort, thongTin_Tb_iPort, xoa_Tb_iPort });
+            dGV_phieuNhap.Columns.AddRange(new DataGridViewColumn[] { maPhieuNhap_Tb_iPort, ngayNhap_Tb_iPort, soLuong_Tb_iPort, NhaCungCap_Tb_iPort, tenNVN_Tb_iPort, tongTien_Tb_iPort, thongTin_Tb_iPort, xoa_Tb_iPort });
             dGV_phieuNhap.Dock = DockStyle.Fill;
             dGV_phieuNhap.Location = new Point(23, 27);
             dGV_phieuNhap.Margin = new Padding(3, 4, 3, 4);
@@ -316,6 +317,12 @@ namespace MilkTea.Client.Forms
             soLuong_Tb_iPort.MinimumWidth = 6;
             soLuong_Tb_iPort.Name = "soLuong_Tb_iPort";
             soLuong_Tb_iPort.Width = 125;
+            // 
+            // NhaCungCap_Tb_iPort
+            // 
+            NhaCungCap_Tb_iPort.HeaderText = "Nhà cung cấp";
+            NhaCungCap_Tb_iPort.Name = "NhaCungCap_Tb_iPort";
+            NhaCungCap_Tb_iPort.Width = 200;
             // 
             // tenNVN_Tb_iPort
             // 
@@ -410,13 +417,6 @@ namespace MilkTea.Client.Forms
         private Panel panel5;
         private DataGridView dGV_phieuNhap;
         private Panel panel1;
-        private DataGridViewTextBoxColumn maPhieuNhap_Tb_iPort;
-        private DataGridViewTextBoxColumn ngayNhap_Tb_iPort;
-        private DataGridViewTextBoxColumn soLuong_Tb_iPort;
-        private DataGridViewTextBoxColumn tenNVN_Tb_iPort;
-        private DataGridViewTextBoxColumn tongTien_Tb_iPort;
-        private DataGridViewImageColumn thongTin_Tb_iPort;
-        private DataGridViewImageColumn xoa_Tb_iPort;
         private Controls.RoundedComboBox roundedComboBox1;
         private Controls.RoundedTextBox roundedTextBox1;
         private Panel panel7;
@@ -427,5 +427,13 @@ namespace MilkTea.Client.Forms
         private Panel panel8;
         private TextBox txt_TimkiemPN_PN;
         private Label lblStatus_PN;
+        private DataGridViewTextBoxColumn maPhieuNhap_Tb_iPort;
+        private DataGridViewTextBoxColumn ngayNhap_Tb_iPort;
+        private DataGridViewTextBoxColumn soLuong_Tb_iPort;
+        private DataGridViewTextBoxColumn NhaCungCap_Tb_iPort;
+        private DataGridViewTextBoxColumn tenNVN_Tb_iPort;
+        private DataGridViewTextBoxColumn tongTien_Tb_iPort;
+        private DataGridViewImageColumn thongTin_Tb_iPort;
+        private DataGridViewImageColumn xoa_Tb_iPort;
     }
 }

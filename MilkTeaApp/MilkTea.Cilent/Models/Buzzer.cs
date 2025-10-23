@@ -11,5 +11,9 @@ namespace MilkTea.Client.Models
         // Trạng thái (mặc định = 1)
         // Có thể: 1 = hoạt động, 0 = không hoạt động
         public int TrangThai { get; set; } = 1;
+        public override string ToString()
+        {
+            return SoHieu;
+        }
     }
 }

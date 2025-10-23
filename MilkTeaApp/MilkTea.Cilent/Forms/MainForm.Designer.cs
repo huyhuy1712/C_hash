@@ -33,13 +33,15 @@
             avatarUser = new PictureBox();
             panelMenu = new Panel();
             layoutMenu = new TableLayoutPanel();
+            btnDangXuat = new Button();
+            btnNguyenLieu = new Button();
             btnOrder = new Button();
             btnHoaDon = new Button();
             btnThongKe = new Button();
             btnKhuyenMai = new Button();
             btnPhieuNhap = new Button();
             btnTaiKhoan = new Button();
-            btnDangXuat = new Button();
+            btnNhaCungCap = new Button();
             panelMain.SuspendLayout();
             panelFooter.SuspendLayout();
             Infopanel.SuspendLayout();
@@ -53,10 +55,9 @@
             panelMain.Controls.Add(panelContent);
             panelMain.Controls.Add(panelFooter);
             panelMain.Dock = DockStyle.Fill;
-            panelMain.Location = new Point(154, 0);
-            panelMain.Margin = new Padding(3, 2, 3, 2);
+            panelMain.Location = new Point(176, 0);
             panelMain.Name = "panelMain";
-            panelMain.Size = new Size(1466, 664);
+            panelMain.Size = new Size(1675, 885);
             panelMain.TabIndex = 1;
             // 
             // panelContent
@@ -64,12 +65,10 @@
             panelContent.BackColor = SystemColors.Menu;
             panelContent.Dock = DockStyle.Fill;
             panelContent.Location = new Point(0, 0);
-            panelContent.Margin = new Padding(3, 2, 3, 2);
             panelContent.Name = "panelContent";
-            panelContent.Padding = new Padding(0, 0, 26, 0);
-            panelContent.Size = new Size(1466, 620);
+            panelContent.Padding = new Padding(0, 0, 30, 0);
+            panelContent.Size = new Size(1675, 826);
             panelContent.TabIndex = 1;
-            panelContent.Paint += panelContent_Paint;
             // 
             // panelFooter
             // 
@@ -77,11 +76,10 @@
             panelFooter.Controls.Add(signature);
             panelFooter.Controls.Add(Infopanel);
             panelFooter.Dock = DockStyle.Bottom;
-            panelFooter.Location = new Point(0, 620);
-            panelFooter.Margin = new Padding(3, 2, 3, 2);
+            panelFooter.Location = new Point(0, 826);
             panelFooter.Name = "panelFooter";
-            panelFooter.Padding = new Padding(9, 8, 9, 8);
-            panelFooter.Size = new Size(1466, 44);
+            panelFooter.Padding = new Padding(10, 11, 10, 11);
+            panelFooter.Size = new Size(1675, 59);
             panelFooter.TabIndex = 0;
             // 
             // signature
@@ -90,23 +88,21 @@
             signature.Dock = DockStyle.Fill;
             signature.Font = new Font("Segoe UI Semibold", 17F, FontStyle.Bold, GraphicsUnit.Point, 0);
             signature.ForeColor = SystemColors.ButtonHighlight;
-            signature.Location = new Point(9, 8);
+            signature.Location = new Point(10, 11);
             signature.Name = "signature";
-            signature.Size = new Size(1260, 28);
+            signature.Size = new Size(1440, 37);
             signature.TabIndex = 1;
             signature.Text = "Chào mừng đến với wibu world";
             signature.TextAlign = ContentAlignment.MiddleCenter;
-            signature.Click += signature_Click;
             // 
             // Infopanel
             // 
             Infopanel.Controls.Add(username);
             Infopanel.Controls.Add(avatarUser);
             Infopanel.Dock = DockStyle.Right;
-            Infopanel.Location = new Point(1269, 8);
-            Infopanel.Margin = new Padding(3, 2, 3, 2);
+            Infopanel.Location = new Point(1450, 11);
             Infopanel.Name = "Infopanel";
-            Infopanel.Size = new Size(188, 28);
+            Infopanel.Size = new Size(215, 37);
             Infopanel.TabIndex = 0;
             // 
             // username
@@ -116,7 +112,7 @@
             username.ForeColor = SystemColors.ButtonHighlight;
             username.Location = new Point(0, 0);
             username.Name = "username";
-            username.Size = new Size(134, 28);
+            username.Size = new Size(153, 37);
             username.TabIndex = 1;
             username.Text = "Anh Huy";
             username.TextAlign = ContentAlignment.MiddleCenter;
@@ -125,15 +121,13 @@
             // 
             avatarUser.Dock = DockStyle.Right;
             avatarUser.Image = Properties.Resources.circle_user;
-            avatarUser.Location = new Point(134, 0);
-            avatarUser.Margin = new Padding(3, 2, 3, 2);
+            avatarUser.Location = new Point(153, 0);
             avatarUser.Name = "avatarUser";
-            avatarUser.Padding = new Padding(30, 0, 0, 0);
-            avatarUser.Size = new Size(54, 28);
+            avatarUser.Padding = new Padding(34, 0, 0, 0);
+            avatarUser.Size = new Size(62, 37);
             avatarUser.SizeMode = PictureBoxSizeMode.Zoom;
             avatarUser.TabIndex = 0;
             avatarUser.TabStop = false;
-            avatarUser.Click += pictureBox1_Click;
             // 
             // panelMenu
             // 
@@ -141,37 +135,72 @@
             panelMenu.Controls.Add(layoutMenu);
             panelMenu.Dock = DockStyle.Left;
             panelMenu.Location = new Point(0, 0);
-            panelMenu.Margin = new Padding(3, 2, 3, 2);
             panelMenu.Name = "panelMenu";
-            panelMenu.Size = new Size(154, 664);
+            panelMenu.Size = new Size(176, 885);
             panelMenu.TabIndex = 0;
             // 
             // layoutMenu
             // 
             layoutMenu.ColumnCount = 1;
             layoutMenu.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            layoutMenu.Controls.Add(btnDangXuat, 0, 8);
+            layoutMenu.Controls.Add(btnNguyenLieu, 0, 7);
             layoutMenu.Controls.Add(btnOrder, 0, 0);
             layoutMenu.Controls.Add(btnHoaDon, 0, 1);
             layoutMenu.Controls.Add(btnThongKe, 0, 2);
             layoutMenu.Controls.Add(btnKhuyenMai, 0, 3);
             layoutMenu.Controls.Add(btnPhieuNhap, 0, 4);
             layoutMenu.Controls.Add(btnTaiKhoan, 0, 5);
-            layoutMenu.Controls.Add(btnDangXuat, 0, 6);
+            layoutMenu.Controls.Add(btnNhaCungCap, 0, 6);
             layoutMenu.Dock = DockStyle.Fill;
             layoutMenu.Location = new Point(0, 0);
-            layoutMenu.Margin = new Padding(3, 2, 3, 2);
             layoutMenu.Name = "layoutMenu";
-            layoutMenu.RowCount = 7;
-            layoutMenu.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2857141F));
-            layoutMenu.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2857141F));
-            layoutMenu.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2857141F));
-            layoutMenu.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2857141F));
-            layoutMenu.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2857141F));
-            layoutMenu.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2857141F));
-            layoutMenu.RowStyles.Add(new RowStyle(SizeType.Percent, 14.2857141F));
-            layoutMenu.RowStyles.Add(new RowStyle(SizeType.Absolute, 15F));
-            layoutMenu.Size = new Size(154, 664);
+            layoutMenu.RowCount = 9;
+            layoutMenu.RowStyles.Add(new RowStyle(SizeType.Percent, 11.1111107F));
+            layoutMenu.RowStyles.Add(new RowStyle(SizeType.Percent, 11.1111107F));
+            layoutMenu.RowStyles.Add(new RowStyle(SizeType.Percent, 11.1111107F));
+            layoutMenu.RowStyles.Add(new RowStyle(SizeType.Percent, 11.1111107F));
+            layoutMenu.RowStyles.Add(new RowStyle(SizeType.Percent, 11.1111107F));
+            layoutMenu.RowStyles.Add(new RowStyle(SizeType.Percent, 11.1111107F));
+            layoutMenu.RowStyles.Add(new RowStyle(SizeType.Percent, 11.1111107F));
+            layoutMenu.RowStyles.Add(new RowStyle(SizeType.Percent, 11.1111107F));
+            layoutMenu.RowStyles.Add(new RowStyle(SizeType.Percent, 11.1111107F));
+            layoutMenu.Size = new Size(176, 885);
             layoutMenu.TabIndex = 0;
+            // 
+            // btnDangXuat
+            // 
+            btnDangXuat.Dock = DockStyle.Fill;
+            btnDangXuat.FlatAppearance.BorderSize = 0;
+            btnDangXuat.FlatStyle = FlatStyle.Flat;
+            btnDangXuat.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnDangXuat.ForeColor = SystemColors.ButtonHighlight;
+            btnDangXuat.Image = Properties.Resources.logout;
+            btnDangXuat.ImageAlign = ContentAlignment.MiddleLeft;
+            btnDangXuat.Location = new Point(3, 787);
+            btnDangXuat.Name = "btnDangXuat";
+            btnDangXuat.Size = new Size(170, 95);
+            btnDangXuat.TabIndex = 9;
+            btnDangXuat.Text = "   Đăng xuất";
+            btnDangXuat.UseVisualStyleBackColor = true;
+            btnDangXuat.Click += btnDangXuat_Click;
+            // 
+            // btnNguyenLieu
+            // 
+            btnNguyenLieu.Dock = DockStyle.Fill;
+            btnNguyenLieu.FlatAppearance.BorderSize = 0;
+            btnNguyenLieu.FlatStyle = FlatStyle.Flat;
+            btnNguyenLieu.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnNguyenLieu.ForeColor = SystemColors.ButtonHighlight;
+            btnNguyenLieu.Image = Properties.Resources.ingredient;
+            btnNguyenLieu.ImageAlign = ContentAlignment.MiddleLeft;
+            btnNguyenLieu.Location = new Point(3, 689);
+            btnNguyenLieu.Name = "btnNguyenLieu";
+            btnNguyenLieu.Size = new Size(170, 92);
+            btnNguyenLieu.TabIndex = 8;
+            btnNguyenLieu.Text = "      Nguyên Liệu";
+            btnNguyenLieu.UseVisualStyleBackColor = true;
+            btnNguyenLieu.Click += btnNguyenLieu_Click;
             // 
             // btnOrder
             // 
@@ -182,10 +211,9 @@
             btnOrder.ForeColor = SystemColors.ButtonHighlight;
             btnOrder.Image = Properties.Resources.order;
             btnOrder.ImageAlign = ContentAlignment.MiddleLeft;
-            btnOrder.Location = new Point(3, 2);
-            btnOrder.Margin = new Padding(3, 2, 3, 2);
+            btnOrder.Location = new Point(3, 3);
             btnOrder.Name = "btnOrder";
-            btnOrder.Size = new Size(148, 90);
+            btnOrder.Size = new Size(170, 92);
             btnOrder.TabIndex = 1;
             btnOrder.Text = "    Order";
             btnOrder.UseVisualStyleBackColor = true;
@@ -200,10 +228,9 @@
             btnHoaDon.ForeColor = SystemColors.ButtonHighlight;
             btnHoaDon.Image = Properties.Resources.invoice;
             btnHoaDon.ImageAlign = ContentAlignment.MiddleLeft;
-            btnHoaDon.Location = new Point(3, 96);
-            btnHoaDon.Margin = new Padding(3, 2, 3, 2);
+            btnHoaDon.Location = new Point(3, 101);
             btnHoaDon.Name = "btnHoaDon";
-            btnHoaDon.Size = new Size(148, 90);
+            btnHoaDon.Size = new Size(170, 92);
             btnHoaDon.TabIndex = 2;
             btnHoaDon.Text = "    Hóa đơn";
             btnHoaDon.UseVisualStyleBackColor = true;
@@ -218,10 +245,9 @@
             btnThongKe.ForeColor = SystemColors.ButtonHighlight;
             btnThongKe.Image = Properties.Resources.report;
             btnThongKe.ImageAlign = ContentAlignment.MiddleLeft;
-            btnThongKe.Location = new Point(3, 190);
-            btnThongKe.Margin = new Padding(3, 2, 3, 2);
+            btnThongKe.Location = new Point(3, 199);
             btnThongKe.Name = "btnThongKe";
-            btnThongKe.Size = new Size(148, 90);
+            btnThongKe.Size = new Size(170, 92);
             btnThongKe.TabIndex = 3;
             btnThongKe.Text = "    Thống kê";
             btnThongKe.UseVisualStyleBackColor = true;
@@ -236,10 +262,9 @@
             btnKhuyenMai.ForeColor = SystemColors.ButtonHighlight;
             btnKhuyenMai.Image = Properties.Resources.discount;
             btnKhuyenMai.ImageAlign = ContentAlignment.MiddleLeft;
-            btnKhuyenMai.Location = new Point(3, 284);
-            btnKhuyenMai.Margin = new Padding(3, 2, 3, 2);
+            btnKhuyenMai.Location = new Point(3, 297);
             btnKhuyenMai.Name = "btnKhuyenMai";
-            btnKhuyenMai.Size = new Size(148, 90);
+            btnKhuyenMai.Size = new Size(170, 92);
             btnKhuyenMai.TabIndex = 4;
             btnKhuyenMai.Text = "    Khuyến mãi";
             btnKhuyenMai.UseVisualStyleBackColor = true;
@@ -254,10 +279,9 @@
             btnPhieuNhap.ForeColor = SystemColors.ButtonHighlight;
             btnPhieuNhap.Image = Properties.Resources.import;
             btnPhieuNhap.ImageAlign = ContentAlignment.MiddleLeft;
-            btnPhieuNhap.Location = new Point(3, 378);
-            btnPhieuNhap.Margin = new Padding(3, 2, 3, 2);
+            btnPhieuNhap.Location = new Point(3, 395);
             btnPhieuNhap.Name = "btnPhieuNhap";
-            btnPhieuNhap.Size = new Size(148, 90);
+            btnPhieuNhap.Size = new Size(170, 92);
             btnPhieuNhap.TabIndex = 5;
             btnPhieuNhap.Text = "    Phiếu nhập";
             btnPhieuNhap.UseVisualStyleBackColor = true;
@@ -272,40 +296,39 @@
             btnTaiKhoan.ForeColor = SystemColors.ButtonHighlight;
             btnTaiKhoan.Image = Properties.Resources.user;
             btnTaiKhoan.ImageAlign = ContentAlignment.MiddleLeft;
-            btnTaiKhoan.Location = new Point(3, 472);
-            btnTaiKhoan.Margin = new Padding(3, 2, 3, 2);
+            btnTaiKhoan.Location = new Point(3, 493);
             btnTaiKhoan.Name = "btnTaiKhoan";
-            btnTaiKhoan.Size = new Size(148, 90);
+            btnTaiKhoan.Size = new Size(170, 92);
             btnTaiKhoan.TabIndex = 6;
             btnTaiKhoan.Text = "   Tài khoản";
             btnTaiKhoan.UseVisualStyleBackColor = true;
             btnTaiKhoan.Click += btnAccount_Click;
             // 
-            // btnDangXuat
+            // btnNhaCungCap
             // 
-            btnDangXuat.Dock = DockStyle.Fill;
-            btnDangXuat.FlatAppearance.BorderSize = 0;
-            btnDangXuat.FlatStyle = FlatStyle.Flat;
-            btnDangXuat.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            btnDangXuat.ForeColor = SystemColors.ButtonHighlight;
-            btnDangXuat.Image = Properties.Resources.logout;
-            btnDangXuat.ImageAlign = ContentAlignment.MiddleLeft;
-            btnDangXuat.Location = new Point(3, 566);
-            btnDangXuat.Margin = new Padding(3, 2, 3, 2);
-            btnDangXuat.Name = "btnDangXuat";
-            btnDangXuat.Size = new Size(148, 96);
-            btnDangXuat.TabIndex = 7;
-            btnDangXuat.Text = "   Đăng xuất";
-            btnDangXuat.UseVisualStyleBackColor = true;
+            btnNhaCungCap.Dock = DockStyle.Fill;
+            btnNhaCungCap.FlatAppearance.BorderSize = 0;
+            btnNhaCungCap.FlatStyle = FlatStyle.Flat;
+            btnNhaCungCap.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnNhaCungCap.ForeColor = SystemColors.ButtonHighlight;
+            btnNhaCungCap.Image = Properties.Resources.ncc;
+            btnNhaCungCap.ImageAlign = ContentAlignment.MiddleLeft;
+            btnNhaCungCap.Location = new Point(3, 591);
+            btnNhaCungCap.Name = "btnNhaCungCap";
+            btnNhaCungCap.Size = new Size(170, 92);
+            btnNhaCungCap.TabIndex = 7;
+            btnNhaCungCap.Text = "     Nhà cung cấp";
+            btnNhaCungCap.TextAlign = ContentAlignment.MiddleRight;
+            btnNhaCungCap.UseVisualStyleBackColor = true;
+            btnNhaCungCap.Click += btnNhaCungCap_Click;
             // 
             // MainForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1620, 664);
+            ClientSize = new Size(1851, 885);
             Controls.Add(panelMain);
             Controls.Add(panelMenu);
-            Margin = new Padding(3, 2, 3, 2);
             Name = "MainForm";
             Text = "MainForm";
             Load += MainForm_Load;
@@ -336,10 +359,12 @@
         private Button btnKhuyenMai;
         private Button btnPhieuNhap;
         private Button btnTaiKhoan;
-        private Button btnDangXuat;
+        private Button btnNhaCungCap;
         private Panel Infopanel;
         private PictureBox avatarUser;
         private Label username;
         private Label signature;
+        private Button btnDangXuat;
+        private Button btnNguyenLieu;
     }
 }

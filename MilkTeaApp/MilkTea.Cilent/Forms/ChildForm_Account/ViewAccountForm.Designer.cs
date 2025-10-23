@@ -35,21 +35,22 @@
             panel4 = new Panel();
             panel6 = new Panel();
             panel10 = new Panel();
-            label8 = new Label();
+            lblTrangThai = new Label();
             label9 = new Label();
             panel9 = new Panel();
-            label6 = new Label();
+            lblQuyen = new Label();
             label7 = new Label();
             panel8 = new Panel();
-            label5 = new Label();
+            lblHoTen = new Label();
             label4 = new Label();
             panel7 = new Panel();
-            label3 = new Label();
+            lblTaiKhoan = new Label();
             label2 = new Label();
             panel5 = new Panel();
-            pictureBox1 = new PictureBox();
+            picAnh = new PictureBox();
             panel2 = new Panel();
             label1 = new Label();
+            lblStatus = new Label();
             panel1.SuspendLayout();
             panel11.SuspendLayout();
             panel3.SuspendLayout();
@@ -60,7 +61,7 @@
             panel8.SuspendLayout();
             panel7.SuspendLayout();
             panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picAnh).BeginInit();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
@@ -89,6 +90,7 @@
             // panel3
             // 
             panel3.BackColor = Color.Transparent;
+            panel3.Controls.Add(lblStatus);
             panel3.Controls.Add(btnDong);
             panel3.Dock = DockStyle.Bottom;
             panel3.Location = new Point(20, 249);
@@ -140,7 +142,7 @@
             // 
             // panel10
             // 
-            panel10.Controls.Add(label8);
+            panel10.Controls.Add(lblTrangThai);
             panel10.Controls.Add(label9);
             panel10.Dock = DockStyle.Top;
             panel10.Location = new Point(0, 150);
@@ -148,29 +150,31 @@
             panel10.Size = new Size(590, 50);
             panel10.TabIndex = 3;
             // 
-            // label8
+            // lblTrangThai
             // 
-            label8.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label8.Location = new Point(146, 3);
-            label8.Name = "label8";
-            label8.Size = new Size(472, 44);
-            label8.TabIndex = 2;
-            label8.Text = "Đang hoạt Động";
-            label8.TextAlign = ContentAlignment.MiddleLeft;
+            lblTrangThai.Dock = DockStyle.Fill;
+            lblTrangThai.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblTrangThai.Location = new Point(134, 0);
+            lblTrangThai.Name = "lblTrangThai";
+            lblTrangThai.Size = new Size(456, 50);
+            lblTrangThai.TabIndex = 2;
+            lblTrangThai.Text = "Đang hoạt Động";
+            lblTrangThai.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label9
             // 
+            label9.Dock = DockStyle.Left;
             label9.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label9.Location = new Point(6, 3);
+            label9.Location = new Point(0, 0);
             label9.Name = "label9";
-            label9.Size = new Size(134, 44);
+            label9.Size = new Size(134, 50);
             label9.TabIndex = 1;
             label9.Text = "Trạng Thái";
             label9.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // panel9
             // 
-            panel9.Controls.Add(label6);
+            panel9.Controls.Add(lblQuyen);
             panel9.Controls.Add(label7);
             panel9.Dock = DockStyle.Top;
             panel9.Location = new Point(0, 100);
@@ -178,29 +182,31 @@
             panel9.Size = new Size(590, 50);
             panel9.TabIndex = 2;
             // 
-            // label6
+            // lblQuyen
             // 
-            label6.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label6.Location = new Point(146, 3);
-            label6.Name = "label6";
-            label6.Size = new Size(472, 44);
-            label6.TabIndex = 2;
-            label6.Text = "Nhân Viên";
-            label6.TextAlign = ContentAlignment.MiddleLeft;
+            lblQuyen.Dock = DockStyle.Fill;
+            lblQuyen.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblQuyen.Location = new Point(134, 0);
+            lblQuyen.Name = "lblQuyen";
+            lblQuyen.Size = new Size(456, 50);
+            lblQuyen.TabIndex = 2;
+            lblQuyen.Text = "Nhân Viên";
+            lblQuyen.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label7
             // 
+            label7.Dock = DockStyle.Left;
             label7.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label7.Location = new Point(6, 3);
+            label7.Location = new Point(0, 0);
             label7.Name = "label7";
-            label7.Size = new Size(134, 44);
+            label7.Size = new Size(134, 50);
             label7.TabIndex = 1;
             label7.Text = "Quyền ";
             label7.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // panel8
             // 
-            panel8.Controls.Add(label5);
+            panel8.Controls.Add(lblHoTen);
             panel8.Controls.Add(label4);
             panel8.Dock = DockStyle.Top;
             panel8.Location = new Point(0, 50);
@@ -208,29 +214,31 @@
             panel8.Size = new Size(590, 50);
             panel8.TabIndex = 1;
             // 
-            // label5
+            // lblHoTen
             // 
-            label5.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(146, 3);
-            label5.Name = "label5";
-            label5.Size = new Size(472, 44);
-            label5.TabIndex = 2;
-            label5.Text = "Nguyễn Chí Phong";
-            label5.TextAlign = ContentAlignment.MiddleLeft;
+            lblHoTen.Dock = DockStyle.Fill;
+            lblHoTen.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblHoTen.Location = new Point(134, 0);
+            lblHoTen.Name = "lblHoTen";
+            lblHoTen.Size = new Size(456, 50);
+            lblHoTen.TabIndex = 2;
+            lblHoTen.Text = "Nguyễn Chí Phong";
+            lblHoTen.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label4
             // 
+            label4.Dock = DockStyle.Left;
             label4.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(6, 3);
+            label4.Location = new Point(0, 0);
             label4.Name = "label4";
-            label4.Size = new Size(134, 44);
+            label4.Size = new Size(134, 50);
             label4.TabIndex = 1;
             label4.Text = "Họ Tên";
             label4.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // panel7
             // 
-            panel7.Controls.Add(label3);
+            panel7.Controls.Add(lblTaiKhoan);
             panel7.Controls.Add(label2);
             panel7.Dock = DockStyle.Top;
             panel7.Location = new Point(0, 0);
@@ -238,29 +246,31 @@
             panel7.Size = new Size(590, 50);
             panel7.TabIndex = 0;
             // 
-            // label3
+            // lblTaiKhoan
             // 
-            label3.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(146, 3);
-            label3.Name = "label3";
-            label3.Size = new Size(472, 44);
-            label3.TabIndex = 1;
-            label3.Text = "0586785345";
-            label3.TextAlign = ContentAlignment.MiddleLeft;
+            lblTaiKhoan.Dock = DockStyle.Fill;
+            lblTaiKhoan.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblTaiKhoan.Location = new Point(134, 0);
+            lblTaiKhoan.Name = "lblTaiKhoan";
+            lblTaiKhoan.Size = new Size(456, 50);
+            lblTaiKhoan.TabIndex = 1;
+            lblTaiKhoan.Text = "0586785345";
+            lblTaiKhoan.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // label2
             // 
+            label2.Dock = DockStyle.Left;
             label2.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(6, 3);
+            label2.Location = new Point(0, 0);
             label2.Name = "label2";
-            label2.Size = new Size(134, 44);
+            label2.Size = new Size(134, 50);
             label2.TabIndex = 0;
             label2.Text = "Tài Khoản";
             label2.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // panel5
             // 
-            panel5.Controls.Add(pictureBox1);
+            panel5.Controls.Add(picAnh);
             panel5.Dock = DockStyle.Left;
             panel5.Location = new Point(0, 0);
             panel5.Name = "panel5";
@@ -268,16 +278,16 @@
             panel5.Size = new Size(170, 200);
             panel5.TabIndex = 0;
             // 
-            // pictureBox1
+            // picAnh
             // 
-            pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Image = Properties.Resources.circle_user;
-            pictureBox1.Location = new Point(10, 10);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(150, 180);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
+            picAnh.Dock = DockStyle.Fill;
+            picAnh.Image = Properties.Resources.circle_user;
+            picAnh.Location = new Point(10, 10);
+            picAnh.Name = "picAnh";
+            picAnh.Size = new Size(150, 180);
+            picAnh.SizeMode = PictureBoxSizeMode.Zoom;
+            picAnh.TabIndex = 0;
+            picAnh.TabStop = false;
             // 
             // panel2
             // 
@@ -300,6 +310,15 @@
             label1.Text = "Thông Tin Tài Khoản";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // lblStatus
+            // 
+            lblStatus.Dock = DockStyle.Top;
+            lblStatus.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblStatus.Location = new Point(0, 0);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(760, 25);
+            lblStatus.TabIndex = 1;
+            // 
             // ViewAccountForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -309,6 +328,7 @@
             Name = "ViewAccountForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ViewAccountForm";
+            Load += ViewAccountForm_Load;
             panel1.ResumeLayout(false);
             panel11.ResumeLayout(false);
             panel3.ResumeLayout(false);
@@ -319,7 +339,7 @@
             panel8.ResumeLayout(false);
             panel7.ResumeLayout(false);
             panel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picAnh).EndInit();
             panel2.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -332,21 +352,22 @@
         private Panel panel4;
         private Panel panel5;
         private Panel panel6;
-        private PictureBox pictureBox1;
+        private PictureBox picAnh;
         private Panel panel8;
         private Panel panel7;
         private Panel panel3;
         private Label label2;
-        private Label label3;
+        private Label lblTaiKhoan;
         private Label label4;
         private Panel panel10;
-        private Label label8;
+        private Label lblTrangThai;
         private Label label9;
         private Panel panel9;
-        private Label label6;
+        private Label lblQuyen;
         private Label label7;
-        private Label label5;
+        private Label lblHoTen;
         private Controls.RoundedButton btnDong;
         private Panel panel11;
+        private Label lblStatus;
     }
 }
