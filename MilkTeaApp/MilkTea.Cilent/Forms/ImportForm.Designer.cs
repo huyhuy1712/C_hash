@@ -30,23 +30,18 @@ namespace MilkTea.Client.Forms
         private void InitializeComponent()
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ImportForm));
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel2 = new Panel();
             label1 = new Label();
             panel3 = new Panel();
             panel7 = new Panel();
+            txt_TimkiemPN_PN = new TextBox();
             panel8 = new Panel();
-            roundedComboBox2 = new MilkTea.Client.Controls.RoundedComboBox();
-            roundedTextBox2 = new MilkTea.Client.Controls.RoundedTextBox();
             panel6 = new Panel();
-            roundedButton2 = new MilkTea.Client.Controls.RoundedButton();
-            roundedButton1 = new MilkTea.Client.Controls.RoundedButton();
-            roundedComboBox1 = new MilkTea.Client.Controls.RoundedComboBox();
-            roundedTextBox1 = new MilkTea.Client.Controls.RoundedTextBox();
             panel4 = new Panel();
             label2 = new Label();
             panel5 = new Panel();
+            lblStatus_PN = new Label();
             dGV_phieuNhap = new DataGridView();
             maPhieuNhap_Tb_iPort = new DataGridViewTextBoxColumn();
             ngayNhap_Tb_iPort = new DataGridViewTextBoxColumn();
@@ -59,8 +54,6 @@ namespace MilkTea.Client.Forms
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel7.SuspendLayout();
-            panel8.SuspendLayout();
-            panel6.SuspendLayout();
             panel4.SuspendLayout();
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dGV_phieuNhap).BeginInit();
@@ -103,8 +96,8 @@ namespace MilkTea.Client.Forms
             // 
             // panel7
             // 
+            panel7.Controls.Add(txt_TimkiemPN_PN);
             panel7.Controls.Add(panel8);
-            panel7.Controls.Add(roundedTextBox2);
             panel7.Dock = DockStyle.Right;
             panel7.Location = new Point(1371, 0);
             panel7.Margin = new Padding(3, 4, 3, 4);
@@ -113,9 +106,20 @@ namespace MilkTea.Client.Forms
             panel7.Size = new Size(553, 72);
             panel7.TabIndex = 1;
             // 
+            // txt_TimkiemPN_PN
+            // 
+            txt_TimkiemPN_PN.Dock = DockStyle.Left;
+            txt_TimkiemPN_PN.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txt_TimkiemPN_PN.Location = new Point(10, 11);
+            txt_TimkiemPN_PN.Margin = new Padding(3, 4, 3, 4);
+            txt_TimkiemPN_PN.Name = "txt_TimkiemPN_PN";
+            txt_TimkiemPN_PN.PlaceholderText = "Tìm kiếm...";
+            txt_TimkiemPN_PN.Size = new Size(313, 47);
+            txt_TimkiemPN_PN.TabIndex = 3;
+            txt_TimkiemPN_PN.TextChanged += txt_TimkiemPN_PN_TextChanged;
+            // 
             // panel8
             // 
-            panel8.Controls.Add(roundedComboBox2);
             panel8.Dock = DockStyle.Right;
             panel8.Location = new Point(370, 11);
             panel8.Margin = new Padding(3, 4, 3, 4);
@@ -123,46 +127,8 @@ namespace MilkTea.Client.Forms
             panel8.Size = new Size(173, 50);
             panel8.TabIndex = 2;
             // 
-            // roundedComboBox2
-            // 
-            roundedComboBox2.BackColor = Color.White;
-            roundedComboBox2.BorderColor = Color.Gray;
-            roundedComboBox2.BorderRadius = 15;
-            roundedComboBox2.BorderSize = 1;
-            roundedComboBox2.Dock = DockStyle.Fill;
-            roundedComboBox2.DrawMode = DrawMode.OwnerDrawFixed;
-            roundedComboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
-            roundedComboBox2.FlatStyle = FlatStyle.Flat;
-            roundedComboBox2.FocusBorderColor = Color.DeepSkyBlue;
-            roundedComboBox2.Font = new Font("Segoe UI", 10F);
-            roundedComboBox2.FormattingEnabled = true;
-            roundedComboBox2.ItemHeight = 30;
-            roundedComboBox2.Location = new Point(0, 0);
-            roundedComboBox2.Margin = new Padding(3, 4, 3, 4);
-            roundedComboBox2.Name = "roundedComboBox2";
-            roundedComboBox2.Size = new Size(173, 36);
-            roundedComboBox2.TabIndex = 0;
-            // 
-            // roundedTextBox2
-            // 
-            roundedTextBox2.BackColor = Color.White;
-            roundedTextBox2.BorderColor = Color.Gray;
-            roundedTextBox2.BorderRadius = 20;
-            roundedTextBox2.Dock = DockStyle.Left;
-            roundedTextBox2.FocusBorderColor = Color.DeepSkyBlue;
-            roundedTextBox2.Location = new Point(10, 11);
-            roundedTextBox2.Margin = new Padding(3, 4, 3, 4);
-            roundedTextBox2.Name = "roundedTextBox2";
-            roundedTextBox2.Padding = new Padding(11, 7, 46, 7);
-            roundedTextBox2.Placeholder = "Từ khóa tìm kiếm...";
-            roundedTextBox2.Size = new Size(337, 50);
-            roundedTextBox2.TabIndex = 1;
-            roundedTextBox2.TextValue = "";
-            // 
             // panel6
             // 
-            panel6.Controls.Add(roundedButton2);
-            panel6.Controls.Add(roundedButton1);
             panel6.Dock = DockStyle.Left;
             panel6.Location = new Point(0, 0);
             panel6.Margin = new Padding(3, 4, 3, 4);
@@ -170,80 +136,6 @@ namespace MilkTea.Client.Forms
             panel6.Padding = new Padding(6, 9, 6, 9);
             panel6.Size = new Size(350, 72);
             panel6.TabIndex = 0;
-            // 
-            // roundedButton2
-            // 
-            roundedButton2.BackColor = Color.DodgerBlue;
-            roundedButton2.BorderColor = Color.DodgerBlue;
-            roundedButton2.BorderRadius = 20;
-            roundedButton2.BorderSize = 0;
-            roundedButton2.Dock = DockStyle.Right;
-            roundedButton2.FlatAppearance.BorderSize = 0;
-            roundedButton2.FlatStyle = FlatStyle.Flat;
-            roundedButton2.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            roundedButton2.ForeColor = Color.White;
-            roundedButton2.Location = new Point(183, 9);
-            roundedButton2.Margin = new Padding(3, 4, 3, 4);
-            roundedButton2.Name = "roundedButton2";
-            roundedButton2.Size = new Size(161, 54);
-            roundedButton2.TabIndex = 1;
-            roundedButton2.Text = "Excel";
-            roundedButton2.UseVisualStyleBackColor = false;
-            roundedButton2.Click += roundedButton2_Click;
-            // 
-            // roundedButton1
-            // 
-            roundedButton1.BackColor = Color.DodgerBlue;
-            roundedButton1.BorderColor = Color.DodgerBlue;
-            roundedButton1.BorderRadius = 20;
-            roundedButton1.BorderSize = 0;
-            roundedButton1.Dock = DockStyle.Left;
-            roundedButton1.FlatAppearance.BorderSize = 0;
-            roundedButton1.FlatStyle = FlatStyle.Flat;
-            roundedButton1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            roundedButton1.ForeColor = Color.White;
-            roundedButton1.Location = new Point(6, 9);
-            roundedButton1.Margin = new Padding(3, 4, 3, 4);
-            roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(159, 54);
-            roundedButton1.TabIndex = 0;
-            roundedButton1.Text = "Thêm";
-            roundedButton1.UseVisualStyleBackColor = false;
-            roundedButton1.Click += roundedButton1_Click_1;
-            // 
-            // roundedComboBox1
-            // 
-            roundedComboBox1.BackColor = Color.White;
-            roundedComboBox1.BorderColor = Color.Gray;
-            roundedComboBox1.BorderRadius = 15;
-            roundedComboBox1.BorderSize = 1;
-            roundedComboBox1.Dock = DockStyle.Left;
-            roundedComboBox1.DrawMode = DrawMode.OwnerDrawFixed;
-            roundedComboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            roundedComboBox1.FlatStyle = FlatStyle.Flat;
-            roundedComboBox1.FocusBorderColor = Color.DeepSkyBlue;
-            roundedComboBox1.Font = new Font("Segoe UI", 10F);
-            roundedComboBox1.FormattingEnabled = true;
-            roundedComboBox1.ItemHeight = 30;
-            roundedComboBox1.Location = new Point(13, 13);
-            roundedComboBox1.Name = "roundedComboBox1";
-            roundedComboBox1.Size = new Size(151, 36);
-            roundedComboBox1.TabIndex = 1;
-            // 
-            // roundedTextBox1
-            // 
-            roundedTextBox1.BackColor = Color.White;
-            roundedTextBox1.BorderColor = Color.Gray;
-            roundedTextBox1.BorderRadius = 20;
-            roundedTextBox1.Dock = DockStyle.Right;
-            roundedTextBox1.FocusBorderColor = Color.DeepSkyBlue;
-            roundedTextBox1.Location = new Point(179, 13);
-            roundedTextBox1.Name = "roundedTextBox1";
-            roundedTextBox1.Padding = new Padding(10, 5, 40, 5);
-            roundedTextBox1.Placeholder = "Từ khóa tìm kiếm...";
-            roundedTextBox1.Size = new Size(300, 35);
-            roundedTextBox1.TabIndex = 0;
-            roundedTextBox1.TextValue = "";
             // 
             // panel4
             // 
@@ -270,6 +162,7 @@ namespace MilkTea.Client.Forms
             // panel5
             // 
             panel5.BackColor = SystemColors.ActiveBorder;
+            panel5.Controls.Add(lblStatus_PN);
             panel5.Controls.Add(dGV_phieuNhap);
             panel5.Dock = DockStyle.Fill;
             panel5.Location = new Point(0, 224);
@@ -279,6 +172,16 @@ namespace MilkTea.Client.Forms
             panel5.Size = new Size(1924, 713);
             panel5.TabIndex = 3;
             panel5.TabStop = true;
+            // 
+            // lblStatus_PN
+            // 
+            lblStatus_PN.Dock = DockStyle.Bottom;
+            lblStatus_PN.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblStatus_PN.Location = new Point(26, 646);
+            lblStatus_PN.Name = "lblStatus_PN";
+            lblStatus_PN.Size = new Size(1872, 31);
+            lblStatus_PN.TabIndex = 1;
+            lblStatus_PN.TextAlign = ContentAlignment.BottomLeft;
             // 
             // dGV_phieuNhap
             // 
@@ -294,7 +197,7 @@ namespace MilkTea.Client.Forms
             dGV_phieuNhap.RowHeadersWidth = 51;
             dGV_phieuNhap.Size = new Size(1872, 641);
             dGV_phieuNhap.TabIndex = 0;
-            dGV_phieuNhap.CellClick += dataGridView1_CellClick;
+            dGV_phieuNhap.CellClick += dGV_phieuNhap_CellClick;
             // 
             // maPhieuNhap_Tb_iPort
             // 
@@ -334,7 +237,7 @@ namespace MilkTea.Client.Forms
             // thongTin_Tb_iPort
             // 
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.NullValue = resources.GetObject("dataGridViewCellStyle1.NullValue");
+            dataGridViewCellStyle1.NullValue = null;
             dataGridViewCellStyle1.Padding = new Padding(3);
             thongTin_Tb_iPort.DefaultCellStyle = dataGridViewCellStyle1;
             thongTin_Tb_iPort.HeaderText = "Thông tin";
@@ -349,7 +252,7 @@ namespace MilkTea.Client.Forms
             // xoa_Tb_iPort
             // 
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.NullValue = resources.GetObject("dataGridViewCellStyle2.NullValue");
+            dataGridViewCellStyle2.NullValue = null;
             dataGridViewCellStyle2.Padding = new Padding(3);
             xoa_Tb_iPort.DefaultCellStyle = dataGridViewCellStyle2;
             xoa_Tb_iPort.HeaderText = "Xóa";
@@ -386,8 +289,7 @@ namespace MilkTea.Client.Forms
             panel2.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel7.ResumeLayout(false);
-            panel8.ResumeLayout(false);
-            panel6.ResumeLayout(false);
+            panel7.PerformLayout();
             panel4.ResumeLayout(false);
             panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dGV_phieuNhap).EndInit();
@@ -423,8 +325,9 @@ namespace MilkTea.Client.Forms
         private Panel panel6;
         private Controls.RoundedButton roundedButton2;
         private Controls.RoundedButton roundedButton1;
-        private Controls.RoundedTextBox roundedTextBox2;
-        private Controls.RoundedComboBox roundedComboBox2;
+        private Controls.RoundedComboBox cbo_timkiemtheo_PN;
         private Panel panel8;
+        private TextBox txt_TimkiemPN_PN;
+        private Label lblStatus_PN;
     }
 }

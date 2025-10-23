@@ -36,42 +36,36 @@ namespace MilkTea.Client.Forms
         private void roundedTextBox_TenTK_Enter(object sender, EventArgs e)
         {
             //roundedTextBox_Email.TextValue = "";
-            pictureBox1.Visible = false;
         }
 
         private void roundedTextBox_TenTK_Leave(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(roundedTextBox_TenTK.TextValue))
             {
-                roundedTextBox_TenTK.Placeholder = "  rk   Nhập tên tài khoản";
+                roundedTextBox_TenTK.Placeholder = "Nhập tên tài khoản";
                 // Hiện lại icon nếu không nhập gì
-                pictureBox1.Visible = true;
             }
             else
             {
                 string tenTK = roundedTextBox_TenTK.TextValue;
-                pictureBox1.Visible = false;
             }
         }
 
         private void roundedTextBox_Password_Enter(object sender, EventArgs e)
         {
             //roundedTextBox_Password.TextValue = "";
-            pictureBox2.Visible = false;
         }
 
         private void roundedTextBox_Password_Leave(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(roundedTextBox_Password.TextValue))
             {
-                roundedTextBox_Password.Placeholder = "  rk   Nhập mật khẩu";
+                roundedTextBox_Password.Placeholder = "Nhập mật khẩu";
                 // Hiện lại icon nếu không nhập gì
-                pictureBox2.Visible = true;
             }
             else
             {
                 string password = roundedTextBox_Password.TextValue;
-                pictureBox2.Visible = false;
             }
         }
 
@@ -126,6 +120,7 @@ namespace MilkTea.Client.Forms
             // Lưu thông tin vào session
             Session.AllowedFunctions = await _chucNangService.GetChucNangsByMaQuyenAsync(account.MaQuyen);
             mainForm.ShowDialog();
+            this.Hide();
         }
 
         // Hàm kiểm tra đăng nhập

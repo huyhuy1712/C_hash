@@ -1,16 +1,5 @@
-﻿using MilkTea.Client.Controls;
-using MilkTea.Client.Forms.ChildForm_Import;
+﻿using MilkTea.Client.Forms.ChildForm_Import;
 using MilkTea.Client.Services;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace MilkTea.Client.Forms
 {
@@ -22,21 +11,65 @@ namespace MilkTea.Client.Forms
         {
             InitializeComponent();
             _phieuNhapService = new PhieuNhapService();
-            _nhanVienService = new NhanVienService();  
+            _nhanVienService = new NhanVienService();
+            InitializeSearchComboBox();
         }
+
+        private void InitializeSearchComboBox()
+        {
+            //Khởi tạo ComboBox với các cột tìm kiếm
+            //cbo_timkiemtheo_PN.Items.AddRange(new object[] { "Ngày Nhập", "Số Lượng", "Tên Nhân Viên", "Tổng Tiền" });
+            //cbo_timkiemtheo_PN.SelectedIndex = 0; // Chọn mục đầu tiên làm mặc định
+        }
+
 
         private async void ImportForm_Load(object sender, EventArgs e)
         {
+            await LoadPhieuNhaps();
+        }
+
+
+        private void roundedButton1_Click_1(object sender, EventArgs e)
+        {
+            ImportForm_Add form = new ImportForm_Add(this);
+            form.ShowDialog();
+        }
+
+        private void roundedButton2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dGV_phieuNhap_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            if (dGV_phieuNhap.Columns[e.ColumnIndex].Name == "thongTin_Tb_iPort")
+            {
+                string maPN = dGV_phieuNhap.Rows[e.RowIndex].Cells["maPhieuNhap_Tb_iPort"].Value?.ToString();
+
+                if (!string.IsNullOrEmpty(maPN) && int.TryParse(maPN, out int maPNValue))
+                {
+                    using (var frm = new ImportForm_Info(maPNValue))
+                    {
+                        frm.ShowDialog();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy mã phiếu nhập hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        public async Task LoadPhieuNhaps()
+        {
             try
             {
-                // Lấy danh sách phiếu nhập từ service
                 var phieuNhaps = await _phieuNhapService.GetPhieuNhapsAsync();
-
-                // Kiểm tra nếu danh sách không rỗng
+                dGV_phieuNhap.Rows.Clear();
                 if (phieuNhaps != null && phieuNhaps.Any())
                 {
-                    // Xóa hết hàng cũ trong DataGridView
-                    dGV_phieuNhap.Rows.Clear();
                     foreach (var pn in phieuNhaps)
                     {
                         var nhanvien = await _nhanVienService.GetByMaNV(pn.MaNV);
@@ -50,61 +83,81 @@ namespace MilkTea.Client.Forms
                 }
                 else
                 {
-                    // Xóa hết hàng nếu không có dữ liệu
-                    dGV_phieuNhap.Rows.Clear();
-                    MessageBox.Show("Không có dữ liệu phiếu nhập để hiển thị.");
+                    MessageBox.Show("Không có dữ liệu phiếu nhập để hiển thị.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi gọi API: " + ex.Message);
+                MessageBox.Show($"Lỗi khi gọi API: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void add_Import_btn_Click(object sender, EventArgs e)
+        private async void txt_TimkiemPN_PN_TextChanged(object sender, EventArgs e)
         {
-            ImportForm_Add form = new ImportForm_Add();
-            form.ShowDialog();
-        }
-
-        private void excel_Import_btn_Click(object sender, EventArgs e)
-        {
-            ImportForm_Info form = new ImportForm_Info();
-            form.ShowDialog();
-        }
-
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // Bỏ qua nếu click vào header hoặc dòng không hợp lệ
-            if (e.RowIndex < 0) return;
-
-            // Kiểm tra cột được click
-            if (dGV_phieuNhap.Columns[e.ColumnIndex].Name == "thongTin_Tb_iPort")
+            try
             {
-                // Lấy dữ liệu của dòng được chọn
-                string id = dGV_phieuNhap.Rows[e.RowIndex].Cells["maPhieuNhap_Tb_iPort"].Value?.ToString();
-                // Mở form sửa (ví dụ FormEditAccount)
-                using (var frm = new ImportForm_Info())
+                string searchValue = txt_TimkiemPN_PN.Text.Trim().ToLower();
+                string selectedColumn = cbo_timkiemtheo_PN.SelectedItem?.ToString();
+
+                // Xác định cột trong DataGridView để tìm kiếm
+                string columnName;
+                switch (selectedColumn)
                 {
-                    if (frm.ShowDialog() == DialogResult.OK)
+                    case "Ngày Nhập":
+                        columnName = "ngayNhap_Tb_iPort";
+                        break;
+                    case "Số Lượng":
+                        columnName = "soLuong_Tb_iPort";
+                        break;
+                    case "Tên Nhân Viên":
+                        columnName = "tenNVN_Tb_iPort";
+                        break;
+                    case "Tổng Tiền":
+                        columnName = "tongTien_Tb_iPort";
+                        break;
+                    default:
+                        return;
+                }
+
+                int visibleRowCount = 0;
+                // Lọc các hàng trong DataGridView
+
+                foreach (DataGridViewRow row in dGV_phieuNhap.Rows)
+                {
+                    if (row.Cells[columnName].Value != null)
                     {
-                        // Sau khi form con đóng và bấm OK thì refresh lại grid
+                        string cellValue = row.Cells[columnName].Value.ToString().ToLower();
+                        // Hiển thị hàng nếu giá trị trong ô chứa chuỗi tìm kiếm
+                        row.Visible = cellValue.Contains(searchValue);
+                        if (row.Visible)
+                        {
+                            visibleRowCount++;
+                        }
+                    }
+                    else
+                    {
+                        //row.Visible = false;
+                        lblStatus_PN.ForeColor = Color.Red;
+                        lblStatus_PN.Text = "Không tìm thấy kết quả phù hợp.";
+
                     }
                 }
+                if (visibleRowCount == 0)
+                {
+                    lblStatus_PN.ForeColor = Color.Red;
+                    lblStatus_PN.Text = "Không tìm thấy kết quả tìm kiếm";
+                }
+                else
+                {
+                    lblStatus_PN.ForeColor = Color.Transparent;
+                    lblStatus_PN.Text = "";
+                }
+
             }
-        }
-
-
-        private void roundedButton1_Click_1(object sender, EventArgs e)
-        {
-            ImportForm_Add form = new ImportForm_Add();
-            form.ShowDialog();
-        }
-
-        private void roundedButton2_Click(object sender, EventArgs e)
-        {
-            ImportForm_Info form = new ImportForm_Info();
-            form.ShowDialog();
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi tìm kiếm: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

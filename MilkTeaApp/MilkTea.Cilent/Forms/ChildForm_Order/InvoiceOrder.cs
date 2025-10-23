@@ -305,6 +305,7 @@ namespace MilkTea.Client.Forms.ChildForm_Order
                             {
                                 MessageBox.Show($"Không đủ nguyên liệu '{nl.TenNguyenLieu}' để pha {item.TenSP}.",
                                                 "Thiếu nguyên liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
                             }
                         }
                     }
@@ -318,8 +319,9 @@ namespace MilkTea.Client.Forms.ChildForm_Order
                             bool ok = await nguyenLieuService.TruNguyenLieuAsync(tp.MaNL, tp.SL);
                             if (!ok)
                             {
-                                MessageBox.Show($"Không thể trừ topping '{tp.MaNL}'.",
+                                MessageBox.Show($"Thiếu topping '{tp.ten}'.",
                                                 "Thiếu topping", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
                             }
                         }
                     }

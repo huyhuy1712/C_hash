@@ -133,5 +133,24 @@ namespace MilkTea.Client.Controls
                 textBox.ForeColor = string.IsNullOrEmpty(value) ? Color.Gray : Color.Black;
             }
         }
+
+        public override string Text
+        {
+            get => textBox.Text == Placeholder ? string.Empty : textBox.Text;
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    textBox.Text = Placeholder;
+                    textBox.ForeColor = Color.Gray;
+                }
+                else
+                {
+                    textBox.Text = value;
+                    textBox.ForeColor = Color.Black;
+                }
+            }
+        }
+
     }
 }

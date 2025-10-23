@@ -90,8 +90,9 @@ namespace MilkTea.Client.Forms
             panel2.Controls.Add(label1);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
+            panel2.Margin = new Padding(3, 2, 3, 2);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1658, 100);
+            panel2.Size = new Size(1451, 75);
             panel2.TabIndex = 1;
             // 
             // label1
@@ -101,7 +102,7 @@ namespace MilkTea.Client.Forms
             label1.ForeColor = Color.DodgerBlue;
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
-            label1.Size = new Size(1658, 100);
+            label1.Size = new Size(1451, 75);
             label1.TabIndex = 0;
             label1.Text = "Tài Khoản";
             label1.TextAlign = ContentAlignment.MiddleCenter;
@@ -111,9 +112,10 @@ namespace MilkTea.Client.Forms
             panel4.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             panel4.Controls.Add(label2);
             panel4.Dock = DockStyle.Top;
-            panel4.Location = new Point(0, 200);
+            panel4.Location = new Point(0, 150);
+            panel4.Margin = new Padding(3, 2, 3, 2);
             panel4.Name = "panel4";
-            panel4.Size = new Size(1658, 50);
+            panel4.Size = new Size(1451, 38);
             panel4.TabIndex = 3;
             // 
             // label2
@@ -123,7 +125,7 @@ namespace MilkTea.Client.Forms
             label2.ForeColor = Color.DodgerBlue;
             label2.Location = new Point(0, 0);
             label2.Name = "label2";
-            label2.Size = new Size(1658, 50);
+            label2.Size = new Size(1451, 38);
             label2.TabIndex = 0;
             label2.Text = "Danh Sách Tài Khoản";
             label2.TextAlign = ContentAlignment.MiddleCenter;
@@ -138,19 +140,21 @@ namespace MilkTea.Client.Forms
             Tool.Controls.Add(SearchBox);
             Tool.Controls.Add(ButtonThem);
             Tool.Dock = DockStyle.Top;
-            Tool.Location = new Point(0, 100);
+            Tool.Location = new Point(0, 75);
+            Tool.Margin = new Padding(3, 2, 3, 2);
             Tool.Name = "Tool";
-            Tool.Padding = new Padding(20, 30, 20, 30);
-            Tool.Size = new Size(1658, 100);
+            Tool.Padding = new Padding(18, 22, 18, 22);
+            Tool.Size = new Size(1451, 75);
             Tool.TabIndex = 2;
             // 
             // ButtonQuyen
             // 
             ButtonQuyen.Controls.Add(btnDanhSachQuyen);
             ButtonQuyen.Dock = DockStyle.Top;
-            ButtonQuyen.Location = new Point(772, 30);
+            ButtonQuyen.Location = new Point(676, 22);
+            ButtonQuyen.Margin = new Padding(3, 2, 3, 2);
             ButtonQuyen.Name = "ButtonQuyen";
-            ButtonQuyen.Size = new Size(866, 40);
+            ButtonQuyen.Size = new Size(757, 30);
             ButtonQuyen.TabIndex = 16;
             // 
             // btnDanhSachQuyen
@@ -164,9 +168,10 @@ namespace MilkTea.Client.Forms
             btnDanhSachQuyen.FlatStyle = FlatStyle.Flat;
             btnDanhSachQuyen.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnDanhSachQuyen.ForeColor = Color.White;
-            btnDanhSachQuyen.Location = new Point(663, 0);
+            btnDanhSachQuyen.Location = new Point(579, 0);
+            btnDanhSachQuyen.Margin = new Padding(3, 2, 3, 2);
             btnDanhSachQuyen.Name = "btnDanhSachQuyen";
-            btnDanhSachQuyen.Size = new Size(203, 40);
+            btnDanhSachQuyen.Size = new Size(178, 30);
             btnDanhSachQuyen.TabIndex = 4;
             btnDanhSachQuyen.Text = "Danh Sách Quyền";
             btnDanhSachQuyen.UseVisualStyleBackColor = false;
@@ -176,9 +181,10 @@ namespace MilkTea.Client.Forms
             // 
             Order.Controls.Add(roundedComboBox1);
             Order.Dock = DockStyle.Left;
-            Order.Location = new Point(610, 30);
+            Order.Location = new Point(534, 22);
+            Order.Margin = new Padding(3, 2, 3, 2);
             Order.Name = "Order";
-            Order.Size = new Size(162, 40);
+            Order.Size = new Size(142, 31);
             Order.TabIndex = 15;
             // 
             // roundedComboBox1
@@ -196,17 +202,19 @@ namespace MilkTea.Client.Forms
             roundedComboBox1.FormattingEnabled = true;
             roundedComboBox1.ItemHeight = 30;
             roundedComboBox1.Location = new Point(0, 0);
+            roundedComboBox1.Margin = new Padding(3, 2, 3, 2);
             roundedComboBox1.Name = "roundedComboBox1";
-            roundedComboBox1.Size = new Size(150, 36);
+            roundedComboBox1.Size = new Size(132, 36);
             roundedComboBox1.TabIndex = 2;
             // 
             // SearchFilter
             // 
             SearchFilter.Controls.Add(roundedComboBox2);
             SearchFilter.Dock = DockStyle.Left;
-            SearchFilter.Location = new Point(440, 30);
+            SearchFilter.Location = new Point(385, 22);
+            SearchFilter.Margin = new Padding(3, 2, 3, 2);
             SearchFilter.Name = "SearchFilter";
-            SearchFilter.Size = new Size(170, 40);
+            SearchFilter.Size = new Size(149, 31);
             SearchFilter.TabIndex = 14;
             // 
             // roundedComboBox2
@@ -225,17 +233,19 @@ namespace MilkTea.Client.Forms
             roundedComboBox2.ItemHeight = 30;
             roundedComboBox2.Items.AddRange(new object[] { "Cũ Nhất", "Mới Nhất" });
             roundedComboBox2.Location = new Point(0, 0);
+            roundedComboBox2.Margin = new Padding(3, 2, 3, 2);
             roundedComboBox2.Name = "roundedComboBox2";
-            roundedComboBox2.Size = new Size(150, 36);
+            roundedComboBox2.Size = new Size(132, 36);
             roundedComboBox2.TabIndex = 3;
             // 
             // SearchBox
             // 
             SearchBox.Controls.Add(Search);
             SearchBox.Dock = DockStyle.Left;
-            SearchBox.Location = new Point(170, 30);
+            SearchBox.Location = new Point(149, 22);
+            SearchBox.Margin = new Padding(3, 2, 3, 2);
             SearchBox.Name = "SearchBox";
-            SearchBox.Size = new Size(270, 40);
+            SearchBox.Size = new Size(236, 31);
             SearchBox.TabIndex = 13;
             // 
             // Search
@@ -246,10 +256,11 @@ namespace MilkTea.Client.Forms
             Search.Dock = DockStyle.Left;
             Search.FocusBorderColor = Color.DeepSkyBlue;
             Search.Location = new Point(0, 0);
+            Search.Margin = new Padding(3, 2, 3, 2);
             Search.Name = "Search";
-            Search.Padding = new Padding(10, 5, 40, 5);
+            Search.Padding = new Padding(9, 4, 35, 4);
             Search.Placeholder = "Từ khóa tìm kiếm...";
-            Search.Size = new Size(250, 40);
+            Search.Size = new Size(219, 31);
             Search.TabIndex = 1;
             Search.TextValue = "";
             // 
@@ -258,9 +269,10 @@ namespace MilkTea.Client.Forms
             ButtonThem.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ButtonThem.Controls.Add(btnThemAccount);
             ButtonThem.Dock = DockStyle.Left;
-            ButtonThem.Location = new Point(20, 30);
+            ButtonThem.Location = new Point(18, 22);
+            ButtonThem.Margin = new Padding(3, 2, 3, 2);
             ButtonThem.Name = "ButtonThem";
-            ButtonThem.Size = new Size(150, 40);
+            ButtonThem.Size = new Size(131, 31);
             ButtonThem.TabIndex = 9;
             // 
             // btnThemAccount
@@ -275,8 +287,9 @@ namespace MilkTea.Client.Forms
             btnThemAccount.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnThemAccount.ForeColor = Color.White;
             btnThemAccount.Location = new Point(0, 0);
+            btnThemAccount.Margin = new Padding(3, 2, 3, 2);
             btnThemAccount.Name = "btnThemAccount";
-            btnThemAccount.Size = new Size(130, 40);
+            btnThemAccount.Size = new Size(114, 31);
             btnThemAccount.TabIndex = 0;
             btnThemAccount.Text = "+ Thêm";
             btnThemAccount.UseVisualStyleBackColor = false;
@@ -289,19 +302,21 @@ namespace MilkTea.Client.Forms
             Table.Controls.Add(panel5);
             Table.Controls.Add(panel3);
             Table.Dock = DockStyle.Fill;
-            Table.Location = new Point(0, 250);
+            Table.Location = new Point(0, 188);
+            Table.Margin = new Padding(3, 2, 3, 2);
             Table.Name = "Table";
-            Table.Padding = new Padding(20);
-            Table.Size = new Size(1658, 269);
+            Table.Padding = new Padding(18, 15, 18, 15);
+            Table.Size = new Size(1451, 201);
             Table.TabIndex = 4;
             // 
             // panel5
             // 
             panel5.Controls.Add(dataGridView1);
             panel5.Dock = DockStyle.Fill;
-            panel5.Location = new Point(20, 20);
+            panel5.Location = new Point(18, 15);
+            panel5.Margin = new Padding(3, 2, 3, 2);
             panel5.Name = "panel5";
-            panel5.Size = new Size(1618, 198);
+            panel5.Size = new Size(1415, 148);
             panel5.TabIndex = 2;
             // 
             // dataGridView1
@@ -315,10 +330,11 @@ namespace MilkTea.Client.Forms
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { ID, taiKhoan, hoVaTen, trangThai, ngayTao, quyen, chiTiet, sua, khoa, xoa });
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(0, 0);
+            dataGridView1.Margin = new Padding(3, 2, 3, 2);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(1618, 198);
+            dataGridView1.Size = new Size(1415, 148);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellClick += dataGridView1_CellClick;
             // 
@@ -443,9 +459,10 @@ namespace MilkTea.Client.Forms
             panel3.BackColor = Color.Transparent;
             panel3.Controls.Add(lblStatus);
             panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(20, 218);
+            panel3.Location = new Point(18, 163);
+            panel3.Margin = new Padding(3, 2, 3, 2);
             panel3.Name = "panel3";
-            panel3.Size = new Size(1618, 31);
+            panel3.Size = new Size(1415, 23);
             panel3.TabIndex = 1;
             // 
             // lblStatus
@@ -454,7 +471,7 @@ namespace MilkTea.Client.Forms
             lblStatus.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblStatus.Location = new Point(0, 0);
             lblStatus.Name = "lblStatus";
-            lblStatus.Size = new Size(1618, 31);
+            lblStatus.Size = new Size(1415, 23);
             lblStatus.TabIndex = 0;
             lblStatus.TextAlign = ContentAlignment.BottomLeft;
             // 
@@ -466,16 +483,18 @@ namespace MilkTea.Client.Forms
             panel1.Controls.Add(panel2);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(3, 2, 3, 2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1658, 519);
+            panel1.Size = new Size(1451, 389);
             panel1.TabIndex = 0;
             // 
             // AccountForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1658, 519);
+            ClientSize = new Size(1451, 389);
             Controls.Add(panel1);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "AccountForm";
             Load += AccountForm_Load;
             panel2.ResumeLayout(false);
