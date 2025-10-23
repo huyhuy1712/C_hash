@@ -136,8 +136,6 @@ namespace MilkTea.Client.Forms.ChildForm_Import
 
                 int newMaPN = await _phieuNhapService.AddPhieuNhapAsync(pn);
 
-                MessageBox.Show("check");
-
                 foreach (var temp in _tempChiTiets)
                 {
                     var ct = new ChiTietPhieuNhap
