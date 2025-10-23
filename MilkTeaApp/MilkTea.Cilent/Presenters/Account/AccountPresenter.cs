@@ -7,14 +7,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MilkTea.Client.Presenters
+namespace MilkTea.Client.Presenters.Account
 {
     public class AccountPresenter
     {
-        private readonly TaiKhoanService _taiKhoanService;
+        private readonly AccountService _taiKhoanService;
         private readonly NhanVienService _nhanVienService;
         private readonly IBaseForm _form;
-        public AccountPresenter(IBaseForm form, TaiKhoanService taiKhoanService, NhanVienService nhanVienService)
+        public AccountPresenter(IBaseForm form, AccountService taiKhoanService, NhanVienService nhanVienService)
         {
             _form = form;
             _taiKhoanService = taiKhoanService;

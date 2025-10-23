@@ -1,6 +1,6 @@
 ﻿namespace MilkTea.Client.Forms.ChildForm_Account
 {
-    partial class ChucNangForm
+    partial class EditQuyenForm
     {
         /// <summary>
         /// Required designer variable.
@@ -36,8 +36,8 @@
             panel5 = new Panel();
             dataGridView1 = new DataGridView();
             id = new DataGridViewTextBoxColumn();
-            tenQuyen = new DataGridViewTextBoxColumn();
-            chon = new DataGridViewCheckBoxColumn();
+            tenChucNang = new DataGridViewTextBoxColumn();
+            chkChucNang = new DataGridViewCheckBoxColumn();
             panel6 = new Panel();
             txtbSearch = new TextBox();
             panel9 = new Panel();
@@ -74,7 +74,7 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(800, 450);
+            panel1.Size = new Size(800, 771);
             panel1.TabIndex = 1;
             // 
             // panel3
@@ -86,7 +86,7 @@
             panel3.Location = new Point(0, 100);
             panel3.Name = "panel3";
             panel3.Padding = new Padding(20);
-            panel3.Size = new Size(800, 350);
+            panel3.Size = new Size(800, 671);
             panel3.TabIndex = 1;
             // 
             // panel10
@@ -96,7 +96,7 @@
             panel10.Dock = DockStyle.Fill;
             panel10.Location = new Point(20, 70);
             panel10.Name = "panel10";
-            panel10.Size = new Size(760, 260);
+            panel10.Size = new Size(760, 581);
             panel10.TabIndex = 1;
             // 
             // panel11
@@ -106,7 +106,7 @@
             panel11.Dock = DockStyle.Fill;
             panel11.Location = new Point(0, 0);
             panel11.Name = "panel11";
-            panel11.Size = new Size(760, 210);
+            panel11.Size = new Size(760, 531);
             panel11.TabIndex = 1;
             // 
             // panel5
@@ -115,60 +115,62 @@
             panel5.Dock = DockStyle.Fill;
             panel5.Location = new Point(0, 0);
             panel5.Name = "panel5";
-            panel5.Size = new Size(760, 170);
+            panel5.Size = new Size(760, 491);
             panel5.TabIndex = 1;
             // 
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToResizeColumns = false;
+            dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.BackgroundColor = SystemColors.Control;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { id, tenQuyen, chon });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { id, tenChucNang, chkChucNang });
             dataGridView1.Dock = DockStyle.Fill;
+            dataGridView1.EditMode = DataGridViewEditMode.EditOnEnter;
             dataGridView1.Location = new Point(0, 0);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(760, 170);
+            dataGridView1.Size = new Size(760, 491);
             dataGridView1.TabIndex = 0;
             // 
             // id
             // 
-            id.HeaderText = "Id";
+            id.HeaderText = "ID";
             id.MinimumWidth = 6;
             id.Name = "id";
             id.ReadOnly = true;
             id.Resizable = DataGridViewTriState.False;
             id.Width = 125;
             // 
-            // tenQuyen
+            // tenChucNang
             // 
-            tenQuyen.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            tenQuyen.HeaderText = "Chức Năng";
-            tenQuyen.MinimumWidth = 6;
-            tenQuyen.Name = "tenQuyen";
-            tenQuyen.ReadOnly = true;
-            tenQuyen.Resizable = DataGridViewTriState.False;
+            tenChucNang.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            tenChucNang.HeaderText = "Chức Năng";
+            tenChucNang.MinimumWidth = 6;
+            tenChucNang.Name = "tenChucNang";
+            tenChucNang.ReadOnly = true;
+            tenChucNang.Resizable = DataGridViewTriState.False;
             // 
-            // chon
+            // chkChucNang
             // 
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.NullValue = false;
             dataGridViewCellStyle1.Padding = new Padding(3);
-            chon.DefaultCellStyle = dataGridViewCellStyle1;
-            chon.HeaderText = "";
-            chon.MinimumWidth = 6;
-            chon.Name = "chon";
-            chon.ReadOnly = true;
-            chon.Resizable = DataGridViewTriState.True;
-            chon.SortMode = DataGridViewColumnSortMode.Automatic;
-            chon.Width = 125;
+            chkChucNang.DefaultCellStyle = dataGridViewCellStyle1;
+            chkChucNang.FalseValue = "0";
+            chkChucNang.HeaderText = "";
+            chkChucNang.MinimumWidth = 6;
+            chkChucNang.Name = "chkChucNang";
+            chkChucNang.TrueValue = "1";
+            chkChucNang.Width = 125;
             // 
             // panel6
             // 
             panel6.Controls.Add(txtbSearch);
             panel6.Dock = DockStyle.Bottom;
-            panel6.Location = new Point(0, 170);
+            panel6.Location = new Point(0, 491);
             panel6.Name = "panel6";
             panel6.Size = new Size(760, 40);
             panel6.TabIndex = 2;
@@ -190,7 +192,7 @@
             panel9.Controls.Add(btnXacNhan);
             panel9.Controls.Add(panel12);
             panel9.Dock = DockStyle.Bottom;
-            panel9.Location = new Point(0, 210);
+            panel9.Location = new Point(0, 531);
             panel9.Name = "panel9";
             panel9.Padding = new Padding(0, 10, 0, 0);
             panel9.Size = new Size(760, 50);
@@ -323,13 +325,13 @@
             label1.Text = "Sửa Quyền";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // ChucNangForm
+            // EditQuyenForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 771);
             Controls.Add(panel1);
-            Name = "ChucNangForm";
+            Name = "EditQuyenForm";
             Text = "Quyền";
             Load += EditQuyenForm_Load;
             panel1.ResumeLayout(false);
@@ -374,5 +376,8 @@
         private Panel panel12;
         private Label lblStatus;
         private DataGridViewTextBoxColumn id;
+        private DataGridViewTextBoxColumn tenChucNang;
+        private DataGridViewCheckBoxColumn cbxChonChucNang;
+        private DataGridViewCheckBoxColumn chkChucNang;
     }
 }

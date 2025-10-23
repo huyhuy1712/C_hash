@@ -1,19 +1,19 @@
 ﻿using MilkTea.Client.Interfaces;
-using MilkTea.Client.Presenters;
+using MilkTea.Client.Presenters.ChucNang;
+using System.Diagnostics;
 
 namespace MilkTea.Client.Forms.ChildForm_Account
 {
-    public partial class ChucNangForm : Form, IBaseForm
+    public partial class EditQuyenForm : Form, IBaseForm
     {
         public DataGridView Grid => dataGridView1;
         public Label LblStatus => lblStatus;
-        private readonly IBaseForm _form;
         private String _id;
         private readonly EditQuyenPresenter _editQuyenPresenter;
-        public ChucNangForm(String id)
+        public EditQuyenForm(String id)
         {
             InitializeComponent();
-            _editQuyenPresenter = new(_form);
+            _editQuyenPresenter = new(this);
             _id = id;
         }
 

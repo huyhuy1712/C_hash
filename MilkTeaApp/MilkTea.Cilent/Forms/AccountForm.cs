@@ -1,7 +1,7 @@
 ﻿using MilkTea.Client.Forms.ChildForm_Account;
 using MilkTea.Client.Interfaces;
 using MilkTea.Client.Models;
-using MilkTea.Client.Presenters;
+using MilkTea.Client.Presenters.Account;
 using MilkTea.Client.Services;
 using System;
 using System.Windows.Forms;
@@ -18,7 +18,7 @@ namespace MilkTea.Client.Forms
         public AccountForm()
         {
             InitializeComponent();
-            _presenter = new AccountPresenter(this, new TaiKhoanService(), new NhanVienService());
+            _presenter = new AccountPresenter(this, new AccountService(), new NhanVienService());
         }
 
         private async void AccountForm_Load(object sender, EventArgs e)

@@ -3,10 +3,11 @@ using MilkTea.Client.Interfaces;
 using MilkTea.Client.Models;
 using MilkTea.Client.Services;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MilkTea.Client.Presenters
+namespace MilkTea.Client.Presenters.Quyen
 {
     public class QuyenPresenter
     {

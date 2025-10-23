@@ -79,7 +79,7 @@
             roundedTextBox_Password.Placeholder = " Nhập mật khẩu";
             roundedTextBox_Password.Size = new Size(327, 51);
             roundedTextBox_Password.TabIndex = 2;
-            roundedTextBox_Password.TextValue = "";
+            roundedTextBox_Password.TextValue = "0901234566";
             roundedTextBox_Password.Load += roundedTextBox_Password_Load;
             roundedTextBox_Password.Enter += roundedTextBox_Password_Enter;
             roundedTextBox_Password.KeyDown += roundedTextBox_Password_KeyDown;
@@ -97,7 +97,7 @@
             roundedTextBox_TenTK.Placeholder = "Nhập tên tài khoản";
             roundedTextBox_TenTK.Size = new Size(327, 51);
             roundedTextBox_TenTK.TabIndex = 1;
-            roundedTextBox_TenTK.TextValue = "";
+            roundedTextBox_TenTK.TextValue = "Pham Thi F";
             roundedTextBox_TenTK.Load += roundedTextBox_TenTK_Load;
             roundedTextBox_TenTK.Enter += roundedTextBox_TenTK_Enter;
             roundedTextBox_TenTK.Leave += roundedTextBox_TenTK_Leave;
