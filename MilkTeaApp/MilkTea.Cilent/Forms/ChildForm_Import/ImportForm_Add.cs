@@ -128,9 +128,10 @@ namespace MilkTea.Client.Forms.ChildForm_Import
                 {
                     NgayNhap = DateTime.Parse(dt_iPort_ngaylap.Text),
                     SoLuong = _tempChiTiets.Sum(t => t.SoLuong),
+                    TrangThai = 1,
                     MaNCC = (int?)cbo_NhaCungCap_PN_ADD.SelectedValue,
                     MaNV = 1,
-                    TongTien = _tempChiTiets.Sum(t => t.TongGia)
+                    TongTien = _tempChiTiets.Sum(t => t.TongGia),
                 };
 
                 int newMaPN = await _phieuNhapService.AddPhieuNhapAsync(pn);
