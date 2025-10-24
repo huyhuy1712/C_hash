@@ -43,25 +43,62 @@ namespace MilkTea.Client.Forms
 
         }
 
-        private void dGV_phieuNhap_CellClick(object sender, DataGridViewCellEventArgs e)
+        private async void dGV_phieuNhap_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0) return;
+            // Bỏ qua nếu click vào header hoặc chỉ số không hợp lệ
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
 
-            if (dGV_phieuNhap.Columns[e.ColumnIndex].Name == "thongTin_Tb_iPort")
+            var columnName = dGV_phieuNhap.Columns[e.ColumnIndex].Name;
+
+            try
             {
-                string maPN = dGV_phieuNhap.Rows[e.RowIndex].Cells["maPhieuNhap_Tb_iPort"].Value?.ToString();
-
-                if (!string.IsNullOrEmpty(maPN) && int.TryParse(maPN, out int maPNValue))
+                // Lấy mã phiếu nhập từ cột ẩn hoặc cột mã
+                var maPNCell = dGV_phieuNhap.Rows[e.RowIndex].Cells["maPhieuNhap_Tb_iPort"].Value;
+                if (maPNCell == null || !int.TryParse(maPNCell.ToString(), out int maPN))
                 {
-                    using (var frm = new ImportForm_Info(maPNValue))
+                    MessageBox.Show("Mã phiếu nhập không hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // 1. Click vào cột "Thông Tin"
+                if (columnName == "thongTin_Tb_iPort")
+                {
+                    using (var frm = new ImportForm_Info(maPN))
                     {
                         frm.ShowDialog();
                     }
+                    // Tùy chọn: reload nếu form chi tiết có thể sửa dữ liệu
+                    // await LoadPhieuNhaps();
                 }
-                else
+
+                // 2. Click vào cột "Xóa"
+                else if (columnName == "xoa_Tb_iPort")
                 {
-                    MessageBox.Show("Không tìm thấy mã phiếu nhập hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    var result = MessageBox.Show(
+                        $"Bạn có chắc chắn muốn xóa phiếu nhập mã {maPN}?\n(Dữ liệu sẽ được ẩn và không thể hoàn tác dễ dàng)",
+                        "Xác nhận xóa",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
+
+                    if (result == DialogResult.Yes)
+                    {
+                        bool success = await _phieuNhapService.SoftDeleteAsync(maPN);
+
+                        if (success)
+                        {
+                            MessageBox.Show("Xóa phiếu nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            await LoadPhieuNhaps(); 
+                        }
+                        else
+                        {
+                            MessageBox.Show("Không thể xóa phiếu nhập (có thể đã bị xóa trước đó).", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -71,10 +108,12 @@ namespace MilkTea.Client.Forms
             {
                 var phieuNhaps = await _phieuNhapService.GetPhieuNhapsAsync();
 
+                dGV_phieuNhap.Rows.Clear();
+
                 var phieuNhapsActive = phieuNhaps?.Where(pn => pn.TrangThai == 1).ToList();
                 if (phieuNhapsActive != null && phieuNhapsActive.Any())
                 {
-                    foreach (var pn in phieuNhaps)
+                    foreach (var pn in phieuNhapsActive)
                     {
                         var nhanvien = await _nhanVienService.GetByMaNV(pn.MaNV);
                         int rowIndex = dGV_phieuNhap.Rows.Add();
