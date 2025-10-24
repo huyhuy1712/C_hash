@@ -199,9 +199,9 @@
             // 
             panel24.Controls.Add(textBox2);
             panel24.Dock = DockStyle.Fill;
-            panel24.Location = new Point(207, 0);
+            panel24.Location = new Point(175, 0);
             panel24.Name = "panel24";
-            panel24.Size = new Size(564, 247);
+            panel24.Size = new Size(596, 247);
             panel24.TabIndex = 1;
             // 
             // textBox2
@@ -209,7 +209,7 @@
             textBox2.Dock = DockStyle.Fill;
             textBox2.Location = new Point(0, 0);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(564, 23);
+            textBox2.Size = new Size(596, 23);
             textBox2.TabIndex = 0;
             // 
             // panel23
@@ -218,16 +218,16 @@
             panel23.Dock = DockStyle.Left;
             panel23.Location = new Point(0, 0);
             panel23.Name = "panel23";
-            panel23.Size = new Size(207, 247);
+            panel23.Size = new Size(175, 247);
             panel23.TabIndex = 0;
             // 
             // label9
             // 
             label9.Anchor = AnchorStyles.Top;
             label9.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label9.Location = new Point(6, 0);
+            label9.Location = new Point(0, 0);
             label9.Name = "label9";
-            label9.Size = new Size(200, 44);
+            label9.Size = new Size(175, 44);
             label9.TabIndex = 3;
             label9.Text = "Mô tả:";
             label9.TextAlign = ContentAlignment.MiddleLeft;

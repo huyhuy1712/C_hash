@@ -228,6 +228,9 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             }
         }
 
-        
+        private void roundedComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -13,25 +13,69 @@ namespace MilkTea.Client.Forms
 {
     public partial class DiscountForm : Form
     {
-        private List<CTKhuyenMai> _allDiscounts = new List<CTKhuyenMai>(); // lưu danh sách gốc
+        private List<CTKhuyenMai> _allDiscounts = new List<CTKhuyenMai>(); // Lưu danh sách gốc
+        private bool _isLoading = false; // Flag cho loading state
+        private System.Windows.Forms.Timer _searchTimer; // Timer cho debounce reload
 
         public DiscountForm()
         {
             InitializeComponent();
+            // Khởi tạo timer debounce cho reload (500ms delay để tránh gọi API liên tục)
+            _searchTimer = new System.Windows.Forms.Timer { Interval = 500 };
+            _searchTimer.Tick += SearchTimer_Tick;
             this.Load += DiscountForm_Load;
         }
 
         private async void DiscountForm_Load(object sender, EventArgs e)
         {
+            // Clear card mẫu từ designer NGAY LẬP TỨC và LẶP LẠI để chắc chắn
+            ClearStaticCards();
+
+            // Thêm "Tất cả" vào ComboBox trạng thái (nếu chưa có)
+            if (roundedComboBox2.Items.Count == 0 || !roundedComboBox2.Items.Contains("Tất cả"))
+            {
+                roundedComboBox2.Items.Clear(); // Clear nếu có item cũ
+                roundedComboBox2.Items.AddRange(new object[] { "Tất cả", "Đang hoạt động", "Hết hạn" }); // Thêm "Tất cả" làm item đầu tiên
+            }
+            roundedComboBox2.SelectedIndex = 0; // Chọn "Tất cả" mặc định
+
+            // Clear search để tránh filter sai
+            roundedTextBox2.TextValue = "";
+            roundedTextBox2.Placeholder = "Nhập mã hoặc tên khuyến mãi..."; // Đảm bảo placeholder
+
             await LoadDiscountsAsync();
 
-            // 🔍 Gắn sự kiện tìm kiếm cho ô nhập
-            roundedTextBox2.TextChanged += roundedTextBox2_TextChanged;
+            // 🔍 Gắn sự kiện filter trạng thái (luôn attach, an toàn nếu đã có)
+            roundedComboBox2.SelectedIndexChanged += roundedComboBox2_SelectedIndexChanged;
         }
 
-        // 🌀 Hàm load danh sách khuyến mãi
+        // 🔧 Helper: Clear card tĩnh từ designer (gọi nhiều lần để chắc)
+        private void ClearStaticCards()
+        {
+            flowLayoutPanel1.Controls.Clear();
+            // Nếu có panel7 tĩnh, remove cụ thể (dựa trên tên từ designer)
+            for (int i = flowLayoutPanel1.Controls.Count - 1; i >= 0; i--)
+            {
+                var ctrl = flowLayoutPanel1.Controls[i];
+                if (ctrl.Name == "panel7" || (ctrl is Panel p && p.Controls.Count > 0 && p.Controls[0] is Label l && l.Text.Contains("Chương trình 8/8")))
+                {
+                    flowLayoutPanel1.Controls.RemoveAt(i);
+                }
+            }
+            flowLayoutPanel1.Refresh();
+        }
+
+        // 🌀 Hàm load danh sách khuyến mãi (từ API, không filter server-side)
         public async Task LoadDiscountsAsync()
         {
+            if (_isLoading) return; // Tránh load trùng lặp
+
+            _isLoading = true;
+            ShowLoading(true); // Hiển thị loading indicator
+
+            // Clear LẠI trước khi load để loại bỏ mọi thứ cũ (kể cả tĩnh)
+            ClearStaticCards();
+
             try
             {
                 using var client = new HttpClient();
@@ -50,30 +94,93 @@ namespace MilkTea.Client.Forms
                     PropertyNameCaseInsensitive = true
                 }) ?? new List<CTKhuyenMai>();
 
-                DisplayDiscounts(_allDiscounts);
+                // Áp dụng filter hiện tại (search + status) - Force "Tất cả" nếu cần
+                ApplyFilters();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi tải danh sách khuyến mãi: {ex.Message}");
+                MessageBox.Show($"Lỗi khi tải danh sách khuyến mãi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Fallback: Hiển thị rỗng
+                DisplayDiscounts(new List<CTKhuyenMai>());
             }
+            finally
+            {
+                _isLoading = false;
+                ShowLoading(false);
+            }
+        }
+
+        // 🔍 Áp dụng cả search và status filter (client-side)
+        private void ApplyFilters()
+        {
+            string searchKeyword = roundedTextBox2.TextValue?.Trim().ToLower() ?? "";
+            string statusFilter = roundedComboBox2.SelectedItem?.ToString() ?? "Tất cả"; // Default "Tất cả"
+
+            var filtered = _allDiscounts.AsEnumerable();
+
+            // Filter theo search: Cải tiến với partial match và exact ưu tiên
+            if (!string.IsNullOrEmpty(searchKeyword))
+            {
+                filtered = filtered.Where(d =>
+                    (!string.IsNullOrEmpty(d.TenCTKhuyenMai) && d.TenCTKhuyenMai.ToLower().Contains(searchKeyword)) ||
+                    d.MaCTKhuyenMai.ToString().Contains(searchKeyword)
+                ).ToList();
+
+                // Ưu tiên exact match cho mã
+                if (int.TryParse(searchKeyword, out int keywordAsInt))
+                {
+                    var exactMatch = _allDiscounts.FirstOrDefault(d => d.MaCTKhuyenMai == keywordAsInt);
+                    if (exactMatch != null && !filtered.Contains(exactMatch))
+                    {
+                        var tempList = new List<CTKhuyenMai> { exactMatch };
+                        tempList.AddRange(filtered);
+                        filtered = tempList.AsEnumerable();
+                    }
+                }
+            }
+
+            // Filter theo trạng thái: Dựa trên ngày (chỉ nếu KHÔNG phải "Tất cả")
+            if (statusFilter != "Tất cả")
+            {
+                filtered = filtered.Where(d =>
+                {
+                    DateTime now = DateTime.Now.Date; // Sử dụng Date để ignore giờ/phút
+                    bool isActive = false;
+                    if (d.NgayBatDau.HasValue && d.NgayKetThuc.HasValue)
+                    {
+                        isActive = d.NgayBatDau.Value.Date <= now && now <= d.NgayKetThuc.Value.Date;
+                    }
+                    else if (d.NgayBatDau.HasValue && !d.NgayKetThuc.HasValue)
+                    {
+                        isActive = d.NgayBatDau.Value.Date <= now; // Không kết thúc = vĩnh viễn
+                    }
+                    // Nếu null, coi như hết hạn
+                    return (statusFilter == "Đang hoạt động" && isActive) ||
+                           (statusFilter == "Hết hạn" && !isActive);
+                });
+            }
+
+            DisplayDiscounts(filtered.ToList());
         }
 
         // 🧩 Hàm hiển thị danh sách khuyến mãi
         private void DisplayDiscounts(List<CTKhuyenMai> discounts)
         {
+            // Clear CUỐI CÙNG trước khi add mới
             flowLayoutPanel1.Controls.Clear();
 
             if (discounts == null || discounts.Count == 0)
             {
-                Label lbl = new Label()
+                var lbl = new Label
                 {
-                    Text = "Không có chương trình khuyến mãi nào.",
+                    Text = "Không có chương trình khuyến mãi nào phù hợp với tìm kiếm.",
                     AutoSize = false,
                     Dock = DockStyle.Top,
                     TextAlign = ContentAlignment.MiddleCenter,
                     Font = new Font("Segoe UI", 12F, FontStyle.Italic),
                     ForeColor = Color.Gray,
-                    Height = 50
+                    Height = 50,
+                    Margin = new Padding(20)
                 };
                 flowLayoutPanel1.Controls.Add(lbl);
                 return;
@@ -81,97 +188,97 @@ namespace MilkTea.Client.Forms
 
             foreach (var discount in discounts)
             {
-                var panelOuter = new Panel
-                {
-                    Width = 200,
-                    Height = 100,
-                    BackColor = SystemColors.ButtonHighlight,
-                    Margin = new Padding(10)
-                };
-
-                var panelTitle = new Panel
-                {
-                    Dock = DockStyle.Top,
-                    Height = 72
-                };
-
-                var labelTitle = new Label
-                {
-                    Text = $"{discount.MaCTKhuyenMai} - {discount.TenCTKhuyenMai}",
-                    Dock = DockStyle.Fill,
-                    Font = new Font("Segoe UI", 14.25F, FontStyle.Bold),
-                    TextAlign = ContentAlignment.MiddleCenter,
-                    Cursor = Cursors.Hand
-                };
-
-                // Mở form chi tiết
-                labelTitle.Click += (s, e) =>
-                {
-                    var detailForm = new DetailDiscountForm(discount.MaCTKhuyenMai);
-                    detailForm.ShowDialog();
-                };
-
-                panelTitle.Controls.Add(labelTitle);
-
-                var panelButtons = new Panel
-                {
-                    Dock = DockStyle.Bottom,
-                    Height = 28,
-                    BackColor = SystemColors.ActiveCaption
-                };
-
-                // 🖋 Nút chỉnh sửa
-                var picEdit = new PictureBox
-                {
-                    Image = Properties.Resources.edit,
-                    SizeMode = PictureBoxSizeMode.Zoom,
-                    Dock = DockStyle.Left,
-                    Width = 24,
-                    Cursor = Cursors.Hand,
-                    Tag = discount.MaCTKhuyenMai
-                };
-                picEdit.Click += product_edit_btn1_Click;
-
-                // 🗑 Nút xóa
-                var picDelete = new PictureBox
-                {
-                    Image = Properties.Resources.trash,
-                    SizeMode = PictureBoxSizeMode.Zoom,
-                    Dock = DockStyle.Right,
-                    Width = 35,
-                    Cursor = Cursors.Hand,
-                    Tag = discount.MaCTKhuyenMai
-                };
-                picDelete.Click += async (s, e) =>
-                {
-                    await DeleteDiscountAsync((int)((PictureBox)s).Tag);
-                };
-
-                panelButtons.Controls.Add(picEdit);
-                panelButtons.Controls.Add(picDelete);
-                panelOuter.Controls.Add(panelTitle);
-                panelOuter.Controls.Add(panelButtons);
-                flowLayoutPanel1.Controls.Add(panelOuter);
+                var cardPanel = CreateDiscountCard(discount);
+                flowLayoutPanel1.Controls.Add(cardPanel);
             }
+
+            flowLayoutPanel1.Refresh(); // Force refresh UI
         }
 
-        // 🔍 Tìm kiếm khuyến mãi (lọc tại client, không cần gọi API)
+        // 🧩 Tạo card động (extracted cho dễ maintain)
+        private Panel CreateDiscountCard(CTKhuyenMai discount)
+        {
+            var panelOuter = new Panel
+            {
+                Width = 200,
+                Height = 100,
+                BackColor = SystemColors.ButtonHighlight,
+                Margin = new Padding(10)
+            };
+
+            var panelTitle = new Panel { Dock = DockStyle.Top, Height = 72 };
+
+            var labelTitle = new Label
+            {
+                Text = $"{discount.MaCTKhuyenMai} - {discount.TenCTKhuyenMai}",
+                Dock = DockStyle.Fill,
+                Font = new Font("Segoe UI", 14.25F, FontStyle.Bold),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Cursor = Cursors.Hand
+            };
+
+            // Mở form chi tiết - KHÔNG reload tự động để tránh loop, chỉ reload nếu cần
+            labelTitle.Click += (s, e) =>
+            {
+                var detailForm = new DetailDiscountForm(discount.MaCTKhuyenMai);
+                if (detailForm.ShowDialog() == DialogResult.OK) // Chỉ reload nếu có thay đổi
+                {
+                    _ = LoadDiscountsAsync();
+                }
+            };
+
+            panelTitle.Controls.Add(labelTitle);
+
+            var panelButtons = new Panel
+            {
+                Dock = DockStyle.Bottom,
+                Height = 28,
+                BackColor = SystemColors.ActiveCaption
+            };
+
+            // 🖋 Nút chỉnh sửa
+            var picEdit = new PictureBox
+            {
+                Image = Properties.Resources.edit,
+                SizeMode = PictureBoxSizeMode.Zoom,
+                Dock = DockStyle.Left,
+                Width = 24,
+                Cursor = Cursors.Hand,
+                Tag = discount.MaCTKhuyenMai
+            };
+            picEdit.Click += product_edit_btn1_Click;
+
+            // 🗑 Nút xóa
+            var picDelete = new PictureBox
+            {
+                Image = Properties.Resources.trash,
+                SizeMode = PictureBoxSizeMode.Zoom,
+                Dock = DockStyle.Right,
+                Width = 35,
+                Cursor = Cursors.Hand,
+                Tag = discount.MaCTKhuyenMai
+            };
+            picDelete.Click += async (s, e) => await DeleteDiscountAsync((int)((PictureBox)s).Tag);
+
+            panelButtons.Controls.Add(picEdit);
+            panelButtons.Controls.Add(picDelete);
+            panelOuter.Controls.Add(panelTitle);
+            panelOuter.Controls.Add(panelButtons);
+
+            return panelOuter;
+        }
+
+        // 🔍 Tìm kiếm khuyến mãi (immediate, không debounce)
         private void roundedTextBox2_TextChanged(object sender, EventArgs e)
         {
-            string keyword = roundedTextBox2.TextValue?.Trim().ToLower() ?? "";
+            // Tự động load lại (gọi LoadDiscountsAsync để fetch fresh data từ API)
+            _ = LoadDiscountsAsync(); // Async fire-and-forget để reload ngay khi gõ
+        }
 
-            if (string.IsNullOrEmpty(keyword))
-            {
-                DisplayDiscounts(_allDiscounts);
-                return;
-            }
-
-            var filtered = _allDiscounts.Where(d =>
-                d.TenCTKhuyenMai.ToLower().Contains(keyword) ||
-                d.MaCTKhuyenMai.ToString().Contains(keyword)
-            ).ToList();
-
-            DisplayDiscounts(filtered);
+        // 🔍 Filter theo trạng thái
+        private void roundedComboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ApplyFilters(); // Chỉ filter client-side cho status, không reload API
         }
 
         // 🗑 Hàm xóa khuyến mãi bằng API
@@ -180,8 +287,7 @@ namespace MilkTea.Client.Forms
             var confirm = MessageBox.Show("Bạn có chắc chắn muốn xóa khuyến mãi này không?",
                                           "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
-            if (confirm != DialogResult.Yes)
-                return;
+            if (confirm != DialogResult.Yes) return;
 
             try
             {
@@ -193,7 +299,7 @@ namespace MilkTea.Client.Forms
                 if (response.IsSuccessStatusCode)
                 {
                     MessageBox.Show("Đã xóa khuyến mãi thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    await LoadDiscountsAsync(); // làm mới
+                    await LoadDiscountsAsync(); // Làm mới
                 }
                 else
                 {
@@ -212,8 +318,10 @@ namespace MilkTea.Client.Forms
         {
             var addForm = new AddDiscountForm();
             addForm.Owner = this;
-            addForm.ShowDialog();
-            _ = LoadDiscountsAsync(); // làm mới sau khi thêm
+            if (addForm.ShowDialog() == DialogResult.OK)
+            {
+                _ = LoadDiscountsAsync(); // Làm mới sau khi thêm
+            }
         }
 
         // 🛠 Nút chỉnh sửa (mở form sửa)
@@ -223,9 +331,46 @@ namespace MilkTea.Client.Forms
             if (pic?.Tag is int id)
             {
                 var editForm = new EditDiscountForm(id);
-                editForm.ShowDialog();
-                _ = LoadDiscountsAsync(); // làm mới sau khi sửa
+                editForm.Owner = this;
+                if (editForm.ShowDialog() == DialogResult.OK)
+                {
+                    _ = LoadDiscountsAsync(); // Làm mới sau khi sửa
+                }
             }
+        }
+        private void SearchTimer_Tick(object sender, EventArgs e)
+        {
+            _searchTimer.Stop(); // Dừng timer để tránh gọi lặp
+            ApplyFilters(); // Áp dụng bộ lọc sau khi user dừng gõ
+        }
+
+        // 🔄 Helper: Hiển thị/ẩn loading (cải tiến để tránh chồng loading)
+        private void ShowLoading(bool show)
+        {
+            // Remove loading cũ nếu có (sử dụng for loop thay vì ToArray để tránh lỗi)
+            for (int i = flowLayoutPanel1.Controls.Count - 1; i >= 0; i--)
+            {
+                var ctrl = flowLayoutPanel1.Controls[i];
+                if (ctrl is Label l && l.Text == "Đang tải...")
+                {
+                    flowLayoutPanel1.Controls.RemoveAt(i);
+                    break;
+                }
+            }
+
+            if (show)
+            {
+                var loadingLabel = new Label
+                {
+                    Text = "Đang tải...",
+                    AutoSize = true,
+                    ForeColor = Color.Blue,
+                    Location = new Point(flowLayoutPanel1.Width / 2 - 30, flowLayoutPanel1.Height / 2 - 10), // Center
+                    Anchor = AnchorStyles.None
+                };
+                flowLayoutPanel1.Controls.Add(loadingLabel);
+            }
+            flowLayoutPanel1.Refresh();
         }
     }
 }

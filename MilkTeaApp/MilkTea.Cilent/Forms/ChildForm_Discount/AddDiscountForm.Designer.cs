@@ -966,6 +966,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             roundedComboBox1.Size = new Size(133, 36);
             roundedComboBox1.Sorted = true;
             roundedComboBox1.TabIndex = 4;
+            roundedComboBox1.SelectedIndexChanged += roundedComboBox1_SelectedIndexChanged;
             // 
             // label6
             // 

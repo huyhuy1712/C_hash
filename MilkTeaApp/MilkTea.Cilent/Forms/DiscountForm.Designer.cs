@@ -63,7 +63,6 @@ namespace MilkTea.Client.Forms
             panel4.SuspendLayout();
             DiscountPanel.SuspendLayout();
             flowLayoutPanel1.SuspendLayout();
-            panel7.SuspendLayout();
             panel9.SuspendLayout();
             panel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)product_delete_btn1).BeginInit();
@@ -160,11 +159,12 @@ namespace MilkTea.Client.Forms
             roundedComboBox2.Font = new Font("Segoe UI", 10F);
             roundedComboBox2.FormattingEnabled = true;
             roundedComboBox2.ItemHeight = 30;
-            roundedComboBox2.Items.AddRange(new object[] { "Đang hoạt động", "Hết hạn" });
+            roundedComboBox2.Items.AddRange(new object[] { "Tất cả", "Đang hoạt động", "Hết hạn" });
             roundedComboBox2.Location = new Point(0, 0);
             roundedComboBox2.Name = "roundedComboBox2";
             roundedComboBox2.Size = new Size(142, 36);
             roundedComboBox2.TabIndex = 1;
+            roundedComboBox2.SelectedIndexChanged += roundedComboBox2_SelectedIndexChanged;
             // 
             // panel5
             // 
@@ -260,13 +260,10 @@ namespace MilkTea.Client.Forms
             // 
             // panel7
             // 
-            panel7.BackColor = SystemColors.ButtonHighlight;
-            panel7.Controls.Add(panel9);
-            panel7.Controls.Add(panel8);
             panel7.Location = new Point(23, 23);
             panel7.Name = "panel7";
             panel7.Size = new Size(200, 100);
-            panel7.TabIndex = 3;
+            panel7.TabIndex = 0;
             // 
             // panel9
             // 
@@ -345,7 +342,6 @@ namespace MilkTea.Client.Forms
             panel4.ResumeLayout(false);
             DiscountPanel.ResumeLayout(false);
             flowLayoutPanel1.ResumeLayout(false);
-            panel7.ResumeLayout(false);
             panel9.ResumeLayout(false);
             panel8.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)product_delete_btn1).EndInit();
@@ -369,21 +365,6 @@ namespace MilkTea.Client.Forms
         private void label1_Click(object sender, EventArgs e)
         {
             throw new NotImplementedException();
-        }
-
-        private void Search_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void roundedComboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btnThemDisccount_Click(object sender, EventArgs e)
