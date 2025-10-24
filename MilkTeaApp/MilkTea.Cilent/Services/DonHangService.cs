@@ -68,6 +68,20 @@ namespace MilkTea.Client.Services
                 throw new Exception($"Không thể lấy thông tin đơn hàng: {error}");
             }
         }
+        public async Task<List<DonHang>> SearchAsync(string column, string value)
+        {
+            var response = await _http.GetAsync($"/api/donhang/search?column={column}&value={value}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<List<DonHang>>() ?? new List<DonHang>();
+            }
+            else
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Không thể tìm kiếm đơn hàng: {error}");
+            }
+        }
 
 
 
