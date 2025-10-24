@@ -40,6 +40,9 @@ namespace MilkTea.Client.Forms
         {
             await LoadLoaiAsync();
             await LoadDataAsync();
+
+            //Bật tắt các nút theo quyền
+            roundedButton1.Enabled = Session.HasPermission("Thêm sản phẩm");
         }
 
         private async Task LoadLoaiAsync()

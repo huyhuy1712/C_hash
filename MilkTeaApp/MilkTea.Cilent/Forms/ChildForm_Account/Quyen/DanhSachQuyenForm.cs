@@ -1,15 +1,6 @@
 ﻿using MilkTea.Client.Interfaces;
+using MilkTea.Client.Models;
 using MilkTea.Client.Presenters.Quyen;
-using MilkTea.Client.Services;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MilkTea.Client.Forms.ChildForm_Account
 {
@@ -18,11 +9,15 @@ namespace MilkTea.Client.Forms.ChildForm_Account
         private readonly QuyenPresenter _presenter;
         public DataGridView Grid => dataGridView1;
         public Label LblStatus => lblStatus;
-        private readonly QuyenService _quyenService = new();
         public DanhSachQuyenForm()
         {
             InitializeComponent();
-            _presenter = new QuyenPresenter(this, new QuyenService());
+            _presenter = new QuyenPresenter(this);
+
+            //Bật tắt các nút theo quyền
+            sua.Visible = Session.HasPermission("Sửa quyền");
+            xoa.Visible = Session.HasPermission("Xóa quyền");
+            btnThemQuyen.Enabled = Session.HasPermission("Thêm quyền");
         }
 
         private void btnDong_Click(object sender, EventArgs e)

@@ -3,8 +3,6 @@ using MilkTea.Client.Interfaces;
 using MilkTea.Client.Models;
 using MilkTea.Client.Presenters.Account;
 using MilkTea.Client.Services;
-using System;
-using System.Windows.Forms;
 
 
 namespace MilkTea.Client.Forms
@@ -18,7 +16,7 @@ namespace MilkTea.Client.Forms
         public AccountForm()
         {
             InitializeComponent();
-            _presenter = new AccountPresenter(this, new AccountService(), new NhanVienService());
+            _presenter = new AccountPresenter(this);
         }
 
         private async void AccountForm_Load(object sender, EventArgs e)
@@ -27,8 +25,7 @@ namespace MilkTea.Client.Forms
             
             xoa.Visible = Session.HasPermission("Xóa tài khoản");
             sua.Visible = Session.HasPermission("Sửa tài khoản");
-
-
+            btnThemAccount.Enabled = Session.HasPermission("Thêm tài khoản");
         }
 
         private void btnThemAccount_Click(object sender, EventArgs e)

@@ -11,13 +11,12 @@ namespace MilkTea.Client.Presenters.Quyen
 {
     public class QuyenPresenter
     {
-        private readonly QuyenService _quyenService;
+        private readonly QuyenService _quyenService = new();
         private readonly IBaseForm _form;
 
-        public QuyenPresenter(IBaseForm form, QuyenService quyenService)
+        public QuyenPresenter(IBaseForm form)
         {
             _form = form;
-            _quyenService = quyenService;
         }
 
         public async Task LoadDataAsync()

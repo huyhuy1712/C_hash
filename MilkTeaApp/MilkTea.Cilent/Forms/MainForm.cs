@@ -64,6 +64,7 @@ namespace MilkTea.Client.Forms
                 MessageBox.Show($"Không thể tải ảnh đại diện: {ex.Message}", "Lỗi ảnh", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 avatarUser.Image = Properties.Resources.user;
             }
+
             //Kiểm tra quyền để hiển thị button
             btnOrder.Enabled = Session.HasPermission("Vào đơn hàng");
             btnHoaDon.Enabled = Session.HasPermission("Vào hóa đơn");
@@ -71,11 +72,6 @@ namespace MilkTea.Client.Forms
             btnKhuyenMai.Enabled = Session.HasPermission("Vào khuyến mãi");
             btnPhieuNhap.Enabled = Session.HasPermission("Vào nhập hàng");
             btnTaiKhoan.Enabled = Session.HasPermission("Vào tài khoản");
-            if (Session.AllowedFunctions.Count == 0)
-            {
-                Debug.WriteLine("khong co quyen");
-            }
-            Session.AllowedFunctions.ForEach(cn => Debug.WriteLine(cn.TenChucNang));
         }
 
 
