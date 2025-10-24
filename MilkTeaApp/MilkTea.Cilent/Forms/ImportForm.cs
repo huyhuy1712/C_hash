@@ -70,8 +70,9 @@ namespace MilkTea.Client.Forms
             try
             {
                 var phieuNhaps = await _phieuNhapService.GetPhieuNhapsAsync();
-                dGV_phieuNhap.Rows.Clear();
-                if (phieuNhaps != null && phieuNhaps.Any())
+
+                var phieuNhapsActive = phieuNhaps?.Where(pn => pn.TrangThai == 1).ToList();
+                if (phieuNhapsActive != null && phieuNhapsActive.Any())
                 {
                     foreach (var pn in phieuNhaps)
                     {
