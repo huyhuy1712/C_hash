@@ -63,9 +63,9 @@ namespace MilkTea.Client.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap alarm {
+        internal static System.Drawing.Bitmap beverage {
             get {
-                object obj = ResourceManager.GetObject("alarm", resourceCulture);
+                object obj = ResourceManager.GetObject("beverage", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace MilkTea.Client.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap beverage {
+        internal static System.Drawing.Bitmap card {
             get {
-                object obj = ResourceManager.GetObject("beverage", resourceCulture);
+                object obj = ResourceManager.GetObject("card", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -126,6 +126,16 @@ namespace MilkTea.Client.Properties {
         internal static System.Drawing.Bitmap edit {
             get {
                 object obj = ResourceManager.GetObject("edit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap gir {
+            get {
+                object obj = ResourceManager.GetObject("gir", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

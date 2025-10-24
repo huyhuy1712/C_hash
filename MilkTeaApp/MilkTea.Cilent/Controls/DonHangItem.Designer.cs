@@ -187,6 +187,7 @@ namespace MilkTea.Client.Controls
             pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
             // 
             // label_GioLap
             // 
@@ -201,7 +202,6 @@ namespace MilkTea.Client.Controls
             // pictureBox2
             // 
             pictureBox2.Dock = DockStyle.Left;
-            pictureBox2.Image = Properties.Resources.alarm;
             pictureBox2.Location = new Point(0, 0);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(32, 39);
