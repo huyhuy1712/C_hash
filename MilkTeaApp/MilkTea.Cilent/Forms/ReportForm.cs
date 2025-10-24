@@ -25,6 +25,8 @@ namespace MilkTea.Client.Forms
         private readonly SizeService _sizeService;
         private readonly DoanhThuService _doanhThuService;
         private readonly CTKhuyenMaiService _ctKhuyenMaiService;
+        private readonly CongThucService _congThucService;
+        private readonly CTCongThucService _ctCongThucService;
 
         public ReportForm()
         {
@@ -34,6 +36,8 @@ namespace MilkTea.Client.Forms
             _sizeService = new SizeService();
             _doanhThuService = new DoanhThuService();
             _ctKhuyenMaiService = new CTKhuyenMaiService();
+            _congThucService = new CongThucService();
+            _ctCongThucService = new CTCongThucService();
         }
 
 
@@ -284,6 +288,15 @@ namespace MilkTea.Client.Forms
 
                     DateTime date = new DateTime(item.Nam, item.Thang, item.Ngay);
                     string thoiGian = date.ToString("dd/MM/yyyy");
+
+                    var congThuc = await _congThucService.GetAllCongThucAsync();
+                    var congThucTrung = congThuc.FirstOrDefault(ct => ct.MaSP == item.MaSP.Value);
+                    var maCT = congThucTrung?.MaCT ?? -1;
+                    var ctCongThuc = await _ctCongThucService.GetChiTietCongThucTheoIdAsync(maCT);
+                    foreach (var ct in ctCongThuc)
+                    {
+                        
+                    }
 
                     dataGridView1.Rows.Add(
                         thoiGian,
