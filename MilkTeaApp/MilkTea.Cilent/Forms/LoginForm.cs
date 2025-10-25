@@ -1,9 +1,11 @@
-﻿using MilkTea.Client.Models;
+﻿using Microsoft.VisualBasic.ApplicationServices;
+using MilkTea.Client.Models;
 using MilkTea.Client.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net.WebSockets;
@@ -16,12 +18,14 @@ namespace MilkTea.Client.Forms
 {
     public partial class LoginForm : Form
     {
-        private readonly TaiKhoanService _taiKhoanService;
-
+        private readonly AccountService _taiKhoanService;
+        private readonly ChucNangService _chucNangService;
         public LoginForm()
         {
             InitializeComponent();
-            _taiKhoanService = new TaiKhoanService();
+            _taiKhoanService = new AccountService();
+            _chucNangService = new();
+            this.KeyPreview = true;
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
@@ -32,42 +36,36 @@ namespace MilkTea.Client.Forms
         private void roundedTextBox_TenTK_Enter(object sender, EventArgs e)
         {
             //roundedTextBox_Email.TextValue = "";
-            pictureBox1.Visible = false;
         }
 
         private void roundedTextBox_TenTK_Leave(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(roundedTextBox_TenTK.TextValue))
             {
-                roundedTextBox_TenTK.Placeholder = "  rk   Nhập tên tài khoản";
+                roundedTextBox_TenTK.Placeholder = "Nhập tên tài khoản";
                 // Hiện lại icon nếu không nhập gì
-                pictureBox1.Visible = true;
             }
             else
             {
                 string tenTK = roundedTextBox_TenTK.TextValue;
-                pictureBox1.Visible = false;
             }
         }
 
         private void roundedTextBox_Password_Enter(object sender, EventArgs e)
         {
             //roundedTextBox_Password.TextValue = "";
-            pictureBox2.Visible = false;
         }
 
         private void roundedTextBox_Password_Leave(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(roundedTextBox_Password.TextValue))
             {
-                roundedTextBox_Password.Placeholder = "  rk   Nhập mật khẩu";
+                roundedTextBox_Password.Placeholder = "Nhập mật khẩu";
                 // Hiện lại icon nếu không nhập gì
-                pictureBox2.Visible = true;
             }
             else
             {
                 string password = roundedTextBox_Password.TextValue;
-                pictureBox2.Visible = false;
             }
         }
 
@@ -111,14 +109,18 @@ namespace MilkTea.Client.Forms
             }
 
             TaiKhoan account = await CheckLoginAsync(username, password);
-            if (account == null) {
+            if (account == null)
+            {
                 MessageBox.Show("Không có tài khoản", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-           MainForm mainForm = new MainForm(account);
+            MainForm mainForm = new MainForm(account);
+
+            // Lưu thông tin vào session
+            Session.AllowedFunctions = await _chucNangService.GetChucNangsByMaQuyenAsync(account.MaQuyen);
+            this.Hide();
             mainForm.ShowDialog();
-            this.Close();
         }
 
         // Hàm kiểm tra đăng nhập
@@ -126,11 +128,20 @@ namespace MilkTea.Client.Forms
         {
             var list = await _taiKhoanService.GetAccountsAsync();
 
+            Debug.WriteLine("list account: " + list);
 
             // Tìm tài khoản theo username và password
             var account = list.FirstOrDefault(tk => tk.TenTaiKhoan == username && tk.MatKhau == password);
 
             return account; // Nếu không tìm thấy thì trả về null
+        }
+
+        private void roundedTextBox_Password_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                roundedButton_Login.PerformClick();
+            }
         }
     }
 }

@@ -239,6 +239,7 @@ namespace MilkTea.Client.Forms
             btnThemAccount.BorderRadius = 20;
             btnThemAccount.BorderSize = 0;
             btnThemAccount.Dock = DockStyle.Right;
+            btnThemAccount.Enabled = false;
             btnThemAccount.FlatAppearance.BorderSize = 0;
             btnThemAccount.FlatStyle = FlatStyle.Flat;
             btnThemAccount.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
@@ -346,7 +347,6 @@ namespace MilkTea.Client.Forms
             // 
             product_delete_btn1.Cursor = Cursors.Hand;
             product_delete_btn1.Dock = DockStyle.Right;
-            product_delete_btn1.Image = Properties.Resources.trash;
             product_delete_btn1.Location = new Point(189, 0);
             product_delete_btn1.Name = "product_delete_btn1";
             product_delete_btn1.Size = new Size(40, 37);
@@ -358,7 +358,6 @@ namespace MilkTea.Client.Forms
             // 
             product_edit_btn1.Cursor = Cursors.Hand;
             product_edit_btn1.Dock = DockStyle.Left;
-            product_edit_btn1.Image = Properties.Resources.edit;
             product_edit_btn1.Location = new Point(0, 0);
             product_edit_btn1.Name = "product_edit_btn1";
             product_edit_btn1.Size = new Size(27, 37);

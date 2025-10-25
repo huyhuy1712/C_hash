@@ -20,6 +20,9 @@ namespace MilkTea.Client.Services
         {
             return await _http.GetFromJsonAsync<Size>($"/api/size/ten/{TenSize}");
         }
-
+        public async Task<Size> GetSizeByIdAsync(int id)
+        {
+            return await _http.GetFromJsonAsync<Size>($"/api/size/{id}");
+        }
     }
 }

@@ -380,7 +380,6 @@
             // pictureBox5
             // 
             pictureBox5.Dock = DockStyle.Fill;
-            pictureBox5.Image = Properties.Resources.tra_sua_truyen_thong;
             pictureBox5.Location = new Point(0, 0);
             pictureBox5.Margin = new Padding(3, 4, 3, 4);
             pictureBox5.Name = "pictureBox5";
@@ -696,7 +695,6 @@
             // pictureBox4
             // 
             pictureBox4.Dock = DockStyle.Fill;
-            pictureBox4.Image = Properties.Resources.tra_sua_truyen_thong;
             pictureBox4.Location = new Point(0, 0);
             pictureBox4.Margin = new Padding(3, 4, 3, 4);
             pictureBox4.Name = "pictureBox4";
@@ -772,7 +770,6 @@
             // pictureBox1
             // 
             pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Image = Properties.Resources.tra_sua_truyen_thong;
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
@@ -864,7 +861,6 @@
             // pictureBox2
             // 
             pictureBox2.Dock = DockStyle.Fill;
-            pictureBox2.Image = Properties.Resources.tra_sua_truyen_thong;
             pictureBox2.Location = new Point(0, 0);
             pictureBox2.Margin = new Padding(3, 4, 3, 4);
             pictureBox2.Name = "pictureBox2";
@@ -940,7 +936,6 @@
             // pictureBox3
             // 
             pictureBox3.Dock = DockStyle.Fill;
-            pictureBox3.Image = Properties.Resources.tra_sua_truyen_thong;
             pictureBox3.Location = new Point(0, 0);
             pictureBox3.Margin = new Padding(3, 4, 3, 4);
             pictureBox3.Name = "pictureBox3";

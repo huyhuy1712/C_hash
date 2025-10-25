@@ -13,6 +13,9 @@ namespace MilkTea.Client.Forms
     public partial class InvoiceForm : Form
     {
         private readonly DonHangService _donHangService;
+
+        private readonly CTDonHangService _CTdonHangService;
+
         private Dictionary<string, string> columnMapping;
 
         public InvoiceForm()
@@ -52,7 +55,9 @@ namespace MilkTea.Client.Forms
 
             foreach (var dh in donHangList)
             {
-                var item = new DonHangItem();
+
+                var item = new DonHangItem(dh);
+
                 item.SetData(dh);
                 item.Size = new System.Drawing.Size(210, 140);
                 item.Margin = new Padding(10);
@@ -87,7 +92,9 @@ namespace MilkTea.Client.Forms
             // Hiển thị danh sách kết quả
             foreach (var dh in list)
             {
-                var item = new DonHangItem();
+
+                var item = new DonHangItem(dh);
+
                 item.SetData(dh);
                 item.Size = new System.Drawing.Size(210, 140);
                 item.Margin = new Padding(10);

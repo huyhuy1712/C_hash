@@ -1,4 +1,7 @@
 ﻿using MilkTea.Client.Models;
+
+using MilkTea.Client.Services;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,12 +19,22 @@ namespace MilkTea.Client.Controls
     {
         // Biến lưu sản phẩm hiện tại để khi click có thể dùng lại
         private DonHang? donHang; // Make donHang nullable
+
+        private ChiTietDonHang? chiTietDonHang;
+        private DoanhThu? doanhThu;
+        private CTDonHangService CTDonHangService = new CTDonHangService();
+        private DoanhThuService doanhThuService = new DoanhThuService();
+        private SanPhamService SanPhamService = new SanPhamService();
+        private CongThucService _congThucService = new CongThucService();
+        private CTCongThucService _ctCongThucService = new CTCongThucService();
         public int pttt;
         public int trangThai;
         //public event EventHandler<DonHangEventArgs> OnDonHangSelected;
-        public DonHangItem()
+        public DonHangItem(DonHang dh)
         {
             InitializeComponent();
+            donHang = dh;
+
         }
         // Gán dữ liệu đơn hàng vào UserControl
 
@@ -86,7 +99,9 @@ namespace MilkTea.Client.Controls
             }
         }
 
-        private void pictureBox4_Click(object sender, EventArgs e)
+
+        private async void pictureBox4_Click(object sender, EventArgs e)
+
         {
             // Hiển thị hộp thoại xác nhận
             DialogResult result = MessageBox.Show(
@@ -101,6 +116,65 @@ namespace MilkTea.Client.Controls
                 // Người dùng chọn Yes -> thực hiện xóa đơn hàng
                 // TODO: thêm code xóa đơn hàng ở đây
                 MessageBox.Show("Cập nhật đơn hàng thành công!");
+
+
+                int maDH = donHang.MaDH;
+                var sp = await SanPhamService.GetSanPhamsByIdAsync(maDH);
+                int maLoai = sp.MaLoai;
+                int? nam = donHang.NgayLap?.Year;
+                int? thang = donHang.NgayLap?.Month;
+                int? ngayTrongThang = donHang.NgayLap?.Day;
+                string gio = donHang.NgayLap?.ToString("HH:mm:ss");
+
+                var danhSachCTDH = await CTDonHangService.GetAllAsync(maDH);
+                var ctDH = danhSachCTDH
+                    .Where(ct => ct.MaDH == donHang.MaDH)
+                    .ToList();
+
+                foreach (var item in ctDH)
+                {
+                    var maSP = item.MaSP;
+                    var congThuc = await _congThucService.GetAllCongThucAsync();
+                    var congThucTrung = congThuc.FirstOrDefault(ct => ct.MaSP == item.MaSP);
+                    var maCT = congThucTrung?.MaCT ?? -1;
+                    var ctCongThuc = await _ctCongThucService.GetChiTietCongThucTheoIdAsync(maCT);
+                    foreach (var ct in ctCongThuc)
+                    {
+
+                    }
+
+                    var maSize = item.MaSize;
+                    var soLuong = item.SoLuong;
+                    var chiPhi = item.GiaVon;
+                    var tongGia = item.TongGia;
+
+                    var doanhThu = new DoanhThu
+                    {
+                        Ngay = ngayTrongThang ?? 0,
+                        Thang = thang ?? 0,
+                        Nam = nam ?? 0,
+                        Gio = TimeSpan.Parse(gio ?? "00:00:00"),
+                        SLBan = soLuong,
+                        MaSP = maSP,
+                        MaLoai = maLoai,
+                        MaKM = 1, //TẠM THỜI BẰNG 1
+                        MaSize = maSize,
+                        TongChiPhi = chiPhi,
+                        TongDoanhThu = tongGia,
+                    };
+
+                    var kq = await doanhThuService.ThemDoanhThuAsync(doanhThu);
+
+                    if (kq)
+                    {
+                        MessageBox.Show("Thêm doanh thu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Thêm doanh thu thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+
             }
             else
             {
@@ -109,4 +183,6 @@ namespace MilkTea.Client.Controls
             }
         }
     }
+
 }
+

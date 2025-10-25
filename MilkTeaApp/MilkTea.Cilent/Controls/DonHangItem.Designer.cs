@@ -202,14 +202,16 @@ namespace MilkTea.Client.Controls
             // pictureBox2
             // 
             pictureBox2.Dock = DockStyle.Left;
-            pictureBox2.Image = Properties.Resources.alarm;
+
+            //pictureBox2.Image = Properties.Resources.alarm;
+
             pictureBox2.Location = new Point(0, 0);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(32, 39);
             pictureBox2.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox2.TabIndex = 2;
             pictureBox2.TabStop = false;
-            
+
             // 
             // label_TongGia
             // 
@@ -220,7 +222,7 @@ namespace MilkTea.Client.Controls
             label_TongGia.TabIndex = 1;
             label_TongGia.Text = "90.000";
             label_TongGia.TextAlign = ContentAlignment.MiddleCenter;
-            
+
             // 
             // panel8
             // 
@@ -283,4 +285,6 @@ namespace MilkTea.Client.Controls
         private Panel panel8;
         private Label label_MaBuzzer;
     }
+
 }
+
