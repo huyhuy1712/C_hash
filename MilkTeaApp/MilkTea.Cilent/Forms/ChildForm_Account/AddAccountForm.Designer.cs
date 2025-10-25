@@ -53,7 +53,7 @@
             panel6 = new Panel();
             label3 = new Label();
             panel5 = new Panel();
-            txtbThemTaiKhoan = new TextBox();
+            txtbTenTaiKhoan = new TextBox();
             panel4 = new Panel();
             label2 = new Label();
             panel2 = new Panel();
@@ -135,6 +135,7 @@
             btnThemTTK.TabIndex = 1;
             btnThemTTK.Text = "+ Thêm";
             btnThemTTK.UseVisualStyleBackColor = false;
+            btnThemTTK.Click += btnThemTTK_Click;
             // 
             // panel14
             // 
@@ -365,7 +366,7 @@
             // 
             // panel5
             // 
-            panel5.Controls.Add(txtbThemTaiKhoan);
+            panel5.Controls.Add(txtbTenTaiKhoan);
             panel5.Dock = DockStyle.Top;
             panel5.Location = new Point(20, 51);
             panel5.Name = "panel5";
@@ -373,14 +374,14 @@
             panel5.Size = new Size(760, 31);
             panel5.TabIndex = 1;
             // 
-            // txtbThemTaiKhoan
+            // txtbTenTaiKhoan
             // 
-            txtbThemTaiKhoan.Dock = DockStyle.Left;
-            txtbThemTaiKhoan.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtbThemTaiKhoan.Location = new Point(30, 0);
-            txtbThemTaiKhoan.Name = "txtbThemTaiKhoan";
-            txtbThemTaiKhoan.Size = new Size(573, 30);
-            txtbThemTaiKhoan.TabIndex = 0;
+            txtbTenTaiKhoan.Dock = DockStyle.Left;
+            txtbTenTaiKhoan.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtbTenTaiKhoan.Location = new Point(30, 0);
+            txtbTenTaiKhoan.Name = "txtbTenTaiKhoan";
+            txtbTenTaiKhoan.Size = new Size(573, 30);
+            txtbTenTaiKhoan.TabIndex = 0;
             // 
             // panel4
             // 
@@ -400,9 +401,9 @@
             label2.ForeColor = Color.DodgerBlue;
             label2.Location = new Point(30, 0);
             label2.Name = "label2";
-            label2.Size = new Size(185, 31);
+            label2.Size = new Size(162, 31);
             label2.TabIndex = 1;
-            label2.Text = "Thêm Tài Khoản";
+            label2.Text = "Tên Tài Khoản";
             // 
             // panel2
             // 
@@ -476,7 +477,7 @@
         private Label label1;
         private Label label2;
         private Panel panel5;
-        private TextBox txtbThemTaiKhoan;
+        private TextBox txtbTenTaiKhoan;
         private Panel panel6;
         private Label label3;
         private Panel panel7;
