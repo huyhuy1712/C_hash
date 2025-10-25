@@ -35,5 +35,11 @@ namespace MilkTea.Client.Services
 
             throw new Exception("Không thể thêm phiếu nhập.");
         }
+
+        public async Task<bool> SoftDeleteAsync(int maPN)
+        {
+            var response = await _http.DeleteAsync($"/api/phieunhap/{maPN}/soft");
+            return response.IsSuccessStatusCode;
+        }
     }
 }
