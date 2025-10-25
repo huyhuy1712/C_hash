@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -159,6 +160,77 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
         private void panel13_Paint(object sender, PaintEventArgs e)
         {
             // Logic vẽ nếu cần
+        }
+
+        private async void roundedButton1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Lấy thông tin từ các control
+                string tenCT = textBox1.Text.Trim();
+                string discountText = roundedComboBox1.SelectedItem?.ToString()?.Replace("%", "") ?? "0";
+                int phanTram = int.TryParse(discountText, out int val) ? val : 0;
+                DateTime ngayBatDau = dateTimePicker1.Value;
+                DateTime ngayKetThuc = dateTimePicker2.Value;
+                string moTa = textBox2.Text.Trim();
+
+                // Kiểm tra dữ liệu đầu vào
+                if (string.IsNullOrEmpty(tenCT))
+                {
+                    MessageBox.Show("Vui lòng nhập tên chương trình khuyến mãi.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (ngayBatDau >= ngayKetThuc)
+                {
+                    MessageBox.Show("Ngày kết thúc phải lớn hơn ngày bắt đầu.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // ✅ Tạo object CTKhuyenMai để gửi lên server
+                var km = new MilkTea.Client.Models.CTKhuyenMai
+                {
+                    TenCTKhuyenMai = tenCT,
+                    MoTa = moTa,
+                    NgayBatDau = ngayBatDau,
+                    NgayKetThuc = ngayKetThuc,
+                    PhanTramKhuyenMai = phanTram,
+                    TrangThai = 1 // mặc định đang hoạt động
+                };
+
+                // Gửi request POST lên API
+                using var client = new HttpClient();
+                client.BaseAddress = new Uri("http://localhost:5021"); // ⚠️ đổi port nếu backend khác
+
+                var json = JsonSerializer.Serialize(km);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await client.PostAsync("/api/ctkhuyenmai", content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show("Thêm chương trình khuyến mãi thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    if (this.Owner is DiscountForm parentForm)
+                    {
+                        await parentForm.LoadDiscountsAsync();
+                    }
+                    this.Close(); // đóng form sau khi thêm
+                }
+                else
+                {
+                    var err = await response.Content.ReadAsStringAsync();
+                    MessageBox.Show($"Lỗi khi thêm khuyến mãi:\n{response.StatusCode}\n{err}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi gửi dữ liệu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void roundedComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

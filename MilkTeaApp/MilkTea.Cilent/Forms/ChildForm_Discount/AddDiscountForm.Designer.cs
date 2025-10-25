@@ -37,8 +37,8 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             panel3 = new Panel();
             panel4 = new Panel();
             panel9 = new Panel();
-            btnThoatDiscount = new RoundedButton();
-            btnThemDiscount = new RoundedButton();
+            roundedButton2 = new RoundedButton();
+            roundedButton1 = new RoundedButton();
             panel8 = new Panel();
             flowLayoutPanel1 = new FlowLayoutPanel();
             panel13 = new Panel();
@@ -79,7 +79,11 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             panel7 = new Panel();
             panel11 = new Panel();
             panel43 = new Panel();
-            Search = new RoundedTextBox();
+            panel44 = new Panel();
+            roundedComboBox2 = new RoundedComboBox();
+            label14 = new Label();
+            h = new Panel();
+            roundedTextBox1 = new RoundedTextBox();
             panel42 = new Panel();
             checkBox1 = new CheckBox();
             panel10 = new Panel();
@@ -142,6 +146,8 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             panel7.SuspendLayout();
             panel11.SuspendLayout();
             panel43.SuspendLayout();
+            panel44.SuspendLayout();
+            h.SuspendLayout();
             panel42.SuspendLayout();
             panel10.SuspendLayout();
             panel5.SuspendLayout();
@@ -216,52 +222,53 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             // 
             // panel9
             // 
-            panel9.Controls.Add(btnThoatDiscount);
-            panel9.Controls.Add(btnThemDiscount);
+            panel9.Controls.Add(roundedButton2);
+            panel9.Controls.Add(roundedButton1);
             panel9.Dock = DockStyle.Fill;
             panel9.Location = new Point(0, 417);
             panel9.Name = "panel9";
             panel9.Size = new Size(889, 50);
             panel9.TabIndex = 2;
             // 
-            // btnThoatDiscount
+            // roundedButton2
             // 
-            btnThoatDiscount.BackColor = Color.Red;
-            btnThoatDiscount.BorderColor = Color.DodgerBlue;
-            btnThoatDiscount.BorderRadius = 20;
-            btnThoatDiscount.BorderSize = 0;
-            btnThoatDiscount.Dock = DockStyle.Right;
-            btnThoatDiscount.FlatAppearance.BorderSize = 0;
-            btnThoatDiscount.FlatStyle = FlatStyle.Flat;
-            btnThoatDiscount.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            btnThoatDiscount.ForeColor = Color.White;
-            btnThoatDiscount.Location = new Point(725, 0);
-            btnThoatDiscount.Margin = new Padding(3, 2, 3, 2);
-            btnThoatDiscount.Name = "btnThoatDiscount";
-            btnThoatDiscount.Size = new Size(82, 50);
-            btnThoatDiscount.TabIndex = 3;
-            btnThoatDiscount.Text = "Thoát";
-            btnThoatDiscount.UseVisualStyleBackColor = false;
-            btnThoatDiscount.Click += btnThemDiscount_Click;
+            roundedButton2.BackColor = Color.Crimson;
+            roundedButton2.BorderColor = Color.Crimson;
+            roundedButton2.BorderRadius = 20;
+            roundedButton2.BorderSize = 0;
+            roundedButton2.Dock = DockStyle.Right;
+            roundedButton2.FlatAppearance.BorderSize = 0;
+            roundedButton2.FlatStyle = FlatStyle.Flat;
+            roundedButton2.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            roundedButton2.ForeColor = Color.White;
+            roundedButton2.Location = new Point(680, 0);
+            roundedButton2.Margin = new Padding(3, 2, 3, 2);
+            roundedButton2.Name = "roundedButton2";
+            roundedButton2.Size = new Size(82, 50);
+            roundedButton2.TabIndex = 3;
+            roundedButton2.Text = "Hủy";
+            roundedButton2.UseVisualStyleBackColor = false;
             // 
-            // btnThemDiscount
+            // roundedButton1
             // 
-            btnThemDiscount.BackColor = Color.Lime;
-            btnThemDiscount.BorderColor = Color.DodgerBlue;
-            btnThemDiscount.BorderRadius = 20;
-            btnThemDiscount.BorderSize = 0;
-            btnThemDiscount.Dock = DockStyle.Right;
-            btnThemDiscount.FlatAppearance.BorderSize = 0;
-            btnThemDiscount.FlatStyle = FlatStyle.Flat;
-            btnThemDiscount.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            btnThemDiscount.ForeColor = Color.Black;
-            btnThemDiscount.Location = new Point(807, 0);
-            btnThemDiscount.Margin = new Padding(26, 22, 26, 22);
-            btnThemDiscount.Name = "btnThemDiscount";
-            btnThemDiscount.Size = new Size(82, 50);
-            btnThemDiscount.TabIndex = 2;
-            btnThemDiscount.Text = "+ Thêm";
-            btnThemDiscount.UseVisualStyleBackColor = false;
+            roundedButton1.AutoSize = true;
+            roundedButton1.BackColor = Color.DodgerBlue;
+            roundedButton1.BorderColor = Color.DodgerBlue;
+            roundedButton1.BorderRadius = 20;
+            roundedButton1.BorderSize = 0;
+            roundedButton1.Dock = DockStyle.Right;
+            roundedButton1.FlatAppearance.BorderSize = 0;
+            roundedButton1.FlatStyle = FlatStyle.Flat;
+            roundedButton1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            roundedButton1.ForeColor = Color.White;
+            roundedButton1.Location = new Point(762, 0);
+            roundedButton1.Margin = new Padding(3, 2, 3, 2);
+            roundedButton1.Name = "roundedButton1";
+            roundedButton1.Size = new Size(127, 50);
+            roundedButton1.TabIndex = 2;
+            roundedButton1.Text = "Xác nhận";
+            roundedButton1.UseVisualStyleBackColor = false;
+            roundedButton1.Click += roundedButton1_Click;
             // 
             // panel8
             // 
@@ -661,29 +668,82 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             // 
             // panel43
             // 
-            panel43.Controls.Add(Search);
+            panel43.Controls.Add(panel44);
+            panel43.Controls.Add(label14);
+            panel43.Controls.Add(h);
             panel43.Dock = DockStyle.Fill;
             panel43.Location = new Point(200, 0);
             panel43.Name = "panel43";
             panel43.Size = new Size(449, 63);
             panel43.TabIndex = 4;
             // 
-            // Search
+            // panel44
             // 
-            Search.BackColor = Color.White;
-            Search.BorderColor = Color.Gray;
-            Search.BorderRadius = 20;
-            Search.Dock = DockStyle.Left;
-            Search.FocusBorderColor = Color.DeepSkyBlue;
-            Search.Location = new Point(0, 0);
-            Search.Margin = new Padding(3, 2, 3, 2);
-            Search.Name = "Search";
-            Search.Padding = new Padding(9, 4, 35, 4);
-            Search.Placeholder = "Từ khóa tìm kiếm...";
-            Search.Size = new Size(219, 63);
-            Search.TabIndex = 2;
-            Search.TextValue = "";
-            Search.Load += Search_Load;
+            panel44.Controls.Add(roundedComboBox2);
+            panel44.Dock = DockStyle.Fill;
+            panel44.Location = new Point(74, 0);
+            panel44.Margin = new Padding(3, 2, 3, 2);
+            panel44.Name = "panel44";
+            panel44.Size = new Size(168, 63);
+            panel44.TabIndex = 8;
+            // 
+            // roundedComboBox2
+            // 
+            roundedComboBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            roundedComboBox2.BackColor = Color.White;
+            roundedComboBox2.BorderColor = Color.Gray;
+            roundedComboBox2.BorderRadius = 15;
+            roundedComboBox2.BorderSize = 1;
+            roundedComboBox2.DrawMode = DrawMode.OwnerDrawFixed;
+            roundedComboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+            roundedComboBox2.FlatStyle = FlatStyle.Flat;
+            roundedComboBox2.FocusBorderColor = Color.DeepSkyBlue;
+            roundedComboBox2.Font = new Font("Segoe UI", 10F);
+            roundedComboBox2.FormattingEnabled = true;
+            roundedComboBox2.ItemHeight = 30;
+            roundedComboBox2.Location = new Point(5, 14);
+            roundedComboBox2.Margin = new Padding(3, 2, 3, 2);
+            roundedComboBox2.Name = "roundedComboBox2";
+            roundedComboBox2.Size = new Size(100, 36);
+            roundedComboBox2.TabIndex = 0;
+            // 
+            // label14
+            // 
+            label14.Dock = DockStyle.Left;
+            label14.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label14.Location = new Point(0, 0);
+            label14.Name = "label14";
+            label14.Size = new Size(74, 63);
+            label14.TabIndex = 7;
+            label14.Text = "Loại: ";
+            label14.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // h
+            // 
+            h.Controls.Add(roundedTextBox1);
+            h.Dock = DockStyle.Right;
+            h.Location = new Point(242, 0);
+            h.Margin = new Padding(3, 2, 3, 2);
+            h.Name = "h";
+            h.Padding = new Padding(13, 11, 13, 11);
+            h.Size = new Size(207, 63);
+            h.TabIndex = 9;
+            // 
+            // roundedTextBox1
+            // 
+            roundedTextBox1.BackColor = Color.White;
+            roundedTextBox1.BorderColor = Color.Gray;
+            roundedTextBox1.BorderRadius = 20;
+            roundedTextBox1.Dock = DockStyle.Fill;
+            roundedTextBox1.FocusBorderColor = Color.DeepSkyBlue;
+            roundedTextBox1.Location = new Point(13, 11);
+            roundedTextBox1.Margin = new Padding(3, 2, 3, 2);
+            roundedTextBox1.Name = "roundedTextBox1";
+            roundedTextBox1.Padding = new Padding(9, 4, 35, 4);
+            roundedTextBox1.Placeholder = "Từ khóa tìm kiếm...";
+            roundedTextBox1.Size = new Size(181, 41);
+            roundedTextBox1.TabIndex = 0;
+            roundedTextBox1.TextValue = "";
             // 
             // panel42
             // 
@@ -887,11 +947,11 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             // 
             // roundedComboBox1
             // 
-            roundedComboBox1.Anchor = AnchorStyles.Top;
             roundedComboBox1.BackColor = Color.White;
             roundedComboBox1.BorderColor = Color.Gray;
             roundedComboBox1.BorderRadius = 15;
             roundedComboBox1.BorderSize = 1;
+            roundedComboBox1.Dock = DockStyle.Left;
             roundedComboBox1.DrawMode = DrawMode.OwnerDrawFixed;
             roundedComboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             roundedComboBox1.FlatStyle = FlatStyle.Flat;
@@ -899,13 +959,14 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             roundedComboBox1.Font = new Font("Segoe UI", 10F);
             roundedComboBox1.FormattingEnabled = true;
             roundedComboBox1.ItemHeight = 30;
-            roundedComboBox1.Items.AddRange(new object[] { "10%", "20%", "30%", "40%", "50%" });
-            roundedComboBox1.Location = new Point(-39, 8);
+            roundedComboBox1.Items.AddRange(new object[] { "10%", "20%", "30%", "40%", "50%", "60%" });
+            roundedComboBox1.Location = new Point(0, 0);
             roundedComboBox1.Margin = new Padding(3, 2, 3, 2);
             roundedComboBox1.Name = "roundedComboBox1";
             roundedComboBox1.Size = new Size(133, 36);
             roundedComboBox1.Sorted = true;
-            roundedComboBox1.TabIndex = 3;
+            roundedComboBox1.TabIndex = 4;
+            roundedComboBox1.SelectedIndexChanged += roundedComboBox1_SelectedIndexChanged;
             // 
             // label6
             // 
@@ -970,6 +1031,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             panel3.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel9.ResumeLayout(false);
+            panel9.PerformLayout();
             panel8.ResumeLayout(false);
             flowLayoutPanel1.ResumeLayout(false);
             panel13.ResumeLayout(false);
@@ -1000,6 +1062,8 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             panel7.ResumeLayout(false);
             panel11.ResumeLayout(false);
             panel43.ResumeLayout(false);
+            panel44.ResumeLayout(false);
+            h.ResumeLayout(false);
             panel42.ResumeLayout(false);
             panel42.PerformLayout();
             panel10.ResumeLayout(false);
@@ -1132,5 +1196,12 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
         private PictureBox pictureBox5;
         private Panel panel42;
         private Panel panel43;
+        private RoundedButton roundedButton2;
+        private RoundedButton roundedButton1;
+        private Panel panel44;
+        private RoundedComboBox roundedComboBox2;
+        private Label label14;
+        private Panel h;
+        private RoundedTextBox roundedTextBox1;
     }
 }

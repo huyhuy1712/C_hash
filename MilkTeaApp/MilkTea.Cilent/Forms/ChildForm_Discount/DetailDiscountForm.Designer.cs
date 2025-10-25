@@ -260,5 +260,18 @@
         private Panel panel6;
         private Label label4;
         private Label label3;
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+            // tạm thời để trống
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+            // tạm thời để trống
+        }
+
     }
+
+
 }
