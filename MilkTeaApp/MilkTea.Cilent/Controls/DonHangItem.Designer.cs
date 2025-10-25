@@ -109,6 +109,7 @@ namespace MilkTea.Client.Controls
             pictureBox4.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox4.TabIndex = 0;
             pictureBox4.TabStop = false;
+            pictureBox4.Click += pictureBox4_Click;
             // 
             // pictureBox5
             // 
@@ -131,6 +132,7 @@ namespace MilkTea.Client.Controls
             pictureBox6.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox6.TabIndex = 2;
             pictureBox6.TabStop = false;
+            pictureBox6.Click += pictureBox6_Click;
             // 
             // panel1
             // 
@@ -179,12 +181,11 @@ namespace MilkTea.Client.Controls
             // 
             // pictureBox1
             // 
-            pictureBox1.Dock = DockStyle.Right;
-            pictureBox1.Image = Properties.Resources.money;
+            pictureBox1.Image = Properties.Resources.card;
             pictureBox1.Location = new Point(85, 0);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(75, 39);
-            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
@@ -201,14 +202,14 @@ namespace MilkTea.Client.Controls
             // pictureBox2
             // 
             pictureBox2.Dock = DockStyle.Left;
-            pictureBox2.Image = Properties.Resources.alarm;
+            //pictureBox2.Image = Properties.Resources.alarm;
             pictureBox2.Location = new Point(0, 0);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(32, 39);
             pictureBox2.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox2.TabIndex = 2;
             pictureBox2.TabStop = false;
-            pictureBox2.Click += pictureBox2_Click;
+
             // 
             // label_TongGia
             // 
@@ -219,7 +220,7 @@ namespace MilkTea.Client.Controls
             label_TongGia.TabIndex = 1;
             label_TongGia.Text = "90.000";
             label_TongGia.TextAlign = ContentAlignment.MiddleCenter;
-            label_TongGia.Click += label2_Click;
+
             // 
             // panel8
             // 

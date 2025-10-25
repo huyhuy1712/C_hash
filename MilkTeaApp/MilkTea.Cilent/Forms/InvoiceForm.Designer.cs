@@ -21,13 +21,14 @@
             invoicePanel = new Panel();
             panel3 = new Panel();
             flowLayoutPanel1 = new FlowLayoutPanel();
+            flowLayoutPanel2 = new FlowLayoutPanel();
             panel2 = new Panel();
             roundedComboBox1 = new MilkTea.Client.Controls.RoundedComboBox();
             pictureBox1 = new PictureBox();
             textboxTimKiem = new MilkTea.Client.Controls.RoundedTextBox();
             panel1 = new Panel();
-            btnDaThanhToan = new Button();
-            btnChoThanhToan = new Button();
+            btn_lamxong = new Button();
+            btn_danglam = new Button();
             invoicePanel.SuspendLayout();
             panel3.SuspendLayout();
             panel2.SuspendLayout();
@@ -50,6 +51,7 @@
             // 
             panel3.AutoScroll = true;
             panel3.Controls.Add(flowLayoutPanel1);
+            panel3.Controls.Add(flowLayoutPanel2);
             panel3.Dock = DockStyle.Fill;
             panel3.Location = new Point(0, 96);
             panel3.Name = "panel3";
@@ -63,6 +65,14 @@
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(934, 492);
             flowLayoutPanel1.TabIndex = 2;
+            // 
+            // flowLayoutPanel2
+            // 
+            flowLayoutPanel2.Dock = DockStyle.Fill;
+            flowLayoutPanel2.Location = new Point(0, 0);
+            flowLayoutPanel2.Name = "flowLayoutPanel2";
+            flowLayoutPanel2.Size = new Size(934, 492);
+            flowLayoutPanel2.TabIndex = 2;
             // 
             // panel2
             // 
@@ -108,6 +118,8 @@
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
+
             // 
             // textboxTimKiem
             // 
@@ -126,8 +138,8 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(btnDaThanhToan);
-            panel1.Controls.Add(btnChoThanhToan);
+            panel1.Controls.Add(btn_lamxong);
+            panel1.Controls.Add(btn_danglam);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
@@ -135,29 +147,31 @@
             panel1.Size = new Size(934, 49);
             panel1.TabIndex = 0;
             // 
-            // btnDaThanhToan
+            // btn_lamxong
             // 
-            btnDaThanhToan.Dock = DockStyle.Left;
-            btnDaThanhToan.Location = new Point(180, 5);
-            btnDaThanhToan.Margin = new Padding(10);
-            btnDaThanhToan.Name = "btnDaThanhToan";
-            btnDaThanhToan.Size = new Size(152, 39);
-            btnDaThanhToan.TabIndex = 1;
-            btnDaThanhToan.Text = "Đã thanh toán (6)";
-            btnDaThanhToan.UseVisualStyleBackColor = true;
+            btn_lamxong.Dock = DockStyle.Left;
+            btn_lamxong.Location = new Point(180, 5);
+            btn_lamxong.Margin = new Padding(10);
+            btn_lamxong.Name = "btn_lamxong";
+            btn_lamxong.Size = new Size(152, 39);
+            btn_lamxong.TabIndex = 1;
+            btn_lamxong.Text = "Đã hoàn thành";
+            btn_lamxong.UseVisualStyleBackColor = true;
+            btn_lamxong.Click += btn_lamxong_Click;
             // 
-            // btnChoThanhToan
+            // btn_danglam
             // 
-            btnChoThanhToan.BackColor = SystemColors.MenuHighlight;
-            btnChoThanhToan.Dock = DockStyle.Left;
-            btnChoThanhToan.ForeColor = SystemColors.ButtonHighlight;
-            btnChoThanhToan.Location = new Point(5, 5);
-            btnChoThanhToan.Margin = new Padding(10);
-            btnChoThanhToan.Name = "btnChoThanhToan";
-            btnChoThanhToan.Size = new Size(175, 39);
-            btnChoThanhToan.TabIndex = 0;
-            btnChoThanhToan.Text = "Chờ thanh toán (5)";
-            btnChoThanhToan.UseVisualStyleBackColor = false;
+            btn_danglam.BackColor = SystemColors.MenuHighlight;
+            btn_danglam.Dock = DockStyle.Left;
+            btn_danglam.ForeColor = SystemColors.ButtonHighlight;
+            btn_danglam.Location = new Point(5, 5);
+            btn_danglam.Margin = new Padding(10);
+            btn_danglam.Name = "btn_danglam";
+            btn_danglam.Size = new Size(175, 39);
+            btn_danglam.TabIndex = 0;
+            btn_danglam.Text = "Đang làm";
+            btn_danglam.UseVisualStyleBackColor = false;
+            btn_danglam.Click += btn_danglam_Click;
             // 
             // InvoiceForm
             // 
@@ -167,12 +181,12 @@
             Controls.Add(invoicePanel);
             Name = "InvoiceForm";
             Text = "InvoiceForm";
+            Load += InvoiceForm_Load;
             invoicePanel.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);
-            this.Load += new System.EventHandler(this.InvoiceForm_Load);
             ResumeLayout(false);
         }
         #endregion
@@ -180,8 +194,8 @@
         #region Variables
         private Panel invoicePanel;
         private Panel panel1;
-        private Button btnChoThanhToan;
-        private Button btnDaThanhToan;
+        private Button btn_danglam;
+        private Button btn_lamxong;
         private Panel panel2;
         private Controls.RoundedTextBox textboxTimKiem;
         private PictureBox pictureBox1;
@@ -190,5 +204,6 @@
         #endregion
 
         private FlowLayoutPanel flowLayoutPanel1;
+        private FlowLayoutPanel flowLayoutPanel2;
     }
 }
