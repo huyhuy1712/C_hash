@@ -323,7 +323,6 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             productCheckBox.Size = new Size(28, 100);
             productCheckBox.TabIndex = 2;
             productCheckBox.UseVisualStyleBackColor = true;
-            productCheckBox.CheckedChanged += productCheckBox_CheckedChanged;
             // 
             // panel26
             // 
@@ -1085,15 +1084,8 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             PerformLayout();
         }
 
-        private void productCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            if (checkBox1.Checked && productCheckBox.Checked)
-            {
-                productCheckBox.Checked = false;
-                MessageBox.Show("Vui lòng bỏ chọn 'Chọn tất cả' để chọn sản phẩm cụ thể.", "Thông báo", MessageBoxButtons.OK);
-            }
-            ;
-        }
+
+
 
         private void label7_Click(object sender, EventArgs e)
         {

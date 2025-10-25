@@ -77,7 +77,7 @@ namespace MilkTea.Client.Forms
             try
             {
                 using var client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:5021");
+                client.BaseAddress = new Uri("http://localhost:5198");
 
                 var response = await client.GetAsync("/api/ctkhuyenmai");
                 if (!response.IsSuccessStatusCode)
@@ -276,7 +276,7 @@ namespace MilkTea.Client.Forms
         // 🔍 Filter theo trạng thái
         private void roundedComboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ApplyFilters(); // Chỉ filter client-side cho status, không reload API
+            ApplyFilters();
         }
 
         // 🗑 Hàm xóa khuyến mãi bằng API
@@ -290,7 +290,7 @@ namespace MilkTea.Client.Forms
             try
             {
                 using var client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:5021");
+                client.BaseAddress = new Uri("http://localhost:5198");
 
                 var response = await client.DeleteAsync($"/api/ctkhuyenmai/{maCTKhuyenMai}");
 
@@ -369,6 +369,11 @@ namespace MilkTea.Client.Forms
                 flowLayoutPanel1.Controls.Add(loadingLabel);
             }
             flowLayoutPanel1.Refresh();
+        }
+
+        private void roundedTextBox2_KeyDown(object sender, KeyEventArgs e)
+        {
+            _ = LoadDiscountsAsync();
         }
     }
 }

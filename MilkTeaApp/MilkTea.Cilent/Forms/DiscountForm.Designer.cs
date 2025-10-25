@@ -210,6 +210,7 @@ namespace MilkTea.Client.Forms
             roundedTextBox2.TabIndex = 2;
             roundedTextBox2.TextValue = "";
             roundedTextBox2.TextChanged += roundedTextBox2_TextChanged;
+            roundedTextBox2.KeyDown += roundedTextBox2_KeyDown;
             // 
             // panel4
             // 
@@ -347,9 +348,6 @@ namespace MilkTea.Client.Forms
             ((System.ComponentModel.ISupportInitialize)product_delete_btn1).EndInit();
             ((System.ComponentModel.ISupportInitialize)product_edit_btn1).EndInit();
             ResumeLayout(false);
-
-            //Bật tắt các nút theo quyền
-            btnThemAccount.Enabled = false;
         }
 
 
