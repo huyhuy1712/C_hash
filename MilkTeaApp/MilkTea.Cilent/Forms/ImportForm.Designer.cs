@@ -135,39 +135,7 @@ namespace MilkTea.Client.Forms
             // 
             // cbo_timkiemtheo_PN
             // 
-<<<<<<< HEAD
-            roundedComboBox2.BackColor = Color.White;
-            roundedComboBox2.BorderColor = Color.Gray;
-            roundedComboBox2.BorderRadius = 15;
-            roundedComboBox2.BorderSize = 1;
-            roundedComboBox2.Dock = DockStyle.Fill;
-            roundedComboBox2.DrawMode = DrawMode.OwnerDrawFixed;
-            roundedComboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
-            roundedComboBox2.FlatStyle = FlatStyle.Flat;
-            roundedComboBox2.FocusBorderColor = Color.DeepSkyBlue;
-            roundedComboBox2.Font = new Font("Segoe UI", 10F);
-            roundedComboBox2.FormattingEnabled = true;
-            roundedComboBox2.ItemHeight = 30;
-            roundedComboBox2.Location = new Point(0, 0);
-            roundedComboBox2.Name = "roundedComboBox2";
-            roundedComboBox2.Size = new Size(151, 36);
-            roundedComboBox2.TabIndex = 0;
-            // 
-            // roundedTextBox2
-            // 
-            roundedTextBox2.BackColor = Color.White;
-            roundedTextBox2.BorderColor = Color.Gray;
-            roundedTextBox2.BorderRadius = 20;
-            roundedTextBox2.Dock = DockStyle.Left;
-            roundedTextBox2.FocusBorderColor = Color.DeepSkyBlue;
-            roundedTextBox2.Location = new Point(9, 8);
-            roundedTextBox2.Name = "roundedTextBox2";
-            roundedTextBox2.Padding = new Padding(10, 5, 40, 5);
-            roundedTextBox2.Placeholder = "Từ khóa tìm kiếm...";
-            roundedTextBox2.Size = new Size(295, 38);
-            roundedTextBox2.TabIndex = 1;
-            roundedTextBox2.TextValue = "";
-=======
+
             cbo_timkiemtheo_PN.BackColor = Color.White;
             cbo_timkiemtheo_PN.BorderColor = Color.Gray;
             cbo_timkiemtheo_PN.BorderRadius = 15;
@@ -184,7 +152,7 @@ namespace MilkTea.Client.Forms
             cbo_timkiemtheo_PN.Name = "cbo_timkiemtheo_PN";
             cbo_timkiemtheo_PN.Size = new Size(151, 36);
             cbo_timkiemtheo_PN.TabIndex = 0;
->>>>>>> main
+
             // 
             // panel6
             // 
