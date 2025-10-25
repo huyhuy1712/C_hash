@@ -28,6 +28,32 @@ namespace MilkTea.Client.Services
             }
         }
 
+        public async Task<string> CapNhatTrangThaiDonHangAsync(DonHang dh)
+        {
+            try
+            {
+                var response = await _http.PutAsJsonAsync("/api/donhang", dh);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    // Đọc phản hồi dạng JSON { Message = "..." }
+                    var result = await response.Content.ReadFromJsonAsync<dynamic>();
+                    string message = result?.Message ?? "Cập nhật trạng thái đơn hàng thành công!";
+                    return message;
+                }
+                else
+                {
+                    var error = await response.Content.ReadAsStringAsync();
+                    return $"Không thể cập nhật trạng thái đơn hàng. Chi tiết: {error}";
+                }
+            }
+            catch (Exception ex)
+            {
+                return $"Lỗi khi cập nhật trạng thái đơn hàng: {ex.Message}";
+            }
+        }
+
+
         //thêm chi tết đơn hàng
         public async Task<string> AddChiTietDonHangAsync(ChiTietDonHang CTDonHang)
         {

@@ -111,6 +111,9 @@ namespace MilkTea.Client.Controls
                 // TODO: thêm code xóa đơn hàng ở đây
                 MessageBox.Show("Cập nhật đơn hàng thành công!");
 
+                //nhàn
+                donHang.TrangThai = 2; // Đã hoàn thành
+                var trangThaiCapNhat = await new DonHangService().CapNhatTrangThaiDonHangAsync(donHang);
                 int maDH = donHang.MaDH;
                 var sp = await SanPhamService.GetSanPhamsByIdAsync(maDH);
                 int maLoai = sp.MaLoai;
