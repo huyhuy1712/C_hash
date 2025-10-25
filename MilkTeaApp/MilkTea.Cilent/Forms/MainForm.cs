@@ -72,6 +72,8 @@ namespace MilkTea.Client.Forms
             btnKhuyenMai.Enabled = Session.HasPermission("Vào khuyến mãi");
             btnPhieuNhap.Enabled = Session.HasPermission("Vào nhập hàng");
             btnTaiKhoan.Enabled = Session.HasPermission("Vào tài khoản");
+            btnNhaCungCap.Enabled = Session.HasPermission("Vào nhà cung cấp");
+            btnNguyenLieu.Enabled = Session.HasPermission("Vào nguyên liệu");
         }
 
 
