@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace MilkTea.Client.Forms.ChildForm_Account
 {
-    public partial class EditAccountForm : Form
+    public partial class EditQuyentForm : Form
     {
-        public EditAccountForm()
+        public EditQuyentForm()
         {
             InitializeComponent();
         }

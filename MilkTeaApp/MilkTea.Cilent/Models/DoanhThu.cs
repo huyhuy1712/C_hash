@@ -1,4 +1,4 @@
-namespace MilkTea.Server.Models
+namespace MilkTea.Client.Models
 {
     public class DoanhThu
     {

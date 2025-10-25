@@ -34,11 +34,9 @@ namespace MilkTea.Client.Services
             if (response.IsSuccessStatusCode)
             {
                 var result = await response.Content.ReadFromJsonAsync<NhanVienResponse>();
-                return result?.MaNV ?? 0;
+                return result.MaNV;
             }
-
             return 0;
         }
-
     }
 }

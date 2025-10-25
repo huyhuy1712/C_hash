@@ -30,17 +30,17 @@
         {
             panel1 = new Panel();
             panel5 = new Panel();
-            dataGridView1 = new DataGridView();
-            maPhieuNhap_tb_ìno = new DataGridViewTextBoxColumn();
+            dGV_chitietphieunhap = new DataGridView();
+            maPhieuNhap_tb_info = new DataGridViewTextBoxColumn();
             soLuong_tb_add = new DataGridViewTextBoxColumn();
             tenNL_tb_info = new DataGridViewTextBoxColumn();
             donGia_tb_info = new DataGridViewTextBoxColumn();
-            tongTien_tb_add = new DataGridViewTextBoxColumn();
+            tongTien_tb_info = new DataGridViewTextBoxColumn();
             panel2 = new Panel();
             label1 = new Label();
             panel1.SuspendLayout();
             panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dGV_chitietphieunhap).BeginInit();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
@@ -57,7 +57,7 @@
             // panel5
             // 
             panel5.BackColor = SystemColors.ActiveBorder;
-            panel5.Controls.Add(dataGridView1);
+            panel5.Controls.Add(dGV_chitietphieunhap);
             panel5.Dock = DockStyle.Fill;
             panel5.Location = new Point(0, 80);
             panel5.Name = "panel5";
@@ -66,23 +66,23 @@
             panel5.TabIndex = 5;
             panel5.TabStop = true;
             // 
-            // dataGridView1
+            // dGV_chitietphieunhap
             // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.BackgroundColor = SystemColors.ButtonFace;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { maPhieuNhap_tb_ìno, soLuong_tb_add, tenNL_tb_info, donGia_tb_info, tongTien_tb_add });
-            dataGridView1.Dock = DockStyle.Top;
-            dataGridView1.Location = new Point(20, 20);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(922, 404);
-            dataGridView1.TabIndex = 0;
+            dGV_chitietphieunhap.AllowUserToAddRows = false;
+            dGV_chitietphieunhap.BackgroundColor = SystemColors.ButtonFace;
+            dGV_chitietphieunhap.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dGV_chitietphieunhap.Columns.AddRange(new DataGridViewColumn[] { maPhieuNhap_tb_info, soLuong_tb_add, tenNL_tb_info, donGia_tb_info, tongTien_tb_info });
+            dGV_chitietphieunhap.Dock = DockStyle.Top;
+            dGV_chitietphieunhap.Location = new Point(20, 20);
+            dGV_chitietphieunhap.Name = "dGV_chitietphieunhap";
+            dGV_chitietphieunhap.Size = new Size(922, 404);
+            dGV_chitietphieunhap.TabIndex = 0;
             // 
-            // maPhieuNhap_tb_ìno
+            // maPhieuNhap_tb_info
             // 
-            maPhieuNhap_tb_ìno.HeaderText = "Mã phiếu nhập";
-            maPhieuNhap_tb_ìno.Name = "maPhieuNhap_tb_ìno";
-            maPhieuNhap_tb_ìno.Width = 150;
+            maPhieuNhap_tb_info.HeaderText = "Mã phiếu nhập";
+            maPhieuNhap_tb_info.Name = "maPhieuNhap_tb_info";
+            maPhieuNhap_tb_info.Width = 150;
             // 
             // soLuong_tb_add
             // 
@@ -101,11 +101,11 @@
             donGia_tb_info.HeaderText = "Đơn giá";
             donGia_tb_info.Name = "donGia_tb_info";
             // 
-            // tongTien_tb_add
+            // tongTien_tb_info
             // 
-            tongTien_tb_add.HeaderText = "Tổng Tiền";
-            tongTien_tb_add.Name = "tongTien_tb_add";
-            tongTien_tb_add.Width = 200;
+            tongTien_tb_info.HeaderText = "Tổng Tiền";
+            tongTien_tb_info.Name = "tongTien_tb_info";
+            tongTien_tb_info.Width = 200;
             // 
             // panel2
             // 
@@ -139,9 +139,10 @@
             Name = "ImportForm_Info";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ImportForm_Info";
+            Load += ImportForm_Info_Load_1;
             panel1.ResumeLayout(false);
             panel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dGV_chitietphieunhap).EndInit();
             panel2.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -152,11 +153,11 @@
         private Panel panel2;
         private Label label1;
         private Panel panel5;
-        private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn maPhieuNhap_tb_ìno;
+        private DataGridView dGV_chitietphieunhap;
+        private DataGridViewTextBoxColumn maPhieuNhap_tb_info;
         private DataGridViewTextBoxColumn soLuong_tb_add;
         private DataGridViewTextBoxColumn tenNL_tb_info;
         private DataGridViewTextBoxColumn donGia_tb_info;
-        private DataGridViewTextBoxColumn tongTien_tb_add;
+        private DataGridViewTextBoxColumn tongTien_tb_info;
     }
 }

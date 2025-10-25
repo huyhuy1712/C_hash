@@ -81,6 +81,7 @@
             product_delete_btn1.SizeMode = PictureBoxSizeMode.Zoom;
             product_delete_btn1.TabIndex = 1;
             product_delete_btn1.TabStop = false;
+            product_delete_btn1.Click += product_delete_btn1_Click_1;
             // 
             // product_edit_btn1
             // 
@@ -93,6 +94,7 @@
             product_edit_btn1.SizeMode = PictureBoxSizeMode.Zoom;
             product_edit_btn1.TabIndex = 0;
             product_edit_btn1.TabStop = false;
+            product_edit_btn1.Click += product_edit_btn1_Click;
             // 
             // product_top_panel_1
             // 
@@ -164,6 +166,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.Control;
             Controls.Add(product_panel_1);
             Name = "ProductItem";
             Size = new Size(205, 129);
