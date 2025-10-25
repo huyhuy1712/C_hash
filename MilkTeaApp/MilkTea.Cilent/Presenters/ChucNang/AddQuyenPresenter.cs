@@ -5,14 +5,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MilkTea.Client.Presenters
+namespace MilkTea.Client.Presenters.ChucNang
 {
-    public class ChucNangPresenter
+    public class AddQuyenPresenter
     {
         private readonly ChucNangService _chucNangService;
         private readonly IBaseForm _form;
 
-        public ChucNangPresenter(IBaseForm form, ChucNangService chucNangService)
+        public AddQuyenPresenter(IBaseForm form, ChucNangService chucNangService)
         {
             _form = form;
             _chucNangService = chucNangService;

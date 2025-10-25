@@ -8,6 +8,9 @@ namespace MilkTea.Client.Models
         // Ngày nhập hàng
         public DateTime? NgayNhap { get; set; }
 
+        // Mã nhà cung cấp (FK tới bảng NhaCungCap)
+        public int? MaNCC { get; set; }
+
         // Tổng số lượng hàng nhập
         public int SoLuong { get; set; }
 
@@ -16,5 +19,7 @@ namespace MilkTea.Client.Models
 
         // Tổng tiền nhập
         public decimal TongTien { get; set; }
+
+        public int TrangThai { get; set; }
     }
 }

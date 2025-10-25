@@ -21,7 +21,7 @@ namespace MilkTea.Client
 
                 // 2. Đăng ký HttpClient + service
                 services.AddSingleton<HttpClient>();
-                services.AddTransient<TaiKhoanService>();
+                services.AddTransient<AccountService>();
                 services.AddSingleton<TaiKhoan>();
 
             // 3. Đăng ký Form (có thể inject service vào Form)

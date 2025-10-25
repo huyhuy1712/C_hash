@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MilkTea.Client.Services
 {
-    public class TaiKhoanService : ApiServiceBase
+    public class AccountService : ApiServiceBase
     {
         // Lấy tất cả tài khoản
         public async Task<List<TaiKhoan>?> GetAccountsAsync()

@@ -35,22 +35,22 @@
     <Compile Update="Forms\AccountForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\ChildForm_Account\AddAccountForm.cs">
+    <Compile Update="Forms\ChildForm_Account\Account\AddAccountForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\ChildForm_Account\AddQuyenForm.cs">
+    <Compile Update="Forms\ChildForm_Account\ChucNang\AddQuyenForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\ChildForm_Account\DanhSachQuyenForm.cs">
+    <Compile Update="Forms\ChildForm_Account\Quyen\DanhSachQuyenForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\ChildForm_Account\EditAccountForm.cs">
+    <Compile Update="Forms\ChildForm_Account\Account\EditAccountForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\ChildForm_Account\EditQuyenForm.cs">
+    <Compile Update="Forms\ChildForm_Account\ChucNang\EditQuyenForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\ChildForm_Account\ViewAccountForm.cs">
+    <Compile Update="Forms\ChildForm_Account\Account\ViewAccountForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\ChildForm_Discount\AddDiscountForm.cs">
