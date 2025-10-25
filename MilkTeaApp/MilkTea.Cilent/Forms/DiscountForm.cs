@@ -34,20 +34,18 @@ namespace MilkTea.Client.Forms
             // Thêm "Tất cả" vào ComboBox trạng thái (nếu chưa có)
             if (roundedComboBox2.Items.Count == 0 || !roundedComboBox2.Items.Contains("Tất cả"))
             {
-                roundedComboBox2.Items.Clear(); // Clear nếu có item cũ
-                roundedComboBox2.Items.AddRange(new object[] { "Tất cả", "Đang hoạt động", "Hết hạn" }); // Thêm "Tất cả" làm item đầu tiên
+                roundedComboBox2.Items.Clear();
+                roundedComboBox2.Items.AddRange(new object[] { "Tất cả", "Đang hoạt động", "Hết hạn" });
             }
-            roundedComboBox2.SelectedIndex = 0; // Chọn "Tất cả" mặc định
+            roundedComboBox2.SelectedIndex = 0;
 
-            // Clear search để tránh filter sai
             roundedTextBox2.TextValue = "";
-            roundedTextBox2.Placeholder = "Nhập mã hoặc tên khuyến mãi..."; // Đảm bảo placeholder
+            roundedTextBox2.Placeholder = "Nhập mã hoặc tên khuyến mãi...";
 
             await LoadDiscountsAsync();
-
-            // 🔍 Gắn sự kiện filter trạng thái (luôn attach, an toàn nếu đã có)
             roundedComboBox2.SelectedIndexChanged += roundedComboBox2_SelectedIndexChanged;
         }
+
 
         // 🔧 Helper: Clear card tĩnh từ designer (gọi nhiều lần để chắc)
         private void ClearStaticCards()

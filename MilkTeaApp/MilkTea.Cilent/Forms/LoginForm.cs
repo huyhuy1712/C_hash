@@ -18,12 +18,12 @@ namespace MilkTea.Client.Forms
 {
     public partial class LoginForm : Form
     {
-        private readonly TaiKhoanService _taiKhoanService;
+        private readonly AccountService _taiKhoanService;
         private readonly ChucNangService _chucNangService;
         public LoginForm()
         {
             InitializeComponent();
-            _taiKhoanService = new TaiKhoanService();
+            _taiKhoanService = new AccountService();
             _chucNangService = new();
             this.KeyPreview = true;
         }
@@ -119,8 +119,8 @@ namespace MilkTea.Client.Forms
 
             // Lưu thông tin vào session
             Session.AllowedFunctions = await _chucNangService.GetChucNangsByMaQuyenAsync(account.MaQuyen);
-            mainForm.ShowDialog();
             this.Hide();
+            mainForm.ShowDialog();
         }
 
         // Hàm kiểm tra đăng nhập
@@ -128,6 +128,7 @@ namespace MilkTea.Client.Forms
         {
             var list = await _taiKhoanService.GetAccountsAsync();
 
+            Debug.WriteLine("list account: " + list);
 
             // Tìm tài khoản theo username và password
             var account = list.FirstOrDefault(tk => tk.TenTaiKhoan == username && tk.MatKhau == password);

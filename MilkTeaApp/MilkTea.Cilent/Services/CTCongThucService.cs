@@ -24,5 +24,10 @@ namespace MilkTea.Client.Services
             var response = await _http.PostAsJsonAsync("/api/chitietcongthuc", ct);
             return response.IsSuccessStatusCode;
         }
+
+        public async Task<List<CTCongThucSP>> GetChiTietCongThucTheoIdAsync(int maCT)
+        {
+            return await _http.GetFromJsonAsync<List<CTCongThucSP>>($"/api/chitietcongthuc/{maCT}");
+        }
     }
 }

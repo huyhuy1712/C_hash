@@ -41,6 +41,12 @@ namespace MilkTea.Client.Controls
             product_picture1.Click += Product_Click;
             ten_sp_label1.Click += Product_Click;
             gia_label1.Click += Product_Click;
+
+            //Bật tắt các nút theo quyền
+            product_edit_btn1.Enabled = Session.HasPermission("Sửa sản phẩm");
+            product_delete_btn1.Enabled = Session.HasPermission("Xóa sản phẩm");
+
+            product_top_panel_1.Enabled = Session.HasPermission("Thêm đơn hàng");
         }
 
         // Hàm gọi khi người dùng click vào sản phẩm
