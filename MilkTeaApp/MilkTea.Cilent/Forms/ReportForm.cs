@@ -305,8 +305,8 @@ namespace MilkTea.Client.Forms
                         item.SLBan,
                         tenKM,
                         (10000).ToString("N0") + " ₫",
-                        item.TongDoanhThu.ToString("N0") + " ₫",
-                        (1000).ToString("N0") + " ₫"
+                        item.TongDoanhThu.ToString("N0") + " ₫"
+                        
                     );
                 }
             }
