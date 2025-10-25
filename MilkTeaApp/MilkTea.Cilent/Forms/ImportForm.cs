@@ -1,5 +1,7 @@
 ﻿using MilkTea.Client.Forms.ChildForm_Import;
+using MilkTea.Client.Models;
 using MilkTea.Client.Services;
+using System.Diagnostics;
 
 namespace MilkTea.Client.Forms
 {
@@ -29,6 +31,11 @@ namespace MilkTea.Client.Forms
         private async void ImportForm_Load(object sender, EventArgs e)
         {
             await LoadPhieuNhaps();
+
+            //Bật tắt các nút theo quyền
+            roundedButton1.Enabled = Session.HasPermission("Thêm phiếu nhập");
+            roundedButton2.Enabled = Session.HasPermission("Nhập excel phiếu nhập");
+            xoa_Tb_iPort.Visible = Session.HasPermission("Xóa phiếu nhập");
         }
 
 

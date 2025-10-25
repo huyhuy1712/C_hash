@@ -20,7 +20,7 @@ namespace MilkTea.Client.Forms
 
         private void DiscountForm_Load(object sender, EventArgs e)
         {
-
+            
         }
         private void btnThemDiscount_Click(object sender, EventArgs e)
         {

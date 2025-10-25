@@ -3,20 +3,20 @@ using MilkTea.Client.Interfaces;
 using MilkTea.Client.Models;
 using MilkTea.Client.Services;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MilkTea.Client.Presenters
+namespace MilkTea.Client.Presenters.Quyen
 {
     public class QuyenPresenter
     {
-        private readonly QuyenService _quyenService;
+        private readonly QuyenService _quyenService = new();
         private readonly IBaseForm _form;
 
-        public QuyenPresenter(IBaseForm form, QuyenService quyenService)
+        public QuyenPresenter(IBaseForm form)
         {
             _form = form;
-            _quyenService = quyenService;
         }
 
         public async Task LoadDataAsync()
@@ -62,7 +62,7 @@ namespace MilkTea.Client.Presenters
         {
             if (string.IsNullOrEmpty(id)) return;
 
-            using (var frm = new EditQuyenForm())
+            using (var frm = new EditQuyenForm(id))
             {
                 if (frm.ShowDialog() == DialogResult.OK)
                 {

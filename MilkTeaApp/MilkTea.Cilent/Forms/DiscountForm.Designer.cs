@@ -390,6 +390,9 @@ namespace MilkTea.Client.Forms
             ((System.ComponentModel.ISupportInitialize)product_delete_btn1).EndInit();
             ((System.ComponentModel.ISupportInitialize)product_edit_btn1).EndInit();
             ResumeLayout(false);
+
+            //Bật tắt các nút theo quyền
+            btnThemAccount.Enabled = false;
         }
 
         private void product_edit_btn1_Click(object sender, EventArgs e)

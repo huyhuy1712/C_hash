@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MilkTea.Client.Presenters
+namespace MilkTea.Client.Presenters.Account
 {
     public interface IThemTaiKhoanView
     {
@@ -17,7 +17,7 @@ namespace MilkTea.Client.Presenters
     public class AddAccountPresenter
     {
         private readonly IAddAccountForm _view;
-        private readonly TaiKhoanService _service;
+        private readonly AccountService _service;
         public AddAccountPresenter(IAddAccountForm view) 
         {
             _view = view;
