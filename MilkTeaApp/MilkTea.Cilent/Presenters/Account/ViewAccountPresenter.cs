@@ -2,12 +2,12 @@
 using MilkTea.Client.Services;
 using System;
 
-namespace MilkTea.Client.Presenters
+namespace MilkTea.Client.Presenters.Account
 {
     public class ViewAccountPresenter
     {
         private readonly IViewAccountForm _form;
-        private readonly TaiKhoanService _taiKhoanService;
+        private readonly AccountService _taiKhoanService;
         private readonly NhanVienService _nhanVienService;
         private readonly QuyenService _quyenService;
         private readonly string _id;

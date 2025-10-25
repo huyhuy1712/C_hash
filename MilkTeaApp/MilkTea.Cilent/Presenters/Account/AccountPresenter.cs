@@ -1,24 +1,17 @@
-﻿using MilkTea.Client.Forms;
-using MilkTea.Client.Forms.ChildForm_Account;
+﻿using MilkTea.Client.Forms.ChildForm_Account;
 using MilkTea.Client.Interfaces;
-using MilkTea.Client.Models;
 using MilkTea.Client.Services;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace MilkTea.Client.Presenters
+namespace MilkTea.Client.Presenters.Account
 {
     public class AccountPresenter
     {
-        private readonly TaiKhoanService _taiKhoanService;
-        private readonly NhanVienService _nhanVienService;
+        private readonly AccountService _taiKhoanService = new();
+        private readonly NhanVienService _nhanVienService = new();
         private readonly IBaseForm _form;
-        public AccountPresenter(IBaseForm form, TaiKhoanService taiKhoanService, NhanVienService nhanVienService)
+        public AccountPresenter(IBaseForm form)
         {
             _form = form;
-            _taiKhoanService = taiKhoanService;
-            _nhanVienService = nhanVienService;
         }
         public void EditAccount(string id)
         {

@@ -35,5 +35,19 @@ namespace MilkTea.Client.Services
                 return null;
             }
         }
+
+        // Cập nhật quyen
+        public async Task<HttpResponseMessage?> UpdateQuyenAsync(Quyen quyen)
+        {
+            try
+            {
+                return await _http.PutAsJsonAsync("/api/quyen", quyen);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[UpdateQuyenAsync] Error: {ex.Message}");
+                return null;
+            }
+        }
     }
 }
