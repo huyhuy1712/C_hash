@@ -118,11 +118,10 @@ namespace MilkTea.Client.Forms
             // 
             txt_TimkiemPN_PN.Dock = DockStyle.Left;
             txt_TimkiemPN_PN.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txt_TimkiemPN_PN.Location = new Point(10, 11);
-            txt_TimkiemPN_PN.Margin = new Padding(3, 4, 3, 4);
+            txt_TimkiemPN_PN.Location = new Point(9, 8);
             txt_TimkiemPN_PN.Name = "txt_TimkiemPN_PN";
             txt_TimkiemPN_PN.PlaceholderText = "Tìm kiếm...";
-            txt_TimkiemPN_PN.Size = new Size(313, 47);
+            txt_TimkiemPN_PN.Size = new Size(274, 39);
             txt_TimkiemPN_PN.TabIndex = 3;
             txt_TimkiemPN_PN.TextChanged += txt_TimkiemPN_PN_TextChanged;
             // 
@@ -151,9 +150,8 @@ namespace MilkTea.Client.Forms
             cbo_timkiemtheo_PN.FormattingEnabled = true;
             cbo_timkiemtheo_PN.ItemHeight = 30;
             cbo_timkiemtheo_PN.Location = new Point(0, 0);
-            cbo_timkiemtheo_PN.Margin = new Padding(3, 4, 3, 4);
             cbo_timkiemtheo_PN.Name = "cbo_timkiemtheo_PN";
-            cbo_timkiemtheo_PN.Size = new Size(173, 36);
+            cbo_timkiemtheo_PN.Size = new Size(151, 36);
             cbo_timkiemtheo_PN.TabIndex = 0;
             // 
             // panel6
@@ -282,9 +280,9 @@ namespace MilkTea.Client.Forms
             // 
             lblStatus_PN.Dock = DockStyle.Bottom;
             lblStatus_PN.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblStatus_PN.Location = new Point(26, 646);
+            lblStatus_PN.Location = new Point(23, 485);
             lblStatus_PN.Name = "lblStatus_PN";
-            lblStatus_PN.Size = new Size(1872, 31);
+            lblStatus_PN.Size = new Size(1638, 23);
             lblStatus_PN.TabIndex = 1;
             lblStatus_PN.TextAlign = ContentAlignment.BottomLeft;
             // 

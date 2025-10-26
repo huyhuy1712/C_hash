@@ -210,6 +210,7 @@ namespace MilkTea.Client.Forms
             roundedTextBox2.TabIndex = 2;
             roundedTextBox2.TextValue = "";
             roundedTextBox2.TextChanged += roundedTextBox2_TextChanged;
+            roundedTextBox2.KeyDown += roundedTextBox2_KeyDown;
             // 
             // panel4
             // 

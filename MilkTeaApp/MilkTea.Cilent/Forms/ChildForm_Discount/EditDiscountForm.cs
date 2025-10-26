@@ -26,7 +26,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             try
             {
                 using var client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:5021");
+                client.BaseAddress = new Uri("http://localhost:5198");
 
                 var response = await client.GetAsync($"/api/ctkhuyenmai/{_maCTKhuyenMai}");
                 if (!response.IsSuccessStatusCode)
@@ -77,7 +77,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                 };
 
                 using var client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:5021");
+                client.BaseAddress = new Uri("http://localhost:5198");
 
                 var json = JsonSerializer.Serialize(km);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -149,7 +149,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                 };
 
                 using var client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:5021");
+                client.BaseAddress = new Uri("http://localhost:5198");
 
                 var json = JsonSerializer.Serialize(km);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");

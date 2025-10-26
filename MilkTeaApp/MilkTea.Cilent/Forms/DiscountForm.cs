@@ -35,20 +35,18 @@ namespace MilkTea.Client.Forms
             AddDiscountForm addDiscountForm = new AddDiscountForm();
             if (addDiscountForm.ShowDialog() == DialogResult.OK)
             {
-                roundedComboBox2.Items.Clear(); // Clear nếu có item cũ
-                roundedComboBox2.Items.AddRange(new object[] { "Tất cả", "Đang hoạt động", "Hết hạn" }); // Thêm "Tất cả" làm item đầu tiên
+                roundedComboBox2.Items.Clear();
+                roundedComboBox2.Items.AddRange(new object[] { "Tất cả", "Đang hoạt động", "Hết hạn" });
             }
-            roundedComboBox2.SelectedIndex = 0; // Chọn "Tất cả" mặc định
+            roundedComboBox2.SelectedIndex = 0;
 
-            // Clear search để tránh filter sai
             roundedTextBox2.TextValue = "";
-            roundedTextBox2.Placeholder = "Nhập mã hoặc tên khuyến mãi..."; // Đảm bảo placeholder
+            roundedTextBox2.Placeholder = "Nhập mã hoặc tên khuyến mãi...";
 
             await LoadDiscountsAsync();
-
-            // 🔍 Gắn sự kiện filter trạng thái (luôn attach, an toàn nếu đã có)
             roundedComboBox2.SelectedIndexChanged += roundedComboBox2_SelectedIndexChanged;
         }
+
 
         // 🔧 Helper: Clear card tĩnh từ designer (gọi nhiều lần để chắc)
         private void ClearStaticCards()
@@ -80,7 +78,7 @@ namespace MilkTea.Client.Forms
             try
             {
                 using var client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:5021");
+                client.BaseAddress = new Uri("http://localhost:5198");
 
                 var response = await client.GetAsync("/api/ctkhuyenmai");
                 if (!response.IsSuccessStatusCode)
@@ -279,7 +277,7 @@ namespace MilkTea.Client.Forms
         // 🔍 Filter theo trạng thái
         private void roundedComboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ApplyFilters(); // Chỉ filter client-side cho status, không reload API
+            ApplyFilters();
         }
 
         // 🗑 Hàm xóa khuyến mãi bằng API
@@ -293,7 +291,7 @@ namespace MilkTea.Client.Forms
             try
             {
                 using var client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:5021");
+                client.BaseAddress = new Uri("http://localhost:5198");
 
                 var response = await client.DeleteAsync($"/api/ctkhuyenmai/{maCTKhuyenMai}");
 
@@ -372,6 +370,11 @@ namespace MilkTea.Client.Forms
                 flowLayoutPanel1.Controls.Add(loadingLabel);
             }
             flowLayoutPanel1.Refresh();
+        }
+
+        private void roundedTextBox2_KeyDown(object sender, KeyEventArgs e)
+        {
+            _ = LoadDiscountsAsync();
         }
     }
 }
