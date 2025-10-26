@@ -28,11 +28,12 @@ namespace MilkTea.Client.Forms
 
         private async void DiscountForm_Load(object sender, EventArgs e)
         {
-            // Clear card mẫu từ designer NGAY LẬP TỨC và LẶP LẠI để chắc chắn
-            ClearStaticCards();
-
-            // Thêm "Tất cả" vào ComboBox trạng thái (nếu chưa có)
-            if (roundedComboBox2.Items.Count == 0 || !roundedComboBox2.Items.Contains("Tất cả"))
+            
+        }
+        private async Task btnThemDiscount_ClickAsync(object sender, EventArgs e)
+        {
+            AddDiscountForm addDiscountForm = new AddDiscountForm();
+            if (addDiscountForm.ShowDialog() == DialogResult.OK)
             {
                 roundedComboBox2.Items.Clear();
                 roundedComboBox2.Items.AddRange(new object[] { "Tất cả", "Đang hoạt động", "Hết hạn" });

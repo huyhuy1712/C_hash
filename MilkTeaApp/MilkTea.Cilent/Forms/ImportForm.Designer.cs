@@ -273,9 +273,9 @@ namespace MilkTea.Client.Forms
             // 
             // lblStatus_PN
             // 
-            lblStatus_PN.Dock = DockStyle.Bottom;
+            lblStatus_PN.Dock = DockStyle.Top;
             lblStatus_PN.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblStatus_PN.Location = new Point(23, 485);
+            lblStatus_PN.Location = new Point(23, 428);
             lblStatus_PN.Name = "lblStatus_PN";
             lblStatus_PN.Size = new Size(1638, 23);
             lblStatus_PN.TabIndex = 1;
@@ -287,13 +287,13 @@ namespace MilkTea.Client.Forms
             dGV_phieuNhap.BackgroundColor = SystemColors.ButtonFace;
             dGV_phieuNhap.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dGV_phieuNhap.Columns.AddRange(new DataGridViewColumn[] { maPhieuNhap_Tb_iPort, ngayNhap_Tb_iPort, soLuong_Tb_iPort, NhaCungCap_Tb_iPort, tenNVN_Tb_iPort, tongTien_Tb_iPort, thongTin_Tb_iPort, xoa_Tb_iPort });
-            dGV_phieuNhap.Dock = DockStyle.Fill;
+            dGV_phieuNhap.Dock = DockStyle.Top;
             dGV_phieuNhap.Location = new Point(23, 27);
             dGV_phieuNhap.Margin = new Padding(3, 4, 3, 4);
             dGV_phieuNhap.Name = "dGV_phieuNhap";
             dGV_phieuNhap.RowHeadersVisible = false;
             dGV_phieuNhap.RowHeadersWidth = 51;
-            dGV_phieuNhap.Size = new Size(1638, 481);
+            dGV_phieuNhap.Size = new Size(1638, 401);
             dGV_phieuNhap.TabIndex = 0;
             dGV_phieuNhap.CellClick += dGV_phieuNhap_CellClick;
             // 
