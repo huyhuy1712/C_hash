@@ -115,8 +115,7 @@ namespace MilkTea.Client.Controls
                 donHang.TrangThai = 2; // Đã hoàn thành
                 var trangThaiCapNhat = await new DonHangService().CapNhatTrangThaiDonHangAsync(donHang);
                 int maDH = donHang.MaDH;
-                var sp = await SanPhamService.GetSanPhamsByIdAsync(maDH);
-                int maLoai = sp.MaLoai;
+                
                 int? nam = donHang.NgayLap?.Year;
                 int? thang = donHang.NgayLap?.Month;
                 int? ngayTrongThang = donHang.NgayLap?.Day;
@@ -130,9 +129,11 @@ namespace MilkTea.Client.Controls
                 foreach (var item in ctDH)
                 {
                     var maSP = item.MaSP;
+                    var sp = await SanPhamService.SearchSanPhamAsync("MaSP", maSP.ToString());
                     var ct= await _ctCongThucService.GetChiTietCongThucTheoSPAsync(maSP);
 
                     var maSize = item.MaSize;
+                    int maLoai = sp[0].MaLoai;
                     var soLuong = item.SoLuong;
                     var chiPhi = item.GiaVon;
                     var tongGia = item.TongGia;
