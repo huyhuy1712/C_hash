@@ -176,6 +176,7 @@
             // 
             // dt_iPort_ngaylap
             // 
+            dt_iPort_ngaylap.CustomFormat = "";
             dt_iPort_ngaylap.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dt_iPort_ngaylap.Format = DateTimePickerFormat.Short;
             dt_iPort_ngaylap.Location = new Point(233, 87);
