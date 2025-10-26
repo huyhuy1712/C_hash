@@ -130,14 +130,7 @@ namespace MilkTea.Client.Controls
                 foreach (var item in ctDH)
                 {
                     var maSP = item.MaSP;
-                    var congThuc = await _congThucService.GetAllCongThucAsync();
-                    var congThucTrung = congThuc.FirstOrDefault(ct => ct.MaSP == item.MaSP);
-                    var maCT = congThucTrung?.MaCT ?? -1;
-                    var ctCongThuc = await _ctCongThucService.GetChiTietCongThucTheoIdAsync(maCT);
-                    foreach (var ct in ctCongThuc)
-                    {
-
-                    }
+                    var ct= await _ctCongThucService.GetChiTietCongThucTheoSPAsync(maSP);
 
                     var maSize = item.MaSize;
                     var soLuong = item.SoLuong;

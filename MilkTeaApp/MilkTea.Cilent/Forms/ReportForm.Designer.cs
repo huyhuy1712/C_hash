@@ -40,7 +40,6 @@ namespace MilkTea.Client.Forms
             sanPham = new DataGridViewTextBoxColumn();
             size1 = new DataGridViewTextBoxColumn();
             soLuong = new DataGridViewTextBoxColumn();
-            khuyenMai = new DataGridViewTextBoxColumn();
             chiPhi = new DataGridViewTextBoxColumn();
             doanhThu = new DataGridViewTextBoxColumn();
             loiNhuan = new DataGridViewTextBoxColumn();
@@ -171,7 +170,7 @@ namespace MilkTea.Client.Forms
             // 
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { thoiGian, sanPham, size1, soLuong, khuyenMai, chiPhi, doanhThu, loiNhuan });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { thoiGian, sanPham, size1, soLuong, chiPhi, doanhThu, loiNhuan });
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(0, 189);
             dataGridView1.Margin = new Padding(3, 4, 3, 4);
@@ -209,13 +208,6 @@ namespace MilkTea.Client.Forms
             soLuong.MinimumWidth = 6;
             soLuong.Name = "soLuong";
             soLuong.ReadOnly = true;
-            // 
-            // khuyenMai
-            // 
-            khuyenMai.HeaderText = "% Khuyến mãi";
-            khuyenMai.MinimumWidth = 6;
-            khuyenMai.Name = "khuyenMai";
-            khuyenMai.ReadOnly = true;
             // 
             // chiPhi
             // 
@@ -669,14 +661,13 @@ namespace MilkTea.Client.Forms
         private Label txtChiPhi;
         private Label txtLoiNhuan;
         private Label txtDoanhThu;
+        private Controls.RoundedComboBox cbbSize;
         private DataGridViewTextBoxColumn thoiGian;
         private DataGridViewTextBoxColumn sanPham;
         private DataGridViewTextBoxColumn size1;
         private DataGridViewTextBoxColumn soLuong;
-        private DataGridViewTextBoxColumn khuyenMai;
         private DataGridViewTextBoxColumn chiPhi;
         private DataGridViewTextBoxColumn doanhThu;
         private DataGridViewTextBoxColumn loiNhuan;
-        private Controls.RoundedComboBox cbbSize;
     }
 }

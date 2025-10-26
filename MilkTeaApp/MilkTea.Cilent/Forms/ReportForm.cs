@@ -283,30 +283,17 @@ namespace MilkTea.Client.Forms
                     var size = await _sizeService.GetSizeByIdAsync(item.MaSize.Value);
                     string tenSize = size?.TenSize ?? "Không xác định";
 
-                    var km = await _ctKhuyenMaiService.GetCTKhuyenMaiByIdAsync(item.MaKM.Value);
-                    string tenKM = km?.TenCTKhuyenMai ?? "Không có";
-
                     DateTime date = new DateTime(item.Nam, item.Thang, item.Ngay);
                     string thoiGian = date.ToString("dd/MM/yyyy");
-
-                    var congThuc = await _congThucService.GetAllCongThucAsync();
-                    var congThucTrung = congThuc.FirstOrDefault(ct => ct.MaSP == item.MaSP.Value);
-                    var maCT = congThucTrung?.MaCT ?? -1;
-                    var ctCongThuc = await _ctCongThucService.GetChiTietCongThucTheoIdAsync(maCT);
-                    foreach (var ct in ctCongThuc)
-                    {
-                        
-                    }
 
                     dataGridView1.Rows.Add(
                         thoiGian,
                         tenSP,
                         tenSize,
                         item.SLBan,
-                        tenKM,
                         (10000).ToString("N0") + " ₫",
-                        item.TongDoanhThu.ToString("N0") + " ₫"
-                        
+                        item.TongDoanhThu.ToString("N0") + " ₫",
+                        (10000).ToString("N0") + " ₫"
                     );
                 }
             }
