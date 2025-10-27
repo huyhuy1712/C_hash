@@ -28,13 +28,15 @@ namespace MilkTea.Client.Forms
             // 1️⃣ Khởi tạo danh sách cột tìm kiếm
             columnMapping = new Dictionary<string, string>
             {
+                { "Mã đơn hàng", "MaDH" },
                 { "Mã nhân viên", "MaNV" },
-                { "Ngày lập", "NgayLap" },
-                { "Giờ lập", "GioLap" },
-                { "Trạng thái", "TrangThai" },
+                //{ "Tên nhân viên", "TenNV" },  // ✅ thêm dòng này
+                //{ "Ngày lập", "NgayLap" },
+                //{ "Giờ lập", "GioLap" },
                 { "Mã Buzzer", "MaBuzzer" },
                 { "Phương thức thanh toán", "PhuongThucThanhToan" }
             };
+
 
             roundedComboBox1.Items.AddRange(columnMapping.Keys.ToArray());
             roundedComboBox1.SelectedIndex = 0;
@@ -77,26 +79,33 @@ namespace MilkTea.Client.Forms
                 await LoadDonHangAsync();
                 return;
             }
-
-            // Gọi service tìm kiếm
-            var list = await _donHangService.SearchAsync(column, value);
-
-            // Xóa kết quả cũ
-            flowLayoutPanel1.Controls.Clear();
-            flowLayoutPanel2.Controls.Clear();
-
-            // Hiển thị danh sách kết quả
-            foreach (var dh in list)
+            try
             {
-                var item = new DonHangItem(dh);
-                item.SetData(dh);
-                item.Size = new System.Drawing.Size(210, 140);
-                item.Margin = new Padding(10);
+                // Gọi service tìm kiếm
+                var list = await _donHangService.SearchAsync(column, value);
 
-                if (item.trangThai == 0)
-                    flowLayoutPanel1.Controls.Add(item);
-                else if (item.trangThai == 1)
-                    flowLayoutPanel2.Controls.Add(item);
+
+                // Xóa kết quả cũ
+                flowLayoutPanel1.Controls.Clear();
+                flowLayoutPanel2.Controls.Clear();
+
+                // Hiển thị danh sách kết quả
+                foreach (var dh in list)
+                {
+                    var item = new DonHangItem(dh);
+                    item.SetData(dh);
+                    item.Size = new System.Drawing.Size(210, 140);
+                    item.Margin = new Padding(10);
+
+                    if (item.trangThai == 0)
+                        flowLayoutPanel1.Controls.Add(item);
+                    else if (item.trangThai == 1)
+                        flowLayoutPanel2.Controls.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi tìm kiếm: {ex.Message}");
             }
         }
 
