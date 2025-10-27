@@ -1,14 +1,8 @@
 ﻿using MilkTea.Client.Interfaces;
 using MilkTea.Client.Models;
 using MilkTea.Client.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace MilkTea.Client.Presenters.Account
+namespace MilkTea.Client.Presenters
 {
     public interface IThemTaiKhoanView
     {

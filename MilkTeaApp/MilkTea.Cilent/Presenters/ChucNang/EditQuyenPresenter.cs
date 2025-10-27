@@ -1,8 +1,9 @@
 ﻿using MilkTea.Client.Interfaces;
 using MilkTea.Client.Services;
 using System.Diagnostics;
+using MilkTea.Client.Models;
 
-namespace MilkTea.Client.Presenters.ChucNang
+namespace MilkTea.Client.Presenters
 {
     public class EditQuyenPresenter
     {
@@ -79,6 +80,10 @@ namespace MilkTea.Client.Presenters.ChucNang
         }
 
         public async Task SaveAsync()
+        {
+        }
+
+        public async Task UpdateRoleAsync(Quyen q)
         {
 
         }

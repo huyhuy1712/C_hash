@@ -1,6 +1,6 @@
 ﻿using MilkTea.Client.Interfaces;
-using MilkTea.Client.Presenters.ChucNang;
-using System.Diagnostics;
+using MilkTea.Client.Presenters;
+using MilkTea.Client.Models;
 
 namespace MilkTea.Client.Forms.ChildForm_Account
 {
@@ -8,9 +8,9 @@ namespace MilkTea.Client.Forms.ChildForm_Account
     {
         public DataGridView Grid => dataGridView1;
         public Label LblStatus => lblStatus;
-        private String _id;
+        private string _id;
         private readonly EditQuyenPresenter _editQuyenPresenter;
-        public EditQuyenForm(String id)
+        public EditQuyenForm(string id)
         {
             InitializeComponent();
             _editQuyenPresenter = new(this);
@@ -25,6 +25,15 @@ namespace MilkTea.Client.Forms.ChildForm_Account
         private void btnDong_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnXacNhan_Click(object sender, EventArgs e)
+        {
+            Quyen q = new();
+
+            q.MaQuyen = Convert.ToInt32(_id);
+
+            _editQuyenPresenter.UpdateRoleAsync(q);
         }
     }
 }

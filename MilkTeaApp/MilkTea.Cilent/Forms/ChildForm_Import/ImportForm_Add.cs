@@ -55,7 +55,7 @@ namespace MilkTea.Client.Forms.ChildForm_Import
             txt_maPN_PN_ADD.Text = (maxMaPN + 1).ToString();
 
             // Ngày lập phiếu: ngày hiện tại (04/10/2025)
-            dt_iPort_ngaylap.Text = DateTime.Now.ToString("MM/dd/yyyy");
+            dt_iPort_ngaylap.Value = DateTime.Now;
 
             // Người tạo phiếu: mặc định MaNV = 1, lấy tên
             var nhanVien = await _nhanVienService.GetByMaNV(1);

@@ -1,8 +1,7 @@
 ﻿using MilkTea.Client.Interfaces;
 using MilkTea.Client.Services;
-using System;
 
-namespace MilkTea.Client.Presenters.Account
+namespace MilkTea.Client.Presenters
 {
     public class ViewAccountPresenter
     {

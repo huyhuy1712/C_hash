@@ -224,6 +224,7 @@
             btnXacNhan.TabIndex = 1;
             btnXacNhan.Text = "Xác Nhận";
             btnXacNhan.UseVisualStyleBackColor = false;
+            btnXacNhan.Click += btnXacNhan_Click;
             // 
             // panel12
             // 
