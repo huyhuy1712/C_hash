@@ -8,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -63,8 +64,11 @@ namespace MilkTea.Client.Forms
 
         private void btn_Them_NCC_Click(object sender, EventArgs e)
         {
-            SupplierForm_ADD_EDIT form = new SupplierForm_ADD_EDIT();
-            form.ShowDialog();
+            var form = new SupplierForm_ADD_EDIT();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                _ = LoadNhaCungCaps(); // Tải lại sau khi thêm
+            }
         }
 
         private async void SupplierForm_Load(object sender, EventArgs e)
@@ -142,6 +146,7 @@ namespace MilkTea.Client.Forms
             if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
 
             var columnName = dGV_nhacungcap.Columns[e.ColumnIndex].Name;
+            var maNCC = Convert.ToInt32(dGV_nhacungcap.Rows[e.RowIndex].Cells["ma_Tb_NCC"].Value);
 
             try
             {
@@ -156,12 +161,19 @@ namespace MilkTea.Client.Forms
                 // 1. Click vào cột "Thông Tin"
                 if (columnName == "sua_Tb_NCC")
                 {
-                    using (var frm = new ImportForm_Info(maPN))
+                    // Lấy thông tin NCC từ API để đảm bảo dữ liệu mới nhất
+                    var ncc = await _nhaCungCapService.GetByMaNCC(maNCC);
+                    if (ncc == null)
                     {
-                        frm.ShowDialog();
+                        MessageBox.Show("Không tìm thấy nhà cung cấp.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
                     }
-                    // Tùy chọn: reload nếu form chi tiết có thể sửa dữ liệu
-                    // await LoadPhieuNhaps();
+
+                    var editForm = new SupplierForm_ADD_EDIT(ncc);
+                    if (editForm.ShowDialog() == DialogResult.OK)
+                    {
+                        await LoadNhaCungCaps();
+                    }
                 }
 
                 // 2. Click vào cột "Xóa"

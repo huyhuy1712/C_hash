@@ -30,16 +30,14 @@
         {
             label1 = new Label();
             panel1 = new Panel();
-            this.txt_ma_NCC_ADD = new TextBox();
-            label6 = new Label();
-            btn_thoat_NCC = new MilkTea.Client.Controls.RoundedButton();
-            btn_Them_PN_ADD = new MilkTea.Client.Controls.RoundedButton();
+            txt_diachi_NCC_ADD = new TextBox();
+            label3 = new Label();
+            txt_ten_NCC_ADD = new TextBox();
+            btn_thoat_NCC_ADD = new MilkTea.Client.Controls.RoundedButton();
+            btn_them_NCC_ADD = new MilkTea.Client.Controls.RoundedButton();
             txt_sdt_NCC_ADD = new TextBox();
             label2 = new Label();
             label5 = new Label();
-            txt_ten_NCC_ADD = new TextBox();
-            label3 = new Label();
-            txt_diachi_NCC_ADD = new TextBox();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -60,10 +58,8 @@
             panel1.Controls.Add(txt_diachi_NCC_ADD);
             panel1.Controls.Add(label3);
             panel1.Controls.Add(txt_ten_NCC_ADD);
-            panel1.Controls.Add(this.txt_ma_NCC_ADD);
-            panel1.Controls.Add(label6);
-            panel1.Controls.Add(btn_thoat_NCC);
-            panel1.Controls.Add(btn_Them_PN_ADD);
+            panel1.Controls.Add(btn_thoat_NCC_ADD);
+            panel1.Controls.Add(btn_them_NCC_ADD);
             panel1.Controls.Add(txt_sdt_NCC_ADD);
             panel1.Controls.Add(label2);
             panel1.Controls.Add(label5);
@@ -73,62 +69,70 @@
             panel1.Size = new Size(822, 214);
             panel1.TabIndex = 2;
             // 
-            // txt_ma_NCC_ADD
+            // txt_diachi_NCC_ADD
             // 
-            this.txt_ma_NCC_ADD.Enabled = false;
-            this.txt_ma_NCC_ADD.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            this.txt_ma_NCC_ADD.Location = new Point(233, 14);
-            this.txt_ma_NCC_ADD.Name = "txt_ma_NCC_ADD";
-            this.txt_ma_NCC_ADD.Size = new Size(531, 27);
-            this.txt_ma_NCC_ADD.TabIndex = 13;
+            txt_diachi_NCC_ADD.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txt_diachi_NCC_ADD.Location = new Point(233, 115);
+            txt_diachi_NCC_ADD.Name = "txt_diachi_NCC_ADD";
+            txt_diachi_NCC_ADD.Size = new Size(531, 27);
+            txt_diachi_NCC_ADD.TabIndex = 16;
             // 
-            // label6
+            // label3
             // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(55, 17);
-            label6.Name = "label6";
-            label6.Size = new Size(113, 20);
-            label6.TabIndex = 12;
-            label6.Text = "Mã phiếu nhập";
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Location = new Point(55, 118);
+            label3.Name = "label3";
+            label3.Size = new Size(56, 20);
+            label3.TabIndex = 15;
+            label3.Text = "Địa chỉ";
             // 
-            // btn_thoat_NCC
+            // txt_ten_NCC_ADD
             // 
-            btn_thoat_NCC.BackColor = Color.Red;
-            btn_thoat_NCC.BorderColor = Color.DodgerBlue;
-            btn_thoat_NCC.BorderRadius = 20;
-            btn_thoat_NCC.BorderSize = 0;
-            btn_thoat_NCC.FlatAppearance.BorderSize = 0;
-            btn_thoat_NCC.FlatStyle = FlatStyle.Flat;
-            btn_thoat_NCC.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            btn_thoat_NCC.ForeColor = Color.White;
-            btn_thoat_NCC.Location = new Point(666, 172);
-            btn_thoat_NCC.Name = "btn_thoat_NCC";
-            btn_thoat_NCC.Size = new Size(98, 36);
-            btn_thoat_NCC.TabIndex = 10;
-            btn_thoat_NCC.Text = "Thoát";
-            btn_thoat_NCC.UseVisualStyleBackColor = false;
+            txt_ten_NCC_ADD.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txt_ten_NCC_ADD.Location = new Point(233, 47);
+            txt_ten_NCC_ADD.Name = "txt_ten_NCC_ADD";
+            txt_ten_NCC_ADD.Size = new Size(531, 27);
+            txt_ten_NCC_ADD.TabIndex = 14;
             // 
-            // btn_Them_PN_ADD
+            // btn_thoat_NCC_ADD
             // 
-            btn_Them_PN_ADD.BackColor = Color.DodgerBlue;
-            btn_Them_PN_ADD.BorderColor = Color.DodgerBlue;
-            btn_Them_PN_ADD.BorderRadius = 20;
-            btn_Them_PN_ADD.BorderSize = 0;
-            btn_Them_PN_ADD.FlatAppearance.BorderSize = 0;
-            btn_Them_PN_ADD.FlatStyle = FlatStyle.Flat;
-            btn_Them_PN_ADD.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            btn_Them_PN_ADD.ForeColor = Color.White;
-            btn_Them_PN_ADD.Location = new Point(562, 172);
-            btn_Them_PN_ADD.Name = "btn_Them_PN_ADD";
-            btn_Them_PN_ADD.Size = new Size(98, 36);
-            btn_Them_PN_ADD.TabIndex = 9;
-            btn_Them_PN_ADD.Text = "Thêm";
-            btn_Them_PN_ADD.UseVisualStyleBackColor = false;
+            btn_thoat_NCC_ADD.BackColor = Color.Red;
+            btn_thoat_NCC_ADD.BorderColor = Color.DodgerBlue;
+            btn_thoat_NCC_ADD.BorderRadius = 20;
+            btn_thoat_NCC_ADD.BorderSize = 0;
+            btn_thoat_NCC_ADD.FlatAppearance.BorderSize = 0;
+            btn_thoat_NCC_ADD.FlatStyle = FlatStyle.Flat;
+            btn_thoat_NCC_ADD.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btn_thoat_NCC_ADD.ForeColor = Color.White;
+            btn_thoat_NCC_ADD.Location = new Point(666, 172);
+            btn_thoat_NCC_ADD.Name = "btn_thoat_NCC_ADD";
+            btn_thoat_NCC_ADD.Size = new Size(98, 36);
+            btn_thoat_NCC_ADD.TabIndex = 10;
+            btn_thoat_NCC_ADD.Text = "Thoát";
+            btn_thoat_NCC_ADD.UseVisualStyleBackColor = false;
+            btn_thoat_NCC_ADD.Click += btn_thoat_NCC_ADD_Click;
+            // 
+            // btn_them_NCC_ADD
+            // 
+            btn_them_NCC_ADD.BackColor = Color.DodgerBlue;
+            btn_them_NCC_ADD.BorderColor = Color.DodgerBlue;
+            btn_them_NCC_ADD.BorderRadius = 20;
+            btn_them_NCC_ADD.BorderSize = 0;
+            btn_them_NCC_ADD.FlatAppearance.BorderSize = 0;
+            btn_them_NCC_ADD.FlatStyle = FlatStyle.Flat;
+            btn_them_NCC_ADD.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btn_them_NCC_ADD.ForeColor = Color.White;
+            btn_them_NCC_ADD.Location = new Point(562, 172);
+            btn_them_NCC_ADD.Name = "btn_them_NCC_ADD";
+            btn_them_NCC_ADD.Size = new Size(98, 36);
+            btn_them_NCC_ADD.TabIndex = 9;
+            btn_them_NCC_ADD.Text = "Thêm";
+            btn_them_NCC_ADD.UseVisualStyleBackColor = false;
+            btn_them_NCC_ADD.Click += btn_them_NCC_ADD_Click;
             // 
             // txt_sdt_NCC_ADD
             // 
-            txt_sdt_NCC_ADD.Enabled = false;
             txt_sdt_NCC_ADD.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txt_sdt_NCC_ADD.Location = new Point(233, 81);
             txt_sdt_NCC_ADD.Name = "txt_sdt_NCC_ADD";
@@ -155,34 +159,6 @@
             label5.TabIndex = 0;
             label5.Text = "Tên nhà cung cấp";
             // 
-            // txt_ten_NCC_ADD
-            // 
-            txt_ten_NCC_ADD.Enabled = false;
-            txt_ten_NCC_ADD.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txt_ten_NCC_ADD.Location = new Point(233, 47);
-            txt_ten_NCC_ADD.Name = "txt_ten_NCC_ADD";
-            txt_ten_NCC_ADD.Size = new Size(531, 27);
-            txt_ten_NCC_ADD.TabIndex = 14;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(55, 118);
-            label3.Name = "label3";
-            label3.Size = new Size(56, 20);
-            label3.TabIndex = 15;
-            label3.Text = "Địa chỉ";
-            // 
-            // txt_diachi_NCC_ADD
-            // 
-            txt_diachi_NCC_ADD.Enabled = false;
-            txt_diachi_NCC_ADD.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txt_diachi_NCC_ADD.Location = new Point(233, 115);
-            txt_diachi_NCC_ADD.Name = "txt_diachi_NCC_ADD";
-            txt_diachi_NCC_ADD.Size = new Size(531, 27);
-            txt_diachi_NCC_ADD.TabIndex = 16;
-            // 
             // SupplierForm_ADD_EDIT
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -191,6 +167,7 @@
             Controls.Add(panel1);
             Controls.Add(label1);
             Name = "SupplierForm_ADD_EDIT";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "SupplierForm_ADD_EDIT";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -201,12 +178,10 @@
 
         private Label label1;
         private Panel panel1;
-        private TextBox txt_ma_NCC_ADD;
         private TextBox txt_maPN_PN_ADD;
-        private Label label6;
         private ComboBox cbo_NhaCungCap_PN_ADD;
-        private Controls.RoundedButton btn_thoat_NCC;
-        private Controls.RoundedButton btn_Them_PN_ADD;
+        private Controls.RoundedButton btn_thoat_NCC_ADD;
+        private Controls.RoundedButton btn_them_NCC_ADD;
         private ComboBox cbo_HangHoa_PN_ADD;
         private TextBox txt_sdt_NCC_ADD;
         private Label label4;
