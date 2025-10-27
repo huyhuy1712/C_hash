@@ -10,7 +10,7 @@ namespace MilkTea.Client.Presenters
         public IEditQuyen _form;
 
         private readonly ChucNangService _chucNangService = new();
-        private readonly QuyenChucNangService _quyenChucNang = new();
+        private readonly QuyenChucNangService _quyenChucNangService = new();
         private readonly QuyenService _quyenService = new();
 
         public EditQuyenPresenter(IEditQuyen form)
@@ -92,12 +92,11 @@ namespace MilkTea.Client.Presenters
         {
             try
             {
-                await _quyenChucNang.DeleteAllQuyenChucNangAsync(q.MaQuyen);
+                await _quyenChucNangService.DeleteAllQuyenChucNangAsync(q.MaQuyen);
             }
             catch (Exception ex)
             {
-                Debug.WriteLine("Lỗi khi xoá quyền chức năng: " + ex.Message);
-                throw new Exception("Lỗi khi xoá quyền chức năng" + ex.Message);
+                MessageBox.Show("Lỗi khi xoá quyền chức năng: " + ex.Message);
             }
 
             foreach (var c in selected)
@@ -108,24 +107,15 @@ namespace MilkTea.Client.Presenters
 
                 try
                 {
-                    await _quyenChucNang.AddQuyenChucNangAsync(qc);
+                    await _quyenChucNangService.AddQuyenChucNangAsync(qc);
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine("Lỗi khi thêm quyền chức năng: " + ex.Message);
-                    throw new Exception("Lỗi khi thêm quyền chức năng");
+                    MessageBox.Show("Lỗi khi thêm quyền chức năng: " + ex.Message);
                 }
             }
 
-            try
-            {
-                await _quyenService.UpdateQuyenAsync(q);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Lỗi khi cập nhật quyền: " + ex.Message);
-                throw new Exception("Lỗi khi cập nhật quyền");
-            }
+            await _quyenService.UpdateQuyenAsync(q);
         }
     }
 }

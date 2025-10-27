@@ -9,13 +9,13 @@ namespace MilkTea.Client.Services
         {
             var response = await _http.DeleteAsync($"/api/quyenchucnang/{maQuyen}");
             if (!response.IsSuccessStatusCode)
-                throw new Exception("Xoá quyền chức năng không thành công");
+                throw new Exception("Xoá quyền chức năng không thành công" + response.ToString);
         }
         public async Task AddQuyenChucNangAsync(Quyen_ChucNang q)
         {
             var response = await _http.PostAsJsonAsync($"/api/quyenchucnang", q);
             if (!response.IsSuccessStatusCode)
-                throw new Exception("Thêm quyền chức năng không thành công");
+                throw new Exception("Thêm quyền chức năng không thành công" + response.ToString);
         }
     }
 }

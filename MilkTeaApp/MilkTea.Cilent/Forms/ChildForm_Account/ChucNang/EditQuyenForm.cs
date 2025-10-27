@@ -51,15 +51,9 @@ namespace MilkTea.Client.Forms.ChildForm_Account
                     selected.Add(Convert.ToInt32(row.Cells["id"].Value));
                 }
             }
-
-            try
-            {
-                _editQuyenPresenter.UpdateRoleAsync(q, selected);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            _editQuyenPresenter.UpdateRoleAsync(q, selected);
+            MessageBox.Show("Sửa quyền thành công!");
+            this.Close();
         }
     }
 }
