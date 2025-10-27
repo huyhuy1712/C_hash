@@ -47,7 +47,7 @@
             btnDong = new MilkTea.Client.Controls.RoundedButton();
             panel4 = new Panel();
             panel8 = new Panel();
-            labelTenQuyen = new Label();
+            txtbTenQuyen = new TextBox();
             panel7 = new Panel();
             label2 = new Label();
             panel2 = new Panel();
@@ -266,23 +266,22 @@
             // 
             // panel8
             // 
-            panel8.Controls.Add(labelTenQuyen);
+            panel8.Controls.Add(txtbTenQuyen);
             panel8.Dock = DockStyle.Left;
             panel8.Location = new Point(244, 0);
             panel8.Name = "panel8";
-            panel8.Size = new Size(253, 50);
+            panel8.Padding = new Padding(0, 5, 0, 0);
+            panel8.Size = new Size(371, 50);
             panel8.TabIndex = 1;
             // 
-            // labelTenQuyen
+            // txtbTenQuyen
             // 
-            labelTenQuyen.Dock = DockStyle.Fill;
-            labelTenQuyen.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelTenQuyen.Location = new Point(0, 0);
-            labelTenQuyen.Name = "labelTenQuyen";
-            labelTenQuyen.Size = new Size(253, 50);
-            labelTenQuyen.TabIndex = 0;
-            labelTenQuyen.Text = "Admin";
-            labelTenQuyen.TextAlign = ContentAlignment.MiddleLeft;
+            txtbTenQuyen.Dock = DockStyle.Fill;
+            txtbTenQuyen.Font = new Font("Segoe UI", 15F);
+            txtbTenQuyen.Location = new Point(0, 5);
+            txtbTenQuyen.Name = "txtbTenQuyen";
+            txtbTenQuyen.Size = new Size(371, 41);
+            txtbTenQuyen.TabIndex = 0;
             // 
             // panel7
             // 
@@ -347,6 +346,7 @@
             panel12.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel8.ResumeLayout(false);
+            panel8.PerformLayout();
             panel7.ResumeLayout(false);
             panel2.ResumeLayout(false);
             ResumeLayout(false);
@@ -364,7 +364,6 @@
         private Label label1;
         private Panel panel8;
         private Panel panel7;
-        private Label labelTenQuyen;
         private Label label2;
         private DataGridViewTextBoxColumn tenQuyen;
         private DataGridViewCheckBoxColumn chon;
@@ -380,5 +379,6 @@
         private DataGridViewTextBoxColumn tenChucNang;
         private DataGridViewCheckBoxColumn cbxChonChucNang;
         private DataGridViewCheckBoxColumn chkChucNang;
+        private TextBox txtbTenQuyen;
     }
 }

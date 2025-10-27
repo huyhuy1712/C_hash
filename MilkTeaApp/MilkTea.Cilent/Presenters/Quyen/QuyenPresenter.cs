@@ -53,11 +53,11 @@ namespace MilkTea.Client.Presenters
                 MessageBox.Show("Lỗi khi load dữ liệu: " + ex.Message);
             }
         }
-        public void EditQuyen(string id)
+        public void EditQuyen(string id, string tenQuyen)
         {
             if (string.IsNullOrEmpty(id)) return;
 
-            using (var frm = new EditQuyenForm(id))
+            using (var frm = new EditQuyenForm(id, tenQuyen))
             {
                 if (frm.ShowDialog() == DialogResult.OK)
                 {

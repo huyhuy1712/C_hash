@@ -1,10 +1,6 @@
 ﻿using MilkTea.Client.Models;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Net.Http;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 
 namespace MilkTea.Client.Services
 {
@@ -39,45 +35,27 @@ namespace MilkTea.Client.Services
         }
 
         // Thêm tài khoản
-        public async Task<HttpResponseMessage?> AddAccountsAsync(TaiKhoan tk)
+        public async Task AddAccountsAsync(TaiKhoan tk)
         {
-            try
-            {
-                return await _http.PostAsJsonAsync("/api/taikhoan", tk);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"[AddAccountsAsync] Error: {ex.Message}");
-                return null;
-            }
+            var response = await _http.PostAsJsonAsync("/api/taikhoan", tk);
+            if (!response.IsSuccessStatusCode)
+                throw new Exception("Thêm tài khoản không thành công");
         }
 
         // Cập nhật tài khoản
-        public async Task<HttpResponseMessage?> UpdateAccountsAsync(TaiKhoan tk)
+        public async Task UpdateAccountsAsync(TaiKhoan tk)
         {
-            try
-            {
-                return await _http.PutAsJsonAsync("/api/taikhoan", tk);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"[UpdateAccountsAsync] Error: {ex.Message}");
-                return null;
-            }
+            var response = await _http.PutAsJsonAsync("/api/taikhoan", tk);
+            if (!response.IsSuccessStatusCode)
+                throw new Exception("Cập nhật tài khoản không thành công");
         }
 
         // Xóa tài khoản
-        public async Task<HttpResponseMessage?> DeleteAccountsAsync(int maTK)
+        public async Task DeleteAccountsAsync(int maTK)
         {
-            try
-            {
-                return await _http.DeleteAsync($"/api/taikhoan/{maTK}");
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"[DeleteAccountsAsync] Error: {ex.Message}");
-                return null;
-            }
+            var response = await _http.DeleteAsync($"/api/taikhoan/{maTK}");
+            if (!response.IsSuccessStatusCode)
+                throw new Exception("Xóa tài khoản không thành công");
         }
 
         // Tìm kiếm

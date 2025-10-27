@@ -37,11 +37,12 @@ namespace MilkTea.Client.Forms.ChildForm_Account
 
             string columnName = dataGridView1.Columns[e.ColumnIndex].Name;
             var id = dataGridView1.Rows[e.RowIndex].Cells["ID"].Value?.ToString();
+            string tenQuyen = dataGridView1.Rows[e.RowIndex].Cells["tenQuyen"].Value?.ToString();
 
             switch (columnName)
             {
                 case "sua":
-                    _presenter.EditQuyen(id);
+                    _presenter.EditQuyen(id, tenQuyen);
                     break;
 
                 case "xoa":
@@ -52,8 +53,8 @@ namespace MilkTea.Client.Forms.ChildForm_Account
 
         private void btnThemQuyen_Click(object sender, EventArgs e)
         {
-            var frm = new AddQuyenForm();
-            frm.ShowDialog();
+            using (var frm = new AddQuyenForm())
+                frm.ShowDialog();
         }
     }
 }
