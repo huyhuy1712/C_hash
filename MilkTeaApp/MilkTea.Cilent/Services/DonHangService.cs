@@ -97,7 +97,11 @@ namespace MilkTea.Client.Services
         }
         public async Task<List<DonHang>> SearchAsync(string column, string value)
         {
-            var response = await _http.GetAsync($"/api/donhang/search?column={column}&value={value}");
+            // Mã hóa URL để tránh lỗi khi có ký tự đặc biệt
+            string encodedColumn = Uri.EscapeDataString(column);
+            string encodedValue = Uri.EscapeDataString(value);
+
+            var response = await _http.GetAsync($"/api/donhang/search?column={encodedColumn}&value={encodedValue}");
 
             if (response.IsSuccessStatusCode)
             {
@@ -109,6 +113,7 @@ namespace MilkTea.Client.Services
                 throw new Exception($"Không thể tìm kiếm đơn hàng: {error}");
             }
         }
+
 
 
 

@@ -53,6 +53,13 @@ namespace MilkTea.Client.Controls
             else
                 pictureBox1.Image = Properties.Resources.card;
             // các label khác tuỳ bạn thêm
+            if (trangThai == 0)
+            {
+                pictureBox4.Image = Properties.Resources.hourglass;
+
+            }
+            else
+                pictureBox4.Image = Properties.Resources.order1;
         }
 
         private void pictureBox_PhuongThucThanhToan_Click(object sender, EventArgs e)
@@ -72,7 +79,7 @@ namespace MilkTea.Client.Controls
 
 
 
-        private void pictureBox6_Click(object sender, EventArgs e)
+        private async void pictureBox6_Click(object sender, EventArgs e)
         {
             // Hiển thị hộp thoại xác nhận
             DialogResult result = MessageBox.Show(
@@ -86,7 +93,10 @@ namespace MilkTea.Client.Controls
             {
                 // Người dùng chọn Yes -> thực hiện xóa đơn hàng
                 // TODO: thêm code xóa đơn hàng ở đây
+                donHang.TrangThai = 2; // Đã hoàn thành
+                var trangThaiCapNhat = await new DonHangService().CapNhatTrangThaiDonHangAsync(donHang);
                 MessageBox.Show("Đơn hàng đã được xóa!");
+
             }
             else
             {
@@ -112,7 +122,7 @@ namespace MilkTea.Client.Controls
                 MessageBox.Show("Cập nhật đơn hàng thành công!");
 
                 //nhàn
-                donHang.TrangThai = 2; // Đã hoàn thành
+                donHang.TrangThai = 1; // Đã hoàn thành
                 var trangThaiCapNhat = await new DonHangService().CapNhatTrangThaiDonHangAsync(donHang);
                 int maDH = donHang.MaDH;
                 
