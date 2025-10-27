@@ -24,6 +24,7 @@ namespace MilkTea.Client.Controls
         private SanPhamService SanPhamService = new SanPhamService();
         private CongThucService _congThucService = new CongThucService();
         private CTCongThucService _ctCongThucService = new CTCongThucService();
+        private buzzerService _buzzerService = new buzzerService();
         public int pttt;
         public int trangThai;
         //public event EventHandler<DonHangEventArgs> OnDonHangSelected;
@@ -112,10 +113,11 @@ namespace MilkTea.Client.Controls
                 MessageBox.Show("Cập nhật đơn hàng thành công!");
 
                 //nhàn
-                donHang.TrangThai = 2; // Đã hoàn thành
+                donHang.TrangThai = 1; // Đã hoàn thành
                 var trangThaiCapNhat = await new DonHangService().CapNhatTrangThaiDonHangAsync(donHang);
+                _buzzerService.UpdateTrangThaiAsync(donHang.MaDH.ToString(), 1); // Cập nhật trạng thái buzzer
                 int maDH = donHang.MaDH;
-                
+
                 int? nam = donHang.NgayLap?.Year;
                 int? thang = donHang.NgayLap?.Month;
                 int? ngayTrongThang = donHang.NgayLap?.Day;
@@ -126,11 +128,12 @@ namespace MilkTea.Client.Controls
                     .Where(ct => ct.MaDH == donHang.MaDH)
                     .ToList();
 
+                Boolean last = true;
                 foreach (var item in ctDH)
                 {
                     var maSP = item.MaSP;
                     var sp = await SanPhamService.SearchSanPhamAsync("MaSP", maSP.ToString());
-                    var ct= await _ctCongThucService.GetChiTietCongThucTheoSPAsync(maSP);
+                    var ct = await _ctCongThucService.GetChiTietCongThucTheoSPAsync(maSP);
 
                     var maSize = item.MaSize;
                     int maLoai = sp[0].MaLoai;
@@ -153,16 +156,21 @@ namespace MilkTea.Client.Controls
                         TongDoanhThu = tongGia,
                     };
 
-                    var kq = await doanhThuService.ThemDoanhThuAsync(doanhThu);
+                    var kq = await doanhThuService.ThemDoanhThuAsync(doanhThu); ;
 
-                    if (kq)
+                    if (!kq)
                     {
-                        MessageBox.Show("Thêm doanh thu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        last = false;
                     }
-                    else
-                    {
-                        MessageBox.Show("Thêm doanh thu thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+
+                }
+                if (last)
+                {
+                    MessageBox.Show("Cập nhật doanh thu thành công!");
+                }
+                else
+                {
+                    MessageBox.Show("Cập nhật doanh thu thất bại!");
                 }
             }
             else
@@ -170,6 +178,11 @@ namespace MilkTea.Client.Controls
                 // Người dùng chọn No -> không làm gì
                 // có thể để trống
             }
+        }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

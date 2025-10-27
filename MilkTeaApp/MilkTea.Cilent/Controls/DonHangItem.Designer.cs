@@ -121,6 +121,7 @@ namespace MilkTea.Client.Controls
             pictureBox5.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox5.TabIndex = 1;
             pictureBox5.TabStop = false;
+            pictureBox5.Click += pictureBox5_Click;
             // 
             // pictureBox6
             // 
@@ -202,14 +203,12 @@ namespace MilkTea.Client.Controls
             // pictureBox2
             // 
             pictureBox2.Dock = DockStyle.Left;
-            //pictureBox2.Image = Properties.Resources.alarm;
             pictureBox2.Location = new Point(0, 0);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(32, 39);
             pictureBox2.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox2.TabIndex = 2;
             pictureBox2.TabStop = false;
-
             // 
             // label_TongGia
             // 
@@ -220,7 +219,6 @@ namespace MilkTea.Client.Controls
             label_TongGia.TabIndex = 1;
             label_TongGia.Text = "90.000";
             label_TongGia.TextAlign = ContentAlignment.MiddleCenter;
-
             // 
             // panel8
             // 

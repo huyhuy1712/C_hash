@@ -30,13 +30,16 @@
         {
             panel1 = new Panel();
             InvoiceOrder_Panel = new Panel();
-            panel8 = new Panel();
-            pictureBox2 = new PictureBox();
-            pictureBox1 = new PictureBox();
             panel2 = new Panel();
             label2 = new Label();
             label3 = new Label();
             dataGridView1 = new DataGridView();
+            tenSP = new DataGridViewTextBoxColumn();
+            tbSize = new DataGridViewTextBoxColumn();
+            Topping = new DataGridViewTextBoxColumn();
+            donGia = new DataGridViewTextBoxColumn();
+            tien = new DataGridViewTextBoxColumn();
+            tongTien = new DataGridViewTextBoxColumn();
             panel7 = new Panel();
             label22 = new Label();
             label23 = new Label();
@@ -53,17 +56,8 @@
             ten_thu_ngan_label = new Label();
             label1 = new Label();
             Title_label = new Label();
-            tenSP = new DataGridViewTextBoxColumn();
-            tbSize = new DataGridViewTextBoxColumn();
-            Topping = new DataGridViewTextBoxColumn();
-            donGia = new DataGridViewTextBoxColumn();
-            tien = new DataGridViewTextBoxColumn();
-            tongTien = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
             InvoiceOrder_Panel.SuspendLayout();
-            panel8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel7.SuspendLayout();
@@ -79,14 +73,13 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(874, 624);
+            panel1.Size = new Size(874, 580);
             panel1.TabIndex = 0;
             panel1.Paint += panel1_Paint;
             // 
             // InvoiceOrder_Panel
             // 
             InvoiceOrder_Panel.BackColor = SystemColors.ButtonHighlight;
-            InvoiceOrder_Panel.Controls.Add(panel8);
             InvoiceOrder_Panel.Controls.Add(panel2);
             InvoiceOrder_Panel.Controls.Add(dataGridView1);
             InvoiceOrder_Panel.Controls.Add(panel7);
@@ -98,41 +91,8 @@
             InvoiceOrder_Panel.Dock = DockStyle.Fill;
             InvoiceOrder_Panel.Location = new Point(0, 0);
             InvoiceOrder_Panel.Name = "InvoiceOrder_Panel";
-            InvoiceOrder_Panel.Size = new Size(874, 624);
+            InvoiceOrder_Panel.Size = new Size(874, 580);
             InvoiceOrder_Panel.TabIndex = 1;
-            // 
-            // panel8
-            // 
-            panel8.Controls.Add(pictureBox2);
-            panel8.Controls.Add(pictureBox1);
-            panel8.Dock = DockStyle.Bottom;
-            panel8.Location = new Point(0, 567);
-            panel8.Name = "panel8";
-            panel8.Padding = new Padding(20, 0, 20, 10);
-            panel8.Size = new Size(874, 57);
-            panel8.TabIndex = 14;
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.Dock = DockStyle.Right;
-            pictureBox2.Image = Properties.Resources.recycle_bin;
-            pictureBox2.Location = new Point(809, 0);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(45, 47);
-            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox2.TabIndex = 1;
-            pictureBox2.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Dock = DockStyle.Left;
-            pictureBox1.Image = Properties.Resources.hourglass;
-            pictureBox1.Location = new Point(20, 0);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(50, 47);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
             // 
             // panel2
             // 
@@ -178,6 +138,48 @@
             dataGridView1.Size = new Size(874, 188);
             dataGridView1.TabIndex = 13;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            // 
+            // tenSP
+            // 
+            tenSP.HeaderText = "Tên SP";
+            tenSP.MinimumWidth = 6;
+            tenSP.Name = "tenSP";
+            tenSP.Width = 246;
+            // 
+            // tbSize
+            // 
+            tbSize.HeaderText = "Size";
+            tbSize.MinimumWidth = 6;
+            tbSize.Name = "tbSize";
+            tbSize.Width = 125;
+            // 
+            // Topping
+            // 
+            Topping.HeaderText = "Topping";
+            Topping.MinimumWidth = 6;
+            Topping.Name = "Topping";
+            Topping.Width = 125;
+            // 
+            // donGia
+            // 
+            donGia.HeaderText = "Đơn giá";
+            donGia.MinimumWidth = 6;
+            donGia.Name = "donGia";
+            donGia.Width = 125;
+            // 
+            // tien
+            // 
+            tien.HeaderText = "Tiền";
+            tien.MinimumWidth = 6;
+            tien.Name = "tien";
+            tien.Width = 125;
+            // 
+            // tongTien
+            // 
+            tongTien.HeaderText = "Tổng tiền";
+            tongTien.MinimumWidth = 6;
+            tongTien.Name = "tongTien";
+            tongTien.Width = 125;
             // 
             // panel7
             // 
@@ -345,54 +347,12 @@
             Title_label.Text = "Hóa đơn thanh toán";
             Title_label.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // tenSP
-            // 
-            tenSP.HeaderText = "Tên SP";
-            tenSP.MinimumWidth = 6;
-            tenSP.Name = "tenSP";
-            tenSP.Width = 246;
-            // 
-            // tbSize
-            // 
-            tbSize.HeaderText = "Size";
-            tbSize.MinimumWidth = 6;
-            tbSize.Name = "tbSize";
-            tbSize.Width = 125;
-            // 
-            // Topping
-            // 
-            Topping.HeaderText = "Topping";
-            Topping.MinimumWidth = 6;
-            Topping.Name = "Topping";
-            Topping.Width = 125;
-            // 
-            // donGia
-            // 
-            donGia.HeaderText = "Đơn giá";
-            donGia.MinimumWidth = 6;
-            donGia.Name = "donGia";
-            donGia.Width = 125;
-            // 
-            // tien
-            // 
-            tien.HeaderText = "Tiền";
-            tien.MinimumWidth = 6;
-            tien.Name = "tien";
-            tien.Width = 125;
-            // 
-            // tongTien
-            // 
-            tongTien.HeaderText = "Tổng tiền";
-            tongTien.MinimumWidth = 6;
-            tongTien.Name = "tongTien";
-            tongTien.Width = 125;
-            // 
             // Bill
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
-            ClientSize = new Size(874, 624);
+            ClientSize = new Size(874, 580);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "Bill";
@@ -400,9 +360,6 @@
             Text = "Bill";
             panel1.ResumeLayout(false);
             InvoiceOrder_Panel.ResumeLayout(false);
-            panel8.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             panel7.ResumeLayout(false);
@@ -437,9 +394,6 @@
         private Panel panel2;
         private Label label2;
         private Label label3;
-        private Panel panel8;
-        private PictureBox pictureBox2;
-        private PictureBox pictureBox1;
         private DataGridViewTextBoxColumn tenSP;
         private DataGridViewTextBoxColumn tbSize;
         private DataGridViewTextBoxColumn Topping;
