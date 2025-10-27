@@ -42,5 +42,11 @@ namespace MilkTea.Client.Services
             }
             return 0;
         }
+
+        public async Task<bool> SoftDeleteAsync(int maNCC)
+        {
+            var response = await _http.DeleteAsync($"/api/nhacungcap/{maNCC}/soft");
+            return response.IsSuccessStatusCode;
+        }
     }
 }
