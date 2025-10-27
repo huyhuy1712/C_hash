@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MilkTea.Client.Controls;
+using MilkTea.Client.Models; // Giả sử models ở đây: SanPham, Loai, CTKhuyenMai, SanPhamKhuyenMai
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -7,60 +9,57 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MilkTea.Client.Controls;
-using MilkTea.Client.Models; // Giả sử models ở đây: SanPham, Loai, CTKhuyenMai, SanPhamKhuyenMai
-
+using MilkTea.Client.Services;
 
 namespace MilkTea.Client.Forms.ChildForm_Discount
 {
     public partial class AddDiscountForm : Form
     {
         private List<SanPham> danhSachSanPham = new List<SanPham>();
-        private List<Loai> danhSachLoai = new List<Loai>();
+        private List<Loai> _danhSachLoai;
         private Dictionary<CheckBox, int> checkboxToMaSPMap = new Dictionary<CheckBox, int>(); // Map checkbox to MaSP cho selected
         private const string ApiBaseUrl = "http://localhost:5198"; // Port từ code của bạn
+        private LoaiService _loaiService;
+        private SanPhamService _SanPhamService;
+        private SanPhamKhuyenMaiService _sanPhamKhuyenMaiService;
 
         public AddDiscountForm()
         {
             InitializeComponent();
+            _loaiService = new LoaiService();
+            _SanPhamService = new SanPhamService();
+            _sanPhamKhuyenMaiService = new SanPhamKhuyenMaiService();
         }
 
         private async void AddDiscountForm_Load(object sender, EventArgs e)
         {
-            await LoadSanPhamAsync(); // Tải sản phẩm và populate UI dynamic
-            await LoadLoaiAsync();    // Tải loại và populate roundedComboBox2
+
 
             // Gắn event search
             roundedTextBox1.TextChanged += roundedTextBox1_TextChanged;
+
+            // Gắn event cho checkBox6 (Chọn tất cả)
+            checkBox6.CheckedChanged += checkBox6_CheckedChanged;
+
+
+
         }
 
         private async Task LoadSanPhamAsync()
         {
             try
             {
-                using var client = new HttpClient();
-                client.BaseAddress = new Uri(ApiBaseUrl);
+                // Sử dụng service tương tự như load Loai
+                danhSachSanPham = await _SanPhamService.GetSanPhamsAsync() ?? new List<SanPham>();
 
-                var response = await client.GetAsync("/api/sanpham");
+                // Clear flowLayoutPanel1 và tạo dynamic cards cho tất cả sản phẩm
+                flowLayoutPanel1.Controls.Clear();
+                checkboxToMaSPMap.Clear();
 
-                if (response.IsSuccessStatusCode)
+                foreach (var sp in danhSachSanPham)
                 {
-                    var json = await response.Content.ReadAsStringAsync();
-                    danhSachSanPham = JsonSerializer.Deserialize<List<SanPham>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new List<SanPham>();
-
-                    // Clear flowLayoutPanel1 và tạo dynamic cards cho tất cả sản phẩm
-                    flowLayoutPanel1.Controls.Clear();
-                    checkboxToMaSPMap.Clear();
-
-                    foreach (var sp in danhSachSanPham)
-                    {
-                        var card = CreateProductCard(sp);
-                        flowLayoutPanel1.Controls.Add(card);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Lỗi tải danh sách sản phẩm: " + response.StatusCode);
+                    var card = CreateProductCard(sp);
+                    flowLayoutPanel1.Controls.Add(card);
                 }
             }
             catch (Exception ex)
@@ -89,13 +88,39 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             };
             try
             {
-                // Nếu Anh là filename, load từ file; nếu resource name, dùng Properties.Resources
-                pictureBox.Image = (Bitmap)Properties.Resources.ResourceManager.GetObject(sp.Anh ?? "default");
+                if (!string.IsNullOrEmpty(sp.Anh) && sp.Anh.StartsWith("data:image/"))
+                {
+                    // Nếu base64 với prefix (data:image/jpeg;base64,...), remove prefix và convert
+                    string base64Data = sp.Anh.Split(',')[1]; // Lấy phần base64 sau ','
+                    byte[] imageBytes = Convert.FromBase64String(base64Data);
+                    using var ms = new MemoryStream(imageBytes);
+                    pictureBox.Image = Image.FromStream(ms);
+                }
+                else if (!string.IsNullOrEmpty(sp.Anh))
+                {
+                    // Nếu Anh là filename, load từ file (giả sử folder Images trong project)
+                    string imagePath = Path.Combine(Application.StartupPath, "images", sp.Anh);
+                    if (File.Exists(imagePath))
+                    {
+                        pictureBox.Image = Image.FromFile(imagePath);
+                    }
+                    else
+                    {
+                        // Fallback: Load từ Resources nếu có
+                        pictureBox.Image = (Bitmap)Properties.Resources.ResourceManager.GetObject("default");
+                    }
+                }
+                else
+                {
+                    // Default image nếu null
+                    pictureBox.Image = (Bitmap)Properties.Resources.ResourceManager.GetObject("default");
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                // Fallback: Không set ảnh nếu lỗi
-                pictureBox.Image = null; // Hoặc icon default
+                // Fallback nếu lỗi load
+                System.Diagnostics.Debug.WriteLine("Lỗi load ảnh cho sản phẩm " + sp.MaSP + ": " + ex.Message);
+                pictureBox.Image = null; // Hoặc default icon
             }
             panelImage.Controls.Add(pictureBox);
 
@@ -137,7 +162,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
         {
             if (sender is CheckBox cb && cb.Tag is int maSP)
             {
-                if (checkBox1.Checked && cb.Checked)
+                if (checkBox6.Checked && cb.Checked)
                 {
                     cb.Checked = false;
                     MessageBox.Show("Vui lòng bỏ chọn 'Chọn tất cả' để chọn sản phẩm cụ thể.", "Thông báo", MessageBoxButtons.OK);
@@ -145,48 +170,17 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             }
         }
 
-        private async Task LoadLoaiAsync()
+   
+        private void checkBox6_CheckedChanged(object sender, EventArgs e)
         {
-            try
-            {
-                using var client = new HttpClient();
-                client.BaseAddress = new Uri(ApiBaseUrl);
-
-                var response = await client.GetAsync("/api/loai");
-
-                if (response.IsSuccessStatusCode)
-                {
-                    var json = await response.Content.ReadAsStringAsync();
-                    danhSachLoai = JsonSerializer.Deserialize<List<Loai>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new List<Loai>();
-
-                    // Populate vào roundedComboBox2
-                    roundedComboBox2.DataSource = null;
-                    roundedComboBox2.DisplayMember = "TenLoai";
-                    roundedComboBox2.ValueMember = "MaLoai";
-                    roundedComboBox2.DataSource = danhSachLoai;
-                    roundedComboBox2.SelectedIndex = -1;
-                }
-                else
-                {
-                    MessageBox.Show("Lỗi tải danh sách loại: " + response.StatusCode);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi kết nối API loại: " + ex.Message);
-            }
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            bool enabled = !checkBox1.Checked;
+            bool enabled = !checkBox6.Checked;
             // Disable all product checkboxes (dynamic)
             foreach (var kvp in checkboxToMaSPMap)
             {
                 kvp.Key.Enabled = enabled;
             }
 
-            if (checkBox1.Checked)
+            if (checkBox6.Checked)
             {
                 // Uncheck all
                 foreach (var kvp in checkboxToMaSPMap)
@@ -224,7 +218,56 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                 }
             }
         }
+        private async Task<bool> SaveSanPhamKhuyenMaiAsync(int maCTKhuyenMai, List<int> selectedSanPhamIds)
+        {
+            try
+            {
+                // Loop gọi service cho mỗi SanPhamKhuyenMai
+                foreach (var maSP in selectedSanPhamIds)
+                {
+                    var item = new SanPhamKhuyenMai
+                    {
+                        MaSP = maSP,
+                        MaCTKhuyenMai = maCTKhuyenMai
+                    };
 
+                    var success = await _sanPhamKhuyenMaiService.AddAsync(item);
+                    if (!success)
+                    {
+                        MessageBox.Show($"Lỗi lưu liên kết sản phẩm {maSP}.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi lưu liên kết sản phẩm: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
+        private void btnThoatDiscount_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+
+        private void roundedComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Có thể thêm logic nếu cần
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
         private async void roundedButton1_Click(object sender, EventArgs e)
         {
             try
@@ -236,29 +279,32 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                 DateTime ngayBatDau = dateTimePicker1.Value;
                 DateTime ngayKetThuc = dateTimePicker2.Value;
                 string moTa = textBox2.Text.Trim();
-                int maLoai = roundedComboBox2.SelectedValue is int ? (int)roundedComboBox2.SelectedValue : 0; // Nếu chọn loại
+                int maLoai = cbo_loai_KM.SelectedValue is int ? (int)cbo_loai_KM.SelectedValue : 0; // Nếu chọn loại
 
                 // Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrEmpty(tenCT))
                 {
                     MessageBox.Show("Vui lòng nhập tên chương trình khuyến mãi.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    textBox1.Focus();
                     return;
                 }
 
                 if (ngayBatDau >= ngayKetThuc)
                 {
                     MessageBox.Show("Ngày kết thúc phải lớn hơn ngày bắt đầu.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    dateTimePicker2.Focus();
                     return;
                 }
 
                 // Kiểm tra sản phẩm đã chọn (nếu không chọn "Tất cả")
                 List<int> selectedSanPhamIds = new List<int>();
-                if (!checkBox1.Checked)
+                if (!checkBox6.Checked)
                 {
                     selectedSanPhamIds = GetSelectedSanPhamIds();
                     if (selectedSanPhamIds.Count == 0)
                     {
                         MessageBox.Show("Vui lòng chọn ít nhất một sản phẩm.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    
                         return;
                     }
                 }
@@ -274,8 +320,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                     TrangThai = 1
                 };
 
-
-                // Gửi POST cho CTKhuyenMai
+                // Gửi POST cho CTKhuyenMai (giữ nguyên HTTP call vì chưa có service cho CTKhuyenMai)
                 using var client = new HttpClient();
                 client.BaseAddress = new Uri(ApiBaseUrl);
 
@@ -294,12 +339,23 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                     bool success = true;
                     if (maCTKhuyenMai > 0 && selectedSanPhamIds.Count > 0)
                     {
-                        success = await SaveSanPhamKhuyenMaiAsync(client, maCTKhuyenMai, selectedSanPhamIds);
+                        success = await SaveSanPhamKhuyenMaiAsync(maCTKhuyenMai, selectedSanPhamIds); // Cập nhật signature để không cần client
                     }
 
                     string msg = success ? "Thêm chương trình khuyến mãi thành công!" : "Thêm khuyến mãi thành công, nhưng lỗi khi liên kết sản phẩm!";
                     MessageBox.Show(msg, success ? "Thành công" : "Cảnh báo", MessageBoxButtons.OK, success ? MessageBoxIcon.Information : MessageBoxIcon.Warning);
 
+                    if (success)
+                    {
+                        string productMsg = selectedSanPhamIds.Count > 0
+                            ? $"Đã thêm {selectedSanPhamIds.Count} sản phẩm vào chương trình khuyến mãi '{tenCT}' thành công!"
+                            : "Chương trình khuyến mãi đã được thêm thành công (áp dụng cho tất cả sản phẩm).";
+                        MessageBox.Show(productMsg, "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Thêm chương trình khuyến mãi thành công, nhưng có lỗi khi liên kết sản phẩm. Vui lòng kiểm tra lại.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                     // Reload parent form nếu có
                     if (this.Owner is DiscountForm parentForm)
                     {
@@ -321,49 +377,14 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             }
         }
 
-        private async Task<bool> SaveSanPhamKhuyenMaiAsync(HttpClient client, int maCTKhuyenMai, List<int> selectedSanPhamIds)
+        private async void AddDiscountForm_Load_1(object sender, EventArgs e)
         {
-            try
-            {
-                // Loop POST single cho mỗi SanPhamKhuyenMai (nếu không có batch endpoint)
-                foreach (var maSP in selectedSanPhamIds)
-                {
-                    var item = new SanPhamKhuyenMai
-                    {
-                        MaSP = maSP,
-                        MaCTKhuyenMai = maCTKhuyenMai
-                    };
+            _danhSachLoai = await _loaiService.GetLoaisAsync();
+            cbo_loai_KM.DataSource = _danhSachLoai;
+            cbo_loai_KM.DisplayMember = "TenLoai";
+            cbo_loai_KM.ValueMember = "MaLoai";
+            await LoadSanPhamAsync();
 
-                    var itemJson = JsonSerializer.Serialize(item);
-                    var itemContent = new StringContent(itemJson, Encoding.UTF8, "application/json");
-                    var itemResponse = await client.PostAsync("/api/sanpham_khuyenmai", itemContent); // Endpoint single
-
-                    if (!itemResponse.IsSuccessStatusCode)
-                    {
-                        var err = await itemResponse.Content.ReadAsStringAsync();
-                        MessageBox.Show($"Lỗi lưu liên kết sản phẩm {maSP}:\n{itemResponse.StatusCode}\n{err}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return false;
-                    }
-                }
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi khi lưu liên kết sản phẩm: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
         }
-
-        private void roundedButton2_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
-        }
-        private void roundedComboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Có thể thêm logic nếu cần
-        }
-
     }
 }

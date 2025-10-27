@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,15 +21,33 @@ namespace MilkTea.Client.Forms
         public DiscountForm()
         {
             InitializeComponent();
+            this.Load += DiscountForm_Load;
             // Khởi tạo timer debounce cho reload (500ms delay để tránh gọi API liên tục)
             _searchTimer = new System.Windows.Forms.Timer { Interval = 500 };
             _searchTimer.Tick += SearchTimer_Tick;
-            this.Load += DiscountForm_Load;
         }
 
         private async void DiscountForm_Load(object sender, EventArgs e)
         {
-            
+            // Clear card mẫu từ designer NGAY LẬP TỨC và LẶP LẠI để chắc chắn
+            ClearStaticCards();
+
+            // Thêm "Tất cả" vào ComboBox trạng thái (nếu chưa có)
+            if (roundedComboBox2.Items.Count == 0 || !roundedComboBox2.Items.Contains("Tất cả"))
+            {
+                roundedComboBox2.Items.Clear(); // Clear nếu có item cũ
+                roundedComboBox2.Items.AddRange(new object[] { "Tất cả", "Đang hoạt động", "Hết hạn" }); // Thêm "Tất cả" làm item đầu tiên
+            }
+            roundedComboBox2.SelectedIndex = 0; // Chọn "Tất cả" mặc định
+
+            // Clear search để tránh filter sai
+            roundedTextBox2.TextValue = "";
+            roundedTextBox2.Placeholder = "Nhập mã hoặc tên khuyến mãi..."; // Đảm bảo placeholder
+
+            await LoadDiscountsAsync();
+
+            // 🔍 Gắn sự kiện filter trạng thái (luôn attach, an toàn nếu đã có)
+            roundedComboBox2.SelectedIndexChanged += roundedComboBox2_SelectedIndexChanged;
         }
         private async Task btnThemDiscount_ClickAsync(object sender, EventArgs e)
         {
@@ -138,7 +157,9 @@ namespace MilkTea.Client.Forms
                 }
             }
 
-            // Filter theo trạng thái: Dựa trên ngày (chỉ nếu KHÔNG phải "Tất cả")
+            // Filter theo trạng thái: Dựa trên ngày (chỉ nếu KHÔNG phải "Tất cả") + Ẩn TrangThai = 0
+            filtered = filtered.Where(d => d.TrangThai == 1); // Ẩn deleted (TrangThai = 0)
+
             if (statusFilter != "Tất cả")
             {
                 filtered = filtered.Where(d =>
@@ -247,7 +268,7 @@ namespace MilkTea.Client.Forms
             };
             picEdit.Click += product_edit_btn1_Click;
 
-            // 🗑 Nút xóa
+            // 🗑 Nút xóa (soft delete: Update TrangThai = 0)
             var picDelete = new PictureBox
             {
                 Image = Properties.Resources.trash,
@@ -257,7 +278,7 @@ namespace MilkTea.Client.Forms
                 Cursor = Cursors.Hand,
                 Tag = discount.MaCTKhuyenMai
             };
-            picDelete.Click += async (s, e) => await DeleteDiscountAsync((int)((PictureBox)s).Tag);
+            picDelete.Click += async (s, e) => await SoftDeleteDiscountAsync((int)((PictureBox)s).Tag);
 
             panelButtons.Controls.Add(picEdit);
             panelButtons.Controls.Add(picDelete);
@@ -280,11 +301,10 @@ namespace MilkTea.Client.Forms
             ApplyFilters();
         }
 
-        // 🗑 Hàm xóa khuyến mãi bằng API
-        private async Task DeleteDiscountAsync(int maCTKhuyenMai)
+        // 🗑 Soft Delete: Update TrangThai = 0 thay vì DELETE
+        private async Task SoftDeleteDiscountAsync(int maCTKhuyenMai)
         {
-            var confirm = MessageBox.Show("Bạn có chắc chắn muốn xóa khuyến mãi này không?",
-                                          "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            var confirm = MessageBox.Show("Bạn có chắc chắn muốn ẩn chương trình khuyến mãi này không? (Soft delete - có thể khôi phục sau)", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (confirm != DialogResult.Yes) return;
 
@@ -293,22 +313,27 @@ namespace MilkTea.Client.Forms
                 using var client = new HttpClient();
                 client.BaseAddress = new Uri("http://localhost:5198");
 
-                var response = await client.DeleteAsync($"/api/ctkhuyenmai/{maCTKhuyenMai}");
+                // Tạo body update TrangThai = 0
+                var updateData = new { TrangThai = 0 };
+                var json = JsonSerializer.Serialize(updateData);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await client.PutAsync($"/api/ctkhuyenmai/{maCTKhuyenMai}", content); // Sử dụng PUT để update
 
                 if (response.IsSuccessStatusCode)
                 {
-                    MessageBox.Show("Đã xóa khuyến mãi thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    await LoadDiscountsAsync(); // Làm mới
+                    MessageBox.Show("Đã ẩn chương trình khuyến mãi thành công! (TrangThai = 0)", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    await LoadDiscountsAsync(); // Làm mới để ẩn khỏi list
                 }
                 else
                 {
                     string err = await response.Content.ReadAsStringAsync();
-                    MessageBox.Show($"Không thể xóa khuyến mãi!\n{response.StatusCode}\n{err}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Không thể ẩn khuyến mãi!\n{response.StatusCode}\n{err}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi xóa khuyến mãi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi ẩn khuyến mãi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -337,6 +362,7 @@ namespace MilkTea.Client.Forms
                 }
             }
         }
+
         private void SearchTimer_Tick(object sender, EventArgs e)
         {
             _searchTimer.Stop(); // Dừng timer để tránh gọi lặp
