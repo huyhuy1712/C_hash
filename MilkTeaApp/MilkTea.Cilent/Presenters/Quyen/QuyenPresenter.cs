@@ -1,13 +1,8 @@
 ﻿using MilkTea.Client.Forms.ChildForm_Account;
 using MilkTea.Client.Interfaces;
-using MilkTea.Client.Models;
 using MilkTea.Client.Services;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
-namespace MilkTea.Client.Presenters.Quyen
+namespace MilkTea.Client.Presenters
 {
     public class QuyenPresenter
     {

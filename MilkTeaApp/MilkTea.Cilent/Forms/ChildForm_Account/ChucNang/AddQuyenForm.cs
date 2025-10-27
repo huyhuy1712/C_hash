@@ -1,16 +1,7 @@
 ﻿using MilkTea.Client.Interfaces;
-using MilkTea.Client.Presenters.ChucNang;
+using MilkTea.Client.Presenters;
 using MilkTea.Client.Services;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MilkTea.Client.Forms.ChildForm_Account
 {

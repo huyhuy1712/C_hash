@@ -1,6 +1,6 @@
 ﻿using MilkTea.Client.Interfaces;
 using MilkTea.Client.Models;
-using MilkTea.Client.Presenters.Quyen;
+using MilkTea.Client.Presenters;
 
 namespace MilkTea.Client.Forms.ChildForm_Account
 {

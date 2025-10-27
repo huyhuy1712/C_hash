@@ -137,13 +137,7 @@ namespace MilkTea.Client.Forms
 
                 _account = null;
 
-                // Mở lại LoginForm
-                var loginForm = new LoginForm();
-                loginForm.StartPosition = FormStartPosition.CenterScreen;
-                loginForm.Show();
-
-                // Đóng MainForm hiện tại
-                this.Hide(); 
+                this.Close(); 
             }
         }
 
