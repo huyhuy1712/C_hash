@@ -7,13 +7,17 @@ namespace MilkTea.Client.Presenters
 {
     public class EditQuyenPresenter
     {
-        public IBaseForm _form;
+        public IEditQuyen _form;
+
         private readonly ChucNangService _chucNangService = new();
-        public EditQuyenPresenter(IBaseForm form)
+        private readonly QuyenChucNangService _quyenChucNang = new();
+        private readonly QuyenService _quyenService = new();
+
+        public EditQuyenPresenter(IEditQuyen form)
         {
             _form = form;
         }
-        public async Task LoadDataAsync(string id)
+        public async Task LoadDataAsync(string id, string tenQuyen)
         {
             var dataGridView1 = _form.Grid;
             var lbl = _form.LblStatus;
@@ -27,6 +31,7 @@ namespace MilkTea.Client.Presenters
                 var listCurrentChucNang = await _chucNangService.GetChucNangsByMaQuyenAsync(Convert.ToInt32(id));
 
                 dataGridView1.Rows.Clear();
+                _form.Txtb.Text = tenQuyen;
 
                 //Load all chuc nang
                 if (listChucNang != null && listChucNang.Any())
@@ -83,9 +88,44 @@ namespace MilkTea.Client.Presenters
         {
         }
 
-        public async Task UpdateRoleAsync(Quyen q)
+        public async Task UpdateRoleAsync(Quyen q, List<int> selected)
         {
+            try
+            {
+                await _quyenChucNang.DeleteAllQuyenChucNangAsync(q.MaQuyen);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Lỗi khi xoá quyền chức năng: " + ex.Message);
+                throw new Exception("Lỗi khi xoá quyền chức năng" + ex.Message);
+            }
 
+            foreach (var c in selected)
+            {
+                Quyen_ChucNang qc = new();
+                qc.MaChucNang = c;
+                qc.MaQuyen = q.MaQuyen;
+
+                try
+                {
+                    await _quyenChucNang.AddQuyenChucNangAsync(qc);
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("Lỗi khi thêm quyền chức năng: " + ex.Message);
+                    throw new Exception("Lỗi khi thêm quyền chức năng");
+                }
+            }
+
+            try
+            {
+                await _quyenService.UpdateQuyenAsync(q);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Lỗi khi cập nhật quyền: " + ex.Message);
+                throw new Exception("Lỗi khi cập nhật quyền");
+            }
         }
     }
 }

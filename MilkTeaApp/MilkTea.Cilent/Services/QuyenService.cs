@@ -1,9 +1,6 @@
 ﻿using MilkTea.Client.Models;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
 
 namespace MilkTea.Client.Services
 {
@@ -23,7 +20,7 @@ namespace MilkTea.Client.Services
             }
         }
 
-        public async Task<Quyen?> GetQuyenByIdAsync(int? maQuyen)
+        public async Task<Quyen?> GetQuyenByIdAsync(int maQuyen)
         {
             try
             {
@@ -36,18 +33,12 @@ namespace MilkTea.Client.Services
             }
         }
 
-        // Cập nhật quyen
-        public async Task<HttpResponseMessage?> UpdateQuyenAsync(Quyen quyen)
+        public async Task UpdateQuyenAsync(Quyen quyen)
         {
-            try
-            {
-                return await _http.PutAsJsonAsync("/api/quyen", quyen);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"[UpdateQuyenAsync] Error: {ex.Message}");
-                return null;
-            }
+            var response = await _http.PutAsJsonAsync("/api/quyen", quyen);
+
+            if (!response.IsSuccessStatusCode)
+                throw new Exception("Cập nhật quyền không thành công");
         }
     }
 }

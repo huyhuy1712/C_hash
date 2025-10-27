@@ -17,11 +17,10 @@ namespace MilkTea.Client.Presenters
             _view = view;
             _service = new();
         }
-        public async Task<bool> AddAccountAsync()
+        public async Task AddAccountAsync()
         {
             var tk = _view.GetTaiKhoanInput();
-            var result = await _service.AddAccountsAsync(tk);
-            return result.IsSuccessStatusCode;
+            await _service.AddAccountsAsync(tk);
         }
     }
 }
