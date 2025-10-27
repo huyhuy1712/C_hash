@@ -29,6 +29,8 @@ namespace MilkTea.Client.Forms.ChildForm_Account
         private void txtbTenQuyen_KeyDown(object sender, KeyEventArgs e)
         {
             Debug.WriteLine("hello");
+
+            errorProvider1.SetError(txtbTenQuyen, "Tên quyền không được để trống.");
             //_presenter.Search();
         }
     }

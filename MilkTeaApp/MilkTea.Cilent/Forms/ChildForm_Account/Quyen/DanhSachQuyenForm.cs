@@ -27,11 +27,10 @@ namespace MilkTea.Client.Forms.ChildForm_Account
 
         private async void DanhSachQuyenForm_Load(object sender, EventArgs e)
         {
-            dataGridView1.CellClick += dataGridView1_CellClick;
             await _presenter.LoadDataAsync();
         }
 
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return; // bỏ qua header
 
@@ -49,6 +48,7 @@ namespace MilkTea.Client.Forms.ChildForm_Account
                     _presenter.DeleteQuyen(id);
                     break;
             }
+            await _presenter.LoadDataAsync();
         }
 
         private void btnThemQuyen_Click(object sender, EventArgs e)

@@ -88,8 +88,16 @@ namespace MilkTea.Client.Presenters
         {
         }
 
-        public async Task UpdateRoleAsync(Quyen q, List<int> selected)
+        public async Task<bool> UpdateRoleAsync(Quyen q, List<int> selected)
         {
+            // Validate tên quyền
+            if (string.IsNullOrEmpty(q.TenQuyen))
+            {
+                _form.error.SetError(_form.Txtb, "Tên quyền không được để trống.");
+                return false;
+            }
+
+            // Xoá tất cả quyền chức năng hiện tại của quyền
             try
             {
                 await _quyenChucNangService.DeleteAllQuyenChucNangAsync(q.MaQuyen);
@@ -99,6 +107,7 @@ namespace MilkTea.Client.Presenters
                 MessageBox.Show("Lỗi khi xoá quyền chức năng: " + ex.Message);
             }
 
+            // Thêm lại các quyền chức năng được chọn
             foreach (var c in selected)
             {
                 Quyen_ChucNang qc = new();
@@ -115,7 +124,10 @@ namespace MilkTea.Client.Presenters
                 }
             }
 
+
+            // Cập nhật thông tin quyền
             await _quyenService.UpdateQuyenAsync(q);
+            return true;
         }
     }
 }

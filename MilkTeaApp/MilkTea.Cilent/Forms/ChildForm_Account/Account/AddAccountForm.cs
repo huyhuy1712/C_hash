@@ -43,7 +43,8 @@ namespace MilkTea.Client.Forms.ChildForm_Account
 
         private async void btnThemTTK_Click(object sender, EventArgs e)
         {
-            
+
+            errorProvider1.SetError(txtbTenTaiKhoan, "Tên tài khoản không được để trống.");
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using MilkTea.Client.Interfaces;
-using MilkTea.Client.Presenters;
 using MilkTea.Client.Models;
+using MilkTea.Client.Presenters;
 using System.Diagnostics;
 
 namespace MilkTea.Client.Forms.ChildForm_Account
@@ -10,8 +10,11 @@ namespace MilkTea.Client.Forms.ChildForm_Account
         public DataGridView Grid => dataGridView1;
         public Label LblStatus => lblStatus;
         public TextBox Txtb => txtbTenQuyen;
+        public ErrorProvider error => errorProvider1;
+
         private string _id;
         private string _tenQuyen;
+
         private readonly EditQuyenPresenter _editQuyenPresenter;
         public EditQuyenForm(string id, string tenQuyen)
         {
@@ -24,6 +27,7 @@ namespace MilkTea.Client.Forms.ChildForm_Account
         private void EditQuyenForm_Load(object sender, EventArgs e)
         {
             _editQuyenPresenter.LoadDataAsync(_id, _tenQuyen);
+
         }
 
         private void btnDong_Click(object sender, EventArgs e)
@@ -31,7 +35,7 @@ namespace MilkTea.Client.Forms.ChildForm_Account
             this.Close();
         }
 
-        private void btnXacNhan_Click(object sender, EventArgs e)
+        private async void btnXacNhan_Click(object sender, EventArgs e)
         {
             Quyen q = new();
             q.MaQuyen = Convert.ToInt32(_id);
@@ -39,9 +43,8 @@ namespace MilkTea.Client.Forms.ChildForm_Account
             q.TrangThai = 1;
             q.Mota = "123";
 
-            List<int> selected = new();
-
             //Lấy tất cả các chức năng được chọn
+            List<int> selected = new();
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
                 int isChecked = Convert.ToInt32(row.Cells["chkChucNang"].Value);
@@ -51,9 +54,13 @@ namespace MilkTea.Client.Forms.ChildForm_Account
                     selected.Add(Convert.ToInt32(row.Cells["id"].Value));
                 }
             }
-            _editQuyenPresenter.UpdateRoleAsync(q, selected);
-            MessageBox.Show("Sửa quyền thành công!");
-            this.Close();
+
+            //Cập nhật quyền và các chức năng được chọn
+            if (await _editQuyenPresenter.UpdateRoleAsync(q, selected))
+            {
+                MessageBox.Show("Đã sửa quyền thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
         }
     }
 }

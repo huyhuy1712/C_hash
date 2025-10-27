@@ -28,7 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel1 = new Panel();
             panel3 = new Panel();
             panel10 = new Panel();
@@ -52,6 +53,7 @@
             label2 = new Label();
             panel2 = new Panel();
             label1 = new Label();
+            errorProvider1 = new ErrorProvider(components);
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             panel10.SuspendLayout();
@@ -65,6 +67,7 @@
             panel8.SuspendLayout();
             panel7.SuspendLayout();
             panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -155,10 +158,10 @@
             // 
             // chkChucNang
             // 
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.NullValue = false;
-            dataGridViewCellStyle1.Padding = new Padding(3);
-            chkChucNang.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.NullValue = false;
+            dataGridViewCellStyle2.Padding = new Padding(3);
+            chkChucNang.DefaultCellStyle = dataGridViewCellStyle2;
             chkChucNang.FalseValue = "0";
             chkChucNang.HeaderText = "";
             chkChucNang.MinimumWidth = 6;
@@ -276,11 +279,11 @@
             // 
             // txtbTenQuyen
             // 
-            txtbTenQuyen.Dock = DockStyle.Fill;
+            txtbTenQuyen.Dock = DockStyle.Left;
             txtbTenQuyen.Font = new Font("Segoe UI", 15F);
             txtbTenQuyen.Location = new Point(0, 5);
             txtbTenQuyen.Name = "txtbTenQuyen";
-            txtbTenQuyen.Size = new Size(371, 41);
+            txtbTenQuyen.Size = new Size(327, 41);
             txtbTenQuyen.TabIndex = 0;
             // 
             // panel7
@@ -325,6 +328,10 @@
             label1.Text = "Sửa Quyền";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // errorProvider1
+            // 
+            errorProvider1.ContainerControl = this;
+            // 
             // EditQuyenForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -349,6 +356,7 @@
             panel8.PerformLayout();
             panel7.ResumeLayout(false);
             panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
         }
 
@@ -380,5 +388,6 @@
         private DataGridViewCheckBoxColumn cbxChonChucNang;
         private DataGridViewCheckBoxColumn chkChucNang;
         private TextBox txtbTenQuyen;
+        private ErrorProvider errorProvider1;
     }
 }
