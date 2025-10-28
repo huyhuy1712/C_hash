@@ -42,7 +42,7 @@ namespace MilkTea.Client.Controls
 
             label_maDH.Text = dh.MaDH.ToString();
             label_NgayLap.Text = dh.NgayLap?.ToString("dd/MM/yyyy") ?? "N/A";
-            pictureBox2.Text = dh.GioLap?.ToString(@"hh\:mm") ?? "N/A";
+            label_GioLap.Text = dh.GioLap?.ToString(@"hh\:mm") ?? "N/A";
             label_TongGia.Text = dh.TongGia.ToString("N0") + " VND";
             label_MaBuzzer.Text = dh.MaBuzzer?.ToString() ?? "N/A";
             pttt = dh.PhuongThucThanhToan ?? 0;
@@ -60,7 +60,11 @@ namespace MilkTea.Client.Controls
 
             }
             else
+            {
                 pictureBox4.Image = Properties.Resources.order1;
+                pictureBox4.Enabled = false;
+                pictureBox6.Enabled = false;
+            }
         }
 
         private void pictureBox_PhuongThucThanhToan_Click(object sender, EventArgs e)
