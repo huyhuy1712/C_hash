@@ -284,7 +284,11 @@ namespace MilkTea.Client.Forms
             // dGV_phieuNhap
             // 
             dGV_phieuNhap.AllowUserToAddRows = false;
+            dGV_phieuNhap.AllowUserToDeleteRows = false;
+            dGV_phieuNhap.AllowUserToResizeColumns = false;
+            dGV_phieuNhap.AllowUserToResizeRows = false;
             dGV_phieuNhap.BackgroundColor = SystemColors.ButtonFace;
+            dGV_phieuNhap.CellBorderStyle = DataGridViewCellBorderStyle.None;
             dGV_phieuNhap.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dGV_phieuNhap.Columns.AddRange(new DataGridViewColumn[] { maPhieuNhap_Tb_iPort, ngayNhap_Tb_iPort, soLuong_Tb_iPort, NhaCungCap_Tb_iPort, tenNVN_Tb_iPort, tongTien_Tb_iPort, thongTin_Tb_iPort, xoa_Tb_iPort });
             dGV_phieuNhap.Dock = DockStyle.Top;

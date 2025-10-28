@@ -69,6 +69,9 @@
             // dGV_chitietphieunhap
             // 
             dGV_chitietphieunhap.AllowUserToAddRows = false;
+            dGV_chitietphieunhap.AllowUserToDeleteRows = false;
+            dGV_chitietphieunhap.AllowUserToResizeColumns = false;
+            dGV_chitietphieunhap.AllowUserToResizeRows = false;
             dGV_chitietphieunhap.BackgroundColor = SystemColors.ButtonFace;
             dGV_chitietphieunhap.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dGV_chitietphieunhap.Columns.AddRange(new DataGridViewColumn[] { maPhieuNhap_tb_info, soLuong_tb_add, tenNL_tb_info, donGia_tb_info, tongTien_tb_info });

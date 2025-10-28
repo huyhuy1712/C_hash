@@ -361,6 +361,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "ImportForm_Add";
+            SizeGripStyle = SizeGripStyle.Hide;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ImportForm_Add";
             Load += ImportForm_Add_Load;

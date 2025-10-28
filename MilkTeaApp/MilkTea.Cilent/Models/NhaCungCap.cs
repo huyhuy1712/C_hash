@@ -20,5 +20,9 @@ namespace MilkTea.Client.Models
         // Địa chỉ
         public string DiaChi { get; set; } = string.Empty;
 
+        // Trạng thái (1: Active, 0: Inactive)
+
+        public int TrangThai { get; set; }
+
     }
 }
