@@ -22,6 +22,7 @@ namespace MilkTea.Client.Forms.ChildForm_Order
             _sanphamHienTai = sanpham;
             _nguyenLieuService = new NguyenLieuService();
             this.Load += FormLoad;
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         // ================== class lưu trạng thái topping ===================
