@@ -27,6 +27,7 @@ namespace MilkTea.Client.Forms
         private readonly CTKhuyenMaiService _ctKhuyenMaiService;
         private readonly CongThucService _congThucService;
         private readonly CTCongThucService _ctCongThucService;
+        DataTable dtThongKe = new DataTable();
 
         public ReportForm()
         {
@@ -38,8 +39,32 @@ namespace MilkTea.Client.Forms
             _ctKhuyenMaiService = new CTKhuyenMaiService();
             _congThucService = new CongThucService();
             _ctCongThucService = new CTCongThucService();
+            
+            
         }
 
+        private void TaoCauTrucBangThongKe()
+        {
+            dtThongKe.Columns.Add("thoiGian", typeof(string));
+            dtThongKe.Columns.Add("sanPham", typeof(string));
+            dtThongKe.Columns.Add("size1", typeof(string));
+            dtThongKe.Columns.Add("soLuong", typeof(int));
+            dtThongKe.Columns.Add("chiPhi", typeof(string));
+            dtThongKe.Columns.Add("doanhThu", typeof(string));
+            dtThongKe.Columns.Add("loiNhuan", typeof(string));
+
+            // Gán datasource 1 lần duy nhất
+            dataGridView1.AutoGenerateColumns = false;
+            dataGridView1.DataSource = dtThongKe;
+
+            thoiGian.DataPropertyName = "thoiGian";
+            sanPham.DataPropertyName = "sanPham";
+            size1.DataPropertyName = "size1";
+            soLuong.DataPropertyName = "soLuong";
+            chiPhi.DataPropertyName = "chiPhi";
+            doanhThu.DataPropertyName = "doanhThu";
+            loiNhuan.DataPropertyName = "loiNhuan";
+        }
 
         private async void ReportForm_Load(object sender, EventArgs e)
         {
@@ -81,6 +106,9 @@ namespace MilkTea.Client.Forms
 
                 // --- Gắn sự kiện cho combobox loại ---
                 cbbLoai.SelectedIndexChanged += cbbLoai_SelectedIndexChanged;
+
+                //load bảng
+                TaoCauTrucBangThongKe();
             }
             catch (Exception ex)
             {
@@ -213,7 +241,7 @@ namespace MilkTea.Client.Forms
         {
             try
             {
-                dataGridView1.Rows.Clear();
+                dtThongKe.Rows.Clear();
 
                 // Lấy ngày bắt đầu và kết thúc
                 DateTime tuNgay = dateFrom.Value.Date;
@@ -283,31 +311,22 @@ namespace MilkTea.Client.Forms
                     var size = await _sizeService.GetSizeByIdAsync(item.MaSize.Value);
                     string tenSize = size?.TenSize ?? "Không xác định";
 
-                    var km = await _ctKhuyenMaiService.GetCTKhuyenMaiByIdAsync(item.MaKM.Value);
-                    string tenKM = km?.TenCTKhuyenMai ?? "Không có";
-
                     DateTime date = new DateTime(item.Nam, item.Thang, item.Ngay);
                     string thoiGian = date.ToString("dd/MM/yyyy");
 
-                    var congThuc = await _congThucService.GetAllCongThucAsync();
-                    var congThucTrung = congThuc.FirstOrDefault(ct => ct.MaSP == item.MaSP.Value);
-                    var maCT = congThucTrung?.MaCT ?? -1;
-                    var ctCongThuc = await _ctCongThucService.GetChiTietCongThucTheoIdAsync(maCT);
-                    foreach (var ct in ctCongThuc)
-                    {
-                        
-                    }
 
-                    dataGridView1.Rows.Add(
-                        thoiGian,
-                        tenSP,
-                        tenSize,
-                        item.SLBan,
-                        tenKM,
-                        (10000).ToString("N0") + " ₫",
-                        item.TongDoanhThu.ToString("N0") + " ₫"
-                        
-                    );
+                    DataRow row = dtThongKe.NewRow();
+
+                    row["thoiGian"] = thoiGian;
+                    row["sanPham"] = tenSP;
+                    row["size1"] = tenSize;
+                    row["soLuong"] = item.SLBan;
+                    row["chiPhi"] = (10000).ToString("N0") + " ₫";
+                    row["doanhThu"] = item.TongDoanhThu.ToString("N0") + " ₫";
+                    row["loiNhuan"] = (10000).ToString("N0") + " ₫";
+
+                    dtThongKe.Rows.Add(row);
+
                 }
             }
             catch (Exception ex)
