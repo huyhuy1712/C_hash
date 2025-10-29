@@ -45,16 +45,16 @@ namespace MilkTea.Client.Forms.ChildForm_Account
                     break;
 
                 case "xoa":
-                    _presenter.DeleteQuyen(id);
+                    _presenter.DeleteQuyen(id, tenQuyen);
                     break;
             }
             await _presenter.LoadDataAsync();
         }
 
-        private void btnThemQuyen_Click(object sender, EventArgs e)
+        private async void btnThemQuyen_Click(object sender, EventArgs e)
         {
-            using (var frm = new AddQuyenForm())
-                frm.ShowDialog();
+            _presenter.AddQuyen();
+            await _presenter.LoadDataAsync();
         }
     }
 }

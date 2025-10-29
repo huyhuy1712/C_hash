@@ -73,8 +73,8 @@ namespace MilkTea.Client.Presenters
 
             foreach (DataGridViewRow row in _form.Grid.Rows)
             {
-                bool value = Convert.ToBoolean(row.Cells["chkChucNang"].Value);
-                if (value)
+                int value = Convert.ToInt32(row.Cells["chkChucNang"].Value);
+                if (value == 1)
                 {
                     int id = Convert.ToInt32(row.Cells["id"].Value);
                     list.Add(id);
@@ -84,28 +84,43 @@ namespace MilkTea.Client.Presenters
             return list;
         }
 
-        public async Task SaveAsync()
-        {
-        }
-
-        public async Task<bool> UpdateRoleAsync(Quyen q, List<int> selected)
+        public async Task<bool> UpdateRoleAsync(int id, string tenQuyen)
         {
             // Validate tên quyền
-            if (string.IsNullOrEmpty(q.TenQuyen))
+            if (string.IsNullOrEmpty(tenQuyen))
             {
-                _form.error.SetError(_form.Txtb, "Tên quyền không được để trống.");
+                _form.Error.SetError(_form.Txtb, "Tên quyền không được để trống.");
+                _form.Txtb.Focus();
                 return false;
             }
 
-            // Xoá tất cả quyền chức năng hiện tại của quyền
+            Quyen q = new()
+            {
+                MaQuyen = id,
+                TenQuyen = tenQuyen,
+                Mota = "123",
+                TrangThai = 1
+            };
+
             try
             {
-                await _quyenChucNangService.DeleteAllQuyenChucNangAsync(q.MaQuyen);
+                // Kiểm tra có quyền chức năng để xóa không
+                var existingChucNangs = await _quyenChucNangService.GetQuyenChucNangById(q.MaQuyen);
+
+                if (existingChucNangs != null)
+                {
+                    // Xoá tất cả quyền chức năng hiện tại của quyền
+                    await _quyenChucNangService.DeleteAllQuyenChucNangAsync(q.MaQuyen);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi xoá quyền chức năng: " + ex.Message);
+                MessageBox.Show("Lỗi khi xoá quyền chức năng: " + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
             }
+
+            // Lấy các chức năng được chọn
+            List<int> selected = GetSelectedChucNangs();
 
             // Thêm lại các quyền chức năng được chọn
             foreach (var c in selected)
@@ -120,13 +135,23 @@ namespace MilkTea.Client.Presenters
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Lỗi khi thêm quyền chức năng: " + ex.Message);
+                    MessageBox.Show("Lỗi khi thêm quyền chức năng: " + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return false;
                 }
             }
 
 
             // Cập nhật thông tin quyền
-            await _quyenService.UpdateQuyenAsync(q);
+            try
+            {
+                await _quyenService.UpdateQuyenAsync(q);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi sửa quyền! " + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            MessageBox.Show("Đã sửa quyền thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             return true;
         }
     }

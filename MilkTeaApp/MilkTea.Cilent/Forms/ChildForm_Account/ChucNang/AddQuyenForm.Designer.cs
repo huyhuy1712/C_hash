@@ -204,6 +204,7 @@
             btnXacNhan.TabIndex = 1;
             btnXacNhan.Text = "Xác Nhận";
             btnXacNhan.UseVisualStyleBackColor = false;
+            btnXacNhan.Click += btnXacNhan_Click;
             // 
             // panel2
             // 
@@ -248,16 +249,15 @@
             txtbTenQuyen.BackColor = Color.White;
             txtbTenQuyen.BorderColor = Color.Gray;
             txtbTenQuyen.BorderRadius = 20;
-            txtbTenQuyen.Dock = DockStyle.Fill;
+            txtbTenQuyen.Dock = DockStyle.Left;
             txtbTenQuyen.FocusBorderColor = Color.DeepSkyBlue;
             txtbTenQuyen.Location = new Point(0, 0);
             txtbTenQuyen.Name = "txtbTenQuyen";
             txtbTenQuyen.Padding = new Padding(10, 5, 40, 5);
             txtbTenQuyen.Placeholder = "";
-            txtbTenQuyen.Size = new Size(760, 40);
+            txtbTenQuyen.Size = new Size(723, 40);
             txtbTenQuyen.TabIndex = 1;
             txtbTenQuyen.TextValue = "";
-            txtbTenQuyen.KeyDown += txtbTenQuyen_KeyDown;
             // 
             // label
             // 
