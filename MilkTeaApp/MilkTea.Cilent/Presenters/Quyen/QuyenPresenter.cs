@@ -1,6 +1,8 @@
 ﻿using MilkTea.Client.Forms.ChildForm_Account;
 using MilkTea.Client.Interfaces;
+using MilkTea.Client.Models;
 using MilkTea.Client.Services;
+using System.Security.Cryptography;
 
 namespace MilkTea.Client.Presenters
 {
@@ -53,41 +55,41 @@ namespace MilkTea.Client.Presenters
                 MessageBox.Show("Lỗi khi load dữ liệu: " + ex.Message);
             }
         }
+
+        public void AddQuyen()
+        {
+            using (var frm = new AddQuyenForm())
+                frm.ShowDialog();
+        }
+
         public void EditQuyen(string id, string tenQuyen)
         {
-            if (string.IsNullOrEmpty(id)) return;
-
             using (var frm = new EditQuyenForm(id, tenQuyen))
-            {
-                if (frm.ShowDialog() == DialogResult.OK)
-                {
-                    // Sau khi form con OK → load lại danh sách
-                    _ = LoadDataAsync();
-                }
-            }
-        }
-        public void ViewQuyen(string id)
-        {
-            if (string.IsNullOrEmpty(id)) return;
-
-            using (var frm = new DanhSachQuyenForm())
-            {
                 frm.ShowDialog();
-            }
         }
 
-        public void DeleteQuyen(string id)
+        public async void DeleteQuyen(string id, string tenQuyen)
         {
-            if (string.IsNullOrEmpty(id)) return;
-
             if (MessageBox.Show("Bạn có thật sự muốn xóa?", "Xác nhận", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
                 == DialogResult.OK)
             {
-                // TODO: Gọi API xóa
-                // await _service.DeleteAccountAsync(int.Parse(id));
+                Quyen q = new();
+                q.MaQuyen = Convert.ToInt32(id);
+                q.TenQuyen = tenQuyen;
+                q.TrangThai = 0;
+                q.Mota = "123";
 
-                MessageBox.Show("Đã xóa tài khoản thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                _ = LoadDataAsync();
+                try
+                {
+                    await _quyenService.UpdateQuyenAsync(q);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi xóa quyền! " + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                MessageBox.Show("Đã xóa quyền thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }

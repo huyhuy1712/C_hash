@@ -1,4 +1,6 @@
 ﻿using MilkTea.Client.Models;
+using System;
+using System.Diagnostics;
 using System.Net.Http.Json;
 
 namespace MilkTea.Client.Services
@@ -16,6 +18,18 @@ namespace MilkTea.Client.Services
             var response = await _http.PostAsJsonAsync($"/api/quyenchucnang", q);
             if (!response.IsSuccessStatusCode)
                 throw new Exception("Thêm quyền chức năng không thành công" + response.ToString);
+        }
+
+        public async Task<List<Quyen_ChucNang>?> GetQuyenChucNangById(int id)
+        {
+            try
+            {
+                return await _http.GetFromJsonAsync<List<Quyen_ChucNang>>($"/api/quyenchucnang/{id}");
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"[GetQuyenChucNangById] Error: {ex}");
+            }
         }
     }
 }

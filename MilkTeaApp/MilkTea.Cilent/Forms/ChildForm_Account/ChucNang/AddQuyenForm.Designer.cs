@@ -28,11 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            components = new System.ComponentModel.Container();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             panel1 = new Panel();
             panel4 = new Panel();
             Table = new Panel();
             dataGridView1 = new DataGridView();
+            ID = new DataGridViewTextBoxColumn();
+            chucNang = new DataGridViewTextBoxColumn();
+            chkChucNang = new DataGridViewCheckBoxColumn();
             TimKiem = new Panel();
             textBox1 = new TextBox();
             Button = new Panel();
@@ -46,9 +50,7 @@
             label2 = new Label();
             Title = new Panel();
             label1 = new Label();
-            ID = new DataGridViewTextBoxColumn();
-            chucNang = new DataGridViewTextBoxColumn();
-            chkChucNang = new DataGridViewCheckBoxColumn();
+            errorProvider1 = new ErrorProvider(components);
             panel1.SuspendLayout();
             panel4.SuspendLayout();
             Table.SuspendLayout();
@@ -59,6 +61,7 @@
             TextBox.SuspendLayout();
             label.SuspendLayout();
             Title.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -110,6 +113,38 @@
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(760, 451);
             dataGridView1.TabIndex = 0;
+            // 
+            // ID
+            // 
+            ID.HeaderText = "ID";
+            ID.MinimumWidth = 6;
+            ID.Name = "ID";
+            ID.ReadOnly = true;
+            ID.Width = 75;
+            // 
+            // chucNang
+            // 
+            chucNang.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            chucNang.HeaderText = "Chức Năng";
+            chucNang.MinimumWidth = 6;
+            chucNang.Name = "chucNang";
+            chucNang.ReadOnly = true;
+            chucNang.Resizable = DataGridViewTriState.False;
+            // 
+            // chkChucNang
+            // 
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.NullValue = false;
+            dataGridViewCellStyle1.Padding = new Padding(3);
+            chkChucNang.DefaultCellStyle = dataGridViewCellStyle1;
+            chkChucNang.FalseValue = "0";
+            chkChucNang.HeaderText = "";
+            chkChucNang.MinimumWidth = 6;
+            chkChucNang.Name = "chkChucNang";
+            chkChucNang.Resizable = DataGridViewTriState.True;
+            chkChucNang.SortMode = DataGridViewColumnSortMode.Automatic;
+            chkChucNang.TrueValue = "1";
+            chkChucNang.Width = 125;
             // 
             // TimKiem
             // 
@@ -169,6 +204,7 @@
             btnXacNhan.TabIndex = 1;
             btnXacNhan.Text = "Xác Nhận";
             btnXacNhan.UseVisualStyleBackColor = false;
+            btnXacNhan.Click += btnXacNhan_Click;
             // 
             // panel2
             // 
@@ -213,16 +249,15 @@
             txtbTenQuyen.BackColor = Color.White;
             txtbTenQuyen.BorderColor = Color.Gray;
             txtbTenQuyen.BorderRadius = 20;
-            txtbTenQuyen.Dock = DockStyle.Fill;
+            txtbTenQuyen.Dock = DockStyle.Left;
             txtbTenQuyen.FocusBorderColor = Color.DeepSkyBlue;
             txtbTenQuyen.Location = new Point(0, 0);
             txtbTenQuyen.Name = "txtbTenQuyen";
             txtbTenQuyen.Padding = new Padding(10, 5, 40, 5);
             txtbTenQuyen.Placeholder = "";
-            txtbTenQuyen.Size = new Size(760, 40);
+            txtbTenQuyen.Size = new Size(723, 40);
             txtbTenQuyen.TabIndex = 1;
             txtbTenQuyen.TextValue = "";
-            txtbTenQuyen.KeyDown += txtbTenQuyen_KeyDown;
             // 
             // label
             // 
@@ -265,37 +300,9 @@
             label1.Text = "Thêm Quyền";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // ID
+            // errorProvider1
             // 
-            ID.HeaderText = "ID";
-            ID.MinimumWidth = 6;
-            ID.Name = "ID";
-            ID.ReadOnly = true;
-            ID.Width = 75;
-            // 
-            // chucNang
-            // 
-            chucNang.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            chucNang.HeaderText = "Chức Năng";
-            chucNang.MinimumWidth = 6;
-            chucNang.Name = "chucNang";
-            chucNang.ReadOnly = true;
-            chucNang.Resizable = DataGridViewTriState.False;
-            // 
-            // chkChucNang
-            // 
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.NullValue = false;
-            dataGridViewCellStyle2.Padding = new Padding(3);
-            chkChucNang.DefaultCellStyle = dataGridViewCellStyle2;
-            chkChucNang.FalseValue = "0";
-            chkChucNang.HeaderText = "";
-            chkChucNang.MinimumWidth = 6;
-            chkChucNang.Name = "chkChucNang";
-            chkChucNang.Resizable = DataGridViewTriState.True;
-            chkChucNang.SortMode = DataGridViewColumnSortMode.Automatic;
-            chkChucNang.TrueValue = "1";
-            chkChucNang.Width = 125;
+            errorProvider1.ContainerControl = this;
             // 
             // AddQuyenForm
             // 
@@ -317,6 +324,7 @@
             TextBox.ResumeLayout(false);
             label.ResumeLayout(false);
             Title.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
         }
 
@@ -343,5 +351,6 @@
         private DataGridViewTextBoxColumn chucNang;
         private DataGridViewCheckBoxColumn chon;
         private DataGridViewCheckBoxColumn chkChucNang;
+        private ErrorProvider errorProvider1;
     }
 }

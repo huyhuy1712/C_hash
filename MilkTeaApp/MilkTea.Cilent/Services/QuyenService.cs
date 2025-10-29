@@ -1,6 +1,7 @@
 ﻿using MilkTea.Client.Models;
 using System.Diagnostics;
 using System.Net.Http.Json;
+using System.Text.Json;
 
 namespace MilkTea.Client.Services
 {
@@ -39,6 +40,17 @@ namespace MilkTea.Client.Services
 
             if (!response.IsSuccessStatusCode)
                 throw new Exception("Cập nhật quyền không thành công");
+        }
+
+        public async Task<int> AddQuyenAsync(Quyen q)
+        {
+            var response = await _http.PostAsJsonAsync("/api/quyen", q);
+            if (response.IsSuccessStatusCode)
+            {
+                var data = await response.Content.ReadFromJsonAsync<JsonElement>();
+                return data.GetProperty("newId").GetInt32();
+            }
+            throw new Exception("Không thể thêm quyền!" + response);
         }
     }
 }
