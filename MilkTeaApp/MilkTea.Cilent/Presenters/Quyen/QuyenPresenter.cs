@@ -2,7 +2,7 @@
 using MilkTea.Client.Interfaces;
 using MilkTea.Client.Models;
 using MilkTea.Client.Services;
-using System.Security.Cryptography;
+using System.Windows.Forms;
 
 namespace MilkTea.Client.Presenters
 {
@@ -10,15 +10,35 @@ namespace MilkTea.Client.Presenters
     {
         private readonly QuyenService _quyenService = new();
         private readonly IBaseForm _form;
+        private List<Quyen> listQuyen;
 
         public QuyenPresenter(IBaseForm form)
         {
             _form = form;
         }
 
+        public int load(List<Quyen> data)
+        {
+            _form.Grid.Rows.Clear();
+            int count = 0;
+
+            foreach (var q in data)
+            {
+                if (q.TrangThai == 1)
+                {
+                    int rowIndex = _form.Grid.Rows.Add();
+                    count++;
+
+                    _form.Grid.Rows[rowIndex].Cells["ID"].Value = q.MaQuyen;
+                    _form.Grid.Rows[rowIndex].Cells["tenQuyen"].Value = q.TenQuyen;
+                }
+            }
+            return count;
+        }
+
+
         public async Task LoadDataAsync()
         {
-            var dataGridView1 = _form.Grid;
             var lblStatus = _form.LblStatus;
 
             lblStatus.ForeColor = Color.Gray;
@@ -26,26 +46,17 @@ namespace MilkTea.Client.Presenters
 
             try
             {
-                var listQuyen = await _quyenService.GetQuyensAsync();
+                listQuyen = await _quyenService.GetQuyensAsync();
 
                 if (listQuyen != null)
                 {
-                    dataGridView1.Rows.Clear();
-
-                    foreach (var q in listQuyen)
-                    {
-                        int rowIndex = dataGridView1.Rows.Add();
-
-                        dataGridView1.Rows[rowIndex].Cells["ID"].Value = q.MaQuyen;
-                        dataGridView1.Rows[rowIndex].Cells["tenQuyen"].Value = q.TenQuyen;
-                    }
+                    int count = load(listQuyen);
                     lblStatus.ForeColor = Color.ForestGreen;
-                    lblStatus.Text = $"✅ Đã tải {listQuyen.Count} Quyền.";
+                    lblStatus.Text = $"✅ Đã tải {count} Quyền.";
                 }
-
                 else
                 {
-                    dataGridView1.Rows.Clear();
+                    _form.Grid.Rows.Clear();
                     lblStatus.ForeColor = Color.DarkOrange;
                     lblStatus.Text = "⚠️ Không có dữ liệu quyền để hiển thị.";
                 }
@@ -68,7 +79,7 @@ namespace MilkTea.Client.Presenters
                 frm.ShowDialog();
         }
 
-        public async void DeleteQuyen(string id, string tenQuyen)
+        public async Task DeleteQuyen(string id, string tenQuyen)
         {
             if (MessageBox.Show("Bạn có thật sự muốn xóa?", "Xác nhận", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
                 == DialogResult.OK)
@@ -91,6 +102,20 @@ namespace MilkTea.Client.Presenters
 
                 MessageBox.Show("Đã xóa quyền thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        public void SearchQuyenTheoTen(string keyword)
+        {
+            List<Quyen> filtered;
+
+            if (string.IsNullOrWhiteSpace(keyword))
+                filtered = listQuyen; // danh sách gốc
+            else
+                filtered = listQuyen
+                    .Where(q => q.TenQuyen.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+            load(filtered);
         }
     }
 }

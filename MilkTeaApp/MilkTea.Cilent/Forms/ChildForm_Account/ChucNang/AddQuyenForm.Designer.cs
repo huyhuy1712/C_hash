@@ -38,7 +38,7 @@
             chucNang = new DataGridViewTextBoxColumn();
             chkChucNang = new DataGridViewCheckBoxColumn();
             TimKiem = new Panel();
-            textBox1 = new TextBox();
+            txtbSearch = new TextBox();
             Button = new Panel();
             lblStatus = new Label();
             btnXacNhan = new MilkTea.Client.Controls.RoundedButton();
@@ -148,23 +148,24 @@
             // 
             // TimKiem
             // 
-            TimKiem.Controls.Add(textBox1);
+            TimKiem.Controls.Add(txtbSearch);
             TimKiem.Dock = DockStyle.Bottom;
             TimKiem.Location = new Point(20, 561);
             TimKiem.Name = "TimKiem";
             TimKiem.Size = new Size(760, 40);
             TimKiem.TabIndex = 2;
             // 
-            // textBox1
+            // txtbSearch
             // 
-            textBox1.BorderStyle = BorderStyle.FixedSingle;
-            textBox1.Dock = DockStyle.Fill;
-            textBox1.Font = new Font("Segoe UI", 15F);
-            textBox1.Location = new Point(0, 0);
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "Tìm Kiếm ...";
-            textBox1.Size = new Size(760, 41);
-            textBox1.TabIndex = 0;
+            txtbSearch.BorderStyle = BorderStyle.FixedSingle;
+            txtbSearch.Dock = DockStyle.Fill;
+            txtbSearch.Font = new Font("Segoe UI", 15F);
+            txtbSearch.Location = new Point(0, 0);
+            txtbSearch.Name = "txtbSearch";
+            txtbSearch.PlaceholderText = "Từ khóa tìm kiếm...";
+            txtbSearch.Size = new Size(760, 41);
+            txtbSearch.TabIndex = 0;
+            txtbSearch.KeyUp += txtbSearch_KeyUp;
             // 
             // Button
             // 
@@ -352,5 +353,6 @@
         private DataGridViewCheckBoxColumn chon;
         private DataGridViewCheckBoxColumn chkChucNang;
         private ErrorProvider errorProvider1;
+        private TextBox txtbSearch;
     }
 }

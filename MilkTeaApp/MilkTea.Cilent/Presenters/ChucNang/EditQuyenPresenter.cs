@@ -1,7 +1,8 @@
 ﻿using MilkTea.Client.Interfaces;
+using MilkTea.Client.Models;
 using MilkTea.Client.Services;
 using System.Diagnostics;
-using MilkTea.Client.Models;
+using System.Windows.Forms;
 
 namespace MilkTea.Client.Presenters
 {
@@ -13,10 +14,35 @@ namespace MilkTea.Client.Presenters
         private readonly QuyenChucNangService _quyenChucNangService = new();
         private readonly QuyenService _quyenService = new();
 
+        private List<ChucNang> listChucNang;
+        private List<ChucNang> listCurrentChucNang;
+
         public EditQuyenPresenter(IEditQuyen form)
         {
             _form = form;
         }
+
+        private int load(List<ChucNang> data, List<ChucNang> data2)
+        {
+            int count = 0;
+            _form.Grid.Rows.Clear();
+
+            foreach (var cn in data)
+            {
+                int rowIndex = _form.Grid.Rows.Add();
+                count++;
+
+                _form.Grid.Rows[rowIndex].Cells["id"].Value = cn.MaChucNang;
+                _form.Grid.Rows[rowIndex].Cells["tenChucNang"].Value = cn.TenChucNang;
+
+                if (data2.Any(x => x.MaChucNang == cn.MaChucNang))
+                {
+                    _form.Grid.Rows[rowIndex].Cells["chkChucNang"].Value = 1;
+                }
+            }
+            return count;
+        }
+
         public async Task LoadDataAsync(string id, string tenQuyen)
         {
             var dataGridView1 = _form.Grid;
@@ -27,8 +53,8 @@ namespace MilkTea.Client.Presenters
 
             try
             {
-                var listChucNang = await _chucNangService.GetChucNangsAsync();
-                var listCurrentChucNang = await _chucNangService.GetChucNangsByMaQuyenAsync(Convert.ToInt32(id));
+                listChucNang = await _chucNangService.GetChucNangsAsync();
+                listCurrentChucNang = await _chucNangService.GetChucNangsByMaQuyenAsync(Convert.ToInt32(id));
 
                 dataGridView1.Rows.Clear();
                 _form.Txtb.Text = tenQuyen;
@@ -36,20 +62,10 @@ namespace MilkTea.Client.Presenters
                 //Load all chuc nang
                 if (listChucNang != null && listChucNang.Any())
                 {
-                    foreach (var cn in listChucNang)
-                    {
-                        int rowIndex = dataGridView1.Rows.Add();
+                    int Count = load(listChucNang, listCurrentChucNang);
 
-                        dataGridView1.Rows[rowIndex].Cells["id"].Value = cn.MaChucNang;
-                        dataGridView1.Rows[rowIndex].Cells["tenChucNang"].Value = cn.TenChucNang;
-
-                        if (listCurrentChucNang.Any(x => x.MaChucNang == cn.MaChucNang))
-                        {
-                            dataGridView1.Rows[rowIndex].Cells["chkChucNang"].Value = 1;
-                        }
-                    }
                     lbl.ForeColor = Color.ForestGreen;
-                    lbl.Text = $"✅ Đã tải {listChucNang.Count} chức năng.";
+                    lbl.Text = $"✅ Đã tải {Count} chức năng.";
                 }
                 else
                 {
@@ -84,6 +100,19 @@ namespace MilkTea.Client.Presenters
             return list;
         }
 
+        public void SearchChucNangTheoTen(string keyword)
+        {
+            List<ChucNang> filtered;
+
+            if (string.IsNullOrWhiteSpace(keyword))
+                filtered = listChucNang; // danh sách gốc
+            else
+                filtered = listChucNang
+                    .Where(q => q.TenChucNang.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+            load(filtered, listCurrentChucNang);
+        }
         public async Task<bool> UpdateRoleAsync(int id, string tenQuyen)
         {
             // Validate tên quyền

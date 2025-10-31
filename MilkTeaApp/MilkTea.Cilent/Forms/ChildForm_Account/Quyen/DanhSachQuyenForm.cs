@@ -1,6 +1,7 @@
 ﻿using MilkTea.Client.Interfaces;
 using MilkTea.Client.Models;
 using MilkTea.Client.Presenters;
+using System.Diagnostics;
 
 namespace MilkTea.Client.Forms.ChildForm_Account
 {
@@ -45,7 +46,7 @@ namespace MilkTea.Client.Forms.ChildForm_Account
                     break;
 
                 case "xoa":
-                    _presenter.DeleteQuyen(id, tenQuyen);
+                    await _presenter.DeleteQuyen(id, tenQuyen);
                     break;
             }
             await _presenter.LoadDataAsync();
@@ -55,6 +56,11 @@ namespace MilkTea.Client.Forms.ChildForm_Account
         {
             _presenter.AddQuyen();
             await _presenter.LoadDataAsync();
+        }
+
+        private void txtbSearchQuyen_KeyUp(object sender, KeyEventArgs e)
+        {
+            _presenter.SearchQuyenTheoTen(txtbSearchQuyen.Text);
         }
     }
 }
