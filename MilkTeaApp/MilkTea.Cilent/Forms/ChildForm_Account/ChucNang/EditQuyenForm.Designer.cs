@@ -185,9 +185,10 @@
             txtbSearch.Font = new Font("Segoe UI", 15F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtbSearch.Location = new Point(0, 0);
             txtbSearch.Name = "txtbSearch";
-            txtbSearch.PlaceholderText = "Tìm Kiếm ...";
+            txtbSearch.PlaceholderText = "Từ khóa tìm kiếm...";
             txtbSearch.Size = new Size(760, 41);
             txtbSearch.TabIndex = 0;
+            txtbSearch.KeyUp += txtbSearch_KeyUp;
             // 
             // panel9
             // 

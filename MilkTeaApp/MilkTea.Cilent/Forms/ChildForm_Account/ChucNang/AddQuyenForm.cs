@@ -34,9 +34,14 @@ namespace MilkTea.Client.Forms.ChildForm_Account
         private async void btnXacNhan_Click(object sender, EventArgs e)
         {
             if (await _addQuyenPresenter.SaveAsync(txtbTenQuyen.Text))
-            { 
+            {
                 this.Close();
             }
+        }
+
+        private void txtbSearch_KeyUp(object sender, KeyEventArgs e)
+        {
+            _addQuyenPresenter.SearchChucNangTheoTen(txtbSearch.Text.Trim());
         }
     }
 }

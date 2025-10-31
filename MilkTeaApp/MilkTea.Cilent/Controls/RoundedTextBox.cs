@@ -60,6 +60,8 @@ namespace MilkTea.Client.Controls
             {
                 this.OnKeyDown(e);
             };
+            // Forward sự kiện KeyUp của textbox ra ngoài control
+            textBox.KeyUp += (s, e) => OnKeyUp(e);
 
             // --- Icon ---
             icon = new PictureBox();
