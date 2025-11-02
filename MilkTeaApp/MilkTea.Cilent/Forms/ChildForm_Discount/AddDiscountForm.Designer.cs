@@ -1,5 +1,4 @@
-﻿
-using MilkTea.Client.Controls;
+﻿using MilkTea.Client.Controls;
 
 namespace MilkTea.Client.Forms.ChildForm_Discount
 {
@@ -40,48 +39,14 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             btnThoatDiscount = new RoundedButton();
             btnThemDiscount = new RoundedButton();
             panel8 = new Panel();
-            flowLayoutPanel1 = new FlowLayoutPanel();
-            panel13 = new Panel();
-            panel15 = new Panel();
-            checkBox1 = new CheckBox();
-            panel26 = new Panel();
-            label3 = new Label();
-            panel25 = new Panel();
-            pictureBox1 = new PictureBox();
-            panel12 = new Panel();
-            panel27 = new Panel();
-            checkBox2 = new CheckBox();
-            panel28 = new Panel();
-            label4 = new Label();
-            panel29 = new Panel();
-            pictureBox2 = new PictureBox();
-            panel30 = new Panel();
-            panel31 = new Panel();
-            checkBox3 = new CheckBox();
-            panel32 = new Panel();
-            label10 = new Label();
-            panel33 = new Panel();
-            pictureBox3 = new PictureBox();
-            panel34 = new Panel();
-            panel35 = new Panel();
-            checkBox4 = new CheckBox();
-            panel36 = new Panel();
-            label11 = new Label();
-            panel37 = new Panel();
-            pictureBox4 = new PictureBox();
-            panel38 = new Panel();
-            panel39 = new Panel();
-            checkBox5 = new CheckBox();
-            panel40 = new Panel();
-            label12 = new Label();
-            panel41 = new Panel();
-            pictureBox5 = new PictureBox();
+            dGV_sp_KM_ADD = new DataGridView();
+            chon_add = new DataGridViewCheckBoxColumn();
+            maSP_add = new DataGridViewTextBoxColumn();
+            tenSanPham_add = new DataGridViewTextBoxColumn();
+            loai_add = new DataGridViewTextBoxColumn();
             panel4 = new Panel();
             panel14 = new Panel();
             panel23 = new Panel();
-            panel45 = new Panel();
-            cbo_loai_KM = new RoundedComboBox();
-            label13 = new Label();
             panel46 = new Panel();
             roundedTextBox1 = new RoundedTextBox();
             panel47 = new Panel();
@@ -115,36 +80,10 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             panel5.SuspendLayout();
             panel9.SuspendLayout();
             panel8.SuspendLayout();
-            flowLayoutPanel1.SuspendLayout();
-            panel13.SuspendLayout();
-            panel15.SuspendLayout();
-            panel26.SuspendLayout();
-            panel25.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            panel12.SuspendLayout();
-            panel27.SuspendLayout();
-            panel28.SuspendLayout();
-            panel29.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            panel30.SuspendLayout();
-            panel31.SuspendLayout();
-            panel32.SuspendLayout();
-            panel33.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            panel34.SuspendLayout();
-            panel35.SuspendLayout();
-            panel36.SuspendLayout();
-            panel37.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
-            panel38.SuspendLayout();
-            panel39.SuspendLayout();
-            panel40.SuspendLayout();
-            panel41.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dGV_sp_KM_ADD).BeginInit();
             panel4.SuspendLayout();
             panel14.SuspendLayout();
             panel23.SuspendLayout();
-            panel45.SuspendLayout();
             panel46.SuspendLayout();
             panel47.SuspendLayout();
             panel7.SuspendLayout();
@@ -250,6 +189,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             btnThoatDiscount.TabIndex = 3;
             btnThoatDiscount.Text = "Hủy";
             btnThoatDiscount.UseVisualStyleBackColor = false;
+            btnThoatDiscount.Click += btnThoatDiscount_Click_1;
             // 
             // btnThemDiscount
             // 
@@ -274,7 +214,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             // 
             // panel8
             // 
-            panel8.Controls.Add(flowLayoutPanel1);
+            panel8.Controls.Add(dGV_sp_KM_ADD);
             panel8.Controls.Add(panel4);
             panel8.Dock = DockStyle.Top;
             panel8.Location = new Point(0, 282);
@@ -282,371 +222,46 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             panel8.Size = new Size(1020, 354);
             panel8.TabIndex = 1;
             // 
-            // flowLayoutPanel1
-            // 
-            flowLayoutPanel1.AutoScroll = true;
-            flowLayoutPanel1.BackColor = SystemColors.ActiveBorder;
-            flowLayoutPanel1.Controls.Add(panel13);
-            flowLayoutPanel1.Controls.Add(panel12);
-            flowLayoutPanel1.Controls.Add(panel30);
-            flowLayoutPanel1.Controls.Add(panel34);
-            flowLayoutPanel1.Controls.Add(panel38);
-            flowLayoutPanel1.Dock = DockStyle.Fill;
-            flowLayoutPanel1.Location = new Point(0, 63);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Padding = new Padding(20);
-            flowLayoutPanel1.Size = new Size(1020, 291);
-            flowLayoutPanel1.TabIndex = 1;
-            // 
-            // panel13
-            // 
-            panel13.BackColor = Color.DodgerBlue;
-            panel13.Controls.Add(panel15);
-            panel13.Controls.Add(panel26);
-            panel13.Controls.Add(panel25);
-            panel13.Cursor = Cursors.SizeAll;
-            panel13.Location = new Point(23, 23);
-            panel13.Name = "panel13";
-            panel13.Size = new Size(275, 100);
-            panel13.TabIndex = 3;
-            // 
-            // panel15
-            // 
-            panel15.Controls.Add(checkBox1);
-            panel15.Dock = DockStyle.Fill;
-            panel15.Location = new Point(247, 0);
-            panel15.Name = "panel15";
-            panel15.Size = new Size(28, 100);
-            panel15.TabIndex = 2;
-            // 
-            // checkBox1
-            // 
-            checkBox1.Dock = DockStyle.Top;
-            checkBox1.Location = new Point(0, 0);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(28, 100);
-            checkBox1.TabIndex = 2;
-            checkBox1.UseVisualStyleBackColor = true;
-            // 
-            // panel26
-            // 
-            panel26.Controls.Add(label3);
-            panel26.Dock = DockStyle.Left;
-            panel26.Location = new Point(99, 0);
-            panel26.Name = "panel26";
-            panel26.Size = new Size(148, 100);
-            panel26.TabIndex = 1;
-            // 
-            // label3
-            // 
-            label3.Dock = DockStyle.Fill;
-            label3.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(0, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(148, 100);
-            label3.TabIndex = 0;
-            label3.Text = "Cafe sữa";
-            label3.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // panel25
-            // 
-            panel25.Controls.Add(pictureBox1);
-            panel25.Dock = DockStyle.Left;
-            panel25.Location = new Point(0, 0);
-            panel25.Name = "panel25";
-            panel25.Size = new Size(99, 100);
-            panel25.TabIndex = 0;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Image = Properties.Resources.tra_sua_truyen_thong;
-            pictureBox1.Location = new Point(0, 0);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(99, 100);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 2;
-            pictureBox1.TabStop = false;
-            // 
-            // panel12
-            // 
-            panel12.BackColor = Color.DarkTurquoise;
-            panel12.Controls.Add(panel27);
-            panel12.Controls.Add(panel28);
-            panel12.Controls.Add(panel29);
-            panel12.Cursor = Cursors.SizeAll;
-            panel12.Location = new Point(304, 23);
-            panel12.Name = "panel12";
-            panel12.Size = new Size(275, 100);
-            panel12.TabIndex = 4;
-            // 
-            // panel27
-            // 
-            panel27.Controls.Add(checkBox2);
-            panel27.Dock = DockStyle.Fill;
-            panel27.Location = new Point(247, 0);
-            panel27.Name = "panel27";
-            panel27.Size = new Size(28, 100);
-            panel27.TabIndex = 2;
-            // 
-            // checkBox2
-            // 
-            checkBox2.Dock = DockStyle.Top;
-            checkBox2.Location = new Point(0, 0);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(28, 100);
-            checkBox2.TabIndex = 2;
-            checkBox2.UseVisualStyleBackColor = true;
-            // 
-            // panel28
-            // 
-            panel28.Controls.Add(label4);
-            panel28.Dock = DockStyle.Left;
-            panel28.Location = new Point(99, 0);
-            panel28.Name = "panel28";
-            panel28.Size = new Size(148, 100);
-            panel28.TabIndex = 1;
-            // 
-            // label4
-            // 
-            label4.Dock = DockStyle.Fill;
-            label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(0, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(148, 100);
-            label4.TabIndex = 0;
-            label4.Text = "Cafe sữa";
-            label4.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // panel29
-            // 
-            panel29.Controls.Add(pictureBox2);
-            panel29.Dock = DockStyle.Left;
-            panel29.Location = new Point(0, 0);
-            panel29.Name = "panel29";
-            panel29.Size = new Size(99, 100);
-            panel29.TabIndex = 0;
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.Dock = DockStyle.Fill;
-            pictureBox2.Image = Properties.Resources.tra_sua_truyen_thong;
-            pictureBox2.Location = new Point(0, 0);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(99, 100);
-            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox2.TabIndex = 2;
-            pictureBox2.TabStop = false;
-            // 
-            // panel30
-            // 
-            panel30.BackColor = Color.DarkTurquoise;
-            panel30.Controls.Add(panel31);
-            panel30.Controls.Add(panel32);
-            panel30.Controls.Add(panel33);
-            panel30.Cursor = Cursors.SizeAll;
-            panel30.Location = new Point(585, 23);
-            panel30.Name = "panel30";
-            panel30.Size = new Size(275, 100);
-            panel30.TabIndex = 5;
-            // 
-            // panel31
-            // 
-            panel31.Controls.Add(checkBox3);
-            panel31.Dock = DockStyle.Fill;
-            panel31.Location = new Point(247, 0);
-            panel31.Name = "panel31";
-            panel31.Size = new Size(28, 100);
-            panel31.TabIndex = 2;
-            // 
-            // checkBox3
-            // 
-            checkBox3.Dock = DockStyle.Top;
-            checkBox3.Location = new Point(0, 0);
-            checkBox3.Name = "checkBox3";
-            checkBox3.Size = new Size(28, 100);
-            checkBox3.TabIndex = 2;
-            checkBox3.UseVisualStyleBackColor = true;
-            // 
-            // panel32
-            // 
-            panel32.Controls.Add(label10);
-            panel32.Dock = DockStyle.Left;
-            panel32.Location = new Point(99, 0);
-            panel32.Name = "panel32";
-            panel32.Size = new Size(148, 100);
-            panel32.TabIndex = 1;
-            // 
-            // label10
-            // 
-            label10.Dock = DockStyle.Fill;
-            label10.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label10.Location = new Point(0, 0);
-            label10.Name = "label10";
-            label10.Size = new Size(148, 100);
-            label10.TabIndex = 0;
-            label10.Text = "Cafe sữa";
-            label10.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // panel33
-            // 
-            panel33.Controls.Add(pictureBox3);
-            panel33.Dock = DockStyle.Left;
-            panel33.Location = new Point(0, 0);
-            panel33.Name = "panel33";
-            panel33.Size = new Size(99, 100);
-            panel33.TabIndex = 0;
-            // 
-            // pictureBox3
-            // 
-            pictureBox3.Dock = DockStyle.Fill;
-            pictureBox3.Image = Properties.Resources.tra_sua_truyen_thong;
-            pictureBox3.Location = new Point(0, 0);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(99, 100);
-            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox3.TabIndex = 2;
-            pictureBox3.TabStop = false;
-            // 
-            // panel34
-            // 
-            panel34.BackColor = Color.DarkTurquoise;
-            panel34.Controls.Add(panel35);
-            panel34.Controls.Add(panel36);
-            panel34.Controls.Add(panel37);
-            panel34.Cursor = Cursors.SizeAll;
-            panel34.Location = new Point(23, 129);
-            panel34.Name = "panel34";
-            panel34.Size = new Size(275, 100);
-            panel34.TabIndex = 6;
-            // 
-            // panel35
-            // 
-            panel35.Controls.Add(checkBox4);
-            panel35.Dock = DockStyle.Fill;
-            panel35.Location = new Point(247, 0);
-            panel35.Name = "panel35";
-            panel35.Size = new Size(28, 100);
-            panel35.TabIndex = 2;
-            // 
-            // checkBox4
-            // 
-            checkBox4.Dock = DockStyle.Top;
-            checkBox4.Location = new Point(0, 0);
-            checkBox4.Name = "checkBox4";
-            checkBox4.Size = new Size(28, 100);
-            checkBox4.TabIndex = 2;
-            checkBox4.UseVisualStyleBackColor = true;
-            // 
-            // panel36
-            // 
-            panel36.Controls.Add(label11);
-            panel36.Dock = DockStyle.Left;
-            panel36.Location = new Point(99, 0);
-            panel36.Name = "panel36";
-            panel36.Size = new Size(148, 100);
-            panel36.TabIndex = 1;
-            // 
-            // label11
-            // 
-            label11.Dock = DockStyle.Fill;
-            label11.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label11.Location = new Point(0, 0);
-            label11.Name = "label11";
-            label11.Size = new Size(148, 100);
-            label11.TabIndex = 0;
-            label11.Text = "Cafe sữa";
-            label11.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // panel37
-            // 
-            panel37.Controls.Add(pictureBox4);
-            panel37.Dock = DockStyle.Left;
-            panel37.Location = new Point(0, 0);
-            panel37.Name = "panel37";
-            panel37.Size = new Size(99, 100);
-            panel37.TabIndex = 0;
-            // 
-            // pictureBox4
-            // 
-            pictureBox4.Dock = DockStyle.Fill;
-            pictureBox4.Image = Properties.Resources.tra_sua_truyen_thong;
-            pictureBox4.Location = new Point(0, 0);
-            pictureBox4.Name = "pictureBox4";
-            pictureBox4.Size = new Size(99, 100);
-            pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox4.TabIndex = 2;
-            pictureBox4.TabStop = false;
-            // 
-            // panel38
-            // 
-            panel38.BackColor = Color.DarkTurquoise;
-            panel38.Controls.Add(panel39);
-            panel38.Controls.Add(panel40);
-            panel38.Controls.Add(panel41);
-            panel38.Cursor = Cursors.SizeAll;
-            panel38.Location = new Point(304, 129);
-            panel38.Name = "panel38";
-            panel38.Size = new Size(275, 100);
-            panel38.TabIndex = 7;
-            // 
-            // panel39
-            // 
-            panel39.Controls.Add(checkBox5);
-            panel39.Dock = DockStyle.Fill;
-            panel39.Location = new Point(247, 0);
-            panel39.Name = "panel39";
-            panel39.Size = new Size(28, 100);
-            panel39.TabIndex = 2;
-            // 
-            // checkBox5
-            // 
-            checkBox5.Dock = DockStyle.Top;
-            checkBox5.Location = new Point(0, 0);
-            checkBox5.Name = "checkBox5";
-            checkBox5.Size = new Size(28, 100);
-            checkBox5.TabIndex = 2;
-            checkBox5.UseVisualStyleBackColor = true;
-            // 
-            // panel40
-            // 
-            panel40.Controls.Add(label12);
-            panel40.Dock = DockStyle.Left;
-            panel40.Location = new Point(99, 0);
-            panel40.Name = "panel40";
-            panel40.Size = new Size(148, 100);
-            panel40.TabIndex = 1;
-            // 
-            // label12
-            // 
-            label12.Dock = DockStyle.Fill;
-            label12.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label12.Location = new Point(0, 0);
-            label12.Name = "label12";
-            label12.Size = new Size(148, 100);
-            label12.TabIndex = 0;
-            label12.Text = "Cafe sữa";
-            label12.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // panel41
-            // 
-            panel41.Controls.Add(pictureBox5);
-            panel41.Dock = DockStyle.Left;
-            panel41.Location = new Point(0, 0);
-            panel41.Name = "panel41";
-            panel41.Size = new Size(99, 100);
-            panel41.TabIndex = 0;
-            // 
-            // pictureBox5
-            // 
-            pictureBox5.Dock = DockStyle.Fill;
-            pictureBox5.Image = Properties.Resources.tra_sua_truyen_thong;
-            pictureBox5.Location = new Point(0, 0);
-            pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(99, 100);
-            pictureBox5.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox5.TabIndex = 2;
-            pictureBox5.TabStop = false;
+            // dGV_sp_KM_ADD
+            // 
+            dGV_sp_KM_ADD.AllowUserToAddRows = false;
+            dGV_sp_KM_ADD.AllowUserToDeleteRows = false;
+            dGV_sp_KM_ADD.AllowUserToResizeColumns = false;
+            dGV_sp_KM_ADD.AllowUserToResizeRows = false;
+            dGV_sp_KM_ADD.BackgroundColor = SystemColors.ButtonFace;
+            dGV_sp_KM_ADD.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dGV_sp_KM_ADD.Columns.AddRange(new DataGridViewColumn[] { chon_add, maSP_add, tenSanPham_add, loai_add });
+            dGV_sp_KM_ADD.Dock = DockStyle.Top;
+            dGV_sp_KM_ADD.Location = new Point(0, 63);
+            dGV_sp_KM_ADD.Name = "dGV_sp_KM_ADD";
+            dGV_sp_KM_ADD.Size = new Size(1020, 334);
+            dGV_sp_KM_ADD.TabIndex = 1;
+            // 
+            // chon_add
+            // 
+            chon_add.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            chon_add.HeaderText = "Chọn";
+            chon_add.Name = "chon_add";
+            chon_add.Width = 60;
+            // 
+            // maSP_add
+            // 
+            maSP_add.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            maSP_add.HeaderText = "Mã sản phẩm";
+            maSP_add.Name = "maSP_add";
+            maSP_add.Width = 104;
+            // 
+            // tenSanPham_add
+            // 
+            tenSanPham_add.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            tenSanPham_add.HeaderText = "Tên sản phẩm";
+            tenSanPham_add.Name = "tenSanPham_add";
+            // 
+            // loai_add
+            // 
+            loai_add.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            loai_add.HeaderText = "Loại sản phẩm";
+            loai_add.Name = "loai_add";
             // 
             // panel4
             // 
@@ -669,55 +284,12 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             // 
             // panel23
             // 
-            panel23.Controls.Add(panel45);
-            panel23.Controls.Add(label13);
             panel23.Controls.Add(panel46);
             panel23.Dock = DockStyle.Fill;
             panel23.Location = new Point(129, 0);
             panel23.Name = "panel23";
             panel23.Size = new Size(891, 63);
             panel23.TabIndex = 4;
-            // 
-            // panel45
-            // 
-            panel45.Controls.Add(cbo_loai_KM);
-            panel45.Dock = DockStyle.Left;
-            panel45.Location = new Point(281, 0);
-            panel45.Margin = new Padding(3, 2, 3, 2);
-            panel45.Name = "panel45";
-            panel45.Size = new Size(171, 63);
-            panel45.TabIndex = 8;
-            // 
-            // cbo_loai_KM
-            // 
-            cbo_loai_KM.BackColor = Color.White;
-            cbo_loai_KM.BorderColor = Color.Gray;
-            cbo_loai_KM.BorderRadius = 15;
-            cbo_loai_KM.BorderSize = 1;
-            cbo_loai_KM.CausesValidation = false;
-            cbo_loai_KM.DrawMode = DrawMode.OwnerDrawFixed;
-            cbo_loai_KM.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbo_loai_KM.FlatStyle = FlatStyle.Flat;
-            cbo_loai_KM.FocusBorderColor = Color.DeepSkyBlue;
-            cbo_loai_KM.Font = new Font("Segoe UI", 10F);
-            cbo_loai_KM.FormattingEnabled = true;
-            cbo_loai_KM.ItemHeight = 30;
-            cbo_loai_KM.Location = new Point(0, 16);
-            cbo_loai_KM.Margin = new Padding(3, 2, 3, 2);
-            cbo_loai_KM.Name = "cbo_loai_KM";
-            cbo_loai_KM.Size = new Size(171, 36);
-            cbo_loai_KM.TabIndex = 0;
-            // 
-            // label13
-            // 
-            label13.Dock = DockStyle.Left;
-            label13.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label13.Location = new Point(207, 0);
-            label13.Name = "label13";
-            label13.Size = new Size(74, 63);
-            label13.TabIndex = 7;
-            label13.Text = "Loại: ";
-            label13.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel46
             // 
@@ -745,6 +317,8 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             roundedTextBox1.Size = new Size(181, 41);
             roundedTextBox1.TabIndex = 0;
             roundedTextBox1.TextValue = "";
+            roundedTextBox1.DataContextChanged += roundedTextBox1_TextChanged;
+            roundedTextBox1.KeyDown += roundedTextBox1_KeyDown;
             // 
             // panel47
             // 
@@ -837,7 +411,6 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(746, 33);
             textBox2.TabIndex = 0;
-            textBox2.TextChanged += textBox2_TextChanged;
             // 
             // panel18
             // 
@@ -982,7 +555,6 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(746, 33);
             textBox1.TabIndex = 0;
-            textBox1.TextChanged += textBox1_TextChanged;
             // 
             // label5
             // 
@@ -1014,36 +586,10 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             panel9.ResumeLayout(false);
             panel9.PerformLayout();
             panel8.ResumeLayout(false);
-            flowLayoutPanel1.ResumeLayout(false);
-            panel13.ResumeLayout(false);
-            panel15.ResumeLayout(false);
-            panel26.ResumeLayout(false);
-            panel25.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            panel12.ResumeLayout(false);
-            panel27.ResumeLayout(false);
-            panel28.ResumeLayout(false);
-            panel29.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            panel30.ResumeLayout(false);
-            panel31.ResumeLayout(false);
-            panel32.ResumeLayout(false);
-            panel33.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
-            panel34.ResumeLayout(false);
-            panel35.ResumeLayout(false);
-            panel36.ResumeLayout(false);
-            panel37.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
-            panel38.ResumeLayout(false);
-            panel39.ResumeLayout(false);
-            panel40.ResumeLayout(false);
-            panel41.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dGV_sp_KM_ADD).EndInit();
             panel4.ResumeLayout(false);
             panel14.ResumeLayout(false);
             panel23.ResumeLayout(false);
-            panel45.ResumeLayout(false);
             panel46.ResumeLayout(false);
             panel47.ResumeLayout(false);
             panel47.PerformLayout();
@@ -1064,7 +610,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             PerformLayout();
         }
 
-        
+
 
         private void label7_Click(object sender, EventArgs e)
         {
@@ -1122,52 +668,18 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
         private DateTimePicker dateTimePicker1;
         private Panel panel24;
         private TextBox textBox2;
-        private FlowLayoutPanel flowLayoutPanel1;
-        private Panel panel13;
-        private Panel panel26;
-        private Label label3;
-        private CheckBox checkBox1;
-        private Panel panel25;
-        private PictureBox pictureBox1;
-        private Panel panel15;
-        private Panel panel12;
-        private Panel panel27;
-        private CheckBox checkBox2;
-        private Panel panel28;
-        private Label label4;
-        private Panel panel29;
-        private PictureBox pictureBox2;
-        private Panel panel30;
-        private Panel panel31;
-        private CheckBox checkBox3;
-        private Panel panel32;
-        private Label label10;
-        private Panel panel33;
-        private PictureBox pictureBox3;
-        private Panel panel34;
-        private Panel panel35;
-        private CheckBox checkBox4;
-        private Panel panel36;
-        private Label label11;
-        private Panel panel37;
-        private PictureBox pictureBox4;
-        private Panel panel38;
-        private Panel panel39;
-        private CheckBox checkBox5;
-        private Panel panel40;
-        private Label label12;
-        private Panel panel41;
-        private PictureBox pictureBox5;
         private Label label9;
         private Panel panel4;
         private Panel panel14;
         private Panel panel23;
-        private Panel panel45;
-        private RoundedComboBox cbo_loai_KM;
-        private Label label13;
         private Panel panel46;
         private RoundedTextBox roundedTextBox1;
         private Panel panel47;
         private CheckBox checkBox6;
+        private DataGridView dGV_sp_KM_ADD;
+        private DataGridViewCheckBoxColumn chon_add;
+        private DataGridViewTextBoxColumn tenSanPham_add;
+        private DataGridViewTextBoxColumn loai_add;
+        private DataGridViewTextBoxColumn maSP_add;
     }
 }

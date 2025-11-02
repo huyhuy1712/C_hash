@@ -67,6 +67,7 @@
             // 
             // panel3
             // 
+            panel3.BackColor = SystemColors.ActiveCaption;
             panel3.Controls.Add(panel9);
             panel3.Controls.Add(panel8);
             panel3.Controls.Add(panel7);
@@ -203,7 +204,7 @@
             // 
             // panel2
             // 
-            panel2.BackColor = SystemColors.MenuHighlight;
+            panel2.BackColor = SystemColors.Window;
             panel2.Controls.Add(label1);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
@@ -213,14 +214,16 @@
             // 
             // label1
             // 
-            label1.Dock = DockStyle.Left;
+            label1.BackColor = SystemColors.Control;
+            label1.Dock = DockStyle.Fill;
             label1.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.DodgerBlue;
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
-            label1.Size = new Size(430, 79);
+            label1.Size = new Size(800, 79);
             label1.TabIndex = 0;
             label1.Text = "Chương trình 8/8";
-            label1.TextAlign = ContentAlignment.MiddleLeft;
+            label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // DetailDiscountForm
             // 
