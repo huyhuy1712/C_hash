@@ -45,8 +45,6 @@ namespace MilkTea.Client.Controls
             //Bật tắt các nút theo quyền
             product_edit_btn1.Enabled = Session.HasPermission("Sửa sản phẩm");
             product_delete_btn1.Enabled = Session.HasPermission("Xóa sản phẩm");
-
-            product_top_panel_1.Enabled = Session.HasPermission("Thêm đơn hàng");
         }
 
         // Hàm gọi khi người dùng click vào sản phẩm
