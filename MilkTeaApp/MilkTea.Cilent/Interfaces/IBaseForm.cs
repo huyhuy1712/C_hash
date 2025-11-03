@@ -1,8 +1,4 @@
-﻿using MilkTea.Client.Controls;
-using MilkTea.Client.Models;
-using System.Windows.Forms;
-
-namespace MilkTea.Client.Interfaces
+﻿namespace MilkTea.Client.Interfaces
 {
     public interface IBaseForm
     {
@@ -10,7 +6,7 @@ namespace MilkTea.Client.Interfaces
         Label LblStatus { get; }
     }
 
-    public interface IDanhSachQuyenForm
+    public interface ITextBox
     {
         TextBox Txtb { get; }
     }

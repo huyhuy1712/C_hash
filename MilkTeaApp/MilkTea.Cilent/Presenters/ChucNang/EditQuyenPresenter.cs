@@ -1,19 +1,49 @@
 ﻿using MilkTea.Client.Interfaces;
+using MilkTea.Client.Models;
 using MilkTea.Client.Services;
 using System.Diagnostics;
-using MilkTea.Client.Models;
+using System.Windows.Forms;
 
 namespace MilkTea.Client.Presenters
 {
     public class EditQuyenPresenter
     {
-        public IBaseForm _form;
+        public IEditQuyen _form;
+
         private readonly ChucNangService _chucNangService = new();
-        public EditQuyenPresenter(IBaseForm form)
+        private readonly QuyenChucNangService _quyenChucNangService = new();
+        private readonly QuyenService _quyenService = new();
+
+        private List<ChucNang> listChucNang;
+        private List<ChucNang> listCurrentChucNang;
+
+        public EditQuyenPresenter(IEditQuyen form)
         {
             _form = form;
         }
-        public async Task LoadDataAsync(string id)
+
+        private int load(List<ChucNang> data, List<ChucNang> data2)
+        {
+            int count = 0;
+            _form.Grid.Rows.Clear();
+
+            foreach (var cn in data)
+            {
+                int rowIndex = _form.Grid.Rows.Add();
+                count++;
+
+                _form.Grid.Rows[rowIndex].Cells["id"].Value = cn.MaChucNang;
+                _form.Grid.Rows[rowIndex].Cells["tenChucNang"].Value = cn.TenChucNang;
+
+                if (data2.Any(x => x.MaChucNang == cn.MaChucNang))
+                {
+                    _form.Grid.Rows[rowIndex].Cells["chkChucNang"].Value = 1;
+                }
+            }
+            return count;
+        }
+
+        public async Task LoadDataAsync(string id, string tenQuyen)
         {
             var dataGridView1 = _form.Grid;
             var lbl = _form.LblStatus;
@@ -23,28 +53,19 @@ namespace MilkTea.Client.Presenters
 
             try
             {
-                var listChucNang = await _chucNangService.GetChucNangsAsync();
-                var listCurrentChucNang = await _chucNangService.GetChucNangsByMaQuyenAsync(Convert.ToInt32(id));
+                listChucNang = await _chucNangService.GetChucNangsAsync();
+                listCurrentChucNang = await _chucNangService.GetChucNangsByMaQuyenAsync(Convert.ToInt32(id));
 
                 dataGridView1.Rows.Clear();
+                _form.Txtb.Text = tenQuyen;
 
                 //Load all chuc nang
                 if (listChucNang != null && listChucNang.Any())
                 {
-                    foreach (var cn in listChucNang)
-                    {
-                        int rowIndex = dataGridView1.Rows.Add();
+                    int Count = load(listChucNang, listCurrentChucNang);
 
-                        dataGridView1.Rows[rowIndex].Cells["id"].Value = cn.MaChucNang;
-                        dataGridView1.Rows[rowIndex].Cells["tenChucNang"].Value = cn.TenChucNang;
-
-                        if (listCurrentChucNang.Any(x => x.MaChucNang == cn.MaChucNang))
-                        {
-                            dataGridView1.Rows[rowIndex].Cells["chkChucNang"].Value = 1;
-                        }
-                    }
                     lbl.ForeColor = Color.ForestGreen;
-                    lbl.Text = $"✅ Đã tải {listChucNang.Count} chức năng.";
+                    lbl.Text = $"✅ Đã tải {Count} chức năng.";
                 }
                 else
                 {
@@ -68,8 +89,8 @@ namespace MilkTea.Client.Presenters
 
             foreach (DataGridViewRow row in _form.Grid.Rows)
             {
-                bool value = Convert.ToBoolean(row.Cells["chkChucNang"].Value);
-                if (value)
+                int value = Convert.ToInt32(row.Cells["chkChucNang"].Value);
+                if (value == 1)
                 {
                     int id = Convert.ToInt32(row.Cells["id"].Value);
                     list.Add(id);
@@ -79,13 +100,88 @@ namespace MilkTea.Client.Presenters
             return list;
         }
 
-        public async Task SaveAsync()
+        public void SearchChucNangTheoTen(string keyword)
         {
+            List<ChucNang> filtered;
+
+            if (string.IsNullOrWhiteSpace(keyword))
+                filtered = listChucNang; // danh sách gốc
+            else
+                filtered = listChucNang
+                    .Where(q => q.TenChucNang.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
+            load(filtered, listCurrentChucNang);
         }
-
-        public async Task UpdateRoleAsync(Quyen q)
+        public async Task<bool> UpdateRoleAsync(int id, string tenQuyen)
         {
+            // Validate tên quyền
+            if (string.IsNullOrEmpty(tenQuyen))
+            {
+                _form.Error.SetError(_form.Txtb, "Tên quyền không được để trống.");
+                _form.Txtb.Focus();
+                return false;
+            }
 
+            Quyen q = new()
+            {
+                MaQuyen = id,
+                TenQuyen = tenQuyen,
+                Mota = "123",
+                TrangThai = 1
+            };
+
+            try
+            {
+                // Kiểm tra có quyền chức năng để xóa không
+                var existingChucNangs = await _quyenChucNangService.GetQuyenChucNangById(q.MaQuyen);
+
+                if (existingChucNangs != null)
+                {
+                    // Xoá tất cả quyền chức năng hiện tại của quyền
+                    await _quyenChucNangService.DeleteAllQuyenChucNangAsync(q.MaQuyen);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi xoá quyền chức năng: " + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+
+            // Lấy các chức năng được chọn
+            List<int> selected = GetSelectedChucNangs();
+
+            // Thêm lại các quyền chức năng được chọn
+            foreach (var c in selected)
+            {
+                Quyen_ChucNang qc = new();
+                qc.MaChucNang = c;
+                qc.MaQuyen = q.MaQuyen;
+
+                try
+                {
+                    await _quyenChucNangService.AddQuyenChucNangAsync(qc);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi thêm quyền chức năng: " + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return false;
+                }
+            }
+
+
+            // Cập nhật thông tin quyền
+            try
+            {
+                await _quyenService.UpdateQuyenAsync(q);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi sửa quyền! " + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
+            }
+            MessageBox.Show("Đã sửa quyền thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            return true;
         }
     }
 }

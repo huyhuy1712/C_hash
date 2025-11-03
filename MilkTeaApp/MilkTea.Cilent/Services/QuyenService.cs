@@ -1,9 +1,7 @@
 ﻿using MilkTea.Client.Models;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http.Json;
-using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace MilkTea.Client.Services
 {
@@ -23,7 +21,7 @@ namespace MilkTea.Client.Services
             }
         }
 
-        public async Task<Quyen?> GetQuyenByIdAsync(int? maQuyen)
+        public async Task<Quyen?> GetQuyenByIdAsync(int maQuyen)
         {
             try
             {
@@ -36,18 +34,23 @@ namespace MilkTea.Client.Services
             }
         }
 
-        // Cập nhật quyen
-        public async Task<HttpResponseMessage?> UpdateQuyenAsync(Quyen quyen)
+        public async Task UpdateQuyenAsync(Quyen quyen)
         {
-            try
+            var response = await _http.PutAsJsonAsync("/api/quyen", quyen);
+
+            if (!response.IsSuccessStatusCode)
+                throw new Exception("Cập nhật quyền không thành công");
+        }
+
+        public async Task<int> AddQuyenAsync(Quyen q)
+        {
+            var response = await _http.PostAsJsonAsync("/api/quyen", q);
+            if (response.IsSuccessStatusCode)
             {
-                return await _http.PutAsJsonAsync("/api/quyen", quyen);
+                var data = await response.Content.ReadFromJsonAsync<JsonElement>();
+                return data.GetProperty("newId").GetInt32();
             }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"[UpdateQuyenAsync] Error: {ex.Message}");
-                return null;
-            }
+            throw new Exception("Không thể thêm quyền!" + response);
         }
     }
 }

@@ -60,17 +60,10 @@ namespace MilkTea.Client.Controls
             {
                 this.OnKeyDown(e);
             };
-
-            // --- Icon ---
-            icon = new PictureBox();
-            icon.Image = Properties.Resources.search; // icon search
-            icon.SizeMode = PictureBoxSizeMode.Zoom;
-            icon.Width = 20;
-            icon.Height = 20;
-            icon.Anchor = AnchorStyles.Right | AnchorStyles.Top;
+            // Forward sự kiện KeyUp của textbox ra ngoài control
+            textBox.KeyUp += (s, e) => OnKeyUp(e);
 
             this.Controls.Add(textBox);
-            this.Controls.Add(icon);
 
             this.Resize += (s, e) => AdjustLayout();
 
@@ -79,12 +72,7 @@ namespace MilkTea.Client.Controls
 
         private void AdjustLayout()
         {
-            // căn icon sang phải và giữa theo chiều dọc
-            icon.Location = new Point(this.Width - icon.Width - 10, (this.Height - icon.Height) / 2);
 
-            // căn textbox còn lại, tránh icon
-            textBox.Width = this.Width - icon.Width - 25;
-            textBox.Location = new Point(10, (this.Height - textBox.Height) / 2);
             SetRoundedRegion();
         }
 

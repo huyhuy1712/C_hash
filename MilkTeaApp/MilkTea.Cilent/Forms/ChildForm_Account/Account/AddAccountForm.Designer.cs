@@ -59,6 +59,7 @@
             panel2 = new Panel();
             label1 = new Label();
             imageList1 = new ImageList(components);
+            errorProvider1 = new ErrorProvider(components);
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             panel13.SuspendLayout();
@@ -74,6 +75,7 @@
             panel5.SuspendLayout();
             panel4.SuspendLayout();
             panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -431,6 +433,10 @@
             imageList1.ImageSize = new Size(16, 16);
             imageList1.TransparentColor = Color.Transparent;
             // 
+            // errorProvider1
+            // 
+            errorProvider1.ContainerControl = this;
+            // 
             // AddAccountForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -465,6 +471,7 @@
             panel4.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
         }
 
@@ -500,5 +507,6 @@
         private Controls.RoundedButton btnThoatTTK;
         private Panel panel14;
         private Panel panel15;
+        private ErrorProvider errorProvider1;
     }
 }

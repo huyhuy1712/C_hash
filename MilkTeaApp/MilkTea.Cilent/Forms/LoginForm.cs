@@ -26,6 +26,7 @@ namespace MilkTea.Client.Forms
             _taiKhoanService = new AccountService();
             _chucNangService = new();
             this.KeyPreview = true;
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void LoginForm_Load(object sender, EventArgs e)

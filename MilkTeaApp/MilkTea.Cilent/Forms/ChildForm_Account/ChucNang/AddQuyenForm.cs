@@ -1,19 +1,24 @@
-﻿using MilkTea.Client.Interfaces;
+﻿using MilkTea.Client.Controls;
+using MilkTea.Client.Interfaces;
 using MilkTea.Client.Presenters;
-using MilkTea.Client.Services;
+using MilkTea.Client.Models;
 using System.Diagnostics;
 
 namespace MilkTea.Client.Forms.ChildForm_Account
 {
-    public partial class AddQuyenForm : Form, IBaseForm
+    public partial class AddQuyenForm : Form, IAddQuyen
     {
         private readonly AddQuyenPresenter _addQuyenPresenter;
+
         public DataGridView Grid => dataGridView1;
         public Label LblStatus => lblStatus;
+        public ErrorProvider Error => errorProvider1;
+        public RoundedTextBox Rtxtb => txtbTenQuyen;
+
         public AddQuyenForm()
         {
             InitializeComponent();
-            _addQuyenPresenter = new AddQuyenPresenter(this, new ChucNangService());
+            _addQuyenPresenter = new(this);
         }
 
         private void btnDong_Click(object sender, EventArgs e)
@@ -26,10 +31,17 @@ namespace MilkTea.Client.Forms.ChildForm_Account
             _addQuyenPresenter.LoadDataAsync();
         }
 
-        private void txtbTenQuyen_KeyDown(object sender, KeyEventArgs e)
+        private async void btnXacNhan_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine("hello");
-            //_presenter.Search();
+            if (await _addQuyenPresenter.SaveAsync(txtbTenQuyen.Text))
+            {
+                this.Close();
+            }
+        }
+
+        private void txtbSearch_KeyUp(object sender, KeyEventArgs e)
+        {
+            _addQuyenPresenter.SearchChucNangTheoTen(txtbSearch.Text.Trim());
         }
     }
 }
