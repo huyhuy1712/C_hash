@@ -85,6 +85,7 @@ namespace MilkTea.Client.Forms
         private async void roundedButton_Login_Click(object sender, EventArgs e)
 
         {
+            this.Hide();
             var username = roundedTextBox_TenTK.TextValue.Trim();
             var password = roundedTextBox_Password.TextValue.Trim();
 
@@ -116,11 +117,11 @@ namespace MilkTea.Client.Forms
                 return;
             }
 
+            
             MainForm mainForm = new MainForm(account);
 
             // Lưu thông tin vào session
             Session.AllowedFunctions = await _chucNangService.GetChucNangsByMaQuyenAsync(account.MaQuyen);
-            this.Hide();
             mainForm.ShowDialog();
             this.Show();
         }
