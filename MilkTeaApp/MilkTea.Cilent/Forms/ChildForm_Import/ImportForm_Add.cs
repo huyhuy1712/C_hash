@@ -25,6 +25,7 @@ namespace MilkTea.Client.Forms.ChildForm_Import
         private List<NguyenLieu> _nguyenLieus;
         private List<NhaCungCap> _nhaCungCaps;
         private List<TempChiTiet> _tempChiTiets = new List<TempChiTiet>();
+        private NhanVien nv;
 
         private class TempChiTiet
         {
@@ -49,6 +50,7 @@ namespace MilkTea.Client.Forms.ChildForm_Import
 
         private async void ImportForm_Add_Load(object sender, EventArgs e)
         {
+            nv = await _nhanVienService.GetByMaTK(Session.CurrentUser.MaTK);
             // Lấy mã phiếu nhập cuối cùng +1
             var phieuNhaps = await _phieuNhapService.GetPhieuNhapsAsync();
             int maxMaPN = phieuNhaps.Any() ? phieuNhaps.Max(p => p.MaPN) : 0;
@@ -58,8 +60,8 @@ namespace MilkTea.Client.Forms.ChildForm_Import
             dt_iPort_ngaylap.Value = DateTime.Now;
 
             // Người tạo phiếu: mặc định MaNV = 1, lấy tên
-            var nhanVien = await _nhanVienService.GetByMaNV(1);
-            txt_iPort_nguoitao.Text = nhanVien?.TenNV ?? "Nguyễn Văn A";
+            var nhanVien = await _nhanVienService.GetByMaNV(nv.MaNV);
+            txt_iPort_nguoitao.Text = nv.TenNV;
 
             // Nhà cung cấp
             _nhaCungCaps = await _nhaCungCapService.GetNhaCungCapAsync();
@@ -130,7 +132,7 @@ namespace MilkTea.Client.Forms.ChildForm_Import
                     SoLuong = _tempChiTiets.Sum(t => t.SoLuong),
                     TrangThai = 1,
                     MaNCC = (int?)cbo_NhaCungCap_PN_ADD.SelectedValue,
-                    MaNV = 1,
+                    MaNV = nv.MaNV,
                     TongTien = _tempChiTiets.Sum(t => t.TongGia),
                 };
 

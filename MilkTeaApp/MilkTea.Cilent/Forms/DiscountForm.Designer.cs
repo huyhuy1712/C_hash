@@ -1,4 +1,4 @@
-﻿using MilkTea.Client.Forms.ChildForm_Discount;
+﻿using MilkTea.Client.Controls;
 
 namespace MilkTea.Client.Forms
 {
@@ -33,24 +33,30 @@ namespace MilkTea.Client.Forms
             Panel panel2;
             Panel panel3;
             Panel panel4;
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             label1 = new Label();
             panel10 = new Panel();
-            roundedButton1 = new MilkTea.Client.Controls.RoundedButton();
+            roundedButton1 = new RoundedButton();
             panel6 = new Panel();
-            roundedComboBox2 = new MilkTea.Client.Controls.RoundedComboBox();
+            roundedComboBox2 = new RoundedComboBox();
             panel5 = new Panel();
             label3 = new Label();
             panel1 = new Panel();
-            roundedTextBox2 = new MilkTea.Client.Controls.RoundedTextBox();
+            roundedTextBox2 = new RoundedTextBox();
             label2 = new Label();
             DiscountPanel = new Panel();
-            flowLayoutPanel1 = new FlowLayoutPanel();
-            panel7 = new Panel();
-            panel9 = new Panel();
-            label5 = new Label();
-            panel8 = new Panel();
-            product_delete_btn1 = new PictureBox();
-            product_edit_btn1 = new PictureBox();
+            dGV_discounts = new DataGridView();
+            tenKM_col = new DataGridViewTextBoxColumn();
+            moTa_col = new DataGridViewTextBoxColumn();
+            phanTram_col = new DataGridViewTextBoxColumn();
+            ngayBatDau_col = new DataGridViewTextBoxColumn();
+            ngayKetThuc_col = new DataGridViewTextBoxColumn();
+            trangThai_col = new DataGridViewTextBoxColumn();
+            chiTiet = new DataGridViewImageColumn();
+            sua = new DataGridViewImageColumn();
+            xoa = new DataGridViewImageColumn();
             panel2 = new Panel();
             panel3 = new Panel();
             panel4 = new Panel();
@@ -62,11 +68,7 @@ namespace MilkTea.Client.Forms
             panel1.SuspendLayout();
             panel4.SuspendLayout();
             DiscountPanel.SuspendLayout();
-            flowLayoutPanel1.SuspendLayout();
-            panel9.SuspendLayout();
-            panel8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)product_delete_btn1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)product_edit_btn1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dGV_discounts).BeginInit();
             SuspendLayout();
             // 
             // panel2
@@ -237,7 +239,7 @@ namespace MilkTea.Client.Forms
             // 
             // DiscountPanel
             // 
-            DiscountPanel.Controls.Add(flowLayoutPanel1);
+            DiscountPanel.Controls.Add(dGV_discounts);
             DiscountPanel.Controls.Add(panel4);
             DiscountPanel.Controls.Add(panel3);
             DiscountPanel.Controls.Add(panel2);
@@ -248,82 +250,100 @@ namespace MilkTea.Client.Forms
             DiscountPanel.Size = new Size(1660, 527);
             DiscountPanel.TabIndex = 0;
             // 
-            // flowLayoutPanel1
+            // dGV_discounts
             // 
-            flowLayoutPanel1.BackColor = SystemColors.ActiveBorder;
-            flowLayoutPanel1.Controls.Add(panel7);
-            flowLayoutPanel1.Dock = DockStyle.Fill;
-            flowLayoutPanel1.Location = new Point(0, 136);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Padding = new Padding(20);
-            flowLayoutPanel1.Size = new Size(1660, 391);
-            flowLayoutPanel1.TabIndex = 5;
+            dGV_discounts.AllowUserToAddRows = false;
+            dGV_discounts.AllowUserToDeleteRows = false;
+            dGV_discounts.BackgroundColor = SystemColors.ButtonFace;
+            dGV_discounts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dGV_discounts.Columns.AddRange(new DataGridViewColumn[] { tenKM_col, moTa_col, phanTram_col, ngayBatDau_col, ngayKetThuc_col, trangThai_col, chiTiet, sua, xoa });
+            dGV_discounts.Dock = DockStyle.Fill;
+            dGV_discounts.Location = new Point(0, 136);
+            dGV_discounts.Name = "dGV_discounts";
+            dGV_discounts.Size = new Size(1660, 391);
+            dGV_discounts.TabIndex = 5;
+            dGV_discounts.CellContentClick += dGV_discounts_CellContentClick;
             // 
-            // panel7
+            // tenKM_col
             // 
-            panel7.Location = new Point(23, 23);
-            panel7.Name = "panel7";
-            panel7.Size = new Size(200, 100);
-            panel7.TabIndex = 0;
+            tenKM_col.HeaderText = "Tên KM";
+            tenKM_col.Name = "tenKM_col";
+            tenKM_col.Width = 150;
             // 
-            // panel9
+            // moTa_col
             // 
-            panel9.Controls.Add(label5);
-            panel9.Dock = DockStyle.Fill;
-            panel9.Location = new Point(0, 0);
-            panel9.Name = "panel9";
-            panel9.Size = new Size(200, 72);
-            panel9.TabIndex = 1;
+            moTa_col.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            moTa_col.HeaderText = "Mô tả";
+            moTa_col.Name = "moTa_col";
             // 
-            // label5
+            // phanTram_col
             // 
-            label5.Dock = DockStyle.Fill;
-            label5.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(0, 0);
-            label5.Name = "label5";
-            label5.Size = new Size(200, 72);
-            label5.TabIndex = 0;
-            label5.Text = "Chương trình 8/8";
-            label5.TextAlign = ContentAlignment.MiddleCenter;
-            label5.Click += label5_Click;
+            phanTram_col.HeaderText = "Phần trăm (%)";
+            phanTram_col.Name = "phanTram_col";
+            phanTram_col.Width = 120;
             // 
-            // panel8
+            // ngayBatDau_col
             // 
-            panel8.BackColor = SystemColors.ActiveCaption;
-            panel8.Controls.Add(product_delete_btn1);
-            panel8.Controls.Add(product_edit_btn1);
-            panel8.Dock = DockStyle.Bottom;
-            panel8.Location = new Point(0, 72);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(200, 28);
-            panel8.TabIndex = 0;
+            ngayBatDau_col.HeaderText = "Ngày bắt đầu";
+            ngayBatDau_col.Name = "ngayBatDau_col";
+            ngayBatDau_col.Width = 120;
             // 
-            // product_delete_btn1
+            // ngayKetThuc_col
             // 
-            product_delete_btn1.Cursor = Cursors.Hand;
-            product_delete_btn1.Dock = DockStyle.Right;
-            product_delete_btn1.Image = Properties.Resources.trash;
-            product_delete_btn1.Location = new Point(165, 0);
-            product_delete_btn1.Margin = new Padding(3, 2, 3, 2);
-            product_delete_btn1.Name = "product_delete_btn1";
-            product_delete_btn1.Size = new Size(35, 28);
-            product_delete_btn1.SizeMode = PictureBoxSizeMode.Zoom;
-            product_delete_btn1.TabIndex = 2;
-            product_delete_btn1.TabStop = false;
+            ngayKetThuc_col.HeaderText = "Ngày kết thúc";
+            ngayKetThuc_col.Name = "ngayKetThuc_col";
+            ngayKetThuc_col.Width = 120;
             // 
-            // product_edit_btn1
+            // trangThai_col
             // 
-            product_edit_btn1.Cursor = Cursors.Hand;
-            product_edit_btn1.Dock = DockStyle.Left;
-            product_edit_btn1.Image = Properties.Resources.edit;
-            product_edit_btn1.Location = new Point(0, 0);
-            product_edit_btn1.Margin = new Padding(3, 2, 3, 2);
-            product_edit_btn1.Name = "product_edit_btn1";
-            product_edit_btn1.Size = new Size(24, 28);
-            product_edit_btn1.SizeMode = PictureBoxSizeMode.Zoom;
-            product_edit_btn1.TabIndex = 1;
-            product_edit_btn1.TabStop = false;
-            product_edit_btn1.Click += product_edit_btn1_Click;
+            trangThai_col.HeaderText = "Trạng thái";
+            trangThai_col.Name = "trangThai_col";
+            // 
+            // chiTiet
+            // 
+            chiTiet.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.NullValue = null;
+            dataGridViewCellStyle1.Padding = new Padding(3);
+            chiTiet.DefaultCellStyle = dataGridViewCellStyle1;
+            chiTiet.HeaderText = "Chi Tiết";
+            chiTiet.Image = Properties.Resources.info;
+            chiTiet.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            chiTiet.MinimumWidth = 6;
+            chiTiet.Name = "chiTiet";
+            chiTiet.ReadOnly = true;
+            chiTiet.Resizable = DataGridViewTriState.False;
+            chiTiet.Width = 75;
+            // 
+            // sua
+            // 
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.NullValue = null;
+            dataGridViewCellStyle2.Padding = new Padding(3);
+            sua.DefaultCellStyle = dataGridViewCellStyle2;
+            sua.HeaderText = "Sửa";
+            sua.Image = Properties.Resources.edit;
+            sua.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            sua.MinimumWidth = 6;
+            sua.Name = "sua";
+            sua.ReadOnly = true;
+            sua.Resizable = DataGridViewTriState.False;
+            sua.Width = 75;
+            // 
+            // xoa
+            // 
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.NullValue = null;
+            dataGridViewCellStyle3.Padding = new Padding(3);
+            xoa.DefaultCellStyle = dataGridViewCellStyle3;
+            xoa.HeaderText = "Xóa";
+            xoa.Image = Properties.Resources.trash;
+            xoa.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            xoa.MinimumWidth = 6;
+            xoa.Name = "xoa";
+            xoa.ReadOnly = true;
+            xoa.Resizable = DataGridViewTriState.False;
+            xoa.Width = 75;
             // 
             // DiscountForm
             // 
@@ -333,7 +353,7 @@ namespace MilkTea.Client.Forms
             Controls.Add(DiscountPanel);
             Margin = new Padding(3, 2, 3, 2);
             Name = "DiscountForm";
-            Text = "OrderForm";
+            Text = "DiscountForm";
             panel2.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel10.ResumeLayout(false);
@@ -342,57 +362,29 @@ namespace MilkTea.Client.Forms
             panel1.ResumeLayout(false);
             panel4.ResumeLayout(false);
             DiscountPanel.ResumeLayout(false);
-            flowLayoutPanel1.ResumeLayout(false);
-            panel9.ResumeLayout(false);
-            panel8.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)product_delete_btn1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)product_edit_btn1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dGV_discounts).EndInit();
             ResumeLayout(false);
 
             //Bật tắt các nút theo quyền
             //btnThemAccount.Enabled = false;
         }
 
-
-
-
-        private void btnThemAccount_Click(object sender, EventArgs e)
-        {
-            AddDiscountForm addDiscountForm = new AddDiscountForm();
-            addDiscountForm.ShowDialog();
-        }
-        private void label5_Click(object sender, EventArgs e)
-        {
-            DetailDiscountForm detailForm = new DetailDiscountForm(1);
-            detailForm.ShowDialog();
-        }
-        private void label1_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void btnThemDisccount_Click(object sender, EventArgs e)
-        {
-            // Khởi tạo và hiển thị form AddDiscountForm
-            AddDiscountForm addDiscountForm = new AddDiscountForm();
-            addDiscountForm.ShowDialog();
-        }
-       
         #endregion
 
         private Panel DiscountPanel;
         private Label label1;
         private Controls.RoundedButton btnThemAccount;
         private Label label2;
-        private FlowLayoutPanel flowLayoutPanel1;
-        private Panel panel7;
-        private Panel panel9;
-        private Label label5;
-        private Panel panel8;
-        private PictureBox product_delete_btn1;
-        private PictureBox product_edit_btn1;
-        private Controls.RoundedTextBox roundedTextBox1;
-        private Controls.RoundedComboBox roundedComboBox1;
+        private DataGridView dGV_discounts;
+        private DataGridViewTextBoxColumn tenKM_col;
+        private DataGridViewTextBoxColumn moTa_col;
+        private DataGridViewTextBoxColumn phanTram_col;
+        private DataGridViewTextBoxColumn ngayBatDau_col;
+        private DataGridViewTextBoxColumn ngayKetThuc_col;
+        private DataGridViewTextBoxColumn trangThai_col;
+        private DataGridViewImageColumn chiTiet;
+        private DataGridViewImageColumn sua;
+        private DataGridViewImageColumn xoa;
         private Panel panel6;
         private Panel panel5;
         private Panel panel1;
