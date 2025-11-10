@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-// Thêm service cho SanPhamKhuyenMai (tạo file SanPhamKhuyenMaiService.cs trong Services folder)
 using System.Net.Http.Json;
 using MilkTea.Client.Models;
 
@@ -14,7 +12,7 @@ namespace MilkTea.Client.Services
     {
         public async Task<bool> AddAsync(SanPhamKhuyenMai spkm)
         {
-            var response = await _http.PostAsJsonAsync("/api/sanpham_khuyenmai", spkm);
+            var response = await _http.PostAsJsonAsync("/api/sanphamkhuyenmai", spkm);
             return response.IsSuccessStatusCode;
         }
     }

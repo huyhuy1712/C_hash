@@ -52,5 +52,17 @@ namespace MilkTea.Client.Services
             // Trả về phần tử đầu tiên hoặc null
             return list?.FirstOrDefault();
         }
+
+        //  Thêm mới khuyến mãi và lấy ID khuyến mãi vừa tạo
+        public async Task<int> AddCTKhuyenMaiAsync(CTKhuyenMai km)
+        {
+            var response = await _http.PostAsJsonAsync("/api/ctkhuyenmai", km);
+            if (response.IsSuccessStatusCode)
+            {
+                var addedKm = await response.Content.ReadFromJsonAsync<CTKhuyenMai>();
+                return addedKm?.MaCTKhuyenMai ?? 0;
+            }
+            throw new Exception("Không thể thêm chương trình khuyến mãi!" + response);
+        }
     }
 }

@@ -237,8 +237,7 @@ namespace MilkTea.Client.Forms
 
         private async Task SoftDeleteDiscountAsync(int maCTKhuyenMai)
         {
-            var confirm = MessageBox.Show("Bạn có chắc chắn muốn ẩn chương trình khuyến mãi này không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
+            var confirm = MessageBox.Show("Bạn có chắc chắn muốn xóa chương trình khuyến mãi này không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (confirm != DialogResult.Yes) return;
 
             try
@@ -246,22 +245,43 @@ namespace MilkTea.Client.Forms
                 using var client = new HttpClient();
                 client.BaseAddress = new Uri("http://localhost:5198");
 
-                // Tạo body update TrangThai = 0
-                var updateData = new { TrangThai = 0 };
-                var json = JsonSerializer.Serialize(updateData);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                var response = await client.PutAsync($"/api/ctkhuyenmai/{maCTKhuyenMai}", content); // Sử dụng PUT để update
-
-                if (response.IsSuccessStatusCode)
+                // Bước 1: Fetch full object để lấy tất cả fields
+                var getResponse = await client.GetAsync($"/api/ctkhuyenmai/{maCTKhuyenMai}");
+                if (!getResponse.IsSuccessStatusCode)
                 {
-                    MessageBox.Show("Đã ẩn chương trình khuyến mãi thành công! (TrangThai = 0)", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    await LoadDiscountsAsync(); // Làm mới để ẩn khỏi list
+                    MessageBox.Show($"Không tìm thấy khuyến mãi để ẩn (ID: {maCTKhuyenMai})!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var json = await getResponse.Content.ReadAsStringAsync();
+                var fullKm = JsonSerializer.Deserialize<CTKhuyenMai>(json, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+                if (fullKm == null)
+                {
+                    MessageBox.Show("Không thể lấy dữ liệu khuyến mãi để cập nhật.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Bước 2: Set TrangThai = 0 (soft delete), giữ nguyên fields khác
+                fullKm.TrangThai = 0;
+
+                // Bước 3: PUT full object đến /api/ctkhuyenmai (KHÔNG có /{id})
+                var updateJson = JsonSerializer.Serialize(fullKm);
+                var updateContent = new StringContent(updateJson, Encoding.UTF8, "application/json");
+
+                var putResponse = await client.PutAsync("/api/ctkhuyenmai", updateContent);  // Route đúng: không có /{id}
+
+                if (putResponse.IsSuccessStatusCode)
+                {
+                    MessageBox.Show("Đã xóa chương trình khuyến mãi thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    await LoadDiscountsAsync(); // Reload để filter ẩn row này
                 }
                 else
                 {
-                    string err = await response.Content.ReadAsStringAsync();
-                    MessageBox.Show($"Không thể ẩn khuyến mãi!\n{response.StatusCode}\n{err}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    string err = await putResponse.Content.ReadAsStringAsync();
+                    MessageBox.Show($"Không thể xóa khuyến mãi!\nStatus: {putResponse.StatusCode}\n{err}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
