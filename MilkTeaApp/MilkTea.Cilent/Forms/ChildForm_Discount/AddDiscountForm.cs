@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net.Http;
@@ -17,13 +18,15 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
 {
     public partial class AddDiscountForm : Form
     {
-        private List<SanPham> danhSachSanPham = new List<SanPham>();
-        private List<Loai> _danhSachLoai;
+        private List<SanPham> _allSanPhams = new List<SanPham>(); // Lưu danh sách gốc sản phẩm
+        private List<Loai> _loais = new List<Loai>(); // Lưu danh sách loại để map
         private Dictionary<DataGridViewCheckBoxCell, int> checkboxToMaSPMap = new Dictionary<DataGridViewCheckBoxCell, int>(); // Map checkbox cell to MaSP
         private const string ApiBaseUrl = "http://localhost:5198";
         private LoaiService _loaiService;
         private SanPhamService _SanPhamService;
         private SanPhamKhuyenMaiService _sanPhamKhuyenMaiService;
+        private System.Windows.Forms.Timer _searchTimer; // Timer cho debounce search
+        private CTKhuyenMaiService _ctKhuyenMaiService = new CTKhuyenMaiService();
 
         public AddDiscountForm()
         {
@@ -31,6 +34,10 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             _loaiService = new LoaiService();
             _SanPhamService = new SanPhamService();
             _sanPhamKhuyenMaiService = new SanPhamKhuyenMaiService();
+
+            // Khởi tạo timer debounce cho search (500ms delay)
+            _searchTimer = new System.Windows.Forms.Timer { Interval = 500 };
+            _searchTimer.Tick += SearchTimer_Tick;
         }
 
         private async void AddDiscountForm_Load_1(object sender, EventArgs e)
@@ -38,39 +45,105 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             await LoadSanPhamAsync(); // Load sản phẩm cho DataGridView
         }
 
-
-
+        // 🌀 Hàm load danh sách sản phẩm (từ API, không filter server-side)
         private async Task LoadSanPhamAsync()
         {
             try
             {
                 var sanPhams = await _SanPhamService.GetSanPhamsAsync();
-                var loais = await _loaiService.GetLoaisAsync();
+                _loais = await _loaiService.GetLoaisAsync(); // Lưu loais để map
 
-                dGV_sp_KM_ADD.Rows.Clear();
-
-                var sanPhamsActive = sanPhams?.Where(sp => sp.TrangThai == 1).ToList(); // Filter active nếu có TrangThai
-                if (sanPhamsActive != null && sanPhamsActive.Any())
-                {
-                    foreach (var sp in sanPhamsActive)
-                    {
-                        var loai = loais.Find(l => l.MaLoai == sp.MaLoai); // Tìm loại tương ứng
-                        int rowIndex = dGV_sp_KM_ADD.Rows.Add();
-                        dGV_sp_KM_ADD.Rows[rowIndex].Cells["chon_add"].Value = false; // Checkbox mặc định false
-                        dGV_sp_KM_ADD.Rows[rowIndex].Cells["tenSanPham_add"].Value = sp.TenSP;
-                        dGV_sp_KM_ADD.Rows[rowIndex].Cells["loai_add"].Value = loai?.TenLoai ?? "Không xác định";
-                        dGV_sp_KM_ADD.Rows[rowIndex].Cells["maSP_add"].Value = sp.MaSP;
-                    }
-                }
-                else
+                if (sanPhams == null || !sanPhams.Any())
                 {
                     MessageBox.Show("Không có dữ liệu sản phẩm để hiển thị.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
                 }
+
+                _allSanPhams = sanPhams.Where(sp => sp.TrangThai == 1).ToList(); // Lưu gốc, chỉ active
+
+                // Áp dụng filter hiện tại (search)
+                ApplyProductFilters();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi gọi API: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        // 🔍 Áp dụng search filter (client-side)
+        private void ApplyProductFilters()
+        {
+            string searchKeyword = roundedTextBox1.TextValue?.Trim().ToLower() ?? "";
+
+            var filtered = _allSanPhams.AsEnumerable();
+
+            // Filter theo search: Partial match trên TenSP và MaSP, ưu tiên exact cho mã
+            if (!string.IsNullOrEmpty(searchKeyword))
+            {
+                filtered = filtered.Where(sp =>
+                    (!string.IsNullOrEmpty(sp.TenSP) && sp.TenSP.ToLower().Contains(searchKeyword)) ||
+                    sp.MaSP.ToString().Contains(searchKeyword)
+                ).ToList();
+
+                // Ưu tiên exact match cho mã
+                if (int.TryParse(searchKeyword, out int keywordAsInt))
+                {
+                    var exactMatch = _allSanPhams.FirstOrDefault(sp => sp.MaSP == keywordAsInt);
+                    if (exactMatch != null && !filtered.Contains(exactMatch))
+                    {
+                        var tempList = new List<SanPham> { exactMatch };
+                        tempList.AddRange(filtered);
+                        filtered = tempList.AsEnumerable();
+                    }
+                }
+            }
+
+            DisplayProducts(filtered.ToList());
+        }
+
+        // 🧩 Hàm hiển thị danh sách sản phẩm (sử dụng DataGridView)
+        private void DisplayProducts(List<SanPham> products)
+        {
+            dGV_sp_KM_ADD.Rows.Clear();
+            checkboxToMaSPMap.Clear(); // Clear map cũ
+
+            if (products == null || products.Count == 0)
+            {
+                dGV_sp_KM_ADD.Rows.Add(); // Thêm row rỗng
+                dGV_sp_KM_ADD.Rows[0].Cells["tenSanPham_add"].Value = "Không có sản phẩm nào phù hợp với tìm kiếm.";
+                dGV_sp_KM_ADD.Rows[0].DefaultCellStyle.ForeColor = Color.Gray;
+                dGV_sp_KM_ADD.Rows[0].DefaultCellStyle.Font = new Font(dGV_sp_KM_ADD.DefaultCellStyle.Font, FontStyle.Italic);
+                return;
+            }
+
+            foreach (var sp in products)
+            {
+                var loai = _loais.Find(l => l.MaLoai == sp.MaLoai); // Tìm loại tương ứng
+                int rowIndex = dGV_sp_KM_ADD.Rows.Add();
+
+                var checkCell = dGV_sp_KM_ADD.Rows[rowIndex].Cells["chon_add"] as DataGridViewCheckBoxCell;
+                checkCell.Value = false; // Checkbox mặc định false
+                checkboxToMaSPMap[checkCell] = sp.MaSP; // Map checkbox to MaSP
+
+                dGV_sp_KM_ADD.Rows[rowIndex].Cells["tenSanPham_add"].Value = sp.TenSP;
+                dGV_sp_KM_ADD.Rows[rowIndex].Cells["loai_add"].Value = loai?.TenLoai ?? "Không xác định";
+                dGV_sp_KM_ADD.Rows[rowIndex].Cells["maSP_add"].Value = sp.MaSP;
+            }
+
+            dGV_sp_KM_ADD.Refresh(); // Force refresh UI
+        }
+
+        // 🔍 Tìm kiếm sản phẩm (debounce với timer)
+        private void roundedTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            _searchTimer.Stop();
+            _searchTimer.Start(); // Restart timer để debounce
+        }
+
+        private void SearchTimer_Tick(object sender, EventArgs e)
+        {
+            _searchTimer.Stop(); // Dừng timer
+            ApplyProductFilters(); // Áp dụng bộ lọc sau khi user dừng gõ
         }
 
         private void DGV_sp_KM_ADD_CurrentCellDirtyStateChanged(object sender, EventArgs e)
@@ -145,46 +218,6 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             return selectedIds;
         }
 
-
-        private void roundedTextBox1_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                string searchValue = roundedTextBox1.TextValue?.Trim().ToLower() ?? "";
-                string columnName = "tenSanPham_add"; // Tìm kiếm mặc định theo tên sản phẩm
-
-                int visibleRowCount = 0;
-                // Lọc các hàng trong DataGridView
-                foreach (DataGridViewRow row in dGV_sp_KM_ADD.Rows)
-                {
-                    if (row.Cells[columnName].Value != null)
-                    {
-                        string cellValue = row.Cells[columnName].Value.ToString().ToLower();
-                        // Hiển thị hàng nếu giá trị trong ô chứa chuỗi tìm kiếm
-                        row.Visible = cellValue.Contains(searchValue);
-                        if (row.Visible)
-                        {
-                            visibleRowCount++;
-                        }
-                    }
-                    else
-                    {
-                        row.Visible = false;
-                    }
-                }
-
-                // Nếu không có kết quả, show MessageBox (chỉ khi searchValue không rỗng để tránh spam)
-                if (visibleRowCount == 0 && !string.IsNullOrEmpty(searchValue))
-                {
-                    MessageBox.Show("Không tìm thấy kết quả phù hợp.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi khi tìm kiếm: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private async void roundedButton1_Click(object sender, EventArgs e)
         {
             try
@@ -196,7 +229,6 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                 DateTime ngayBatDau = dateTimePicker1.Value;
                 DateTime ngayKetThuc = dateTimePicker2.Value;
                 string moTa = textBox2.Text.Trim();
-
 
                 // Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrEmpty(tenCT))
@@ -234,55 +266,44 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                     TrangThai = 1
                 };
 
-                // Gửi POST cho CTKhuyenMai
-                using var client = new HttpClient();
-                client.BaseAddress = new Uri(ApiBaseUrl);
-
-                var json = JsonSerializer.Serialize(km);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                var response = await client.PostAsync("/api/ctkhuyenmai", content);
-
-                if (response.IsSuccessStatusCode)
+                // Gọi service để thêm và lấy ID
+                int maCTKhuyenMai = await _ctKhuyenMaiService.AddCTKhuyenMaiAsync(km);
+                if (maCTKhuyenMai == 0)
                 {
-                    // Parse MaCTKhuyenMai mới từ response
-                    var responseJson = await response.Content.ReadAsStringAsync();
-                    var addedKm = JsonSerializer.Deserialize<CTKhuyenMai>(responseJson, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-                    int maCTKhuyenMai = addedKm?.MaCTKhuyenMai ?? 0;
+                    MessageBox.Show("Không thể thêm chương trình khuyến mãi. Vui lòng thử lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-                    bool success = true;
-                    if (maCTKhuyenMai > 0 && selectedSanPhamIds.Count > 0)
-                    {
-                        success = await SaveSanPhamKhuyenMaiAsync(maCTKhuyenMai, selectedSanPhamIds);
-                    }
+                Debug.WriteLine("Thêm khuyến mãi thành công với ID: " + maCTKhuyenMai);
 
-                    // Message tùy chỉnh cho sản phẩm khuyến mãi
-                    if (success)
-                    {
-                        string productMsg = selectedSanPhamIds.Count > 0
-                            ? $"Đã thêm {selectedSanPhamIds.Count} sản phẩm vào chương trình khuyến mãi '{tenCT}' thành công!"
-                            : "Chương trình khuyến mãi đã được thêm thành công (áp dụng cho tất cả sản phẩm).";
-                        MessageBox.Show(productMsg, "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Thêm chương trình khuyến mãi thành công, nhưng có lỗi khi liên kết sản phẩm. Vui lòng kiểm tra lại.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
+                // Lưu liên kết sản phẩm nếu có
+                bool success = true;
+                if (selectedSanPhamIds.Count > 0)
+                {
+                    success = await SaveSanPhamKhuyenMaiAsync(maCTKhuyenMai, selectedSanPhamIds);
+                }
 
-                    // Reload parent form nếu có
-                    if (this.Owner is DiscountForm parentForm)
-                    {
-                        await parentForm.LoadDiscountsAsync();
-                    }
-
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
+                // Message tùy chỉnh cho sản phẩm khuyến mãi
+                if (success)
+                {
+                    string productMsg = selectedSanPhamIds.Count > 0
+                        ? $"Đã thêm {selectedSanPhamIds.Count} sản phẩm vào chương trình khuyến mãi '{tenCT}' thành công!"
+                        : "Chương trình khuyến mãi đã được thêm thành công (áp dụng cho tất cả sản phẩm).";
+                    MessageBox.Show(productMsg, "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    var err = await response.Content.ReadAsStringAsync();
-                    MessageBox.Show($"Lỗi khi thêm khuyến mãi:\n{response.StatusCode}\n{err}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Thêm chương trình khuyến mãi thành công, nhưng có lỗi khi liên kết sản phẩm. Vui lòng kiểm tra lại.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+
+                // Reload parent form nếu có
+                if (this.Owner is DiscountForm parentForm)
+                {
+                    await parentForm.LoadDiscountsAsync();
+                }
+
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
             catch (Exception ex)
             {
@@ -304,6 +325,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                     };
 
                     var success = await _sanPhamKhuyenMaiService.AddAsync(item);
+ 
                     if (!success)
                     {
                         MessageBox.Show($"Lỗi lưu liên kết sản phẩm {maSP}.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -319,8 +341,6 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                 return false;
             }
         }
-
-        
 
         private void roundedComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -339,7 +359,11 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
 
         private void roundedTextBox1_KeyDown(object sender, KeyEventArgs e)
         {
-            _ = LoadSanPhamAsync();
+            if (e.KeyCode == Keys.Enter)
+            {
+                _searchTimer.Stop();
+                ApplyProductFilters(); // Tìm ngay khi Enter
+            }
         }
 
         private void btnThoatDiscount_Click_1(object sender, EventArgs e)
@@ -348,5 +372,4 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             this.Close();
         }
     }
-
 }
