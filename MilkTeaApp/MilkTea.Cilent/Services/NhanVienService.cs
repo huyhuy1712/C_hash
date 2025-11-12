@@ -38,5 +38,11 @@ namespace MilkTea.Client.Services
             }
             return 0;
         }
+
+        // lay nhan vien by matk
+        public async Task<NhanVien?> GetByMaTK(int maTK)
+        {
+            return await _http.GetFromJsonAsync<NhanVien>($"/api/nhanvien/nhanvien-by-matk/{maTK}");
+        }
     }
 }

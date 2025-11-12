@@ -26,6 +26,7 @@ namespace MilkTea.Client.Forms
             _taiKhoanService = new AccountService();
             _chucNangService = new();
             this.KeyPreview = true;
+            this.StartPosition = FormStartPosition.CenterScreen;
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
@@ -84,6 +85,7 @@ namespace MilkTea.Client.Forms
         private async void roundedButton_Login_Click(object sender, EventArgs e)
 
         {
+            this.Hide();
             var username = roundedTextBox_TenTK.TextValue.Trim();
             var password = roundedTextBox_Password.TextValue.Trim();
 
@@ -115,12 +117,14 @@ namespace MilkTea.Client.Forms
                 return;
             }
 
+            
             MainForm mainForm = new MainForm(account);
 
             // Lưu thông tin vào session
             Session.AllowedFunctions = await _chucNangService.GetChucNangsByMaQuyenAsync(account.MaQuyen);
-            this.Hide();
+            Session.CurrentUser = account;
             mainForm.ShowDialog();
+            this.Show();
         }
 
         // Hàm kiểm tra đăng nhập

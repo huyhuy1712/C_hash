@@ -24,6 +24,31 @@ namespace MilkTea.Client.Services
             return await _http.GetFromJsonAsync<NhaCungCap>($"/api/nhacungcap/searchID/{maNCC}");
         }
 
+        // Thêm nhà cung cấp mới
+        public async Task<NhaCungCap?> AddAsync(NhaCungCap ncc)
+        {
+            if (ncc == null) throw new ArgumentNullException(nameof(ncc));
+            if (string.IsNullOrWhiteSpace(ncc.TenNCC))
+                throw new ArgumentException("Tên nhà cung cấp không được để trống.");
+
+            try
+            {
+                var response = await _http.PostAsJsonAsync("/api/nhacungcap", ncc);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return await response.Content.ReadFromJsonAsync<NhaCungCap>();
+                }
+
+                var error = await response.Content.ReadAsStringAsync();
+                throw new Exception($"Thêm thất bại: {response.StatusCode} - {error}");
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception("Lỗi kết nối khi thêm nhà cung cấp.", ex);
+            }
+        }
+
         // Lấy MaNCC theo tên nhà cung cấp
         public class NhaCungCapResponse
         {
@@ -41,6 +66,31 @@ namespace MilkTea.Client.Services
                 return result.MaNCC;
             }
             return 0;
+        }
+
+        // Thêm vào class NhaCungCapService
+        public async Task<bool> UpdateAsync(NhaCungCap ncc)
+        {
+            if (ncc == null) throw new ArgumentNullException(nameof(ncc));
+            if (ncc.MaNCC <= 0) throw new ArgumentException("Mã NCC không hợp lệ.");
+            if (string.IsNullOrWhiteSpace(ncc.TenNCC))
+                throw new ArgumentException("Tên nhà cung cấp không được để trống.");
+
+            try
+            {
+                var response = await _http.PutAsJsonAsync("/api/nhacungcap", ncc);
+                return response.IsSuccessStatusCode;
+            }
+            catch (HttpRequestException ex)
+            {
+                throw new Exception("Lỗi kết nối khi cập nhật.", ex);
+            }
+        }
+
+        public async Task<bool> SoftDeleteAsync(int maNCC)
+        {
+            var response = await _http.DeleteAsync($"/api/nhacungcap/{maNCC}/soft");
+            return response.IsSuccessStatusCode;
         }
     }
 }

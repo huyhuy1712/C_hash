@@ -2,7 +2,7 @@
 using MilkTea.Client.Interfaces;
 using MilkTea.Client.Services;
 
-namespace MilkTea.Client.Presenters.Account
+namespace MilkTea.Client.Presenters
 {
     public class AccountPresenter
     {

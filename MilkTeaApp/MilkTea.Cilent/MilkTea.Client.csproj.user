@@ -86,6 +86,9 @@
     <Compile Update="Forms\ChildForm_Order\ToppingForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\ChildForm_Supplier\SupplierForm_ADD_EDIT.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\DiscountForm.cs">
       <SubType>Form</SubType>
     </Compile>

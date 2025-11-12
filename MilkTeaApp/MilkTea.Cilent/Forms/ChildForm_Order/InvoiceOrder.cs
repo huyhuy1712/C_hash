@@ -261,7 +261,10 @@ namespace MilkTea.Client.Forms.ChildForm_Order
                     TongGia = TongCong
                 };
 
-                int maDH = await donHangService.AddDonHangAsync(donHang);
+                await donHangService.AddDonHangAsync(donHang);
+                var listDH = await donHangService.GetAllDonHangAsync();
+                int maDH = listDH.Max(dh => dh.MaDH);
+
 
                 foreach (var item in SanPhamDaMua)
                 {

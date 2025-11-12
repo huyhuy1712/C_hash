@@ -1,11 +1,4 @@
-﻿using MilkTea.Client.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MilkTea.Client.Interfaces
+﻿namespace MilkTea.Client.Interfaces
 {
 
     public interface IViewAccountForm

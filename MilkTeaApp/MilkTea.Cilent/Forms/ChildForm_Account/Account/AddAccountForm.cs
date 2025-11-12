@@ -1,6 +1,6 @@
 ﻿using MilkTea.Client.Models;
 using MilkTea.Client.Interfaces;
-using MilkTea.Client.Presenters.Account;
+using MilkTea.Client.Presenters;
 
 namespace MilkTea.Client.Forms.ChildForm_Account
 {
@@ -43,16 +43,8 @@ namespace MilkTea.Client.Forms.ChildForm_Account
 
         private async void btnThemTTK_Click(object sender, EventArgs e)
         {
-            bool success = await _presenter.AddAccountAsync();
-            if (success)
-            {
-                MessageBox.Show("Thêm tài khoản thành công!");
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show("Thêm thất bại.");
-            }
+
+            errorProvider1.SetError(txtbTenTaiKhoan, "Tên tài khoản không được để trống.");
         }
     }
 }

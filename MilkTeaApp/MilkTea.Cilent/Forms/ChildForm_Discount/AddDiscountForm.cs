@@ -1,5 +1,10 @@
-﻿using System;
+﻿using MilkTea.Client.Controls;
+using MilkTea.Client.Models;
+using MilkTea.Client.Services;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Net.Http;
@@ -7,221 +12,176 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MilkTea.Client.Controls;
-using MilkTea.Client.Models; // Giả sử models ở đây: SanPham, Loai, CTKhuyenMai, SanPhamKhuyenMai
-
 
 namespace MilkTea.Client.Forms.ChildForm_Discount
 {
     public partial class AddDiscountForm : Form
     {
         private List<SanPham> danhSachSanPham = new List<SanPham>();
-        private List<Loai> danhSachLoai = new List<Loai>();
-        private Dictionary<CheckBox, int> checkboxToMaSPMap = new Dictionary<CheckBox, int>(); // Map checkbox to MaSP cho selected
-        private const string ApiBaseUrl = "http://localhost:5198"; // Port từ code của bạn
+        private List<Loai> _danhSachLoai;
+        private Dictionary<DataGridViewCheckBoxCell, int> checkboxToMaSPMap = new Dictionary<DataGridViewCheckBoxCell, int>(); // Map checkbox cell to MaSP
+        private const string ApiBaseUrl = "http://localhost:5198";
+        private LoaiService _loaiService;
+        private SanPhamService _SanPhamService;
+        private SanPhamKhuyenMaiService _sanPhamKhuyenMaiService;
 
         public AddDiscountForm()
         {
             InitializeComponent();
+            _loaiService = new LoaiService();
+            _SanPhamService = new SanPhamService();
+            _sanPhamKhuyenMaiService = new SanPhamKhuyenMaiService();
         }
 
-        private async void AddDiscountForm_Load(object sender, EventArgs e)
+        private async void AddDiscountForm_Load_1(object sender, EventArgs e)
         {
-            await LoadSanPhamAsync(); // Tải sản phẩm và populate UI dynamic
-            await LoadLoaiAsync();    // Tải loại và populate roundedComboBox2
-
-            // Gắn event search
-            roundedTextBox1.TextChanged += roundedTextBox1_TextChanged;
+            await LoadSanPhamAsync(); // Load sản phẩm cho DataGridView
         }
+
+
 
         private async Task LoadSanPhamAsync()
         {
             try
             {
-                using var client = new HttpClient();
-                client.BaseAddress = new Uri(ApiBaseUrl);
+                var sanPhams = await _SanPhamService.GetSanPhamsAsync();
+                var loais = await _loaiService.GetLoaisAsync();
 
-                var response = await client.GetAsync("/api/sanpham");
+                dGV_sp_KM_ADD.Rows.Clear();
 
-                if (response.IsSuccessStatusCode)
+                var sanPhamsActive = sanPhams?.Where(sp => sp.TrangThai == 1).ToList(); // Filter active nếu có TrangThai
+                if (sanPhamsActive != null && sanPhamsActive.Any())
                 {
-                    var json = await response.Content.ReadAsStringAsync();
-                    danhSachSanPham = JsonSerializer.Deserialize<List<SanPham>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new List<SanPham>();
-
-                    // Clear flowLayoutPanel1 và tạo dynamic cards cho tất cả sản phẩm
-                    flowLayoutPanel1.Controls.Clear();
-                    checkboxToMaSPMap.Clear();
-
-                    foreach (var sp in danhSachSanPham)
+                    foreach (var sp in sanPhamsActive)
                     {
-                        var card = CreateProductCard(sp);
-                        flowLayoutPanel1.Controls.Add(card);
+                        var loai = loais.Find(l => l.MaLoai == sp.MaLoai); // Tìm loại tương ứng
+                        int rowIndex = dGV_sp_KM_ADD.Rows.Add();
+                        dGV_sp_KM_ADD.Rows[rowIndex].Cells["chon_add"].Value = false; // Checkbox mặc định false
+                        dGV_sp_KM_ADD.Rows[rowIndex].Cells["tenSanPham_add"].Value = sp.TenSP;
+                        dGV_sp_KM_ADD.Rows[rowIndex].Cells["loai_add"].Value = loai?.TenLoai ?? "Không xác định";
+                        dGV_sp_KM_ADD.Rows[rowIndex].Cells["maSP_add"].Value = sp.MaSP;
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Lỗi tải danh sách sản phẩm: " + response.StatusCode);
+                    MessageBox.Show("Không có dữ liệu sản phẩm để hiển thị.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi kết nối API sản phẩm: " + ex.Message);
+                MessageBox.Show($"Lỗi khi gọi API: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private Panel CreateProductCard(SanPham sp)
+        private void DGV_sp_KM_ADD_CurrentCellDirtyStateChanged(object sender, EventArgs e)
         {
-            var panelOuter = new Panel
+            if (dGV_sp_KM_ADD.IsCurrentCellInEditMode && dGV_sp_KM_ADD.CurrentCell.ColumnIndex == dGV_sp_KM_ADD.Columns["chon_add"].Index)
             {
-                BackColor = Color.DarkTurquoise,
-                Size = new System.Drawing.Size(275, 100),
-                Margin = new Padding(10),
-                Cursor = Cursors.SizeAll
-            };
-
-            // Panel ảnh
-            var panelImage = new Panel { Dock = DockStyle.Left, Size = new System.Drawing.Size(99, 100) };
-            var pictureBox = new PictureBox
-            {
-                Dock = DockStyle.Fill,
-                SizeMode = PictureBoxSizeMode.StretchImage,
-                Tag = sp.MaSP // Tag để identify
-            };
-            try
-            {
-                // Nếu Anh là filename, load từ file; nếu resource name, dùng Properties.Resources
-                pictureBox.Image = (Bitmap)Properties.Resources.ResourceManager.GetObject(sp.Anh ?? "default");
+                dGV_sp_KM_ADD.CommitEdit(DataGridViewDataErrorContexts.Commit);
             }
-            catch
-            {
-                // Fallback: Không set ảnh nếu lỗi
-                pictureBox.Image = null; // Hoặc icon default
-            }
-            panelImage.Controls.Add(pictureBox);
-
-            // Panel tên
-            var panelName = new Panel { Dock = DockStyle.Left, Size = new System.Drawing.Size(148, 100) };
-            var labelName = new Label
-            {
-                Dock = DockStyle.Fill,
-                Font = new Font("Segoe UI", 12F, FontStyle.Bold),
-                Text = sp.TenSP,
-                TextAlign = ContentAlignment.MiddleLeft,
-                Tag = sp.MaSP
-            };
-            panelName.Controls.Add(labelName);
-
-            // Panel checkbox
-            var panelCheck = new Panel { Dock = DockStyle.Fill, Size = new System.Drawing.Size(28, 100) };
-            var checkBox = new CheckBox
-            {
-                Dock = DockStyle.Top,
-                Size = new System.Drawing.Size(28, 100),
-                Tag = sp.MaSP
-            };
-            checkBox.CheckedChanged += ProductCheckBox_CheckedChanged; // Event chung cho tất cả checkbox
-            panelCheck.Controls.Add(checkBox);
-
-            // Add panels to outer
-            panelOuter.Controls.Add(panelCheck);
-            panelOuter.Controls.Add(panelName);
-            panelOuter.Controls.Add(panelImage);
-
-            // Map checkbox to MaSP
-            checkboxToMaSPMap[checkBox] = sp.MaSP;
-
-            return panelOuter;
         }
 
-        private void ProductCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void DGV_sp_KM_ADD_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (sender is CheckBox cb && cb.Tag is int maSP)
+            if (e.ColumnIndex == dGV_sp_KM_ADD.Columns["chon_add"].Index && e.RowIndex >= 0)
             {
-                if (checkBox1.Checked && cb.Checked)
+                var checkCell = dGV_sp_KM_ADD.Rows[e.RowIndex].Cells["chon_add"] as DataGridViewCheckBoxCell;
+                bool isChecked = (bool)checkCell.Value;
+
+                if (checkBox6.Checked && isChecked)
                 {
-                    cb.Checked = false;
+                    checkCell.Value = false;
                     MessageBox.Show("Vui lòng bỏ chọn 'Chọn tất cả' để chọn sản phẩm cụ thể.", "Thông báo", MessageBoxButtons.OK);
                 }
             }
         }
 
-        private async Task LoadLoaiAsync()
+        private void checkBox6_CheckedChanged(object sender, EventArgs e)
+        {
+            bool enabled = !checkBox6.Checked;
+            foreach (DataGridViewRow row in dGV_sp_KM_ADD.Rows)
+            {
+                var checkCell = row.Cells["chon_add"] as DataGridViewCheckBoxCell;
+                checkCell.ReadOnly = !enabled; // Disable if "Chọn tất cả" is checked
+            }
+
+            if (checkBox6.Checked)
+            {
+                // Uncheck all
+                foreach (DataGridViewRow row in dGV_sp_KM_ADD.Rows)
+                {
+                    row.Cells["chon_add"].Value = false;
+                }
+            }
+        }
+
+        // Helper để lấy list MaSP đã chọn từ DataGridView checkboxes
+        private List<int> GetSelectedSanPhamIds()
+        {
+            var selectedIds = new List<int>();
+
+            foreach (DataGridViewRow row in dGV_sp_KM_ADD.Rows)
+            {
+                // safe access to the checkbox cell
+                var checkCell = row.Cells["chon_add"] as DataGridViewCheckBoxCell;
+                if (checkCell == null) continue;
+
+                bool isChecked = false;
+                if (checkCell.Value != null && bool.TryParse(checkCell.Value.ToString(), out var v))
+                    isChecked = v;
+                else if (checkCell.FormattedValue != null && bool.TryParse(checkCell.FormattedValue.ToString(), out v))
+                    isChecked = v;
+
+                if (!isChecked) continue;
+
+                // Use the actual column name used when filling the grid ("maSP_add")
+                var maCell = row.Cells["maSP_add"];
+                if (maCell?.Value == null) continue;
+
+                if (int.TryParse(maCell.Value.ToString(), out int maSP))
+                    selectedIds.Add(maSP);
+            }
+
+            return selectedIds;
+        }
+
+
+        private void roundedTextBox1_TextChanged(object sender, EventArgs e)
         {
             try
             {
-                using var client = new HttpClient();
-                client.BaseAddress = new Uri(ApiBaseUrl);
+                string searchValue = roundedTextBox1.TextValue?.Trim().ToLower() ?? "";
+                string columnName = "tenSanPham_add"; // Tìm kiếm mặc định theo tên sản phẩm
 
-                var response = await client.GetAsync("/api/loai");
-
-                if (response.IsSuccessStatusCode)
+                int visibleRowCount = 0;
+                // Lọc các hàng trong DataGridView
+                foreach (DataGridViewRow row in dGV_sp_KM_ADD.Rows)
                 {
-                    var json = await response.Content.ReadAsStringAsync();
-                    danhSachLoai = JsonSerializer.Deserialize<List<Loai>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new List<Loai>();
-
-                    // Populate vào roundedComboBox2
-                    roundedComboBox2.DataSource = null;
-                    roundedComboBox2.DisplayMember = "TenLoai";
-                    roundedComboBox2.ValueMember = "MaLoai";
-                    roundedComboBox2.DataSource = danhSachLoai;
-                    roundedComboBox2.SelectedIndex = -1;
+                    if (row.Cells[columnName].Value != null)
+                    {
+                        string cellValue = row.Cells[columnName].Value.ToString().ToLower();
+                        // Hiển thị hàng nếu giá trị trong ô chứa chuỗi tìm kiếm
+                        row.Visible = cellValue.Contains(searchValue);
+                        if (row.Visible)
+                        {
+                            visibleRowCount++;
+                        }
+                    }
+                    else
+                    {
+                        row.Visible = false;
+                    }
                 }
-                else
+
+                // Nếu không có kết quả, show MessageBox (chỉ khi searchValue không rỗng để tránh spam)
+                if (visibleRowCount == 0 && !string.IsNullOrEmpty(searchValue))
                 {
-                    MessageBox.Show("Lỗi tải danh sách loại: " + response.StatusCode);
+                    MessageBox.Show("Không tìm thấy kết quả phù hợp.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi kết nối API loại: " + ex.Message);
-            }
-        }
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            bool enabled = !checkBox1.Checked;
-            // Disable all product checkboxes (dynamic)
-            foreach (var kvp in checkboxToMaSPMap)
-            {
-                kvp.Key.Enabled = enabled;
-            }
-
-            if (checkBox1.Checked)
-            {
-                // Uncheck all
-                foreach (var kvp in checkboxToMaSPMap)
-                {
-                    kvp.Key.Checked = false;
-                }
-            }
-        }
-
-        // Helper để lấy list MaSP đã chọn từ các checkbox
-        private List<int> GetSelectedSanPhamIds()
-        {
-            List<int> selectedIds = new List<int>();
-            foreach (var kvp in checkboxToMaSPMap)
-            {
-                if (kvp.Key.Checked)
-                {
-                    selectedIds.Add(kvp.Value);
-                }
-            }
-            return selectedIds;
-        }
-
-        // Event search: Filter dynamic cards
-        private void roundedTextBox1_TextChanged(object sender, EventArgs e)
-        {
-            string keyword = roundedTextBox1.TextValue?.ToLower() ?? "";
-            foreach (Control ctrl in flowLayoutPanel1.Controls)
-            {
-                if (ctrl is Panel p && p.Controls.Count == 3)
-                {
-                    var labelName = p.Controls[1] as Label;
-                    bool visible = string.IsNullOrEmpty(keyword) || (labelName?.Text?.ToLower().Contains(keyword) == true);
-                    p.Visible = visible;
-                }
+                MessageBox.Show($"Lỗi khi tìm kiếm: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -236,7 +196,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                 DateTime ngayBatDau = dateTimePicker1.Value;
                 DateTime ngayKetThuc = dateTimePicker2.Value;
                 string moTa = textBox2.Text.Trim();
-                int maLoai = roundedComboBox2.SelectedValue is int ? (int)roundedComboBox2.SelectedValue : 0; // Nếu chọn loại
+
 
                 // Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrEmpty(tenCT))
@@ -253,7 +213,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
 
                 // Kiểm tra sản phẩm đã chọn (nếu không chọn "Tất cả")
                 List<int> selectedSanPhamIds = new List<int>();
-                if (!checkBox1.Checked)
+                if (!checkBox6.Checked)
                 {
                     selectedSanPhamIds = GetSelectedSanPhamIds();
                     if (selectedSanPhamIds.Count == 0)
@@ -274,7 +234,6 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                     TrangThai = 1
                 };
 
-
                 // Gửi POST cho CTKhuyenMai
                 using var client = new HttpClient();
                 client.BaseAddress = new Uri(ApiBaseUrl);
@@ -286,7 +245,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
 
                 if (response.IsSuccessStatusCode)
                 {
-                    // Parse MaCTKhuyenMai mới từ response (giả sử API trả object với ID)
+                    // Parse MaCTKhuyenMai mới từ response
                     var responseJson = await response.Content.ReadAsStringAsync();
                     var addedKm = JsonSerializer.Deserialize<CTKhuyenMai>(responseJson, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
                     int maCTKhuyenMai = addedKm?.MaCTKhuyenMai ?? 0;
@@ -294,11 +253,21 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                     bool success = true;
                     if (maCTKhuyenMai > 0 && selectedSanPhamIds.Count > 0)
                     {
-                        success = await SaveSanPhamKhuyenMaiAsync(client, maCTKhuyenMai, selectedSanPhamIds);
+                        success = await SaveSanPhamKhuyenMaiAsync(maCTKhuyenMai, selectedSanPhamIds);
                     }
 
-                    string msg = success ? "Thêm chương trình khuyến mãi thành công!" : "Thêm khuyến mãi thành công, nhưng lỗi khi liên kết sản phẩm!";
-                    MessageBox.Show(msg, success ? "Thành công" : "Cảnh báo", MessageBoxButtons.OK, success ? MessageBoxIcon.Information : MessageBoxIcon.Warning);
+                    // Message tùy chỉnh cho sản phẩm khuyến mãi
+                    if (success)
+                    {
+                        string productMsg = selectedSanPhamIds.Count > 0
+                            ? $"Đã thêm {selectedSanPhamIds.Count} sản phẩm vào chương trình khuyến mãi '{tenCT}' thành công!"
+                            : "Chương trình khuyến mãi đã được thêm thành công (áp dụng cho tất cả sản phẩm).";
+                        MessageBox.Show(productMsg, "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Thêm chương trình khuyến mãi thành công, nhưng có lỗi khi liên kết sản phẩm. Vui lòng kiểm tra lại.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
 
                     // Reload parent form nếu có
                     if (this.Owner is DiscountForm parentForm)
@@ -321,11 +290,11 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             }
         }
 
-        private async Task<bool> SaveSanPhamKhuyenMaiAsync(HttpClient client, int maCTKhuyenMai, List<int> selectedSanPhamIds)
+        private async Task<bool> SaveSanPhamKhuyenMaiAsync(int maCTKhuyenMai, List<int> selectedSanPhamIds)
         {
             try
             {
-                // Loop POST single cho mỗi SanPhamKhuyenMai (nếu không có batch endpoint)
+                // Loop gọi service cho mỗi SanPhamKhuyenMai
                 foreach (var maSP in selectedSanPhamIds)
                 {
                     var item = new SanPhamKhuyenMai
@@ -334,14 +303,10 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                         MaCTKhuyenMai = maCTKhuyenMai
                     };
 
-                    var itemJson = JsonSerializer.Serialize(item);
-                    var itemContent = new StringContent(itemJson, Encoding.UTF8, "application/json");
-                    var itemResponse = await client.PostAsync("/api/sanpham_khuyenmai", itemContent); // Endpoint single
-
-                    if (!itemResponse.IsSuccessStatusCode)
+                    var success = await _sanPhamKhuyenMaiService.AddAsync(item);
+                    if (!success)
                     {
-                        var err = await itemResponse.Content.ReadAsStringAsync();
-                        MessageBox.Show($"Lỗi lưu liên kết sản phẩm {maSP}:\n{itemResponse.StatusCode}\n{err}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show($"Lỗi lưu liên kết sản phẩm {maSP}.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return false;
                     }
                 }
@@ -355,15 +320,33 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             }
         }
 
-        private void roundedButton2_Click(object sender, EventArgs e)
-        {
-            this.DialogResult = DialogResult.Cancel;
-            this.Close();
-        }
+        
+
         private void roundedComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Có thể thêm logic nếu cần
         }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            // Có thể thêm logic nếu cần
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            // Có thể thêm logic nếu cần
+        }
+
+        private void roundedTextBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            _ = LoadSanPhamAsync();
+        }
+
+        private void btnThoatDiscount_Click_1(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
     }
+
 }

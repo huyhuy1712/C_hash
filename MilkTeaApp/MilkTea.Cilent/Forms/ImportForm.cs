@@ -114,6 +114,8 @@ namespace MilkTea.Client.Forms
             try
             {
                 var phieuNhaps = await _phieuNhapService.GetPhieuNhapsAsync();
+                var nv = await _nhanVienService.GetNhanVienAsync();
+                var ncc = await _nhaCungCapService.GetNhaCungCapAsync();
 
                 dGV_phieuNhap.Rows.Clear();
 
@@ -122,9 +124,9 @@ namespace MilkTea.Client.Forms
                 {
                     foreach (var pn in phieuNhapsActive)
                     {
-                        var nhanvien = await _nhanVienService.GetByMaNV(pn.MaNV);
+                        var nhanvien = nv.Find(n => n.MaNV == pn.MaNV);
+                        var nhacungcap = ncc.Find(n => n.MaNCC == pn.MaNCC);
                         int rowIndex = dGV_phieuNhap.Rows.Add();
-                        var nhacungcap = await _nhaCungCapService.GetByMaNCC(pn.MaNCC);
                         dGV_phieuNhap.Rows[rowIndex].Cells["maPhieuNhap_Tb_iPort"].Value = pn.MaPN;
                         dGV_phieuNhap.Rows[rowIndex].Cells["ngayNhap_Tb_iPort"].Value = pn.NgayNhap?.ToString("dd/MM/yyyy");
                         dGV_phieuNhap.Rows[rowIndex].Cells["soLuong_Tb_iPort"].Value = pn.SoLuong;

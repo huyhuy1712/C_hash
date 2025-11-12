@@ -43,8 +43,6 @@ namespace MilkTea.Client.Forms
 
             //Bật tắt các nút theo quyền
             roundedButton1.Enabled = Session.HasPermission("Thêm sản phẩm");
-            btnXuatDon.Enabled = Session.HasPermission("Thêm đơn hàng");
-            roundedButton2.Enabled = Session.HasPermission("Thêm đơn hàng");
         }
 
         private async Task LoadLoaiAsync()
@@ -88,6 +86,7 @@ namespace MilkTea.Client.Forms
                         item.OnProductUpdated += async (s, ev) =>
                         {
                             await LoadDataAsync();
+                            section_table_panel.Controls.Clear();
                         };
 
                         item.OnProductSelected += ProductItem_OnProductSelected;
@@ -448,7 +447,11 @@ namespace MilkTea.Client.Forms
             {
                 // 1️ Lấy danh sách sản phẩm
                 var listSP = await _sanPhamService.SearchSanPhamAsync(column, value);
-
+                if(listSP == null || listSP.Count == 0)
+                {
+                    MessageBox.Show("Không tìm thấy sản phẩm nào!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
                 // 2 Làm mới danh sách sản phẩm hiển thị
                 layout_product.Controls.Clear();
 

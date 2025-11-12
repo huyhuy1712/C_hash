@@ -30,45 +30,34 @@
         {
             panel1 = new Panel();
             InvoiceOrder_Panel = new Panel();
-            panel8 = new Panel();
-            pictureBox2 = new PictureBox();
-            pictureBox1 = new PictureBox();
             panel2 = new Panel();
             label2 = new Label();
             label3 = new Label();
             dataGridView1 = new DataGridView();
+            tenSP = new DataGridViewTextBoxColumn();
+            tbSize = new DataGridViewTextBoxColumn();
+            donGia = new DataGridViewTextBoxColumn();
+            soLuong = new DataGridViewTextBoxColumn();
+            tongTien = new DataGridViewTextBoxColumn();
             panel7 = new Panel();
             label22 = new Label();
             label23 = new Label();
             panel6 = new Panel();
             label19 = new Label();
             label20 = new Label();
-            panel5 = new Panel();
-            label17 = new Label();
-            label18 = new Label();
             panel4 = new Panel();
-            label11 = new Label();
+            ten_thu_ngan_label = new Label();
             label16 = new Label();
             panel3 = new Panel();
-            ten_thu_ngan_label = new Label();
+            tgian_label = new Label();
             label1 = new Label();
             Title_label = new Label();
-            tenSP = new DataGridViewTextBoxColumn();
-            tbSize = new DataGridViewTextBoxColumn();
-            Topping = new DataGridViewTextBoxColumn();
-            donGia = new DataGridViewTextBoxColumn();
-            tien = new DataGridViewTextBoxColumn();
-            tongTien = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
             InvoiceOrder_Panel.SuspendLayout();
-            panel8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel7.SuspendLayout();
             panel6.SuspendLayout();
-            panel5.SuspendLayout();
             panel4.SuspendLayout();
             panel3.SuspendLayout();
             SuspendLayout();
@@ -79,60 +68,25 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(874, 624);
+            panel1.Size = new Size(938, 553);
             panel1.TabIndex = 0;
             panel1.Paint += panel1_Paint;
             // 
             // InvoiceOrder_Panel
             // 
             InvoiceOrder_Panel.BackColor = SystemColors.ButtonHighlight;
-            InvoiceOrder_Panel.Controls.Add(panel8);
             InvoiceOrder_Panel.Controls.Add(panel2);
             InvoiceOrder_Panel.Controls.Add(dataGridView1);
             InvoiceOrder_Panel.Controls.Add(panel7);
             InvoiceOrder_Panel.Controls.Add(panel6);
-            InvoiceOrder_Panel.Controls.Add(panel5);
             InvoiceOrder_Panel.Controls.Add(panel4);
             InvoiceOrder_Panel.Controls.Add(panel3);
             InvoiceOrder_Panel.Controls.Add(Title_label);
             InvoiceOrder_Panel.Dock = DockStyle.Fill;
             InvoiceOrder_Panel.Location = new Point(0, 0);
             InvoiceOrder_Panel.Name = "InvoiceOrder_Panel";
-            InvoiceOrder_Panel.Size = new Size(874, 624);
+            InvoiceOrder_Panel.Size = new Size(938, 553);
             InvoiceOrder_Panel.TabIndex = 1;
-            // 
-            // panel8
-            // 
-            panel8.Controls.Add(pictureBox2);
-            panel8.Controls.Add(pictureBox1);
-            panel8.Dock = DockStyle.Bottom;
-            panel8.Location = new Point(0, 567);
-            panel8.Name = "panel8";
-            panel8.Padding = new Padding(20, 0, 20, 10);
-            panel8.Size = new Size(874, 57);
-            panel8.TabIndex = 14;
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.Dock = DockStyle.Right;
-            pictureBox2.Image = Properties.Resources.recycle_bin;
-            pictureBox2.Location = new Point(809, 0);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(45, 47);
-            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox2.TabIndex = 1;
-            pictureBox2.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Dock = DockStyle.Left;
-            pictureBox1.Image = Properties.Resources.hourglass;
-            pictureBox1.Location = new Point(20, 0);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(50, 47);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
             // 
             // panel2
             // 
@@ -141,14 +95,14 @@
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 237);
             panel2.Name = "panel2";
-            panel2.Size = new Size(874, 53);
+            panel2.Size = new Size(938, 53);
             panel2.TabIndex = 7;
             // 
             // label2
             // 
             label2.Dock = DockStyle.Right;
             label2.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(742, 0);
+            label2.Location = new Point(806, 0);
             label2.Name = "label2";
             label2.Size = new Size(132, 53);
             label2.TabIndex = 1;
@@ -168,22 +122,57 @@
             // 
             // dataGridView1
             // 
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { tenSP, tbSize, Topping, donGia, tien, tongTien });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { tenSP, tbSize, donGia, soLuong, tongTien });
             dataGridView1.Dock = DockStyle.Top;
             dataGridView1.Location = new Point(0, 49);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(874, 188);
+            dataGridView1.Size = new Size(938, 188);
             dataGridView1.TabIndex = 13;
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.ReadOnly = true;
+
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            // 
+            // tenSP
+            // 
+            tenSP.HeaderText = "Tên SP";
+            tenSP.MinimumWidth = 6;
+            tenSP.Name = "tenSP";
+            // 
+            // tbSize
+            // 
+            tbSize.HeaderText = "Size";
+            tbSize.MinimumWidth = 6;
+            tbSize.Name = "tbSize";
+            // 
+            // donGia
+            // 
+            donGia.HeaderText = "Đơn giá";
+            donGia.MinimumWidth = 6;
+            donGia.Name = "donGia";
+            // 
+            // soLuong
+            // 
+            soLuong.HeaderText = "Số Lượng";
+            soLuong.MinimumWidth = 6;
+            soLuong.Name = "soLuong";
+            soLuong.ReadOnly = true;
+            // 
+            // tongTien
+            // 
+            tongTien.HeaderText = "Tổng tiền";
+            tongTien.MinimumWidth = 6;
+            tongTien.Name = "tongTien";
             // 
             // panel7
             // 
             panel7.Controls.Add(label22);
             panel7.Controls.Add(label23);
-            panel7.Location = new Point(8, 422);
+            panel7.Location = new Point(8, 436);
             panel7.Name = "panel7";
             panel7.Size = new Size(875, 40);
             panel7.TabIndex = 12;
@@ -214,7 +203,7 @@
             // 
             panel6.Controls.Add(label19);
             panel6.Controls.Add(label20);
-            panel6.Location = new Point(8, 468);
+            panel6.Location = new Point(8, 501);
             panel6.Name = "panel6";
             panel6.Size = new Size(875, 40);
             panel6.TabIndex = 12;
@@ -241,56 +230,25 @@
             label20.Text = "Mã buzzer: ";
             label20.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // panel5
-            // 
-            panel5.Controls.Add(label17);
-            panel5.Controls.Add(label18);
-            panel5.Location = new Point(8, 514);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(875, 40);
-            panel5.TabIndex = 12;
-            // 
-            // label17
-            // 
-            label17.Dock = DockStyle.Left;
-            label17.Font = new Font("Segoe UI", 11F);
-            label17.Location = new Point(104, 0);
-            label17.Name = "label17";
-            label17.Size = new Size(127, 40);
-            label17.TabIndex = 1;
-            label17.Text = "aaaaaaaaa";
-            label17.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // label18
-            // 
-            label18.Dock = DockStyle.Left;
-            label18.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            label18.Location = new Point(0, 0);
-            label18.Name = "label18";
-            label18.Size = new Size(104, 40);
-            label18.TabIndex = 0;
-            label18.Text = "Ghi chú: ";
-            label18.TextAlign = ContentAlignment.MiddleLeft;
-            // 
             // panel4
             // 
-            panel4.Controls.Add(label11);
+            panel4.Controls.Add(ten_thu_ngan_label);
             panel4.Controls.Add(label16);
             panel4.Location = new Point(8, 376);
             panel4.Name = "panel4";
             panel4.Size = new Size(875, 40);
             panel4.TabIndex = 11;
             // 
-            // label11
+            // ten_thu_ngan_label
             // 
-            label11.Dock = DockStyle.Left;
-            label11.Font = new Font("Segoe UI", 11F);
-            label11.Location = new Point(104, 0);
-            label11.Name = "label11";
-            label11.Size = new Size(127, 40);
-            label11.TabIndex = 1;
-            label11.Text = "Anh Huy";
-            label11.TextAlign = ContentAlignment.MiddleCenter;
+            ten_thu_ngan_label.Dock = DockStyle.Left;
+            ten_thu_ngan_label.Font = new Font("Segoe UI", 11F);
+            ten_thu_ngan_label.Location = new Point(104, 0);
+            ten_thu_ngan_label.Name = "ten_thu_ngan_label";
+            ten_thu_ngan_label.Size = new Size(127, 40);
+            ten_thu_ngan_label.TabIndex = 1;
+            ten_thu_ngan_label.Text = "Anh Huy";
+            ten_thu_ngan_label.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label16
             // 
@@ -305,23 +263,23 @@
             // 
             // panel3
             // 
-            panel3.Controls.Add(ten_thu_ngan_label);
+            panel3.Controls.Add(tgian_label);
             panel3.Controls.Add(label1);
-            panel3.Location = new Point(8, 327);
+            panel3.Location = new Point(8, 315);
             panel3.Name = "panel3";
             panel3.Size = new Size(872, 40);
             panel3.TabIndex = 10;
             // 
-            // ten_thu_ngan_label
+            // tgian_label
             // 
-            ten_thu_ngan_label.Dock = DockStyle.Left;
-            ten_thu_ngan_label.Font = new Font("Segoe UI", 11F);
-            ten_thu_ngan_label.Location = new Point(104, 0);
-            ten_thu_ngan_label.Name = "ten_thu_ngan_label";
-            ten_thu_ngan_label.Size = new Size(127, 40);
-            ten_thu_ngan_label.TabIndex = 1;
-            ten_thu_ngan_label.Text = "9/11/2001";
-            ten_thu_ngan_label.TextAlign = ContentAlignment.MiddleCenter;
+            tgian_label.Dock = DockStyle.Left;
+            tgian_label.Font = new Font("Segoe UI", 11F);
+            tgian_label.Location = new Point(104, 0);
+            tgian_label.Name = "tgian_label";
+            tgian_label.Size = new Size(127, 40);
+            tgian_label.TabIndex = 1;
+            tgian_label.Text = "9/11/2001";
+            tgian_label.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label1
             // 
@@ -340,74 +298,28 @@
             Title_label.Font = new Font("Segoe UI", 15F, FontStyle.Bold);
             Title_label.Location = new Point(0, 0);
             Title_label.Name = "Title_label";
-            Title_label.Size = new Size(874, 49);
+            Title_label.Size = new Size(938, 49);
             Title_label.TabIndex = 0;
             Title_label.Text = "Hóa đơn thanh toán";
             Title_label.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // tenSP
-            // 
-            tenSP.HeaderText = "Tên SP";
-            tenSP.MinimumWidth = 6;
-            tenSP.Name = "tenSP";
-            tenSP.Width = 246;
-            // 
-            // tbSize
-            // 
-            tbSize.HeaderText = "Size";
-            tbSize.MinimumWidth = 6;
-            tbSize.Name = "tbSize";
-            tbSize.Width = 125;
-            // 
-            // Topping
-            // 
-            Topping.HeaderText = "Topping";
-            Topping.MinimumWidth = 6;
-            Topping.Name = "Topping";
-            Topping.Width = 125;
-            // 
-            // donGia
-            // 
-            donGia.HeaderText = "Đơn giá";
-            donGia.MinimumWidth = 6;
-            donGia.Name = "donGia";
-            donGia.Width = 125;
-            // 
-            // tien
-            // 
-            tien.HeaderText = "Tiền";
-            tien.MinimumWidth = 6;
-            tien.Name = "tien";
-            tien.Width = 125;
-            // 
-            // tongTien
-            // 
-            tongTien.HeaderText = "Tổng tiền";
-            tongTien.MinimumWidth = 6;
-            tongTien.Name = "tongTien";
-            tongTien.Width = 125;
             // 
             // Bill
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoScroll = true;
             AutoSize = true;
-            ClientSize = new Size(874, 624);
+            ClientSize = new Size(938, 553);
             Controls.Add(panel1);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "Bill";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Bill";
             panel1.ResumeLayout(false);
             InvoiceOrder_Panel.ResumeLayout(false);
-            panel8.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             panel7.ResumeLayout(false);
             panel6.ResumeLayout(false);
-            panel5.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel3.ResumeLayout(false);
             ResumeLayout(false);
@@ -418,7 +330,7 @@
         private Panel panel1;
         private Panel InvoiceOrder_Panel;
         private Panel panel3;
-        private Label ten_thu_ngan_label;
+        private Label tgian_label;
         private Label label1;
         private Label Title_label;
         private Panel panel7;
@@ -427,24 +339,17 @@
         private Panel panel6;
         private Label label19;
         private Label label20;
-        private Panel panel5;
-        private Label label17;
-        private Label label18;
         private Panel panel4;
-        private Label label11;
+        private Label ten_thu_ngan_label;
         private Label label16;
         private DataGridView dataGridView1;
         private Panel panel2;
         private Label label2;
         private Label label3;
-        private Panel panel8;
-        private PictureBox pictureBox2;
-        private PictureBox pictureBox1;
         private DataGridViewTextBoxColumn tenSP;
         private DataGridViewTextBoxColumn tbSize;
-        private DataGridViewTextBoxColumn Topping;
         private DataGridViewTextBoxColumn donGia;
-        private DataGridViewTextBoxColumn tien;
+        private DataGridViewTextBoxColumn soLuong;
         private DataGridViewTextBoxColumn tongTien;
     }
 }

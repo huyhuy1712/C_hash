@@ -1,4 +1,5 @@
-﻿using MilkTea.Client.Models;
+﻿using MilkTea.Client.Forms.ChildForm_Order;
+using MilkTea.Client.Models;
 using MilkTea.Client.Services;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace MilkTea.Client.Controls
         private SanPhamService SanPhamService = new SanPhamService();
         private CongThucService _congThucService = new CongThucService();
         private CTCongThucService _ctCongThucService = new CTCongThucService();
+        private buzzerService _buzzerService = new buzzerService();
         public int pttt;
         public int trangThai;
         //public event EventHandler<DonHangEventArgs> OnDonHangSelected;
@@ -41,7 +43,7 @@ namespace MilkTea.Client.Controls
 
             label_maDH.Text = dh.MaDH.ToString();
             label_NgayLap.Text = dh.NgayLap?.ToString("dd/MM/yyyy") ?? "N/A";
-            pictureBox2.Text = dh.GioLap?.ToString(@"hh\:mm") ?? "N/A";
+            label_GioLap.Text = dh.GioLap?.ToString(@"hh\:mm") ?? "N/A";
             label_TongGia.Text = dh.TongGia.ToString("N0") + " VND";
             label_MaBuzzer.Text = dh.MaBuzzer?.ToString() ?? "N/A";
             pttt = dh.PhuongThucThanhToan ?? 0;
@@ -53,6 +55,17 @@ namespace MilkTea.Client.Controls
             else
                 pictureBox1.Image = Properties.Resources.card;
             // các label khác tuỳ bạn thêm
+            if (trangThai == 0)
+            {
+                pictureBox4.Image = Properties.Resources.hourglass;
+
+            }
+            else
+            {
+                pictureBox4.Image = Properties.Resources.order1;
+                pictureBox4.Enabled = false;
+                pictureBox6.Enabled = false;
+            }
         }
 
         private void pictureBox_PhuongThucThanhToan_Click(object sender, EventArgs e)
@@ -72,7 +85,7 @@ namespace MilkTea.Client.Controls
 
 
 
-        private void pictureBox6_Click(object sender, EventArgs e)
+        private async void pictureBox6_Click(object sender, EventArgs e)
         {
             // Hiển thị hộp thoại xác nhận
             DialogResult result = MessageBox.Show(
@@ -86,7 +99,10 @@ namespace MilkTea.Client.Controls
             {
                 // Người dùng chọn Yes -> thực hiện xóa đơn hàng
                 // TODO: thêm code xóa đơn hàng ở đây
+                donHang.TrangThai = 2; // Đã hoàn thành
+                var trangThaiCapNhat = await new DonHangService().CapNhatTrangThaiDonHangAsync(donHang);
                 MessageBox.Show("Đơn hàng đã được xóa!");
+
             }
             else
             {
@@ -111,9 +127,12 @@ namespace MilkTea.Client.Controls
                 // TODO: thêm code xóa đơn hàng ở đây
                 MessageBox.Show("Cập nhật đơn hàng thành công!");
 
+                //nhàn
+                donHang.TrangThai = 1; // Đã hoàn thành
+                var trangThaiCapNhat = await new DonHangService().CapNhatTrangThaiDonHangAsync(donHang);
+                _buzzerService.UpdateTrangThaiAsync(donHang.MaDH.ToString(), 1); // Cập nhật trạng thái buzzer
                 int maDH = donHang.MaDH;
-                var sp = await SanPhamService.GetSanPhamsByIdAsync(maDH);
-                int maLoai = sp.MaLoai;
+
                 int? nam = donHang.NgayLap?.Year;
                 int? thang = donHang.NgayLap?.Month;
                 int? ngayTrongThang = donHang.NgayLap?.Day;
@@ -124,19 +143,15 @@ namespace MilkTea.Client.Controls
                     .Where(ct => ct.MaDH == donHang.MaDH)
                     .ToList();
 
+                Boolean last = true;
                 foreach (var item in ctDH)
                 {
                     var maSP = item.MaSP;
-                    var congThuc = await _congThucService.GetAllCongThucAsync();
-                    var congThucTrung = congThuc.FirstOrDefault(ct => ct.MaSP == item.MaSP);
-                    var maCT = congThucTrung?.MaCT ?? -1;
-                    var ctCongThuc = await _ctCongThucService.GetChiTietCongThucTheoIdAsync(maCT);
-                    foreach (var ct in ctCongThuc)
-                    {
-
-                    }
+                    var sp = await SanPhamService.SearchSanPhamAsync("MaSP", maSP.ToString());
+                    var ct = await _ctCongThucService.GetChiTietCongThucTheoSPAsync(maSP);
 
                     var maSize = item.MaSize;
+                    int maLoai = sp[0].MaLoai;
                     var soLuong = item.SoLuong;
                     var chiPhi = item.GiaVon;
                     var tongGia = item.TongGia;
@@ -156,22 +171,37 @@ namespace MilkTea.Client.Controls
                         TongDoanhThu = tongGia,
                     };
 
-                    var kq = await doanhThuService.ThemDoanhThuAsync(doanhThu);
+                    var kq = await doanhThuService.ThemDoanhThuAsync(doanhThu); ;
 
-                    if (kq)
+                    if (!kq)
                     {
-                        MessageBox.Show("Thêm doanh thu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        last = false;
                     }
-                    else
-                    {
-                        MessageBox.Show("Thêm doanh thu thất bại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+
+                }
+                if (last)
+                {
+                    MessageBox.Show("Cập nhật doanh thu thành công!");
+                }
+                else
+                {
+                    MessageBox.Show("Cập nhật doanh thu thất bại!");
                 }
             }
             else
             {
                 // Người dùng chọn No -> không làm gì
                 // có thể để trống
+            }
+        }
+
+        private void pictureBox5_Click(object sender, EventArgs e)
+        {
+            // Hiển thị chi tiết đơn hàng
+            if (donHang != null)
+            {
+                Bill billForm = new Bill(donHang);
+                billForm.ShowDialog();
             }
         }
     }

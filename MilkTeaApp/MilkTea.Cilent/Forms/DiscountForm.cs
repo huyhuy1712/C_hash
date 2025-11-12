@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MilkTea.Client.Forms.ChildForm_Discount;
 using MilkTea.Client.Models;
+using MilkTea.Client.Services; // Giả sử có CTKhuyenMaiService nếu cần
 
 namespace MilkTea.Client.Forms
 {
@@ -20,48 +22,48 @@ namespace MilkTea.Client.Forms
         public DiscountForm()
         {
             InitializeComponent();
+            this.Load += DiscountForm_Load;
             // Khởi tạo timer debounce cho reload (500ms delay để tránh gọi API liên tục)
             _searchTimer = new System.Windows.Forms.Timer { Interval = 500 };
             _searchTimer.Tick += SearchTimer_Tick;
-            this.Load += DiscountForm_Load;
         }
 
         private async void DiscountForm_Load(object sender, EventArgs e)
         {
-            
+            // Thêm "Tất cả" vào ComboBox trạng thái (nếu chưa có)
+            if (roundedComboBox2.Items.Count == 0 || !roundedComboBox2.Items.Contains("Tất cả"))
+            {
+                roundedComboBox2.Items.Clear(); // Clear nếu có item cũ
+                roundedComboBox2.Items.AddRange(new object[] { "Tất cả", "Đang hoạt động", "Hết hạn" }); // Thêm "Tất cả" làm item đầu tiên
+            }
+            roundedComboBox2.SelectedIndex = 0; // Chọn "Tất cả" mặc định
+
+            // Clear search để tránh filter sai
+            roundedTextBox2.TextValue = "";
+            roundedTextBox2.Placeholder = "Nhập mã hoặc tên khuyến mãi..."; // Đảm bảo placeholder
+
+            await LoadDiscountsAsync();
+
+            // 🔍 Gắn sự kiện filter trạng thái (luôn attach, an toàn nếu đã có)
+            roundedComboBox2.SelectedIndexChanged += roundedComboBox2_SelectedIndexChanged;
         }
+
         private async Task btnThemDiscount_ClickAsync(object sender, EventArgs e)
         {
             AddDiscountForm addDiscountForm = new AddDiscountForm();
+            addDiscountForm.Owner = this;
             if (addDiscountForm.ShowDialog() == DialogResult.OK)
             {
                 roundedComboBox2.Items.Clear();
                 roundedComboBox2.Items.AddRange(new object[] { "Tất cả", "Đang hoạt động", "Hết hạn" });
+                roundedComboBox2.SelectedIndex = 0;
+
+                roundedTextBox2.TextValue = "";
+                roundedTextBox2.Placeholder = "Nhập mã hoặc tên khuyến mãi...";
+
+                await LoadDiscountsAsync();
             }
-            roundedComboBox2.SelectedIndex = 0;
-
-            roundedTextBox2.TextValue = "";
-            roundedTextBox2.Placeholder = "Nhập mã hoặc tên khuyến mãi...";
-
-            await LoadDiscountsAsync();
             roundedComboBox2.SelectedIndexChanged += roundedComboBox2_SelectedIndexChanged;
-        }
-
-
-        // 🔧 Helper: Clear card tĩnh từ designer (gọi nhiều lần để chắc)
-        private void ClearStaticCards()
-        {
-            flowLayoutPanel1.Controls.Clear();
-            // Nếu có panel7 tĩnh, remove cụ thể (dựa trên tên từ designer)
-            for (int i = flowLayoutPanel1.Controls.Count - 1; i >= 0; i--)
-            {
-                var ctrl = flowLayoutPanel1.Controls[i];
-                if (ctrl.Name == "panel7" || (ctrl is Panel p && p.Controls.Count > 0 && p.Controls[0] is Label l && l.Text.Contains("Chương trình 8/8")))
-                {
-                    flowLayoutPanel1.Controls.RemoveAt(i);
-                }
-            }
-            flowLayoutPanel1.Refresh();
         }
 
         // 🌀 Hàm load danh sách khuyến mãi (từ API, không filter server-side)
@@ -71,9 +73,6 @@ namespace MilkTea.Client.Forms
 
             _isLoading = true;
             ShowLoading(true); // Hiển thị loading indicator
-
-            // Clear LẠI trước khi load để loại bỏ mọi thứ cũ (kể cả tĩnh)
-            ClearStaticCards();
 
             try
             {
@@ -138,7 +137,9 @@ namespace MilkTea.Client.Forms
                 }
             }
 
-            // Filter theo trạng thái: Dựa trên ngày (chỉ nếu KHÔNG phải "Tất cả")
+            // Filter theo trạng thái: Dựa trên ngày (chỉ nếu KHÔNG phải "Tất cả") + Ẩn TrangThai = 0
+            filtered = filtered.Where(d => d.TrangThai == 1); // Ẩn deleted (TrangThai = 0)
+
             if (statusFilter != "Tất cả")
             {
                 filtered = filtered.Where(d =>
@@ -162,116 +163,70 @@ namespace MilkTea.Client.Forms
             DisplayDiscounts(filtered.ToList());
         }
 
-        // 🧩 Hàm hiển thị danh sách khuyến mãi
+        // 🧩 Hàm hiển thị danh sách khuyến mãi (sử dụng DataGridView)
         private void DisplayDiscounts(List<CTKhuyenMai> discounts)
         {
-            // Clear CUỐI CÙNG trước khi add mới
-            flowLayoutPanel1.Controls.Clear();
+            dGV_discounts.Rows.Clear();
 
             if (discounts == null || discounts.Count == 0)
             {
-                var lbl = new Label
-                {
-                    Text = "Không có chương trình khuyến mãi nào phù hợp với tìm kiếm.",
-                    AutoSize = false,
-                    Dock = DockStyle.Top,
-                    TextAlign = ContentAlignment.MiddleCenter,
-                    Font = new Font("Segoe UI", 12F, FontStyle.Italic),
-                    ForeColor = Color.Gray,
-                    Height = 50,
-                    Margin = new Padding(20)
-                };
-                flowLayoutPanel1.Controls.Add(lbl);
+                dGV_discounts.Rows.Add(); // Thêm row rỗng
+                dGV_discounts.Rows[0].Cells["tenKM_col"].Value = "Không có chương trình khuyến mãi nào phù hợp với tìm kiếm.";
+                dGV_discounts.Rows[0].DefaultCellStyle.ForeColor = Color.Gray;
+                dGV_discounts.Rows[0].DefaultCellStyle.Font = new Font(dGV_discounts.DefaultCellStyle.Font, FontStyle.Italic);
                 return;
             }
 
             foreach (var discount in discounts)
             {
-                var cardPanel = CreateDiscountCard(discount);
-                flowLayoutPanel1.Controls.Add(cardPanel);
+                int rowIndex = dGV_discounts.Rows.Add();
+
+                // Store the ID in the row Tag so click handler can find it (don't rely on a removed action_col)
+                dGV_discounts.Rows[rowIndex].Tag = discount.MaCTKhuyenMai;
+
+                dGV_discounts.Rows[rowIndex].Cells["tenKM_col"].Value = discount.TenCTKhuyenMai;
+                dGV_discounts.Rows[rowIndex].Cells["moTa_col"].Value = discount.MoTa;
+                dGV_discounts.Rows[rowIndex].Cells["phanTram_col"].Value = discount.PhanTramKhuyenMai + "%";
+                dGV_discounts.Rows[rowIndex].Cells["ngayBatDau_col"].Value = discount.NgayBatDau?.ToString("dd/MM/yyyy");
+                dGV_discounts.Rows[rowIndex].Cells["ngayKetThuc_col"].Value = discount.NgayKetThuc?.ToString("dd/MM/yyyy");
+                dGV_discounts.Rows[rowIndex].Cells["trangThai_col"].Value = GetStatusText(discount);
+
+                // Action column: Set text "Edit | Delete"
             }
 
-            flowLayoutPanel1.Refresh(); // Force refresh UI
+            dGV_discounts.Refresh(); // Force refresh UI
         }
 
-        // 🧩 Tạo card động (extracted cho dễ maintain)
-        private Panel CreateDiscountCard(CTKhuyenMai discount)
+        // 🔍 Trạng thái text (dựa trên ngày)
+        private string GetStatusText(CTKhuyenMai discount)
         {
-            var panelOuter = new Panel
+            if (discount.TrangThai != 1) return "Đã xóa";
+
+            DateTime now = DateTime.Now.Date;
+            bool isActive = false;
+            if (discount.NgayBatDau.HasValue && discount.NgayKetThuc.HasValue)
             {
-                Width = 200,
-                Height = 100,
-                BackColor = SystemColors.ButtonHighlight,
-                Margin = new Padding(10)
-            };
-
-            var panelTitle = new Panel { Dock = DockStyle.Top, Height = 72 };
-
-            var labelTitle = new Label
+                isActive = discount.NgayBatDau.Value.Date <= now && now <= discount.NgayKetThuc.Value.Date;
+            }
+            else if (discount.NgayBatDau.HasValue && !discount.NgayKetThuc.HasValue)
             {
-                Text = $"{discount.MaCTKhuyenMai} - {discount.TenCTKhuyenMai}",
-                Dock = DockStyle.Fill,
-                Font = new Font("Segoe UI", 14.25F, FontStyle.Bold),
-                TextAlign = ContentAlignment.MiddleCenter,
-                Cursor = Cursors.Hand
-            };
+                isActive = discount.NgayBatDau.Value.Date <= now;
+            }
 
-            // Mở form chi tiết - KHÔNG reload tự động để tránh loop, chỉ reload nếu cần
-            labelTitle.Click += (s, e) =>
-            {
-                var detailForm = new DetailDiscountForm(discount.MaCTKhuyenMai);
-                if (detailForm.ShowDialog() == DialogResult.OK) // Chỉ reload nếu có thay đổi
-                {
-                    _ = LoadDiscountsAsync();
-                }
-            };
-
-            panelTitle.Controls.Add(labelTitle);
-
-            var panelButtons = new Panel
-            {
-                Dock = DockStyle.Bottom,
-                Height = 28,
-                BackColor = SystemColors.ActiveCaption
-            };
-
-            // 🖋 Nút chỉnh sửa
-            var picEdit = new PictureBox
-            {
-                Image = Properties.Resources.edit,
-                SizeMode = PictureBoxSizeMode.Zoom,
-                Dock = DockStyle.Left,
-                Width = 24,
-                Cursor = Cursors.Hand,
-                Tag = discount.MaCTKhuyenMai
-            };
-            picEdit.Click += product_edit_btn1_Click;
-
-            // 🗑 Nút xóa
-            var picDelete = new PictureBox
-            {
-                Image = Properties.Resources.trash,
-                SizeMode = PictureBoxSizeMode.Zoom,
-                Dock = DockStyle.Right,
-                Width = 35,
-                Cursor = Cursors.Hand,
-                Tag = discount.MaCTKhuyenMai
-            };
-            picDelete.Click += async (s, e) => await DeleteDiscountAsync((int)((PictureBox)s).Tag);
-
-            panelButtons.Controls.Add(picEdit);
-            panelButtons.Controls.Add(picDelete);
-            panelOuter.Controls.Add(panelTitle);
-            panelOuter.Controls.Add(panelButtons);
-
-            return panelOuter;
+            return isActive ? "Đang hoạt động" : "Hết hạn";
         }
 
-        // 🔍 Tìm kiếm khuyến mãi (immediate, không debounce)
+        // 🔍 Tìm kiếm khuyến mãi (debounce với timer)
         private void roundedTextBox2_TextChanged(object sender, EventArgs e)
         {
-            // Tự động load lại (gọi LoadDiscountsAsync để fetch fresh data từ API)
-            _ = LoadDiscountsAsync(); // Async fire-and-forget để reload ngay khi gõ
+            _searchTimer.Stop();
+            _searchTimer.Start(); // Restart timer để debounce
+        }
+
+        private void SearchTimer_Tick(object sender, EventArgs e)
+        {
+            _searchTimer.Stop(); // Dừng timer
+            ApplyFilters(); // Áp dụng bộ lọc sau khi user dừng gõ
         }
 
         // 🔍 Filter theo trạng thái
@@ -280,11 +235,9 @@ namespace MilkTea.Client.Forms
             ApplyFilters();
         }
 
-        // 🗑 Hàm xóa khuyến mãi bằng API
-        private async Task DeleteDiscountAsync(int maCTKhuyenMai)
+        private async Task SoftDeleteDiscountAsync(int maCTKhuyenMai)
         {
-            var confirm = MessageBox.Show("Bạn có chắc chắn muốn xóa khuyến mãi này không?",
-                                          "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            var confirm = MessageBox.Show("Bạn có chắc chắn muốn ẩn chương trình khuyến mãi này không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
             if (confirm != DialogResult.Yes) return;
 
@@ -293,88 +246,115 @@ namespace MilkTea.Client.Forms
                 using var client = new HttpClient();
                 client.BaseAddress = new Uri("http://localhost:5198");
 
-                var response = await client.DeleteAsync($"/api/ctkhuyenmai/{maCTKhuyenMai}");
+                // Tạo body update TrangThai = 0
+                var updateData = new { TrangThai = 0 };
+                var json = JsonSerializer.Serialize(updateData);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                var response = await client.PutAsync($"/api/ctkhuyenmai/{maCTKhuyenMai}", content); // Sử dụng PUT để update
 
                 if (response.IsSuccessStatusCode)
                 {
-                    MessageBox.Show("Đã xóa khuyến mãi thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    await LoadDiscountsAsync(); // Làm mới
+                    MessageBox.Show("Đã ẩn chương trình khuyến mãi thành công! (TrangThai = 0)", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    await LoadDiscountsAsync(); // Làm mới để ẩn khỏi list
                 }
                 else
                 {
                     string err = await response.Content.ReadAsStringAsync();
-                    MessageBox.Show($"Không thể xóa khuyến mãi!\n{response.StatusCode}\n{err}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Không thể ẩn khuyến mãi!\n{response.StatusCode}\n{err}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi xóa khuyến mãi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi ẩn khuyến mãi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         // 🧩 Mở form thêm khuyến mãi
         private void roundedButton1_Click(object sender, EventArgs e)
         {
-            var addForm = new AddDiscountForm();
-            addForm.Owner = this;
-            if (addForm.ShowDialog() == DialogResult.OK)
-            {
-                _ = LoadDiscountsAsync(); // Làm mới sau khi thêm
-            }
+            _ = btnThemDiscount_ClickAsync(sender, e); // Gọi async method
         }
 
         // 🛠 Nút chỉnh sửa (mở form sửa)
-        private void product_edit_btn1_Click(object sender, EventArgs e)
+        private async void dGV_discounts_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            var pic = sender as PictureBox;
-            if (pic?.Tag is int id)
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
+
+            // Kiểm tra nếu cột action_col tồn tại trước khi truy cập
+            // (action_col removed — using image columns: chiTiet, sua, xoa)
+            var row = dGV_discounts.Rows[e.RowIndex];
+
+            // Lấy MaCTKhuyenMai ưu tiên từ row.Tag, fallback parse từ tenKM_col nếu cần
+            int maCTKhuyenMai;
+            if (row.Tag is int id)
             {
-                var editForm = new EditDiscountForm(id);
-                editForm.Owner = this;
+                maCTKhuyenMai = id;
+            }
+            else if (row.Cells["tenKM_col"].Value != null && int.TryParse(row.Cells["tenKM_col"].Value.ToString(), out int parsed))
+            {
+                maCTKhuyenMai = parsed;
+            }
+            else
+            {
+                MessageBox.Show("Không thể xác định mã khuyến mãi cho hàng này.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var cols = dGV_discounts.Columns;
+
+            // Chi tiết
+            if (cols["chiTiet"] != null && e.ColumnIndex == cols["chiTiet"].Index)
+            {
+                var detailForm = new DetailDiscountForm(maCTKhuyenMai) { Owner = this };
+                detailForm.ShowDialog();
+                return;
+            }
+
+            // Sửa
+            if (cols["sua"] != null && e.ColumnIndex == cols["sua"].Index)
+            {
+                var editForm = new EditDiscountForm(maCTKhuyenMai) { Owner = this };
                 if (editForm.ShowDialog() == DialogResult.OK)
                 {
-                    _ = LoadDiscountsAsync(); // Làm mới sau khi sửa
+                    await LoadDiscountsAsync();
                 }
+                return;
+            }
+
+            // Xóa (ẩn)
+            if (cols["xoa"] != null && e.ColumnIndex == cols["xoa"].Index)
+            {
+                await SoftDeleteDiscountAsync(maCTKhuyenMai);
+                return;
             }
         }
-        private void SearchTimer_Tick(object sender, EventArgs e)
-        {
-            _searchTimer.Stop(); // Dừng timer để tránh gọi lặp
-            ApplyFilters(); // Áp dụng bộ lọc sau khi user dừng gõ
-        }
 
-        // 🔄 Helper: Hiển thị/ẩn loading (cải tiến để tránh chồng loading)
+        // 🔄 Helper: Hiển thị/ẩn loading (cải tiến cho DataGridView)
         private void ShowLoading(bool show)
         {
-            // Remove loading cũ nếu có (sử dụng for loop thay vì ToArray để tránh lỗi)
-            for (int i = flowLayoutPanel1.Controls.Count - 1; i >= 0; i--)
-            {
-                var ctrl = flowLayoutPanel1.Controls[i];
-                if (ctrl is Label l && l.Text == "Đang tải...")
-                {
-                    flowLayoutPanel1.Controls.RemoveAt(i);
-                    break;
-                }
-            }
-
             if (show)
             {
-                var loadingLabel = new Label
-                {
-                    Text = "Đang tải...",
-                    AutoSize = true,
-                    ForeColor = Color.Blue,
-                    Location = new Point(flowLayoutPanel1.Width / 2 - 30, flowLayoutPanel1.Height / 2 - 10), // Center
-                    Anchor = AnchorStyles.None
-                };
-                flowLayoutPanel1.Controls.Add(loadingLabel);
+                dGV_discounts.Rows.Clear();
+                int rowIndex = dGV_discounts.Rows.Add();
+                dGV_discounts.Rows[rowIndex].Cells["tenKM_col"].Value = "Đang tải...";
+                dGV_discounts.Rows[rowIndex].DefaultCellStyle.ForeColor = Color.Blue;
+                dGV_discounts.Rows[rowIndex].DefaultCellStyle.Font = new Font(dGV_discounts.DefaultCellStyle.Font, FontStyle.Italic);
             }
-            flowLayoutPanel1.Refresh();
+            else
+            {
+                // Không cần clear, Load sẽ làm
+            }
+            dGV_discounts.Refresh();
         }
 
         private void roundedTextBox2_KeyDown(object sender, KeyEventArgs e)
         {
-            _ = LoadDiscountsAsync();
+            if (e.KeyCode == Keys.Enter)
+            {
+                _searchTimer.Stop();
+                ApplyFilters(); // Tìm ngay khi Enter
+            }
         }
     }
 }
