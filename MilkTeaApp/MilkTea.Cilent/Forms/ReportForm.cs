@@ -39,8 +39,8 @@ namespace MilkTea.Client.Forms
             _ctKhuyenMaiService = new CTKhuyenMaiService();
             _congThucService = new CongThucService();
             _ctCongThucService = new CTCongThucService();
-            
-            
+
+
         }
 
         private void TaoCauTrucBangThongKe()
@@ -321,9 +321,9 @@ namespace MilkTea.Client.Forms
                     row["sanPham"] = tenSP;
                     row["size1"] = tenSize;
                     row["soLuong"] = item.SLBan;
-                    row["chiPhi"] = (10000).ToString("N0") + " ₫";
-                    row["doanhThu"] = item.TongDoanhThu.ToString("N0") + " ₫";
-                    row["loiNhuan"] = (10000).ToString("N0") + " ₫";
+                    row["chiPhi"] = item.TongChiPhi;
+                    row["doanhThu"] = item.TongDoanhThu;
+                    row["loiNhuan"] = item.TongDoanhThu - item.TongChiPhi;
 
                     dtThongKe.Rows.Add(row);
 
