@@ -118,6 +118,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Update="Forms\ChildForm_Import\ImportForm_Add.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Update="Forms\ImportForm.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
