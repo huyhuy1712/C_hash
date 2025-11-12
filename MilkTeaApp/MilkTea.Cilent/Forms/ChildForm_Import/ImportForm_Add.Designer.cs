@@ -54,6 +54,7 @@
             soLuong_tb_add = new DataGridViewTextBoxColumn();
             tenNVN_tb_add = new DataGridViewTextBoxColumn();
             tongTien_tb_add = new DataGridViewTextBoxColumn();
+            xoa_tb_add = new DataGridViewImageColumn();
             panel5 = new Panel();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nb_soLuong_PN_ADD).BeginInit();
@@ -296,12 +297,13 @@
             dGV_HangHoa_PN_ADD.AllowUserToAddRows = false;
             dGV_HangHoa_PN_ADD.BackgroundColor = SystemColors.ButtonFace;
             dGV_HangHoa_PN_ADD.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dGV_HangHoa_PN_ADD.Columns.AddRange(new DataGridViewColumn[] { maPhieuNhap_tb_add, ngayNhap_tb_add, tenNL_tb_add, soLuong_tb_add, tenNVN_tb_add, tongTien_tb_add });
+            dGV_HangHoa_PN_ADD.Columns.AddRange(new DataGridViewColumn[] { maPhieuNhap_tb_add, ngayNhap_tb_add, tenNL_tb_add, soLuong_tb_add, tenNVN_tb_add, tongTien_tb_add, xoa_tb_add });
             dGV_HangHoa_PN_ADD.Dock = DockStyle.Top;
             dGV_HangHoa_PN_ADD.Location = new Point(20, 20);
             dGV_HangHoa_PN_ADD.Name = "dGV_HangHoa_PN_ADD";
             dGV_HangHoa_PN_ADD.Size = new Size(980, 334);
             dGV_HangHoa_PN_ADD.TabIndex = 0;
+            dGV_HangHoa_PN_ADD.CellClick += dGV_HangHoa_PN_ADD_CellClick;
             // 
             // maPhieuNhap_tb_add
             // 
@@ -336,6 +338,12 @@
             tongTien_tb_add.HeaderText = "Tổng Tiền";
             tongTien_tb_add.Name = "tongTien_tb_add";
             tongTien_tb_add.Width = 200;
+            // 
+            // xoa_tb_add
+            // 
+            xoa_tb_add.HeaderText = "Xóa";
+            xoa_tb_add.Image = Properties.Resources.icons8_trash_96;
+            xoa_tb_add.Name = "xoa_tb_add";
             // 
             // panel5
             // 
@@ -394,15 +402,16 @@
         private Controls.RoundedButton btn_Thoat_iPort_add;
         private Controls.RoundedButton btn_Luu_Iport_add;
         private DataGridView dGV_HangHoa_PN_ADD;
+        private Panel panel5;
+        private ComboBox cbo_NhaCungCap_PN_ADD;
+        private TextBox txt_maPN_PN_ADD;
+        private Label label6;
         private DataGridViewTextBoxColumn maPhieuNhap_tb_add;
         private DataGridViewTextBoxColumn ngayNhap_tb_add;
         private DataGridViewTextBoxColumn tenNL_tb_add;
         private DataGridViewTextBoxColumn soLuong_tb_add;
         private DataGridViewTextBoxColumn tenNVN_tb_add;
         private DataGridViewTextBoxColumn tongTien_tb_add;
-        private Panel panel5;
-        private ComboBox cbo_NhaCungCap_PN_ADD;
-        private TextBox txt_maPN_PN_ADD;
-        private Label label6;
+        private DataGridViewImageColumn xoa_tb_add;
     }
 }
