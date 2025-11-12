@@ -1,4 +1,5 @@
-﻿using MilkTea.Client.Models;
+﻿using MilkTea.Client.Forms.ChildForm_Order;
+using MilkTea.Client.Models;
 using MilkTea.Client.Services;
 using System;
 using System.Collections.Generic;
@@ -196,6 +197,12 @@ namespace MilkTea.Client.Controls
 
         private void pictureBox5_Click(object sender, EventArgs e)
         {
+            // Hiển thị chi tiết đơn hàng
+            if (donHang != null)
+            {
+                Bill billForm = new Bill(donHang);
+                billForm.ShowDialog();
+            }
         }
     }
 }
