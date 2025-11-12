@@ -6,7 +6,6 @@
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -19,9 +18,7 @@
             }
             base.Dispose(disposing);
         }
-
         #region Windows Form Designer generated code
-
         /// <summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
@@ -30,33 +27,40 @@
         {
             panel1 = new Panel();
             panel3 = new Panel();
-            panel9 = new Panel();
-            label7 = new Label();
-            panel8 = new Panel();
-            label6 = new Label();
+            panel4 = new Panel();
+            label2 = new Label();
             panel7 = new Panel();
-            label5 = new Label();
+            dGV_sp_KM_CT = new DataGridView();
+            maSP_ct = new DataGridViewTextBoxColumn();
+            tenSanPham_ct = new DataGridViewTextBoxColumn();
+            loai_ct = new DataGridViewTextBoxColumn();
             panel6 = new Panel();
             label4 = new Label();
             panel5 = new Panel();
             label3 = new Label();
-            panel4 = new Panel();
-            label2 = new Label();
             panel2 = new Panel();
             label1 = new Label();
+            panel8 = new Panel();
+            panel9 = new Panel();
+            panel10 = new Panel();
+            textBox1 = new TextBox();
+            textBox2 = new TextBox();
+            textBox3 = new TextBox();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
-            panel9.SuspendLayout();
-            panel8.SuspendLayout();
+            panel4.SuspendLayout();
             panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dGV_sp_KM_CT).BeginInit();
             panel6.SuspendLayout();
             panel5.SuspendLayout();
-            panel4.SuspendLayout();
             panel2.SuspendLayout();
+            panel8.SuspendLayout();
+            panel9.SuspendLayout();
+            panel10.SuspendLayout();
             SuspendLayout();
-            // 
+            //
             // panel1
-            // 
+            //
             panel1.Controls.Add(panel3);
             panel1.Controls.Add(panel2);
             panel1.Dock = DockStyle.Fill;
@@ -64,12 +68,10 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(800, 450);
             panel1.TabIndex = 0;
-            // 
+            //
             // panel3
-            // 
-            panel3.BackColor = SystemColors.ActiveCaption;
-            panel3.Controls.Add(panel9);
-            panel3.Controls.Add(panel8);
+            //
+            panel3.BackColor = SystemColors.ActiveBorder;
             panel3.Controls.Add(panel7);
             panel3.Controls.Add(panel6);
             panel3.Controls.Add(panel5);
@@ -79,131 +81,118 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(800, 371);
             panel3.TabIndex = 1;
-            panel3.Paint += panel3_Paint;
-            // 
-            // panel9
-            // 
-            panel9.Controls.Add(label7);
-            panel9.Dock = DockStyle.Top;
-            panel9.Location = new Point(0, 230);
-            panel9.Name = "panel9";
-            panel9.Size = new Size(800, 46);
-            panel9.TabIndex = 5;
-            // 
-            // label7
-            // 
-            label7.Dock = DockStyle.Left;
-            label7.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label7.Location = new Point(0, 0);
-            label7.Name = "label7";
-            label7.Size = new Size(346, 46);
-            label7.TabIndex = 0;
-            label7.Text = "+ Cafe đen";
-            label7.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // panel8
-            // 
-            panel8.Controls.Add(label6);
-            panel8.Dock = DockStyle.Top;
-            panel8.Location = new Point(0, 184);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(800, 46);
-            panel8.TabIndex = 4;
-            // 
-            // label6
-            // 
-            label6.Dock = DockStyle.Left;
-            label6.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label6.Location = new Point(0, 0);
-            label6.Name = "label6";
-            label6.Size = new Size(346, 46);
-            label6.TabIndex = 0;
-            label6.Text = "+ Cafe đen";
-            label6.TextAlign = ContentAlignment.MiddleCenter;
-            // 
+            //
+            // panel4
+            //
+            panel4.BackColor = SystemColors.Control;
+            panel4.Controls.Add(panel8);
+            panel4.Controls.Add(label2);
+            panel4.Dock = DockStyle.Top;
+            panel4.Location = new Point(0, 0);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(800, 46);
+            panel4.TabIndex = 4;
+            //
+            // label2
+            //
+            label2.Dock = DockStyle.Left;
+            label2.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(0, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(155, 46);
+            label2.TabIndex = 0;
+            label2.Text = "Giảm giá";
+            label2.TextAlign = ContentAlignment.MiddleLeft;
+            //
             // panel7
-            // 
-            panel7.Controls.Add(label5);
-            panel7.Dock = DockStyle.Top;
+            //
+            panel7.Controls.Add(dGV_sp_KM_CT);
+            panel7.Dock = DockStyle.Fill;
             panel7.Location = new Point(0, 138);
             panel7.Name = "panel7";
-            panel7.Size = new Size(800, 46);
+            panel7.Size = new Size(800, 233);
             panel7.TabIndex = 3;
-            // 
-            // label5
-            // 
-            label5.Dock = DockStyle.Left;
-            label5.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(0, 0);
-            label5.Name = "label5";
-            label5.Size = new Size(346, 46);
-            label5.TabIndex = 0;
-            label5.Text = "+ Cafe đen";
-            label5.TextAlign = ContentAlignment.MiddleCenter;
-            // 
+            //
+            // dGV_sp_KM_CT
+            //
+            dGV_sp_KM_CT.AllowUserToAddRows = false;
+            dGV_sp_KM_CT.AllowUserToDeleteRows = false;
+            dGV_sp_KM_CT.AllowUserToResizeColumns = false;
+            dGV_sp_KM_CT.AllowUserToResizeRows = false;
+            dGV_sp_KM_CT.BackgroundColor = SystemColors.ButtonFace;
+            dGV_sp_KM_CT.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dGV_sp_KM_CT.Columns.AddRange(new DataGridViewColumn[] { maSP_ct, tenSanPham_ct, loai_ct });
+            dGV_sp_KM_CT.Dock = DockStyle.Fill;
+            dGV_sp_KM_CT.Location = new Point(0, 0);
+            dGV_sp_KM_CT.Name = "dGV_sp_KM_CT";
+            dGV_sp_KM_CT.Size = new Size(800, 233);
+            dGV_sp_KM_CT.TabIndex = 2;
+            //
+            // maSP_ct
+            //
+            maSP_ct.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            maSP_ct.HeaderText = "Mã sản phẩm";
+            maSP_ct.Name = "maSP_ct";
+            maSP_ct.Width = 104;
+            //
+            // tenSanPham_ct
+            //
+            tenSanPham_ct.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            tenSanPham_ct.HeaderText = "Tên sản phẩm";
+            tenSanPham_ct.Name = "tenSanPham_ct";
+            //
+            // loai_ct
+            //
+            loai_ct.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            loai_ct.HeaderText = "Loại sản phẩm";
+            loai_ct.Name = "loai_ct";
+            //
             // panel6
-            // 
+            //
+            panel6.BackColor = SystemColors.Control;
+            panel6.Controls.Add(panel10);
             panel6.Controls.Add(label4);
             panel6.Dock = DockStyle.Top;
             panel6.Location = new Point(0, 92);
             panel6.Name = "panel6";
             panel6.Size = new Size(800, 46);
             panel6.TabIndex = 2;
-            // 
+            //
             // label4
-            // 
+            //
             label4.Dock = DockStyle.Left;
-            label4.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label4.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.Location = new Point(0, 0);
             label4.Name = "label4";
-            label4.Size = new Size(346, 46);
+            label4.Size = new Size(155, 46);
             label4.TabIndex = 0;
-            label4.Text = "Giảm 30% với các sản phẩm sau:";
-            label4.TextAlign = ContentAlignment.MiddleCenter;
-            label4.Click += label4_Click;
-            // 
+            label4.Text = "Ngày kết thúc";
+            label4.TextAlign = ContentAlignment.MiddleLeft;
+            //
             // panel5
-            // 
+            //
+            panel5.BackColor = SystemColors.Control;
+            panel5.Controls.Add(panel9);
             panel5.Controls.Add(label3);
             panel5.Dock = DockStyle.Top;
             panel5.Location = new Point(0, 46);
             panel5.Name = "panel5";
             panel5.Size = new Size(800, 46);
             panel5.TabIndex = 1;
-            // 
+            //
             // label3
-            // 
+            //
             label3.Dock = DockStyle.Left;
-            label3.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.Location = new Point(0, 0);
             label3.Name = "label3";
-            label3.Size = new Size(346, 46);
+            label3.Size = new Size(155, 46);
             label3.TabIndex = 0;
-            label3.Text = "Hạn sử dụng từ 1/1/2025 - 1/1/2026";
-            label3.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // panel4
-            // 
-            panel4.Controls.Add(label2);
-            panel4.Dock = DockStyle.Top;
-            panel4.Location = new Point(0, 0);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(800, 46);
-            panel4.TabIndex = 0;
-            // 
-            // label2
-            // 
-            label2.Dock = DockStyle.Left;
-            label2.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(0, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(307, 46);
-            label2.TabIndex = 0;
-            label2.Text = "Thông tin chi tiết khuyến mãi:";
-            label2.TextAlign = ContentAlignment.MiddleLeft;
-            // 
+            label3.Text = "Ngày bắt đầu";
+            label3.TextAlign = ContentAlignment.MiddleLeft;
+            //
             // panel2
-            // 
+            //
             panel2.BackColor = SystemColors.Window;
             panel2.Controls.Add(label1);
             panel2.Dock = DockStyle.Top;
@@ -211,9 +200,9 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(800, 79);
             panel2.TabIndex = 0;
-            // 
+            //
             // label1
-            // 
+            //
             label1.BackColor = SystemColors.Control;
             label1.Dock = DockStyle.Fill;
             label1.Font = new Font("Segoe UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -224,9 +213,66 @@
             label1.TabIndex = 0;
             label1.Text = "Chương trình 8/8";
             label1.TextAlign = ContentAlignment.MiddleCenter;
-            // 
+            //
+            // panel8
+            //
+            panel8.Controls.Add(textBox1);
+            panel8.Dock = DockStyle.Fill;
+            panel8.Location = new Point(155, 0);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(645, 46);
+            panel8.TabIndex = 1;
+            //
+            // panel9
+            //
+            panel9.Controls.Add(textBox2);
+            panel9.Dock = DockStyle.Fill;
+            panel9.Location = new Point(155, 0);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(645, 46);
+            panel9.TabIndex = 2;
+            //
+            // panel10
+            //
+            panel10.Controls.Add(textBox3);
+            panel10.Dock = DockStyle.Fill;
+            panel10.Location = new Point(155, 0);
+            panel10.Name = "panel10";
+            panel10.Size = new Size(645, 46);
+            panel10.TabIndex = 2;
+            //
+            // textBox1
+            //
+            textBox1.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            textBox1.Location = new Point(0, 6);
+            textBox1.Name = "textBox1";
+            textBox1.ReadOnly = true; // Khóa chỉnh sửa
+            textBox1.Size = new Size(176, 33);
+            textBox1.TabIndex = 0;
+            textBox1.TabStop = false; // Bỏ qua khi Tab
+            //
+            // textBox2
+            //
+            textBox2.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            textBox2.Location = new Point(0, 7);
+            textBox2.Name = "textBox2";
+            textBox2.ReadOnly = true; // Khóa chỉnh sửa
+            textBox2.Size = new Size(176, 33);
+            textBox2.TabIndex = 1;
+            textBox2.TabStop = false; // Bỏ qua khi Tab
+            //
+            // textBox3
+            //
+            textBox3.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            textBox3.Location = new Point(0, 8);
+            textBox3.Name = "textBox3";
+            textBox3.ReadOnly = true; // Khóa chỉnh sửa
+            textBox3.Size = new Size(176, 33);
+            textBox3.TabIndex = 1;
+            textBox3.TabStop = false; // Bỏ qua khi Tab
+            //
             // DetailDiscountForm
-            // 
+            //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
@@ -235,37 +281,41 @@
             Text = "DetailDiscountForm";
             panel1.ResumeLayout(false);
             panel3.ResumeLayout(false);
-            panel9.ResumeLayout(false);
-            panel8.ResumeLayout(false);
+            panel4.ResumeLayout(false);
             panel7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dGV_sp_KM_CT).EndInit();
             panel6.ResumeLayout(false);
             panel5.ResumeLayout(false);
-            panel4.ResumeLayout(false);
             panel2.ResumeLayout(false);
+            panel8.ResumeLayout(false);
+            panel8.PerformLayout();
+            panel9.ResumeLayout(false);
+            panel9.PerformLayout();
+            panel10.ResumeLayout(false);
+            panel10.PerformLayout();
             ResumeLayout(false);
         }
-
         #endregion
-
         private Panel panel1;
         private Panel panel3;
         private Panel panel2;
         private Label label1;
         private Panel panel5;
-        private Panel panel4;
-        private Label label2;
-        private Panel panel9;
-        private Label label7;
-        private Panel panel8;
-        private Label label6;
-        private Panel panel7;
-        private Label label5;
         private Panel panel6;
         private Label label4;
         private Label label3;
-
-     
+        private Panel panel7;
+        private DataGridView dGV_sp_KM_CT;
+        private DataGridViewTextBoxColumn maSP_ct;
+        private DataGridViewTextBoxColumn tenSanPham_ct;
+        private DataGridViewTextBoxColumn loai_ct;
+        private Panel panel4;
+        private Label label2;
+        private Panel panel10;
+        private Panel panel9;
+        private Panel panel8;
+        private TextBox textBox1;
+        private TextBox textBox3;
+        private TextBox textBox2;
     }
-
-
 }
