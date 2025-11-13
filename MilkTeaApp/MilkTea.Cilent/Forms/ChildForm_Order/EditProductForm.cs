@@ -95,6 +95,15 @@ namespace MilkTea.Client.Forms.ChildForm_Order
                 ten_textbox.Focus();
                 return;
             }
+
+            List<SanPham> existingProducts = await _sanPhamService.SearchSanPhamAsync("TenSP", ten);
+            if (existingProducts.Any())
+            {
+                MessageBox.Show("Tên sản phẩm đã tồn tại. Vui lòng chọn tên khác. ", "Trùng sản phẩm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                ten_textbox.Focus();
+                return;
+            }
+
             if (string.IsNullOrEmpty(gia))
             {
                 MessageBox.Show("Vui lòng nhập giá sản phẩm.", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
