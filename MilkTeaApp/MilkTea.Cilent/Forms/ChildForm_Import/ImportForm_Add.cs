@@ -36,6 +36,7 @@ namespace MilkTea.Client.Forms.ChildForm_Import
             public decimal TongGia { get; set; }
         }
 
+        public PhieuNhap? ResultPhieuNhap { get; private set; }
 
         public ImportForm_Add(ImportForm parentForm)
         {
@@ -149,6 +150,19 @@ namespace MilkTea.Client.Forms.ChildForm_Import
 
                 int newMaPN = await _phieuNhapService.AddPhieuNhapAsync(pn);
 
+                // Tạo object đầy đủ để trả về
+                var fullPhieuNhap = new PhieuNhap
+                {
+                    MaPN = newMaPN,
+                    NgayNhap = pn.NgayNhap,
+                    SoLuong = pn.SoLuong,
+                    TrangThai = 1,
+                    MaNCC = pn.MaNCC,
+                    MaNV = pn.MaNV,
+                    TongTien = pn.TongTien
+                };
+
+                // Lưu chi tiết
                 foreach (var temp in _tempChiTiets)
                 {
                     var ct = new ChiTietPhieuNhap
@@ -162,13 +176,14 @@ namespace MilkTea.Client.Forms.ChildForm_Import
                     await _chiTietPhieuNhapService.AddChiTietPhieuNhapAsync(ct);
                     await _nguyenLieuService.CongNguyenLieuAsync(temp.MaNL, temp.SoLuong);
                 }
-                // Reset danh sách sau khi lưu thành công
+
+                ResultPhieuNhap = fullPhieuNhap;
+
                 _tempChiTiets.Clear();
                 RefreshGrid();
 
-                // Thông báo và làm mới form cha (ImportForm)
                 MessageBox.Show("Lưu phiếu nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                _parentForm.LoadPhieuNhaps(); // Gọi lại phương thức load dữ liệu
+                this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             catch (Exception ex)
