@@ -18,13 +18,14 @@ namespace MilkTea.Client.Forms.ChildForm_Supplier
         private NhaCungCap? _currentNCC; // Dùng khi sửa
         private bool _isEditMode = false;
 
+        public NhaCungCap? ResultNCC { get; private set; }
+
         public SupplierForm_ADD_EDIT(NhaCungCap? ncc = null)
         {
             InitializeComponent();
             _nhaCungCapService = new NhaCungCapService();
             _currentNCC = ncc;
             _isEditMode = ncc != null;
-
             InitializeForm();
         }
 
@@ -58,51 +59,45 @@ namespace MilkTea.Client.Forms.ChildForm_Supplier
                 TenNCC = txt_ten_NCC_ADD.Text.Trim(),
                 SDT = txt_sdt_NCC_ADD.Text.Trim(),
                 DiaChi = txt_diachi_NCC_ADD.Text.Trim(),
-                TrangThai = 1 // Mặc định hoạt động
+                TrangThai = 1 // BẮT BUỘC GÁN KHI THÊM
             };
 
             try
             {
                 if (_isEditMode && _currentNCC != null)
                 {
-                    // Cập nhật
                     ncc.MaNCC = _currentNCC.MaNCC;
-                    var response = await _nhaCungCapService.UpdateAsync(ncc);
-                    if (response)
+                    var success = await _nhaCungCapService.UpdateAsync(ncc);
+                    if (success)
                     {
-                        MessageBox.Show("Cập nhật nhà cung cấp thành công!", "Thành công",
+                        MessageBox.Show("Cập nhật thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ResultNCC = ncc;
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
+                    }
+                }
+                else
+                {
+                    var addedNCC = await _nhaCungCapService.AddAsync(ncc);
+                    if (addedNCC != null)
+                    {
+                        MessageBox.Show($"Thêm thành công! Mã NCC: {addedNCC.MaNCC}", "Thành công",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        ResultNCC = addedNCC; // ĐÃ CÓ MaNCC
+                        ClearFields();
                         this.DialogResult = DialogResult.OK;
                         this.Close();
                     }
                     else
                     {
-                        MessageBox.Show("Cập nhật thất bại. Vui lòng thử lại.", "Lỗi",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else
-                {
-                    // Thêm mới
-                    var addedNCC = await _nhaCungCapService.AddAsync(ncc);
-                    if (addedNCC != null)
-                    {
-                        MessageBox.Show("Thêm nhà cung cấp thành công!", "Thành công",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        ClearFields();
-                        this.DialogResult = DialogResult.OK;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Thêm thất bại. Vui lòng kiểm tra lại.", "Lỗi",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Thêm thất bại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
