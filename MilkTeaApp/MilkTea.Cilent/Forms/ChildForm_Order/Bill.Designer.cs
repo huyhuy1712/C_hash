@@ -34,6 +34,12 @@
             label2 = new Label();
             label3 = new Label();
             dataGridView1 = new DataGridView();
+            tenSP = new DataGridViewTextBoxColumn();
+            topping = new DataGridViewTextBoxColumn();
+            tbSize = new DataGridViewTextBoxColumn();
+            donGia = new DataGridViewTextBoxColumn();
+            soLuong = new DataGridViewTextBoxColumn();
+            tongTien = new DataGridViewTextBoxColumn();
             panel7 = new Panel();
             label22 = new Label();
             label23 = new Label();
@@ -47,12 +53,6 @@
             tgian_label = new Label();
             label1 = new Label();
             Title_label = new Label();
-            tenSP = new DataGridViewTextBoxColumn();
-            topping = new DataGridViewTextBoxColumn();
-            tbSize = new DataGridViewTextBoxColumn();
-            donGia = new DataGridViewTextBoxColumn();
-            soLuong = new DataGridViewTextBoxColumn();
-            tongTien = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
             InvoiceOrder_Panel.SuspendLayout();
             panel2.SuspendLayout();
@@ -125,6 +125,7 @@
             // 
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { tenSP, topping, tbSize, donGia, soLuong, tongTien });
             dataGridView1.Dock = DockStyle.Top;
@@ -136,6 +137,48 @@
             dataGridView1.Size = new Size(938, 188);
             dataGridView1.TabIndex = 13;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            // 
+            // tenSP
+            // 
+            tenSP.HeaderText = "Tên SP";
+            tenSP.MinimumWidth = 6;
+            tenSP.Name = "tenSP";
+            tenSP.ReadOnly = true;
+            // 
+            // topping
+            // 
+            topping.HeaderText = "Topping";
+            topping.MinimumWidth = 6;
+            topping.Name = "topping";
+            topping.ReadOnly = true;
+            // 
+            // tbSize
+            // 
+            tbSize.HeaderText = "Size";
+            tbSize.MinimumWidth = 6;
+            tbSize.Name = "tbSize";
+            tbSize.ReadOnly = true;
+            // 
+            // donGia
+            // 
+            donGia.HeaderText = "Đơn giá";
+            donGia.MinimumWidth = 6;
+            donGia.Name = "donGia";
+            donGia.ReadOnly = true;
+            // 
+            // soLuong
+            // 
+            soLuong.HeaderText = "Số Lượng";
+            soLuong.MinimumWidth = 6;
+            soLuong.Name = "soLuong";
+            soLuong.ReadOnly = true;
+            // 
+            // tongTien
+            // 
+            tongTien.HeaderText = "Tổng tiền";
+            tongTien.MinimumWidth = 6;
+            tongTien.Name = "tongTien";
+            tongTien.ReadOnly = true;
             // 
             // panel7
             // 
@@ -271,48 +314,6 @@
             Title_label.TabIndex = 0;
             Title_label.Text = "Hóa đơn thanh toán";
             Title_label.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // tenSP
-            // 
-            tenSP.HeaderText = "Tên SP";
-            tenSP.MinimumWidth = 6;
-            tenSP.Name = "tenSP";
-            tenSP.ReadOnly = true;
-            // 
-            // topping
-            // 
-            topping.HeaderText = "Topping";
-            topping.MinimumWidth = 6;
-            topping.Name = "topping";
-            topping.ReadOnly = true;
-            // 
-            // tbSize
-            // 
-            tbSize.HeaderText = "Size";
-            tbSize.MinimumWidth = 6;
-            tbSize.Name = "tbSize";
-            tbSize.ReadOnly = true;
-            // 
-            // donGia
-            // 
-            donGia.HeaderText = "Đơn giá";
-            donGia.MinimumWidth = 6;
-            donGia.Name = "donGia";
-            donGia.ReadOnly = true;
-            // 
-            // soLuong
-            // 
-            soLuong.HeaderText = "Số Lượng";
-            soLuong.MinimumWidth = 6;
-            soLuong.Name = "soLuong";
-            soLuong.ReadOnly = true;
-            // 
-            // tongTien
-            // 
-            tongTien.HeaderText = "Tổng tiền";
-            tongTien.MinimumWidth = 6;
-            tongTien.Name = "tongTien";
-            tongTien.ReadOnly = true;
             // 
             // Bill
             // 
