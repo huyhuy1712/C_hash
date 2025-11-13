@@ -56,6 +56,20 @@ namespace MilkTea.Client.Services
             var error = await response.Content.ReadAsStringAsync();
             throw new Exception($"Không thể cập nhật trạng thái: {error}");
         }
+        public async Task<Buzzer?> GetByMaMayAsync(int maMay)
+        {
+            try
+            {
+                var buzzer = await _http.GetFromJsonAsync<Buzzer>($"/api/buzzer/buzzer-by-mamay/{maMay}");
+                return buzzer;
+            }
+            catch (Exception ex)
+            {
+                // Có thể in ra dialog hoặc ghi log
+                Console.WriteLine($"Lỗi khi gọi API: {ex.Message}");
+                return null;
+            }
+        }
 
     }
 }

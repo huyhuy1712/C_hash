@@ -27,7 +27,7 @@ namespace MilkTea.Client.Services
 
         public async Task<List<CTCongThucSP>> GetChiTietCongThucTheoIdAsync(int maCT)
         {
-            return await _http.GetFromJsonAsync<List<CTCongThucSP>>($"/api/chitietcongthuc/{maCT}");
+            return await _http.GetFromJsonAsync<List<CTCongThucSP>>($"api/chitietcongthuc/{maCT}");
         }
     }
 }
