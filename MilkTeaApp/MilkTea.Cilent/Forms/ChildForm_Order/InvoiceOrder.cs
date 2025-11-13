@@ -246,6 +246,8 @@ namespace MilkTea.Client.Forms.ChildForm_Order
                 var buzzerService = new buzzerService();
                 var nguyenLieuService = new NguyenLieuService();
                 var congThucService = new CTCongThucService(); 
+                var phieuNhapService = new PhieuNhapService();
+                var chiTietPhieuNhapService = new ChiTietPhieuNhapService();
 
                 var nhanVienId = await nhanVienService.GetMaNVByTenAsync(ten_thu_ngan_label.Text);
                 var buzzerID = await buzzerService.GetMaMayBySoHieuAsync(mamay_label.Text);
@@ -301,7 +303,43 @@ namespace MilkTea.Client.Forms.ChildForm_Order
 
                         foreach (var nl in congThuc)
                         {
-                            int soLuongTru = (nl.SoLuongCanDung * item.SoLuong) + soLuongCongThem;
+                            var listCTPN = await chiTietPhieuNhapService.GetByMaNLAsync(nl.MaNL);
+
+                            // Kiểm tra danh sách rỗng trước khi truy cập
+                            if (listCTPN.Any())
+                            {
+                                var ctpnCuoi = listCTPN.Last(); // hoặc .OrderBy(x => x.MaCTPN).Last() nếu cần sắp xếp
+                                var maPN = ctpnCuoi.MaPN;
+
+                                // Tìm phiếu nhập qua MaPN
+                                var phieuNhapList = await phieuNhapService.SearchAsync("MaPN", maPN.ToString());
+
+                                if (phieuNhapList.Any())
+                                {
+                                    var phieuNhap = phieuNhapList.First(); // lấy phiếu nhập đầu tiên (hoặc theo nhu cầu)
+                                    DateTime? ngayNhap = phieuNhap.NgayNhap;
+                                    if (ngayNhap.HasValue)
+                                    {
+                                        int thangHienTai = DateTime.Now.Month;
+                                        int namHienTai = DateTime.Now.Year;
+
+                                        if (!(ngayNhap.Value.Month == thangHienTai && ngayNhap.Value.Year == namHienTai))
+                                        {
+                                            MessageBox.Show($"Chưa nhập nguyên liệu '{nl.TenNguyenLieu}' để pha {item.TenSP}.",
+                                                 "Thiếu nguyên liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                            return;
+                                        }
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show($"Chưa nhập nguyên liệu '{nl.TenNguyenLieu}' để pha {item.TenSP}.",
+                                                 "Thiếu nguyên liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+
+                                int soLuongTru = (nl.SoLuongCanDung * item.SoLuong) + soLuongCongThem;
 
                             bool ok = await nguyenLieuService.TruNguyenLieuAsync(nl.MaNL, soLuongTru);
                             if (!ok)
