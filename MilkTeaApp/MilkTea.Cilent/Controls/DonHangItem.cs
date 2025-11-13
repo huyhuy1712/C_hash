@@ -1,4 +1,5 @@
-﻿using MilkTea.Client.Forms.ChildForm_Order;
+﻿
+using MilkTea.Client.Forms.ChildForm_Order;
 using MilkTea.Client.Models;
 using MilkTea.Client.Services;
 using System;
@@ -157,18 +158,13 @@ namespace MilkTea.Client.Controls
                 {
                     var maSP = item.MaSP;
                     var sp = await SanPhamService.SearchSanPhamAsync("MaSP", maSP.ToString());
-<<<<<<< HEAD
-                    var ct = await _ctCongThucService.GetChiTietCongThucTheoSPAsync(maSP);
                     var listNL = await _ctCongThucService.GetChiTietCongThucTheoSPAsync(maSP);
-=======
-                    var listNL= await _ctCongThucService.GetChiTietCongThucTheoSPAsync(maSP);
->>>>>>> nhan
                     decimal tongChiPhi = 0m;
                     foreach (var nl in listNL)
                     {
                         int maNL = nl.MaNL;
-                        decimal soLuongCanDung = nl.SoLuongCanDung; 
-                      
+                        decimal soLuongCanDung = nl.SoLuongCanDung;
+
                         // 3. Lấy chi tiết phiếu nhập của nguyên liệu
                         var chiTietPN = await _chiTietPhieuNhapService.GetByMaNLAsync(maNL); // lấy 1 bản ghi đầu tiên
 

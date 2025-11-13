@@ -16,6 +16,7 @@ namespace MilkTea.Client.Forms.ChildForm_Order
     {
         private DonHang? donHang;
         private ChiTietDonHang? chiTietDonHang;
+        //private Topping? topping;
         private CTDonHangService CTDonHangService = new CTDonHangService();
         private SanPhamService _SanPhamService = new SanPhamService();
         private SizeService _sizeService= new SizeService();
@@ -41,7 +42,7 @@ namespace MilkTea.Client.Forms.ChildForm_Order
                 var masp = ct.MaSP;
                 var sp = await _SanPhamService.GetSanPhamsByIdAsync(masp);
                 string tenSP = sp?.TenSP ?? "Không xác định";
-
+                  await CTDonHangService.GetToppingByMaCTDHAsync(ct.MaCTDH);
                 var size = await _sizeService.GetSizeByIdAsync(ct.MaSize);
                 string tenSize = size?.TenSize ?? "Không xác định";
 

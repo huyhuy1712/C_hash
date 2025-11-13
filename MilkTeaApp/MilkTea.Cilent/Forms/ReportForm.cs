@@ -348,13 +348,10 @@ namespace MilkTea.Client.Forms
                     row["chiPhi"] = item.TongChiPhi;
                     row["doanhThu"] = item.TongDoanhThu;
                     row["loiNhuan"] = item.TongDoanhThu - item.TongChiPhi;
-<<<<<<< HEAD
-=======
                     dataGridView1.Columns["size1"].Visible = true;
                     dataGridView1.Columns["thoiGian"].Visible = true;
                     
 
->>>>>>> nhan
 
                     dtThongKe.Rows.Add(row);
                 }
