@@ -29,102 +29,52 @@ namespace MilkTea.Client.Forms
             this.StartPosition = FormStartPosition.CenterScreen;
         }
 
-        private void LoginForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void roundedTextBox_TenTK_Enter(object sender, EventArgs e)
-        {
-            //roundedTextBox_Email.TextValue = "";
-        }
-
-        private void roundedTextBox_TenTK_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(roundedTextBox_TenTK.TextValue))
-            {
-                roundedTextBox_TenTK.Placeholder = "Nhập tên tài khoản";
-                // Hiện lại icon nếu không nhập gì
-            }
-            else
-            {
-                string tenTK = roundedTextBox_TenTK.TextValue;
-            }
-        }
-
-        private void roundedTextBox_Password_Enter(object sender, EventArgs e)
-        {
-            //roundedTextBox_Password.TextValue = "";
-        }
-
-        private void roundedTextBox_Password_Leave(object sender, EventArgs e)
-        {
-            if (string.IsNullOrWhiteSpace(roundedTextBox_Password.TextValue))
-            {
-                roundedTextBox_Password.Placeholder = "Nhập mật khẩu";
-                // Hiện lại icon nếu không nhập gì
-            }
-            else
-            {
-                string password = roundedTextBox_Password.TextValue;
-            }
-        }
-
-
-
-        private void roundedTextBox_TenTK_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void roundedTextBox_Password_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private async void roundedButton_Login_Click(object sender, EventArgs e)
 
         {
-            this.Hide();
             var username = roundedTextBox_TenTK.TextValue.Trim();
             var password = roundedTextBox_Password.TextValue.Trim();
+            var phonePattern = @"^\d{10,11}$";
 
             if (string.IsNullOrEmpty(username))
             {
                 MessageBox.Show("Tên tài khoản không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                roundedTextBox_TenTK.Focus();
             }
 
             // Kiểm tra password
-            if (string.IsNullOrEmpty(password))
+            else if (string.IsNullOrEmpty(password))
             {
                 MessageBox.Show("Mật khẩu không được để trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                roundedTextBox_Password.Focus();
             }
 
             // Kiểm tra định dạng số điện thoại (10 hoặc 11 chữ số, có thể tùy chỉnh theo nhu cầu)
-            var phonePattern = @"^\d{10,11}$";
-            if (!Regex.IsMatch(password, phonePattern))
+            else if (!Regex.IsMatch(password, phonePattern))
             {
                 MessageBox.Show("Mật khẩu phải là số điện thoại hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                roundedTextBox_Password.Focus();
             }
 
-            TaiKhoan account = await CheckLoginAsync(username, password);
-            if (account == null)
+            else
             {
-                MessageBox.Show("Không có tài khoản", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                TaiKhoan account = await CheckLoginAsync(username, password);
+                if (account == null)
+                {
+                    MessageBox.Show("Không có tài khoản", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                else
+                {
+                    MainForm mainForm = new MainForm(account);
+                    this.Hide();
+                    // Lưu thông tin vào session
+                    Session.AllowedFunctions = await _chucNangService.GetChucNangsByMaQuyenAsync(account.MaQuyen);
+                    Session.CurrentUser = account;
+                    mainForm.ShowDialog();
+                    this.Show();
+                }
             }
-
-            
-            MainForm mainForm = new MainForm(account);
-
-            // Lưu thông tin vào session
-            Session.AllowedFunctions = await _chucNangService.GetChucNangsByMaQuyenAsync(account.MaQuyen);
-            Session.CurrentUser = account;
-            mainForm.ShowDialog();
-            this.Show();
         }
 
         // Hàm kiểm tra đăng nhập
@@ -140,12 +90,5 @@ namespace MilkTea.Client.Forms
             return account; // Nếu không tìm thấy thì trả về null
         }
 
-        private void roundedTextBox_Password_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                roundedButton_Login.PerformClick();
-            }
-        }
     }
 }
