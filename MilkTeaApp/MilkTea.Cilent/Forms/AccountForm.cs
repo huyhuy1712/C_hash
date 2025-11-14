@@ -9,6 +9,7 @@ namespace MilkTea.Client.Forms
     public partial class AccountForm : Form, IBaseForm
     {
         private readonly AccountPresenter _presenter;
+
         public DataGridView Grid => dataGridView1;
         public Label LblStatus => lblStatus;
 
@@ -63,8 +64,8 @@ namespace MilkTea.Client.Forms
 
         private void btnDanhSachQuyen_Click(object sender, EventArgs e)
         {
-            var frm = new DanhSachQuyenForm();
-            frm.ShowDialog();
+            using (var frm = new DanhSachQuyenForm())
+                frm.ShowDialog();
         }
     }
 }

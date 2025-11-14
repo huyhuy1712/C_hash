@@ -1,5 +1,6 @@
 ﻿using MilkTea.Client.Interfaces;
 using MilkTea.Client.Services;
+using System.Diagnostics;
 
 namespace MilkTea.Client.Presenters
 {
@@ -31,11 +32,12 @@ namespace MilkTea.Client.Presenters
                     {
                         var quyen = await _quyenService.GetQuyenByIdAsync(int.Parse(_id));
 
+
                         if (account != null || nhanVien != null || quyen != null)
                         {
                             _form.LblTaiKhoan.Text = account.TenTaiKhoan.ToString();
-                            _form.LblHoTen.Text = nhanVien.TenNV.ToString();
-                            _form.LblQuyen.Text = quyen.TenQuyen.ToString();
+                            _form.LblHoTen.Text = nhanVien != null ? nhanVien.TenNV.ToString() : "Không tìm thấy nhân viên";
+                            _form.LblQuyen.Text = quyen != null ? quyen.TenQuyen.ToString() : "Không tìm thấy quyền";
                             _form.LblTrangThai.Text = account.TrangThai == 1 ? "Hoạt động" : "Khóa";
                         }
                     }

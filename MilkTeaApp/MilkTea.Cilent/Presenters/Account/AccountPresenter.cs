@@ -1,5 +1,6 @@
 ﻿using MilkTea.Client.Forms.ChildForm_Account;
 using MilkTea.Client.Interfaces;
+using MilkTea.Client.Models;
 using MilkTea.Client.Services;
 
 namespace MilkTea.Client.Presenters
@@ -8,6 +9,7 @@ namespace MilkTea.Client.Presenters
     {
         private readonly AccountService _taiKhoanService = new();
         private readonly NhanVienService _nhanVienService = new();
+        private readonly QuyenService _quyenService = new();
         private readonly IBaseForm _form;
         public AccountPresenter(IBaseForm form)
         {
@@ -62,6 +64,7 @@ namespace MilkTea.Client.Presenters
             {
                 var listTaiKhoan = await _taiKhoanService.GetAccountsAsync();
                 var listNhanVien = await _nhanVienService.GetNhanVienAsync();
+                var listQuyen = await _quyenService.GetQuyensAsync();
 
                 dataGridView1.Rows.Clear();
                 if (listTaiKhoan != null && listTaiKhoan.Any())
@@ -69,6 +72,8 @@ namespace MilkTea.Client.Presenters
                     foreach (var tk in listTaiKhoan)
                     {
                         var nv = listNhanVien.FirstOrDefault(n => n.MaTK == tk.MaTK);
+                        var q = listQuyen.FirstOrDefault(quyen => quyen.MaQuyen == tk.MaQuyen);
+
                         int rowIndex = dataGridView1.Rows.Add();
 
                         dataGridView1.Rows[rowIndex].Cells["ID"].Value = tk.MaTK;
@@ -76,7 +81,7 @@ namespace MilkTea.Client.Presenters
                         dataGridView1.Rows[rowIndex].Cells["hoVaTen"].Value = nv?.TenNV ?? "Chưa có nhân viên";
                         dataGridView1.Rows[rowIndex].Cells["trangThai"].Value = tk.TrangThai == 1 ? "Hoạt động" : "Khóa";
                         dataGridView1.Rows[rowIndex].Cells["ngayTao"].Value = DateTime.Now.ToString("dd/MM/yyyy");
-                        dataGridView1.Rows[rowIndex].Cells["quyen"].Value = tk.MaQuyen;
+                        dataGridView1.Rows[rowIndex].Cells["quyen"].Value = q.TenQuyen;
                     }
                     lbl.ForeColor = Color.ForestGreen;
                     lbl.Text = $"✅ Đã tải {listTaiKhoan.Count} tài khoản.";
