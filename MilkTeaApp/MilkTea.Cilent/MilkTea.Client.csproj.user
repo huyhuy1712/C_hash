@@ -41,6 +41,9 @@
     <Compile Update="Forms\ChildForm_Account\ChucNang\AddQuyenForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\ChildForm_Employee\AddEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\EmployeeForm.cs">
       <SubType>Form</SubType>
     </Compile>

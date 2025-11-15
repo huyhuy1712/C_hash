@@ -12,6 +12,8 @@ namespace MilkTea.Client.Presenters
         private readonly NhanVienService _nhanVienService = new();
         private readonly QuyenService _quyenService = new();
         private readonly IBaseForm _form;
+
+        private List<TaiKhoan> listTaiKhoan;
         public AccountPresenter(IBaseForm form)
         {
             _form = form;
@@ -63,7 +65,7 @@ namespace MilkTea.Client.Presenters
             var dataGridView1 = _form.Grid;
             try
             {
-                var listTaiKhoan = await _taiKhoanService.GetAccountsAsync();
+                listTaiKhoan = await _taiKhoanService.GetAccountsAsync();
                 var listNhanVien = await _nhanVienService.GetNhanVienAsync();
                 var listQuyen = await _quyenService.GetQuyensAsync();
 

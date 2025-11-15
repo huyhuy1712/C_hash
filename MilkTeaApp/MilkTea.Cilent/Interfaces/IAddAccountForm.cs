@@ -1,4 +1,5 @@
-﻿using MilkTea.Client.Models;
+﻿using MilkTea.Client.Controls;
+using MilkTea.Client.Models;
 
 namespace MilkTea.Client.Interfaces
 {
@@ -12,6 +13,9 @@ namespace MilkTea.Client.Interfaces
         ComboBox CbQuyen { get; }
         ComboBox CbNhanVien { get; }
         void setQuyen(List<Quyen> q);
-        void setNhanVien(List<NhanVien> nv);
+        ErrorProvider Error { get; }
+        TextBox TxtbTenTaiKhoan { get; }
+        TextBox TxtbMatKhau { get; }
+        TextBox TxtbDuongDanAnh { get; }
     }
 }
