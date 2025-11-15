@@ -215,13 +215,15 @@ namespace MilkTea.Client.Controls
                         // 3. Lấy chi tiết phiếu nhập của nguyên liệu
                         var chiTietPN = await _chiTietPhieuNhapService.GetByMaNLAsync(maNL); // lấy 1 bản ghi đầu tiên
 
-                        if (chiTietPN != null)
+                        if (chiTietPN.Count != 0 )
                         {
-                            decimal donGiaNhap = chiTietPN[0].DonGiaNhap;
+                            var last = chiTietPN[chiTietPN.Count - 1]; // phần tử cuối
+                            decimal donGiaNhap = last.DonGiaNhap;
 
                             // 4. Nhân DonGiaNhap * SoLuongCanDung và cộng vào tổng
                             tongChiPhi += donGiaNhap * soLuongCanDung;
                         }
+                        else tongChiPhi += 0.1m* soLuongCanDung; // nếu không có nguyên liệu trong kho thì lấy -1 làm đơn giá
                     }
 
                     var maSize = item.MaSize;
