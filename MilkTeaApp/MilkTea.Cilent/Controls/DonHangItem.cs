@@ -43,7 +43,7 @@ namespace MilkTea.Client.Controls
         // Gán dữ liệu đơn hàng vào UserControl
 
         // Nhận dữ liệu từ API và hiển thị lên giao diện
-        public void SetData(DonHang dh)
+        public async Task SetData(DonHang dh)
         {
             donHang = dh;
 
@@ -52,7 +52,26 @@ namespace MilkTea.Client.Controls
             label_GioLap.Text = dh.GioLap?.ToString(@"hh\:mm") ?? "N/A";
             label_TongGia.Text = dh.TongGia.ToString("N0") + " VND";
             //label_MaBuzzer.Text = dh.MaBuzzer?.ToString() ?? "N/A";
-            label_MaBuzzer.Text = dh.MaBuzzer.HasValue ? $"BZ{dh.MaBuzzer.Value:D2}" : "N/A";
+            //label_MaBuzzer.Text = dh.MaBuzzer.HasValue ? $"BZ{dh.MaBuzzer.Value:D2}" : "N/A";
+
+            // --- Lấy số hiệu buzzer từ API ---
+            if (dh.MaBuzzer != null)
+            {
+                var buzzer = await _buzzerService.GetByMaMayAsync(dh.MaBuzzer.Value);
+                if (buzzer != null)
+                {
+                    label_MaBuzzer.Text = buzzer.SoHieu; // Hiển thị số hiệu thực sự
+                }
+                else
+                {
+                    label_MaBuzzer.Text = "N/A";
+                }
+            }
+            else
+            {
+                label_MaBuzzer.Text = "N/A";
+            }
+
             pttt = dh.PhuongThucThanhToan ?? 0;
             trangThai = dh.TrangThai;
             if (pttt == 0)
