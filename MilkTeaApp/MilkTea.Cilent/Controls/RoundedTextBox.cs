@@ -8,20 +8,17 @@ namespace MilkTea.Client.Controls
     public class RoundedTextBox : UserControl
     {
         private TextBox textBox;
-        private PictureBox icon;
+        private bool isFocused = false;
 
         public string Placeholder { get; set; } = "Từ khóa tìm kiếm...";
         public Color BorderColor { get; set; } = Color.Gray;
         public Color FocusBorderColor { get; set; } = Color.DeepSkyBlue;
         public int BorderRadius { get; set; } = 20;
 
-        private bool isFocused = false;
-
         public RoundedTextBox()
         {
             this.BackColor = Color.White;
             this.DoubleBuffered = true;
-            this.Padding = new Padding(10, 5, 40, 5); // chừa chỗ cho icon bên phải
 
             // --- TextBox ---
             textBox = new TextBox();
@@ -29,10 +26,11 @@ namespace MilkTea.Client.Controls
             textBox.Font = new Font("Segoe UI", 10F);
             textBox.ForeColor = Color.Gray;
             textBox.Text = Placeholder;
-            textBox.Location = new Point(10, 7);
-            textBox.Width = this.Width - 50; // chừa icon
-            textBox.Anchor = AnchorStyles.Left | AnchorStyles.Top | AnchorStyles.Right;
+            textBox.Multiline = true; // Cho phép căn giữa dọc
+            textBox.TextAlign = HorizontalAlignment.Left; // Hoặc Center nếu muốn giữa ngang
+            textBox.ScrollBars = ScrollBars.None;
 
+            // --- Xử lý focus / placeholder ---
             textBox.Enter += (s, e) =>
             {
                 isFocused = true;
@@ -55,16 +53,11 @@ namespace MilkTea.Client.Controls
                 this.Invalidate();
             };
 
-            // Forward KeyDown từ textBox ra ngoài
-            textBox.KeyDown += (s, e) =>
-            {
-                this.OnKeyDown(e);
-            };
-            // Forward sự kiện KeyUp của textbox ra ngoài control
-            textBox.KeyUp += (s, e) => OnKeyUp(e);
+            // Forward sự kiện bàn phím ra ngoài
+            textBox.KeyDown += (s, e) => this.OnKeyDown(e);
+            textBox.KeyUp += (s, e) => this.OnKeyUp(e);
 
             this.Controls.Add(textBox);
-
             this.Resize += (s, e) => AdjustLayout();
 
             AdjustLayout();
@@ -72,7 +65,10 @@ namespace MilkTea.Client.Controls
 
         private void AdjustLayout()
         {
-
+            int padding = 10;
+            textBox.Width = this.Width - padding * 2;
+            textBox.Height = TextRenderer.MeasureText("Text", textBox.Font).Height + 6;
+            textBox.Location = new Point(padding, (this.Height - textBox.Height) / 2);
             SetRoundedRegion();
         }
 
@@ -139,6 +135,5 @@ namespace MilkTea.Client.Controls
                 }
             }
         }
-
     }
 }

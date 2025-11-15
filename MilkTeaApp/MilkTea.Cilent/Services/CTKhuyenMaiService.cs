@@ -22,7 +22,7 @@ namespace MilkTea.Client.Services
             try
             {
                 // Gọi đúng endpoint API khuyến mãi theo sản phẩm
-                var response = await _http.GetAsync($"/api/sanphamkhuyenmai/ctkhuyenmai/{MaSP}");
+                var response = await _http.GetAsync($"/api/sanphamkhuyenmai/sanpham/{MaSP}");
 
                 // Nếu không tìm thấy (404) → không có khuyến mãi → return null
                 if (response.StatusCode == System.Net.HttpStatusCode.NotFound)

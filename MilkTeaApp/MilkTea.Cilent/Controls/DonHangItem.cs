@@ -1,4 +1,5 @@
-﻿using MilkTea.Client.Models;
+﻿using MilkTea.Client.Forms.ChildForm_Order;
+using MilkTea.Client.Models;
 using MilkTea.Client.Services;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ namespace MilkTea.Client.Controls
         private CongThucService _congThucService = new CongThucService();
         private CTCongThucService _ctCongThucService = new CTCongThucService();
         private buzzerService _buzzerService = new buzzerService();
+        private ChiTietPhieuNhapService _chiTietPhieuNhapService = new ChiTietPhieuNhapService();
         public int pttt;
         public int trangThai;
         //public event EventHandler<DonHangEventArgs> OnDonHangSelected;
@@ -148,11 +150,29 @@ namespace MilkTea.Client.Controls
                     var maSP = item.MaSP;
                     var sp = await SanPhamService.SearchSanPhamAsync("MaSP", maSP.ToString());
                     var ct = await _ctCongThucService.GetChiTietCongThucTheoSPAsync(maSP);
+                    var listNL = await _ctCongThucService.GetChiTietCongThucTheoSPAsync(maSP);
+                    decimal tongChiPhi = 0m;
+                    foreach (var nl in listNL)
+                    {
+                        int maNL = nl.MaNL;
+                        decimal soLuongCanDung = nl.SoLuongCanDung;
+
+                        // 3. Lấy chi tiết phiếu nhập của nguyên liệu
+                        var chiTietPN = await _chiTietPhieuNhapService.GetByMaNLAsync(maNL); // lấy 1 bản ghi đầu tiên
+
+                        if (chiTietPN != null)
+                        {
+                            decimal donGiaNhap = chiTietPN[0].DonGiaNhap;
+
+                            // 4. Nhân DonGiaNhap * SoLuongCanDung và cộng vào tổng
+                            tongChiPhi += donGiaNhap * soLuongCanDung;
+                        }
+                    }
 
                     var maSize = item.MaSize;
                     int maLoai = sp[0].MaLoai;
                     var soLuong = item.SoLuong;
-                    var chiPhi = item.GiaVon;
+                    var chiPhi = tongChiPhi;
                     var tongGia = item.TongGia;
 
                     var doanhThu = new DoanhThu
@@ -196,6 +216,12 @@ namespace MilkTea.Client.Controls
 
         private void pictureBox5_Click(object sender, EventArgs e)
         {
+            // Hiển thị chi tiết đơn hàng
+            if (donHang != null)
+            {
+                Bill billForm = new Bill(donHang);
+                billForm.ShowDialog();
+            }
         }
     }
 }

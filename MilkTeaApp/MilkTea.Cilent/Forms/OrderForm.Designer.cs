@@ -458,6 +458,7 @@
             comboBox_pttt.ForeColor = SystemColors.WindowText;
             comboBox_pttt.FormattingEnabled = true;
             comboBox_pttt.Items.AddRange(new object[] { "Tiền mặt", "Chuyển khoản" });
+            comboBox_pttt.SelectedItem = "Tiền mặt";
             comboBox_pttt.Location = new Point(397, 20);
             comboBox_pttt.Name = "comboBox_pttt";
             comboBox_pttt.Size = new Size(137, 28);

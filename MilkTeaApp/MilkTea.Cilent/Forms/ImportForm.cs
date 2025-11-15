@@ -10,6 +10,8 @@ namespace MilkTea.Client.Forms
         private readonly PhieuNhapService _phieuNhapService;
         private readonly NhanVienService _nhanVienService;
         private readonly NhaCungCapService _nhaCungCapService;
+        private List<NhanVien> _cachedNhanViens;
+        private List<NhaCungCap> _cachedNhaCungCaps;
 
         public ImportForm()
         {
@@ -27,22 +29,48 @@ namespace MilkTea.Client.Forms
             cbo_timkiemtheo_PN.SelectedIndex = 0; // Chọn mục đầu tiên làm mặc định
         }
 
+        private void ApplySearchFilter()
+        {
+            txt_TimkiemPN_PN_TextChanged(txt_TimkiemPN_PN, EventArgs.Empty);
+        }
 
         private async void ImportForm_Load(object sender, EventArgs e)
         {
             await LoadPhieuNhaps();
-
-            //Bật tắt các nút theo quyền
             roundedButton1.Enabled = Session.HasPermission("Thêm phiếu nhập");
             roundedButton2.Enabled = Session.HasPermission("Nhập excel phiếu nhập");
             xoa_Tb_iPort.Visible = Session.HasPermission("Xóa phiếu nhập");
         }
 
 
-        private void roundedButton1_Click_1(object sender, EventArgs e)
+        private async void roundedButton1_Click_1(object sender, EventArgs e)
         {
-            ImportForm_Add form = new ImportForm_Add(this);
-            form.ShowDialog();
+            using (var form = new ImportForm_Add(this))
+            {
+                if (form.ShowDialog() == DialogResult.OK && form.ResultPhieuNhap != null)
+                {
+                    var pn = form.ResultPhieuNhap;
+
+                    // Lấy tên NV và NCC từ cache (nếu chưa có thì load 1 lần)
+                    if (_cachedNhanViens == null) _cachedNhanViens = await _nhanVienService.GetNhanVienAsync();
+                    if (_cachedNhaCungCaps == null) _cachedNhaCungCaps = await _nhaCungCapService.GetNhaCungCapAsync();
+
+                    var nhanvien = _cachedNhanViens.Find(n => n.MaNV == pn.MaNV);
+                    var nhacungcap = _cachedNhaCungCaps.Find(n => n.MaNCC == pn.MaNCC);
+
+                    // Thêm trực tiếp vào Grid
+                    int rowIndex = dGV_phieuNhap.Rows.Add();
+                    dGV_phieuNhap.Rows[rowIndex].Cells["maPhieuNhap_Tb_iPort"].Value = pn.MaPN;
+                    dGV_phieuNhap.Rows[rowIndex].Cells["ngayNhap_Tb_iPort"].Value = pn.NgayNhap?.ToString("dd/MM/yyyy");
+                    dGV_phieuNhap.Rows[rowIndex].Cells["soLuong_Tb_iPort"].Value = pn.SoLuong;
+                    dGV_phieuNhap.Rows[rowIndex].Cells["nhaCungCap_Tb_iPort"].Value = nhacungcap?.TenNCC ?? "N/A";
+                    dGV_phieuNhap.Rows[rowIndex].Cells["tenNVN_Tb_iPort"].Value = nhanvien?.TenNV ?? "N/A";
+                    dGV_phieuNhap.Rows[rowIndex].Cells["tongTien_Tb_iPort"].Value = pn.TongTien;
+
+                    // Áp dụng bộ lọc tìm kiếm (nếu đang tìm)
+                    ApplySearchFilter();
+                }
+            }
         }
 
         private void roundedButton2_Click(object sender, EventArgs e)
@@ -74,8 +102,6 @@ namespace MilkTea.Client.Forms
                     {
                         frm.ShowDialog();
                     }
-                    // Tùy chọn: reload nếu form chi tiết có thể sửa dữ liệu
-                    // await LoadPhieuNhaps();
                 }
 
                 // 2. Click vào cột "Xóa"

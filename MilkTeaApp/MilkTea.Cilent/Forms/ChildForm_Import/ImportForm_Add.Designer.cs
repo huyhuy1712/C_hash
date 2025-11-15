@@ -32,7 +32,6 @@
             txt_maPN_PN_ADD = new TextBox();
             label6 = new Label();
             cbo_NhaCungCap_PN_ADD = new ComboBox();
-            btn_Xoa_PN_ADD = new MilkTea.Client.Controls.RoundedButton();
             btn_Them_PN_ADD = new MilkTea.Client.Controls.RoundedButton();
             nb_soLuong_PN_ADD = new NumericUpDown();
             cbo_HangHoa_PN_ADD = new ComboBox();
@@ -54,6 +53,7 @@
             soLuong_tb_add = new DataGridViewTextBoxColumn();
             tenNVN_tb_add = new DataGridViewTextBoxColumn();
             tongTien_tb_add = new DataGridViewTextBoxColumn();
+            xoa_tb_add = new DataGridViewImageColumn();
             panel5 = new Panel();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nb_soLuong_PN_ADD).BeginInit();
@@ -68,7 +68,6 @@
             panel1.Controls.Add(txt_maPN_PN_ADD);
             panel1.Controls.Add(label6);
             panel1.Controls.Add(cbo_NhaCungCap_PN_ADD);
-            panel1.Controls.Add(btn_Xoa_PN_ADD);
             panel1.Controls.Add(btn_Them_PN_ADD);
             panel1.Controls.Add(nb_soLuong_PN_ADD);
             panel1.Controls.Add(cbo_HangHoa_PN_ADD);
@@ -112,24 +111,6 @@
             cbo_NhaCungCap_PN_ADD.Size = new Size(744, 28);
             cbo_NhaCungCap_PN_ADD.TabIndex = 11;
             // 
-            // btn_Xoa_PN_ADD
-            // 
-            btn_Xoa_PN_ADD.BackColor = Color.DodgerBlue;
-            btn_Xoa_PN_ADD.BorderColor = Color.DodgerBlue;
-            btn_Xoa_PN_ADD.BorderRadius = 20;
-            btn_Xoa_PN_ADD.BorderSize = 0;
-            btn_Xoa_PN_ADD.FlatAppearance.BorderSize = 0;
-            btn_Xoa_PN_ADD.FlatStyle = FlatStyle.Flat;
-            btn_Xoa_PN_ADD.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            btn_Xoa_PN_ADD.ForeColor = Color.White;
-            btn_Xoa_PN_ADD.Location = new Point(879, 168);
-            btn_Xoa_PN_ADD.Name = "btn_Xoa_PN_ADD";
-            btn_Xoa_PN_ADD.Size = new Size(98, 36);
-            btn_Xoa_PN_ADD.TabIndex = 10;
-            btn_Xoa_PN_ADD.Text = "Xóa";
-            btn_Xoa_PN_ADD.UseVisualStyleBackColor = false;
-            btn_Xoa_PN_ADD.Click += btn_Xoa_PN_ADD_Click;
-            // 
             // btn_Them_PN_ADD
             // 
             btn_Them_PN_ADD.BackColor = Color.DodgerBlue;
@@ -140,7 +121,7 @@
             btn_Them_PN_ADD.FlatStyle = FlatStyle.Flat;
             btn_Them_PN_ADD.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btn_Them_PN_ADD.ForeColor = Color.White;
-            btn_Them_PN_ADD.Location = new Point(775, 168);
+            btn_Them_PN_ADD.Location = new Point(879, 165);
             btn_Them_PN_ADD.Name = "btn_Them_PN_ADD";
             btn_Them_PN_ADD.Size = new Size(98, 36);
             btn_Them_PN_ADD.TabIndex = 9;
@@ -296,12 +277,13 @@
             dGV_HangHoa_PN_ADD.AllowUserToAddRows = false;
             dGV_HangHoa_PN_ADD.BackgroundColor = SystemColors.ButtonFace;
             dGV_HangHoa_PN_ADD.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dGV_HangHoa_PN_ADD.Columns.AddRange(new DataGridViewColumn[] { maPhieuNhap_tb_add, ngayNhap_tb_add, tenNL_tb_add, soLuong_tb_add, tenNVN_tb_add, tongTien_tb_add });
+            dGV_HangHoa_PN_ADD.Columns.AddRange(new DataGridViewColumn[] { maPhieuNhap_tb_add, ngayNhap_tb_add, tenNL_tb_add, soLuong_tb_add, tenNVN_tb_add, tongTien_tb_add, xoa_tb_add });
             dGV_HangHoa_PN_ADD.Dock = DockStyle.Top;
             dGV_HangHoa_PN_ADD.Location = new Point(20, 20);
             dGV_HangHoa_PN_ADD.Name = "dGV_HangHoa_PN_ADD";
             dGV_HangHoa_PN_ADD.Size = new Size(980, 334);
             dGV_HangHoa_PN_ADD.TabIndex = 0;
+            dGV_HangHoa_PN_ADD.CellClick += dGV_HangHoa_PN_ADD_CellClick;
             // 
             // maPhieuNhap_tb_add
             // 
@@ -336,6 +318,12 @@
             tongTien_tb_add.HeaderText = "Tổng Tiền";
             tongTien_tb_add.Name = "tongTien_tb_add";
             tongTien_tb_add.Width = 200;
+            // 
+            // xoa_tb_add
+            // 
+            xoa_tb_add.HeaderText = "Xóa";
+            xoa_tb_add.Image = Properties.Resources.icons8_trash_96;
+            xoa_tb_add.Name = "xoa_tb_add";
             // 
             // panel5
             // 
@@ -387,22 +375,22 @@
         private Controls.RoundedButton btn_Them_PN_ADD;
         private NumericUpDown nb_soLuong_PN_ADD;
         private ComboBox cbo_HangHoa_PN_ADD;
-        private Controls.RoundedButton btn_Xoa_PN_ADD;
         private Panel panel2;
         private Label label5;
         private Panel panel3;
         private Controls.RoundedButton btn_Thoat_iPort_add;
         private Controls.RoundedButton btn_Luu_Iport_add;
         private DataGridView dGV_HangHoa_PN_ADD;
+        private Panel panel5;
+        private ComboBox cbo_NhaCungCap_PN_ADD;
+        private TextBox txt_maPN_PN_ADD;
+        private Label label6;
         private DataGridViewTextBoxColumn maPhieuNhap_tb_add;
         private DataGridViewTextBoxColumn ngayNhap_tb_add;
         private DataGridViewTextBoxColumn tenNL_tb_add;
         private DataGridViewTextBoxColumn soLuong_tb_add;
         private DataGridViewTextBoxColumn tenNVN_tb_add;
         private DataGridViewTextBoxColumn tongTien_tb_add;
-        private Panel panel5;
-        private ComboBox cbo_NhaCungCap_PN_ADD;
-        private TextBox txt_maPN_PN_ADD;
-        private Label label6;
+        private DataGridViewImageColumn xoa_tb_add;
     }
 }
