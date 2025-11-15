@@ -34,7 +34,7 @@ namespace MilkTea.Client.Forms
                 //{ "Ngày lập", "NgayLap" },
                 //{ "Giờ lập", "GioLap" },
                 { "Mã Buzzer", "MaBuzzer" },
-                { "Phương thức thanh toán", "PhuongThucThanhToan" }
+                { "pttt", "PhuongThucThanhToan" }
             };
 
 
@@ -60,52 +60,69 @@ namespace MilkTea.Client.Forms
                 item.Size = new System.Drawing.Size(210, 140);
                 item.Margin = new Padding(10);
 
+                // Đăng ký event
+                item.DonHangDaXoa += Item_DonHangDaXoa;
+
                 if (item.trangThai == 0)
                     flowLayoutPanel1.Controls.Add(item);
                 else if (item.trangThai == 1)
                     flowLayoutPanel2.Controls.Add(item);
             }
         }
+        private async void Item_DonHangDaXoa(object sender, EventArgs e)
+        {
+            await LoadDonHangAsync(); // reload danh sách đơn hàng
+        }
 
         // ========== TÌM KIẾM ==========
-        private async void pictureBox1_Click(object sender, EventArgs e)
+        private async void textboxTimKiem_KeyDown(object sender, KeyEventArgs e)
         {
-            string displayName = roundedComboBox1.SelectedItem.ToString();
-            string column = columnMapping[displayName];
-            string value = textboxTimKiem.Text.Trim();
-
-            if (string.IsNullOrEmpty(value))
+            if (e.KeyCode == Keys.Enter)
             {
-                await LoadDonHangAsync();
-                return;
-            }
-            try
-            {
-                // Gọi service tìm kiếm
-                var list = await _donHangService.SearchAsync(column, value);
+                e.SuppressKeyPress = true; // tránh âm "ding"
 
+                string displayName = roundedComboBox1.SelectedItem.ToString();
+                string column = columnMapping[displayName];
+                string value = textboxTimKiem.Text.Trim();
 
-                // Xóa kết quả cũ
-                flowLayoutPanel1.Controls.Clear();
-                flowLayoutPanel2.Controls.Clear();
-
-                // Hiển thị danh sách kết quả
-                foreach (var dh in list)
+                if (string.IsNullOrEmpty(value))
                 {
-                    var item = new DonHangItem(dh);
-                    item.SetData(dh);
-                    item.Size = new System.Drawing.Size(210, 140);
-                    item.Margin = new Padding(10);
-
-                    if (item.trangThai == 0)
-                        flowLayoutPanel1.Controls.Add(item);
-                    else if (item.trangThai == 1)
-                        flowLayoutPanel2.Controls.Add(item);
+                    await LoadDonHangAsync();
+                    return;
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi tìm kiếm: {ex.Message}");
+
+                // Nếu tìm kiếm theo buzzer và người dùng nhập dạng "BZ01"
+                if (column == "MaBuzzer" && value.StartsWith("BZ", StringComparison.OrdinalIgnoreCase))
+                {
+                    value = value.Substring(2); // Lấy phần số phía sau "BZ"
+                }
+                try
+                {
+                    // Gọi service tìm kiếm
+                    var list = await _donHangService.SearchAsync(column, value);
+
+                    // Xóa kết quả cũ
+                    flowLayoutPanel1.Controls.Clear();
+                    flowLayoutPanel2.Controls.Clear();
+
+                    // Hiển thị danh sách kết quả
+                    foreach (var dh in list)
+                    {
+                        var item = new DonHangItem(dh);
+                        item.SetData(dh);
+                        item.Size = new System.Drawing.Size(210, 140);
+                        item.Margin = new Padding(10);
+
+                        if (item.trangThai == 0)
+                            flowLayoutPanel1.Controls.Add(item);
+                        else if (item.trangThai == 1)
+                            flowLayoutPanel2.Controls.Add(item);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi tìm kiếm: {ex.Message}");
+                }
             }
         }
 
@@ -121,5 +138,7 @@ namespace MilkTea.Client.Forms
             flowLayoutPanel1.Hide();
             flowLayoutPanel2.Show();
         }
+
+       
     }
 }

@@ -18,7 +18,7 @@ namespace MilkTea.Client.Forms.ChildForm_Order
         private ChiTietDonHang? chiTietDonHang;
         private CTDonHangService CTDonHangService = new CTDonHangService();
         private SanPhamService _SanPhamService = new SanPhamService();
-        private SizeService _sizeService= new SizeService();
+        private SizeService _sizeService = new SizeService();
         private NhanVienService _nhanVienService = new NhanVienService();
         //private readonly ToppingService _toppingService;
         public Bill(DonHang dh)
@@ -86,6 +86,16 @@ namespace MilkTea.Client.Forms.ChildForm_Order
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void InvoiceOrder_Panel_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

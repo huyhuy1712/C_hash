@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +30,9 @@ namespace MilkTea.Client.Controls
         private ChiTietPhieuNhapService _chiTietPhieuNhapService = new ChiTietPhieuNhapService();
         public int pttt;
         public int trangThai;
+        // Thêm event
+        public event EventHandler DonHangDaXoa;
+
         //public event EventHandler<DonHangEventArgs> OnDonHangSelected;
         public DonHangItem(DonHang dh)
         {
@@ -46,7 +50,8 @@ namespace MilkTea.Client.Controls
             label_NgayLap.Text = dh.NgayLap?.ToString("dd/MM/yyyy") ?? "N/A";
             label_GioLap.Text = dh.GioLap?.ToString(@"hh\:mm") ?? "N/A";
             label_TongGia.Text = dh.TongGia.ToString("N0") + " VND";
-            label_MaBuzzer.Text = dh.MaBuzzer?.ToString() ?? "N/A";
+            //label_MaBuzzer.Text = dh.MaBuzzer?.ToString() ?? "N/A";
+            label_MaBuzzer.Text = dh.MaBuzzer.HasValue ? $"BZ{dh.MaBuzzer.Value:D2}" : "N/A";
             pttt = dh.PhuongThucThanhToan ?? 0;
             trangThai = dh.TrangThai;
             if (pttt == 0)
@@ -65,8 +70,29 @@ namespace MilkTea.Client.Controls
             {
                 pictureBox4.Image = Properties.Resources.order1;
                 pictureBox4.Enabled = false;
-                pictureBox6.Enabled = false;
+                pictureBox4.Image = SetOpacity(Properties.Resources.order1, 0.6f);
+                //pictureBox6.Enabled = false;
             }
+        }
+        public Image SetOpacity(Image img, float opacity)
+        {
+            Bitmap bmp = new Bitmap(img.Width, img.Height);
+            Graphics gfx = Graphics.FromImage(bmp);
+
+            ColorMatrix matrix = new ColorMatrix();
+            matrix.Matrix33 = opacity; // độ mờ (1 = rõ, 0 = hoàn toàn mờ)
+
+            ImageAttributes attributes = new ImageAttributes();
+            attributes.SetColorMatrix(matrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+
+            gfx.DrawImage(img,
+                new Rectangle(0, 0, bmp.Width, bmp.Height),
+                0, 0, img.Width, img.Height,
+                GraphicsUnit.Pixel,
+                attributes);
+
+            gfx.Dispose();
+            return bmp;
         }
 
         private void pictureBox_PhuongThucThanhToan_Click(object sender, EventArgs e)
@@ -102,6 +128,10 @@ namespace MilkTea.Client.Controls
                 // TODO: thêm code xóa đơn hàng ở đây
                 donHang.TrangThai = 2; // Đã hoàn thành
                 var trangThaiCapNhat = await new DonHangService().CapNhatTrangThaiDonHangAsync(donHang);
+
+                // Báo cho Form cha
+                DonHangDaXoa?.Invoke(this, EventArgs.Empty);
+
                 MessageBox.Show("Đơn hàng đã được xóa!");
 
             }
@@ -131,7 +161,10 @@ namespace MilkTea.Client.Controls
                 //nhàn
                 donHang.TrangThai = 1; // Đã hoàn thành
                 var trangThaiCapNhat = await new DonHangService().CapNhatTrangThaiDonHangAsync(donHang);
-                _buzzerService.UpdateTrangThaiAsync(donHang.MaDH.ToString(), 1); // Cập nhật trạng thái buzzer
+                _buzzerService.UpdateTrangThaiAsync(donHang.MaDH.ToString(), 1); // Cập nhật trạng thái buzzer, coi lại 
+                                                                                 // Báo cho Form cha reload danh sách
+                DonHangDaXoa?.Invoke(this, EventArgs.Empty);
+
                 int maDH = donHang.MaDH;
 
                 int? nam = donHang.NgayLap?.Year;
@@ -200,7 +233,7 @@ namespace MilkTea.Client.Controls
                 }
                 if (last)
                 {
-                    MessageBox.Show("Cập nhật doanh thu thành công!");
+                    //MessageBox.Show("Cập nhật doanh thu thành công!");
                 }
                 else
                 {
