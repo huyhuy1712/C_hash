@@ -74,6 +74,8 @@ namespace MilkTea.Client.Forms
         {
             try
             {
+                list = await _doanhThuService.GetDoanhThusAsync();
+                allSP = await _SanPhamService.GetSanPhamsAsync();
                 // --- Thiết lập ngày mặc định theo quý ---
                 DateTime now = DateTime.Now;
                 int quarter = (now.Month - 1) / 3 + 1; // tính quý hiện tại
@@ -125,8 +127,7 @@ namespace MilkTea.Client.Forms
                 //load bảng
                 TaoCauTrucBangThongKe();
                 loadDataGridView();
-                list = await _doanhThuService.GetDoanhThusAsync();
-                allSP = await _SanPhamService.GetSanPhamsAsync();
+                
             }
             catch (Exception ex)
             {
@@ -264,7 +265,7 @@ namespace MilkTea.Client.Forms
         {
             try
             {
-                dataGridView1.DataSource = dtThongKe;
+                var temp = new List<DoanhThu>(list);
                 dtThongKe.Rows.Clear();
                 cbbLoc.SelectedItem = "Tất Cả";
 
@@ -300,34 +301,34 @@ namespace MilkTea.Client.Forms
                         .Select(sp => sp.MaSP)
                         .ToList();
 
-                    list = list.Where(x => x.MaSP.HasValue && spIdsTheoLoai.Contains(x.MaSP.Value)).ToList();
+                    temp = temp.Where(x => x.MaSP.HasValue && spIdsTheoLoai.Contains(x.MaSP.Value)).ToList();
                 }
 
                 if (selectedSP != 0)
                 {
-                    list = list.Where(x => x.MaSP == selectedSP).ToList();
+                    temp = list.Where(x => x.MaSP == selectedSP).ToList();
                 }
 
                 if (selectedSize != 0)
                 {
-                    list = list.Where(x => x.MaSize == selectedSize).ToList();
+                    temp = list.Where(x => x.MaSize == selectedSize).ToList();
                 }
 
                 // --- Lọc theo thời gian ---
-                list = list.Where(x =>
+                temp = temp.Where(x =>
                 {
                     DateTime ngayItem = new DateTime(x.Nam, x.Thang, x.Ngay);
                     return ngayItem >= tuNgay && ngayItem <= denNgay;
                 }).ToList();
 
-                if (list.Count == 0)
+                if (temp.Count == 0)
                 {
                     MessageBox.Show("Không có dữ liệu phù hợp với bộ lọc.");
                     return;
                 }
 
                 // --- Hiển thị dữ liệu ---
-                foreach (var item in list)
+                foreach (var item in temp)
                 {
                     var sp = await _SanPhamService.GetSanPhamsByIdAsync(item.MaSP.Value);
                     string tenSP = sp?.TenSP ?? "Không xác định";
@@ -373,6 +374,8 @@ namespace MilkTea.Client.Forms
 
                 tableLayoutPanel2.ColumnStyles[2].SizeType = SizeType.Percent;
                 tableLayoutPanel2.ColumnStyles[2].Width = 14.29f;
+
+                dataGridView1.DataSource = dtThongKe;
             }
             catch (Exception ex)
             {
