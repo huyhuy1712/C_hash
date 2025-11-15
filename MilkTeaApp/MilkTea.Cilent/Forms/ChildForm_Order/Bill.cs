@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -16,10 +17,12 @@ namespace MilkTea.Client.Forms.ChildForm_Order
     {
         private DonHang? donHang;
         private ChiTietDonHang? chiTietDonHang;
+        private Topping? toppingNL;
         private CTDonHangService CTDonHangService = new CTDonHangService();
         private SanPhamService _SanPhamService = new SanPhamService();
         private SizeService _sizeService = new SizeService();
         private NhanVienService _nhanVienService = new NhanVienService();
+        private NguyenLieuService _nguyenLieuService = new NguyenLieuService();
         //private readonly ToppingService _toppingService;
         public Bill(DonHang dh)
         {
@@ -32,20 +35,39 @@ namespace MilkTea.Client.Forms.ChildForm_Order
         {
             int maDH = donHang.MaDH;
             var danhSachCTDH = await CTDonHangService.GetAllAsync(maDH);
-            var ctDH = danhSachCTDH
+            var listctDH = danhSachCTDH
                 .Where(ct => ct.MaDH == donHang.MaDH)
                 .ToList();
             dataGridView1.Rows.Clear();
-            foreach (var ct in ctDH)
+            dataGridView1.Columns["topping"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            foreach (var ct in listctDH)
             {
                 var masp = ct.MaSP;
                 var sp = await _SanPhamService.GetSanPhamsByIdAsync(masp);
                 string tenSP = sp?.TenSP ?? "Không xác định";
+                var listTopping=  await CTDonHangService.GetToppingByMaCTDHAsync(ct.MaCTDH);
 
+                // 2. Khởi tạo danh sách string để lưu tên + số lượng
+                List<string> toppingStrings = new List<string>();
+
+                foreach (var t in listTopping)
+                {
+                    // Lấy thông tin nguyên liệu theo MaNL
+                    var nguyenLieu = await _nguyenLieuService.GetById(t.MaNL);
+
+                    // Tạo chuỗi "Tên xSL"
+                    toppingStrings.Add($"{nguyenLieu.Ten} x{t.SL}");
+                }
+
+                // 3. Nối tất cả topping thành chuỗi, mỗi topping 1 dòng
+                string toppingText = string.Join("\n", toppingStrings);
+
+                // 4. Gán vào TextBox
+                var topping = toppingText; 
                 var size = await _sizeService.GetSizeByIdAsync(ct.MaSize);
                 string tenSize = size?.TenSize ?? "Không xác định";
 
-                dataGridView1.Rows.Add(tenSP, tenSize, ct.GiaVon, ct.SoLuong, ct.TongGia);
+                dataGridView1.Rows.Add(tenSP, topping, tenSize, ct.GiaVon, ct.SoLuong, ct.TongGia);
             }
             label2.Text = donHang.TongGia.ToString("N0") + " VND";
             int maNV = donHang.MaNV ?? 0;

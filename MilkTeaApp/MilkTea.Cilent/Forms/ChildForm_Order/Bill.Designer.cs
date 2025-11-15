@@ -125,11 +125,18 @@
             dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+<<<<<<< HEAD
             dataGridView1.BackgroundColor = SystemColors.ButtonFace;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { tenSP, topping, tbSize, donGia, soLuong, tongTien });
             dataGridView1.Dock = DockStyle.Bottom;
             dataGridView1.Location = new Point(0, 365);
+=======
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { tenSP, topping, tbSize, donGia, soLuong, tongTien });
+            dataGridView1.Dock = DockStyle.Top;
+            dataGridView1.Location = new Point(0, 49);
+>>>>>>> 77e4f41b429bf55d20d11a7d00f5736e34cf8188
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
@@ -148,7 +155,10 @@
             // 
             // topping
             // 
+<<<<<<< HEAD
             topping.FillWeight = 100.08448F;
+=======
+>>>>>>> 77e4f41b429bf55d20d11a7d00f5736e34cf8188
             topping.HeaderText = "Topping";
             topping.MinimumWidth = 6;
             topping.Name = "topping";
