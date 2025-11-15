@@ -82,7 +82,11 @@ namespace MilkTea.Client.Forms
         {
             var list = await _taiKhoanService.GetAccountsAsync();
 
-            Debug.WriteLine("list account: " + list);
+            if (list == null)
+            {
+                MessageBox.Show("Chưa mở BackEnd!!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return null;
+            }
 
             // Tìm tài khoản theo username và password
             var account = list.FirstOrDefault(tk => tk.TenTaiKhoan == username && tk.MatKhau == password);

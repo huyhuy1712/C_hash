@@ -2,6 +2,7 @@
 using MilkTea.Client.Interfaces;
 using MilkTea.Client.Models;
 using MilkTea.Client.Services;
+using System.Diagnostics;
 
 namespace MilkTea.Client.Presenters
 {
@@ -96,7 +97,7 @@ namespace MilkTea.Client.Presenters
             {
                 lbl.ForeColor = Color.IndianRed;
                 lbl.Text = "❌ Không thể tải dữ liệu. Vui lòng thử lại sau.";
-                Console.WriteLine("Lỗi khi load dữ liệu: " + ex.Message);
+                Debug.WriteLine("Lỗi khi load dữ liệu: " + ex.Message);
             }
         }
     }
