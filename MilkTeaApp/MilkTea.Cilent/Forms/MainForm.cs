@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MilkTea.Client.Forms;
+using MilkTea.Client.Forms.ChildForm_Account.NewFolder;
 using MilkTea.Client.Models;
 using MilkTea.Client.Services;
 using System;
@@ -120,6 +121,11 @@ namespace MilkTea.Client.Forms
             LoadForm(new IngredientForm());
         }
 
+        private void btnNhanVien_Click(object sender, EventArgs e)
+        {
+            LoadForm(new EmployeeForm());
+        }
+
         private void btnDangXuat_Click(object sender, EventArgs e)
         {
             var result = MessageBox.Show(
@@ -137,9 +143,8 @@ namespace MilkTea.Client.Forms
 
                 _account = null;
 
-                this.Close(); 
+                this.Close();
             }
         }
-
     }
 }
