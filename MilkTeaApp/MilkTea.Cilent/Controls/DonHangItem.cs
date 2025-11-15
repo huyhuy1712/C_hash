@@ -129,17 +129,17 @@ namespace MilkTea.Client.Controls
                 // TODO: thêm code xóa đơn hàng ở đây
                 donHang.TrangThai = 2; // Đã hoàn thành
                 var trangThaiCapNhat = await new DonHangService().CapNhatTrangThaiDonHangAsync(donHang);
-<<<<<<< HEAD
+
 
                 // Báo cho Form cha
                 DonHangDaXoa?.Invoke(this, EventArgs.Empty);
 
-=======
+
                 var maBuzzer = donHang.MaBuzzer;
                 var buzzer = await _buzzerService.GetByMaMayAsync(maBuzzer ?? -1);
                 var soHieuBuzzer = buzzer?.SoHieu;
                 await _buzzerService.UpdateTrangThaiAsync(soHieuBuzzer, 1); // Cập nhật trạng thái buzzer
->>>>>>> 77e4f41b429bf55d20d11a7d00f5736e34cf8188
+
                 MessageBox.Show("Đơn hàng đã được xóa!");
 
             }
@@ -169,19 +169,18 @@ namespace MilkTea.Client.Controls
                 //nhàn
                 donHang.TrangThai = 1; // Đã hoàn thành
                 var trangThaiCapNhat = await new DonHangService().CapNhatTrangThaiDonHangAsync(donHang);
-<<<<<<< HEAD
-                _buzzerService.UpdateTrangThaiAsync(donHang.MaDH.ToString(), 1); // Cập nhật trạng thái buzzer, coi lại 
-                                                                                 // Báo cho Form cha reload danh sách
+
+               
                 DonHangDaXoa?.Invoke(this, EventArgs.Empty);
 
-=======
+
                 var maBuzzer = donHang.MaBuzzer;
                 var buzzer = await _buzzerService.GetByMaMayAsync(maBuzzer ?? -1);
                 var soHieuBuzzer = buzzer?.SoHieu;
                 await _buzzerService.UpdateTrangThaiAsync(soHieuBuzzer, 1); // Cập nhật trạng thái buzzer
 
                 //System.Windows.Forms.MessageBox.Show(donHang.MaBuzzer.ToString());
->>>>>>> 77e4f41b429bf55d20d11a7d00f5736e34cf8188
+
                 int maDH = donHang.MaDH;
 
                 int? nam = donHang.NgayLap?.Year;
@@ -239,22 +238,7 @@ namespace MilkTea.Client.Controls
 
                     await doanhThuService.ThemDoanhThuAsync(doanhThu);
 
-<<<<<<< HEAD
-                    if (!kq)
-                    {
-                        last = false;
-                    }
 
-                }
-                if (last)
-                {
-                    //MessageBox.Show("Cập nhật doanh thu thành công!");
-                }
-                else
-                {
-                    MessageBox.Show("Cập nhật doanh thu thất bại!");
-=======
->>>>>>> 77e4f41b429bf55d20d11a7d00f5736e34cf8188
                 }
             }
             else
