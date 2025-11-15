@@ -123,6 +123,56 @@ namespace MilkTea.Client.Services
                 Debug.WriteLine($"[SERVICE] General Exception in GetByMaCTKhuyenMaiAsync: {ex.Message}");
                 return new List<SanPhamKhuyenMai>();
             }
+
         }
+        public async Task<bool> DeleteByMaCTAsync(int maCTKhuyenMai)
+        {
+            try
+            {
+                string endpoint = $"/api/sanphamkhuyenmai/khuyenmai/{maCTKhuyenMai}";
+                var response = await _http.DeleteAsync(endpoint);
+                var raw = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"[SERVICE] DELETE associations for MaCT={maCTKhuyenMai}: {response.StatusCode} - {raw}");
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[SERVICE] DeleteByMaCTAsync Exception: {ex.Message}");
+                return false;
+            }
+        }
+        public async Task<List<SanPhamKhuyenMai>> GetByMaSPAsync(int maSP)
+        {
+            try
+            {
+                var response = await _http.GetAsync($"/api/sanphamkhuyenmai/sanpham/{maSP}");
+                var raw = await response.Content.ReadAsStringAsync();
+                Debug.WriteLine($"[SERVICE] Raw JSON for MaSP={maSP}: {raw}");
+
+                if (!response.IsSuccessStatusCode) return new List<SanPhamKhuyenMai>();
+                if (string.IsNullOrWhiteSpace(raw) || raw.Trim() == "null" || raw.Trim() == "[]") return new List<SanPhamKhuyenMai>();
+
+                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
+                var trimmed = raw.Trim();
+
+                if (trimmed.StartsWith("["))
+                {
+                    return JsonSerializer.Deserialize<List<SanPhamKhuyenMai>>(trimmed, options) ?? new List<SanPhamKhuyenMai>();
+                }
+                else if (trimmed.StartsWith("{"))
+                {
+                    var single = JsonSerializer.Deserialize<SanPhamKhuyenMai>(trimmed, options);
+                    return single != null ? new List<SanPhamKhuyenMai> { single } : new List<SanPhamKhuyenMai>();
+                }
+
+                return new List<SanPhamKhuyenMai>();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[SERVICE] GetByMaSPAsync Exception: {ex.Message}");
+                return new List<SanPhamKhuyenMai>();
+            }
+        }
+
     }
 }
