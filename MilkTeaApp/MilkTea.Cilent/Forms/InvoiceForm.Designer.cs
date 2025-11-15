@@ -118,8 +118,7 @@
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
-
+            
             // 
             // textboxTimKiem
             // 
@@ -135,6 +134,8 @@
             textboxTimKiem.Size = new Size(234, 33);
             textboxTimKiem.TabIndex = 0;
             textboxTimKiem.TextValue = "";
+            textboxTimKiem.KeyDown += textboxTimKiem_KeyDown;
+
             // 
             // panel1
             // 

@@ -23,7 +23,18 @@ namespace MilkTea.Client.Services
 
         public async Task<List<ChiTietPhieuNhap>> GetByMaNLAsync(int maNL)
         {
-            return await _http.GetFromJsonAsync<List<ChiTietPhieuNhap>>($"/api/chitietphieunhap/by-manl?maNL={maNL}");
+            try
+            {
+                var result = await _http.GetFromJsonAsync<List<ChiTietPhieuNhap>>(
+                    $"/api/chitietphieunhap/by-manl?maNL={maNL}");
+
+                return result ?? new List<ChiTietPhieuNhap>();
+            }
+            catch
+            {
+                return new List<ChiTietPhieuNhap>();
+            }
         }
+
     }
 }
