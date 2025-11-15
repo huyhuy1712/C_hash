@@ -497,11 +497,12 @@ namespace MilkTea.Client.Forms
             cbbSP.Font = new Font("Segoe UI", 10F);
             cbbSP.FormattingEnabled = true;
             cbbSP.ItemHeight = 30;
-            cbbSP.Location = new Point(110, 21);
+            cbbSP.Location = new Point(45, 21);
             cbbSP.Margin = new Padding(3, 4, 3, 4);
             cbbSP.Name = "cbbSP";
-            cbbSP.Size = new Size(52, 36);
+            cbbSP.Size = new Size(117, 36);
             cbbSP.TabIndex = 1;
+            cbbSP.SelectedIndexChanged += cbbSP_SelectedIndexChanged;
             // 
             // label6
             // 
@@ -511,9 +512,9 @@ namespace MilkTea.Client.Forms
             label6.Location = new Point(10, 21);
             label6.Name = "label6";
             label6.Padding = new Padding(0, 9, 0, 0);
-            label6.Size = new Size(100, 34);
+            label6.Size = new Size(35, 34);
             label6.TabIndex = 0;
-            label6.Text = "Sản phẩm";
+            label6.Text = "SP";
             // 
             // panel7
             // 
@@ -566,7 +567,6 @@ namespace MilkTea.Client.Forms
             btnLayDuLieu.BorderColor = Color.DodgerBlue;
             btnLayDuLieu.BorderRadius = 20;
             btnLayDuLieu.BorderSize = 0;
-            btnLayDuLieu.Dock = DockStyle.Fill;
             btnLayDuLieu.FlatAppearance.BorderSize = 0;
             btnLayDuLieu.FlatStyle = FlatStyle.Flat;
             btnLayDuLieu.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
@@ -574,7 +574,7 @@ namespace MilkTea.Client.Forms
             btnLayDuLieu.Location = new Point(907, 18);
             btnLayDuLieu.Margin = new Padding(10, 11, 10, 11);
             btnLayDuLieu.Name = "btnLayDuLieu";
-            btnLayDuLieu.Size = new Size(159, 73);
+            btnLayDuLieu.Size = new Size(159, 54);
             btnLayDuLieu.TabIndex = 10;
             btnLayDuLieu.Text = "Lấy dữ liệu";
             btnLayDuLieu.UseVisualStyleBackColor = false;

@@ -350,7 +350,7 @@ namespace MilkTea.Client.Forms
                     row["loiNhuan"] = item.TongDoanhThu - item.TongChiPhi;
                     dataGridView1.Columns["size1"].Visible = true;
                     dataGridView1.Columns["thoiGian"].Visible = true;
-                    
+
 
 
                     dtThongKe.Rows.Add(row);
@@ -481,6 +481,11 @@ namespace MilkTea.Client.Forms
         }
 
         private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbbSP_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }

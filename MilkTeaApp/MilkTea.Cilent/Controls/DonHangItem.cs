@@ -64,14 +64,14 @@ namespace MilkTea.Client.Controls
             // các label khác tuỳ bạn thêm
             if (trangThai == 0)
             {
-                pictureBox4.Image = Properties.Resources.hourglass;
+                pictureBox4.Image = Properties.Resources.order1;
 
             }
             else
             {
-                pictureBox4.Image = Properties.Resources.order1;
+                pictureBox4.Image = Properties.Resources.hourglass;
                 pictureBox4.Enabled = false;
-                pictureBox4.Image = SetOpacity(Properties.Resources.order1, 0.6f);
+                pictureBox4.Image = SetOpacity(Properties.Resources.hourglass, 0.9f);
                 //pictureBox6.Enabled = false;
             }
         }
@@ -129,17 +129,12 @@ namespace MilkTea.Client.Controls
                 // TODO: thêm code xóa đơn hàng ở đây
                 donHang.TrangThai = 2; // Đã hoàn thành
                 var trangThaiCapNhat = await new DonHangService().CapNhatTrangThaiDonHangAsync(donHang);
-
-
-                // Báo cho Form cha
-                DonHangDaXoa?.Invoke(this, EventArgs.Empty);
-
-
                 var maBuzzer = donHang.MaBuzzer;
                 var buzzer = await _buzzerService.GetByMaMayAsync(maBuzzer ?? -1);
                 var soHieuBuzzer = buzzer?.SoHieu;
                 await _buzzerService.UpdateTrangThaiAsync(soHieuBuzzer, 1); // Cập nhật trạng thái buzzer
-
+                                                                            // Báo cho Form cha
+                DonHangDaXoa?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show("Đơn hàng đã được xóa!");
 
             }
@@ -169,18 +164,12 @@ namespace MilkTea.Client.Controls
                 //nhàn
                 donHang.TrangThai = 1; // Đã hoàn thành
                 var trangThaiCapNhat = await new DonHangService().CapNhatTrangThaiDonHangAsync(donHang);
-
-               
-                DonHangDaXoa?.Invoke(this, EventArgs.Empty);
-
-
                 var maBuzzer = donHang.MaBuzzer;
                 var buzzer = await _buzzerService.GetByMaMayAsync(maBuzzer ?? -1);
                 var soHieuBuzzer = buzzer?.SoHieu;
                 await _buzzerService.UpdateTrangThaiAsync(soHieuBuzzer, 1); // Cập nhật trạng thái buzzer
 
                 //System.Windows.Forms.MessageBox.Show(donHang.MaBuzzer.ToString());
-
                 int maDH = donHang.MaDH;
 
                 int? nam = donHang.NgayLap?.Year;
@@ -237,7 +226,6 @@ namespace MilkTea.Client.Controls
                     };
 
                     await doanhThuService.ThemDoanhThuAsync(doanhThu);
-
 
                 }
             }
