@@ -68,11 +68,11 @@
             pictureBox1 = new PictureBox();
             panel15 = new Panel();
             btnChonAnh = new MilkTea.Client.Controls.RoundedButton();
+            panel19 = new Panel();
             title = new Panel();
             label1 = new Label();
             imageList1 = new ImageList(components);
             errorProvider1 = new ErrorProvider(components);
-            panel19 = new Panel();
             panel1.SuspendLayout();
             button.SuspendLayout();
             panel14.SuspendLayout();
@@ -542,6 +542,14 @@
             btnChonAnh.UseVisualStyleBackColor = false;
             btnChonAnh.Click += btnChonAnh_Click;
             // 
+            // panel19
+            // 
+            panel19.Dock = DockStyle.Right;
+            panel19.Location = new Point(175, 0);
+            panel19.Name = "panel19";
+            panel19.Size = new Size(37, 40);
+            panel19.TabIndex = 2;
+            // 
             // title
             // 
             title.Controls.Add(label1);
@@ -572,14 +580,6 @@
             // errorProvider1
             // 
             errorProvider1.ContainerControl = this;
-            // 
-            // panel19
-            // 
-            panel19.Dock = DockStyle.Right;
-            panel19.Location = new Point(175, 0);
-            panel19.Name = "panel19";
-            panel19.Size = new Size(37, 40);
-            panel19.TabIndex = 2;
             // 
             // AddAccountForm
             // 
