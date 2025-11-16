@@ -17,5 +17,6 @@ namespace MilkTea.Client.Interfaces
         TextBox TxtbTenTaiKhoan { get; }
         TextBox TxtbMatKhau { get; }
         TextBox TxtbDuongDanAnh { get; }
+        PictureBox Pic { get; }
     }
 }

@@ -60,6 +60,7 @@
             right = new Panel();
             panel18 = new Panel();
             pictureBox1 = new PictureBox();
+            panel10 = new Panel();
             panel15 = new Panel();
             btnChonAnh = new MilkTea.Client.Controls.RoundedButton();
             panel19 = new Panel();
@@ -179,7 +180,7 @@
             left.Controls.Add(panel7);
             left.Controls.Add(panel2);
             left.Controls.Add(field);
-            left.Dock = DockStyle.Left;
+            left.Dock = DockStyle.Fill;
             left.Location = new Point(0, 0);
             left.Name = "left";
             left.Size = new Size(568, 370);
@@ -410,11 +411,12 @@
             // right
             // 
             right.Controls.Add(panel18);
+            right.Controls.Add(panel10);
             right.Controls.Add(panel15);
             right.Dock = DockStyle.Right;
             right.Location = new Point(568, 0);
             right.Name = "right";
-            right.Padding = new Padding(0, 0, 0, 10);
+            right.Padding = new Padding(0, 0, 10, 10);
             right.Size = new Size(212, 370);
             right.TabIndex = 11;
             // 
@@ -422,9 +424,9 @@
             // 
             panel18.Controls.Add(pictureBox1);
             panel18.Dock = DockStyle.Bottom;
-            panel18.Location = new Point(0, 108);
+            panel18.Location = new Point(0, 39);
             panel18.Name = "panel18";
-            panel18.Size = new Size(212, 212);
+            panel18.Size = new Size(202, 212);
             panel18.TabIndex = 3;
             // 
             // pictureBox1
@@ -432,9 +434,18 @@
             pictureBox1.Dock = DockStyle.Fill;
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(212, 212);
+            pictureBox1.Size = new Size(202, 212);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
+            // 
+            // panel10
+            // 
+            panel10.Dock = DockStyle.Bottom;
+            panel10.Location = new Point(0, 251);
+            panel10.Name = "panel10";
+            panel10.Size = new Size(202, 69);
+            panel10.TabIndex = 4;
             // 
             // panel15
             // 
@@ -444,7 +455,7 @@
             panel15.Location = new Point(0, 320);
             panel15.Name = "panel15";
             panel15.Padding = new Padding(10, 0, 0, 0);
-            panel15.Size = new Size(212, 40);
+            panel15.Size = new Size(202, 40);
             panel15.TabIndex = 2;
             // 
             // btnChonAnh
@@ -458,7 +469,7 @@
             btnChonAnh.FlatStyle = FlatStyle.Flat;
             btnChonAnh.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnChonAnh.ForeColor = Color.White;
-            btnChonAnh.Location = new Point(50, 0);
+            btnChonAnh.Location = new Point(40, 0);
             btnChonAnh.Name = "btnChonAnh";
             btnChonAnh.Size = new Size(125, 40);
             btnChonAnh.TabIndex = 1;
@@ -469,7 +480,7 @@
             // panel19
             // 
             panel19.Dock = DockStyle.Right;
-            panel19.Location = new Point(175, 0);
+            panel19.Location = new Point(165, 0);
             panel19.Name = "panel19";
             panel19.Size = new Size(37, 40);
             panel19.TabIndex = 2;

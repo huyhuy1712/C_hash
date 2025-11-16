@@ -16,6 +16,7 @@ namespace MilkTea.Client.Forms.ChildForm_Account
         public TextBox TxtbTenTaiKhoan => txtbTenTaiKhoan;
         public TextBox TxtbMatKhau => txtbMatKhau;
         public TextBox TxtbDuongDanAnh => txtbDuongDanAnh;
+        public PictureBox Pic => pictureBox1;
         public ErrorProvider Error => errorProvider1;
 
         public AddAccountForm()
@@ -45,15 +46,7 @@ namespace MilkTea.Client.Forms.ChildForm_Account
 
         private void btnChonAnh_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Title = "Chọn ảnh";
-            ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
-
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                txtbDuongDanAnh.Text = ofd.FileName; // hiện đường dẫn ảnh
-                //pictureBox1.Image = Image.FromFile(ofd.FileName); // load ảnh xem trước
-            }
+            _presenter.ChonAnh();
         }
 
         private void btnThoatTTK_Click(object sender, EventArgs e)
