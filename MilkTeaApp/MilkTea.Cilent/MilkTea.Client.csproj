@@ -15,6 +15,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Content Include="Images\**\*.*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
+
+	<ItemGroup>
 	  <Compile Remove="Utils\**" />
 	  <EmbeddedResource Remove="Utils\**" />
 	  <None Remove="Utils\**" />
@@ -35,12 +42,6 @@
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
-	</ItemGroup>
-
-	<ItemGroup>
-		<Content Include="images\tra_sua\**\*.*">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</Content>
 	</ItemGroup>
 
 	<ItemGroup>

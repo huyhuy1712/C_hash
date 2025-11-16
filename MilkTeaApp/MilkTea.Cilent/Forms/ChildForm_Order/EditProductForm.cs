@@ -96,14 +96,6 @@ namespace MilkTea.Client.Forms.ChildForm_Order
                 return;
             }
 
-            List<SanPham> existingProducts = await _sanPhamService.SearchSanPhamAsync("TenSP", ten);
-            if (existingProducts.Any())
-            {
-                MessageBox.Show("Tên sản phẩm đã tồn tại. Vui lòng chọn tên khác. ", "Trùng sản phẩm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                ten_textbox.Focus();
-                return;
-            }
-
             if (string.IsNullOrEmpty(gia))
             {
                 MessageBox.Show("Vui lòng nhập giá sản phẩm.", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -132,22 +124,28 @@ namespace MilkTea.Client.Forms.ChildForm_Order
             {
                 try
                 {
-                    // Lấy đường dẫn đến thư mục gốc của project (ra khỏi bin\Debug)
+                    string fileName = Path.GetFileName(_selectedImagePath);
+
+                    // 1️ Lưu tạm vào bin để load ngay
+                    string binFolder = Path.Combine(Application.StartupPath, "images", "tra_sua");
+                    Directory.CreateDirectory(binFolder);
+                    string binPath = Path.Combine(binFolder, fileName);
+
+                    using (FileStream sourceStream = new FileStream(_selectedImagePath, FileMode.Open, FileAccess.Read))
+                    using (FileStream destStream = new FileStream(binPath, FileMode.Create, FileAccess.Write))
+                    {
+                        await sourceStream.CopyToAsync(destStream);
+                    }
+
+                    // 2️ Lưu vào folder images bên ngoài project để lưu lâu dài
                     string projectRoot = Path.GetFullPath(Path.Combine(Application.StartupPath, @"..\..\.."));
                     string targetFolder = Path.Combine(projectRoot, "images", "tra_sua");
                     Directory.CreateDirectory(targetFolder);
-
-                    string fileName = Path.GetFileName(_selectedImagePath);
                     string targetPath = Path.Combine(targetFolder, fileName);
 
-                    // Nếu ảnh chưa tồn tại thì copy vào
                     if (!File.Exists(targetPath))
                     {
-                        using (FileStream sourceStream = new FileStream(_selectedImagePath, FileMode.Open, FileAccess.Read))
-                        using (FileStream destStream = new FileStream(targetPath, FileMode.CreateNew, FileAccess.Write))
-                        {
-                            await sourceStream.CopyToAsync(destStream);
-                        }
+                        File.Copy(binPath, targetPath);
                     }
 
                     fileNameToSave = fileName; // chỉ cập nhật khi có ảnh mới
@@ -158,6 +156,7 @@ namespace MilkTea.Client.Forms.ChildForm_Order
                     return;
                 }
             }
+
 
 
             // === Cập nhật sản phẩm ===

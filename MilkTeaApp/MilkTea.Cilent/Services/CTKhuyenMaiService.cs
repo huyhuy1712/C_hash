@@ -22,7 +22,7 @@ namespace MilkTea.Client.Services
         {
             try
             {
-                var response = await _http.GetAsync($"/api/sanphamkhuyenmai/sanpham/{MaSP}");
+                var response = await _http.GetAsync($"/api/sanphamkhuyenmai/sanpham/active/{MaSP}");
 
                 if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
                     return null;
