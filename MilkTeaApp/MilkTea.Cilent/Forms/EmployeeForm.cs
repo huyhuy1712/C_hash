@@ -40,11 +40,6 @@ namespace MilkTea.Client.Forms.ChildForm_Account.NewFolder
 
             dataGridView1.DataSource = nv;
 
-            foreach (var i in nv)
-            {
-
-                Debug.WriteLine(i.MaNV);
-            }
         }
     }
 }

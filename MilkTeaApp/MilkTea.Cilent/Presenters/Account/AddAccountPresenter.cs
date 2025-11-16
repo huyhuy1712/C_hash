@@ -92,7 +92,6 @@ namespace MilkTea.Client.Presenters
             // Copy ảnh vào thư mục dự án
             string duongDanDich = Path.Combine(thuMucDich, tenAnh);
             File.Copy(duongDanNguon, duongDanDich, true);
-            MessageBox.Show("alo alo them anh");
 
             return tenAnh;
         }

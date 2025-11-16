@@ -54,9 +54,7 @@ namespace MilkTea.Client.Forms
             dataGridView1 = new DataGridView();
             ID = new DataGridViewTextBoxColumn();
             taiKhoan = new DataGridViewTextBoxColumn();
-            hoVaTen = new DataGridViewTextBoxColumn();
             trangThai = new DataGridViewTextBoxColumn();
-            ngayTao = new DataGridViewTextBoxColumn();
             quyen = new DataGridViewTextBoxColumn();
             chiTiet = new DataGridViewImageColumn();
             sua = new DataGridViewImageColumn();
@@ -312,7 +310,7 @@ namespace MilkTea.Client.Forms
             dataGridView1.BackgroundColor = SystemColors.Control;
             dataGridView1.CellBorderStyle = DataGridViewCellBorderStyle.None;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { ID, taiKhoan, hoVaTen, trangThai, ngayTao, quyen, chiTiet, sua, khoa, xoa });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { ID, taiKhoan, trangThai, quyen, chiTiet, sua, khoa, xoa });
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(0, 0);
             dataGridView1.Name = "dataGridView1";
@@ -325,6 +323,7 @@ namespace MilkTea.Client.Forms
             // ID
             // 
             ID.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            ID.DataPropertyName = "MaTK";
             ID.HeaderText = "ID";
             ID.MinimumWidth = 6;
             ID.Name = "ID";
@@ -335,23 +334,16 @@ namespace MilkTea.Client.Forms
             // taiKhoan
             // 
             taiKhoan.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            taiKhoan.DataPropertyName = "TenTaiKhoan";
             taiKhoan.HeaderText = "Tài Khoản";
             taiKhoan.MinimumWidth = 6;
             taiKhoan.Name = "taiKhoan";
             taiKhoan.ReadOnly = true;
             taiKhoan.Resizable = DataGridViewTriState.False;
             // 
-            // hoVaTen
-            // 
-            hoVaTen.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            hoVaTen.HeaderText = "Họ Và Tên";
-            hoVaTen.MinimumWidth = 6;
-            hoVaTen.Name = "hoVaTen";
-            hoVaTen.ReadOnly = true;
-            hoVaTen.Resizable = DataGridViewTriState.False;
-            // 
             // trangThai
             // 
+            trangThai.DataPropertyName = "TrangThai";
             trangThai.HeaderText = "Trạng Thái";
             trangThai.MinimumWidth = 6;
             trangThai.Name = "trangThai";
@@ -359,17 +351,9 @@ namespace MilkTea.Client.Forms
             trangThai.Resizable = DataGridViewTriState.False;
             trangThai.Width = 150;
             // 
-            // ngayTao
-            // 
-            ngayTao.HeaderText = "Ngày Tạo";
-            ngayTao.MinimumWidth = 6;
-            ngayTao.Name = "ngayTao";
-            ngayTao.ReadOnly = true;
-            ngayTao.Resizable = DataGridViewTriState.False;
-            ngayTao.Width = 200;
-            // 
             // quyen
             // 
+            quyen.DataPropertyName = "MaQuyen";
             quyen.HeaderText = "Quyền";
             quyen.MinimumWidth = 6;
             quyen.Name = "quyen";
