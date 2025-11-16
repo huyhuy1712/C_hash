@@ -42,7 +42,14 @@ namespace MilkTea.Client.Services
         // lay nhan vien by matk
         public async Task<NhanVien?> GetByMaTK(int maTK)
         {
-            return await _http.GetFromJsonAsync<NhanVien>($"/api/nhanvien/nhanvien-by-matk/{maTK}");
+            var response = await _http.GetAsync($"/api/nhanvien/nhanvien-by-matk/{maTK}");
+            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+            {
+                return null; // không tìm thấy nhân viên
+            }
+
+            response.EnsureSuccessStatusCode(); // ném exception nếu lỗi khác 500+
+            return await response.Content.ReadFromJsonAsync<NhanVien>();
         }
     }
 }
