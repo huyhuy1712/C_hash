@@ -35,6 +35,7 @@
             label3 = new Label();
             dataGridView1 = new DataGridView();
             tenSP = new DataGridViewTextBoxColumn();
+            topping = new DataGridViewTextBoxColumn();
             tbSize = new DataGridViewTextBoxColumn();
             donGia = new DataGridViewTextBoxColumn();
             soLuong = new DataGridViewTextBoxColumn();
@@ -82,7 +83,7 @@
             InvoiceOrder_Panel.Controls.Add(panel4);
             InvoiceOrder_Panel.Controls.Add(panel3);
             InvoiceOrder_Panel.Controls.Add(Title_label);
-            InvoiceOrder_Panel.Dock = DockStyle.Fill;
+            InvoiceOrder_Panel.Dock = DockStyle.Bottom;
             InvoiceOrder_Panel.Location = new Point(0, 0);
             InvoiceOrder_Panel.Name = "InvoiceOrder_Panel";
             InvoiceOrder_Panel.Size = new Size(938, 553);
@@ -92,8 +93,7 @@
             // 
             panel2.Controls.Add(label2);
             panel2.Controls.Add(label3);
-            panel2.Dock = DockStyle.Top;
-            panel2.Location = new Point(0, 237);
+            panel2.Location = new Point(0, 300);
             panel2.Name = "panel2";
             panel2.Size = new Size(938, 53);
             panel2.TabIndex = 7;
@@ -122,41 +122,61 @@
             // 
             // dataGridView1
             // 
+            dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+
+            dataGridView1.BackgroundColor = SystemColors.ButtonFace;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { tenSP, tbSize, donGia, soLuong, tongTien });
-            dataGridView1.Dock = DockStyle.Top;
-            dataGridView1.Location = new Point(0, 49);
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { tenSP, topping, tbSize, donGia, soLuong, tongTien });
+            dataGridView1.Dock = DockStyle.Bottom;
+            dataGridView1.Location = new Point(0, 365);
+
             dataGridView1.Name = "dataGridView1";
+            dataGridView1.ReadOnly = true;
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(938, 188);
             dataGridView1.TabIndex = 13;
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.ReadOnly = true;
-
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // tenSP
             // 
+            tenSP.FillWeight = 100.106956F;
             tenSP.HeaderText = "Tên SP";
             tenSP.MinimumWidth = 6;
             tenSP.Name = "tenSP";
+            tenSP.ReadOnly = true;
+            // 
+            // topping
+            // 
+
+            topping.FillWeight = 100.08448F;
+
+            topping.HeaderText = "Topping";
+            topping.MinimumWidth = 6;
+            topping.Name = "topping";
+            topping.ReadOnly = true;
             // 
             // tbSize
             // 
+            tbSize.FillWeight = 99.424324F;
             tbSize.HeaderText = "Size";
             tbSize.MinimumWidth = 6;
             tbSize.Name = "tbSize";
+            tbSize.ReadOnly = true;
             // 
             // donGia
             // 
+            donGia.FillWeight = 100.1572F;
             donGia.HeaderText = "Đơn giá";
             donGia.MinimumWidth = 6;
             donGia.Name = "donGia";
+            donGia.ReadOnly = true;
             // 
             // soLuong
             // 
+            soLuong.FillWeight = 100.12635F;
             soLuong.HeaderText = "Số Lượng";
             soLuong.MinimumWidth = 6;
             soLuong.Name = "soLuong";
@@ -164,15 +184,17 @@
             // 
             // tongTien
             // 
+            tongTien.FillWeight = 100.100677F;
             tongTien.HeaderText = "Tổng tiền";
             tongTien.MinimumWidth = 6;
             tongTien.Name = "tongTien";
+            tongTien.ReadOnly = true;
             // 
             // panel7
             // 
             panel7.Controls.Add(label22);
             panel7.Controls.Add(label23);
-            panel7.Location = new Point(8, 436);
+            panel7.Location = new Point(8, 196);
             panel7.Name = "panel7";
             panel7.Size = new Size(875, 40);
             panel7.TabIndex = 12;
@@ -203,7 +225,7 @@
             // 
             panel6.Controls.Add(label19);
             panel6.Controls.Add(label20);
-            panel6.Location = new Point(8, 501);
+            panel6.Location = new Point(8, 261);
             panel6.Name = "panel6";
             panel6.Size = new Size(875, 40);
             panel6.TabIndex = 12;
@@ -234,7 +256,7 @@
             // 
             panel4.Controls.Add(ten_thu_ngan_label);
             panel4.Controls.Add(label16);
-            panel4.Location = new Point(8, 376);
+            panel4.Location = new Point(8, 136);
             panel4.Name = "panel4";
             panel4.Size = new Size(875, 40);
             panel4.TabIndex = 11;
@@ -265,7 +287,7 @@
             // 
             panel3.Controls.Add(tgian_label);
             panel3.Controls.Add(label1);
-            panel3.Location = new Point(8, 315);
+            panel3.Location = new Point(8, 75);
             panel3.Name = "panel3";
             panel3.Size = new Size(872, 40);
             panel3.TabIndex = 10;
@@ -347,6 +369,7 @@
         private Label label2;
         private Label label3;
         private DataGridViewTextBoxColumn tenSP;
+        private DataGridViewTextBoxColumn topping;
         private DataGridViewTextBoxColumn tbSize;
         private DataGridViewTextBoxColumn donGia;
         private DataGridViewTextBoxColumn soLuong;

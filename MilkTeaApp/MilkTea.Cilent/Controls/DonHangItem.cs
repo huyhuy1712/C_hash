@@ -1,4 +1,5 @@
-﻿using MilkTea.Client.Forms.ChildForm_Order;
+﻿
+using MilkTea.Client.Forms.ChildForm_Order;
 using MilkTea.Client.Models;
 using MilkTea.Client.Services;
 using System;
@@ -6,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +31,9 @@ namespace MilkTea.Client.Controls
         private ChiTietPhieuNhapService _chiTietPhieuNhapService = new ChiTietPhieuNhapService();
         public int pttt;
         public int trangThai;
+        // Thêm event
+        public event EventHandler DonHangDaXoa;
+
         //public event EventHandler<DonHangEventArgs> OnDonHangSelected;
         public DonHangItem(DonHang dh)
         {
@@ -38,7 +43,7 @@ namespace MilkTea.Client.Controls
         // Gán dữ liệu đơn hàng vào UserControl
 
         // Nhận dữ liệu từ API và hiển thị lên giao diện
-        public void SetData(DonHang dh)
+        public async Task SetData(DonHang dh)
         {
             donHang = dh;
 
@@ -46,7 +51,27 @@ namespace MilkTea.Client.Controls
             label_NgayLap.Text = dh.NgayLap?.ToString("dd/MM/yyyy") ?? "N/A";
             label_GioLap.Text = dh.GioLap?.ToString(@"hh\:mm") ?? "N/A";
             label_TongGia.Text = dh.TongGia.ToString("N0") + " VND";
-            label_MaBuzzer.Text = dh.MaBuzzer?.ToString() ?? "N/A";
+            //label_MaBuzzer.Text = dh.MaBuzzer?.ToString() ?? "N/A";
+            //label_MaBuzzer.Text = dh.MaBuzzer.HasValue ? $"BZ{dh.MaBuzzer.Value:D2}" : "N/A";
+
+            // --- Lấy số hiệu buzzer từ API ---
+            if (dh.MaBuzzer != null)
+            {
+                var buzzer = await _buzzerService.GetByMaMayAsync(dh.MaBuzzer.Value);
+                if (buzzer != null)
+                {
+                    label_MaBuzzer.Text = buzzer.SoHieu; // Hiển thị số hiệu thực sự
+                }
+                else
+                {
+                    label_MaBuzzer.Text = "N/A";
+                }
+            }
+            else
+            {
+                label_MaBuzzer.Text = "N/A";
+            }
+
             pttt = dh.PhuongThucThanhToan ?? 0;
             trangThai = dh.TrangThai;
             if (pttt == 0)
@@ -58,15 +83,36 @@ namespace MilkTea.Client.Controls
             // các label khác tuỳ bạn thêm
             if (trangThai == 0)
             {
-                pictureBox4.Image = Properties.Resources.hourglass;
+                pictureBox4.Image = Properties.Resources.order1;
 
             }
             else
             {
-                pictureBox4.Image = Properties.Resources.order1;
+                pictureBox4.Image = Properties.Resources.hourglass;
                 pictureBox4.Enabled = false;
-                pictureBox6.Enabled = false;
+                pictureBox4.Image = SetOpacity(Properties.Resources.hourglass, 0.9f);
+                //pictureBox6.Enabled = false;
             }
+        }
+        public Image SetOpacity(Image img, float opacity)
+        {
+            Bitmap bmp = new Bitmap(img.Width, img.Height);
+            Graphics gfx = Graphics.FromImage(bmp);
+
+            ColorMatrix matrix = new ColorMatrix();
+            matrix.Matrix33 = opacity; // độ mờ (1 = rõ, 0 = hoàn toàn mờ)
+
+            ImageAttributes attributes = new ImageAttributes();
+            attributes.SetColorMatrix(matrix, ColorMatrixFlag.Default, ColorAdjustType.Bitmap);
+
+            gfx.DrawImage(img,
+                new Rectangle(0, 0, bmp.Width, bmp.Height),
+                0, 0, img.Width, img.Height,
+                GraphicsUnit.Pixel,
+                attributes);
+
+            gfx.Dispose();
+            return bmp;
         }
 
         private void pictureBox_PhuongThucThanhToan_Click(object sender, EventArgs e)
@@ -102,6 +148,12 @@ namespace MilkTea.Client.Controls
                 // TODO: thêm code xóa đơn hàng ở đây
                 donHang.TrangThai = 2; // Đã hoàn thành
                 var trangThaiCapNhat = await new DonHangService().CapNhatTrangThaiDonHangAsync(donHang);
+                var maBuzzer = donHang.MaBuzzer;
+                var buzzer = await _buzzerService.GetByMaMayAsync(maBuzzer ?? -1);
+                var soHieuBuzzer = buzzer?.SoHieu;
+                await _buzzerService.UpdateTrangThaiAsync(soHieuBuzzer, 1); // Cập nhật trạng thái buzzer
+                                                                            // Báo cho Form cha
+                DonHangDaXoa?.Invoke(this, EventArgs.Empty);
                 MessageBox.Show("Đơn hàng đã được xóa!");
 
             }
@@ -131,7 +183,12 @@ namespace MilkTea.Client.Controls
                 //nhàn
                 donHang.TrangThai = 1; // Đã hoàn thành
                 var trangThaiCapNhat = await new DonHangService().CapNhatTrangThaiDonHangAsync(donHang);
-                _buzzerService.UpdateTrangThaiAsync(donHang.MaDH.ToString(), 1); // Cập nhật trạng thái buzzer
+                var maBuzzer = donHang.MaBuzzer;
+                var buzzer = await _buzzerService.GetByMaMayAsync(maBuzzer ?? -1);
+                var soHieuBuzzer = buzzer?.SoHieu;
+                await _buzzerService.UpdateTrangThaiAsync(soHieuBuzzer, 1); // Cập nhật trạng thái buzzer
+
+                //System.Windows.Forms.MessageBox.Show(donHang.MaBuzzer.ToString());
                 int maDH = donHang.MaDH;
 
                 int? nam = donHang.NgayLap?.Year;
@@ -144,12 +201,10 @@ namespace MilkTea.Client.Controls
                     .Where(ct => ct.MaDH == donHang.MaDH)
                     .ToList();
 
-                Boolean last = true;
                 foreach (var item in ctDH)
                 {
                     var maSP = item.MaSP;
                     var sp = await SanPhamService.SearchSanPhamAsync("MaSP", maSP.ToString());
-                    var ct = await _ctCongThucService.GetChiTietCongThucTheoSPAsync(maSP);
                     var listNL = await _ctCongThucService.GetChiTietCongThucTheoSPAsync(maSP);
                     decimal tongChiPhi = 0m;
                     foreach (var nl in listNL)
@@ -172,7 +227,6 @@ namespace MilkTea.Client.Controls
                     var maSize = item.MaSize;
                     int maLoai = sp[0].MaLoai;
                     var soLuong = item.SoLuong;
-                    var chiPhi = tongChiPhi;
                     var tongGia = item.TongGia;
 
                     var doanhThu = new DoanhThu
@@ -186,25 +240,12 @@ namespace MilkTea.Client.Controls
                         MaLoai = maLoai,
                         MaKM = 1, //TẠM THỜI BẰNG 1
                         MaSize = maSize,
-                        TongChiPhi = chiPhi,
+                        TongChiPhi = tongChiPhi,
                         TongDoanhThu = tongGia,
                     };
 
-                    var kq = await doanhThuService.ThemDoanhThuAsync(doanhThu); ;
+                    await doanhThuService.ThemDoanhThuAsync(doanhThu);
 
-                    if (!kq)
-                    {
-                        last = false;
-                    }
-
-                }
-                if (last)
-                {
-                    MessageBox.Show("Cập nhật doanh thu thành công!");
-                }
-                else
-                {
-                    MessageBox.Show("Cập nhật doanh thu thất bại!");
                 }
             }
             else

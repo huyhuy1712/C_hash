@@ -60,7 +60,7 @@ namespace MilkTea.Client.Services
         {
             try
             {
-                // 🔧 Cấu hình serialize JSON chuẩn
+             
                 var options = new JsonSerializerOptions
                 {
                     PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -107,6 +107,22 @@ namespace MilkTea.Client.Services
                 return 0;
             }
         }
+       
+
+        public async Task<bool> SoftDeleteAsync(int maNL)
+        {
+            try
+            {
+                var response = await _http.DeleteAsync($"/api/nguyenlieu/{maNL}");
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"SoftDeleteAsync failed: {ex.Message}");
+                return false;
+            }
+        }
+
 
     }
 }

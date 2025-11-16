@@ -3,6 +3,7 @@ using MilkTea.Client.Models;
 using MilkTea.Client.Services;
 using System;
 using System.Drawing;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -19,13 +20,16 @@ namespace MilkTea.Client.Forms.ChildForm_Import
         {
             InitializeComponent();
             _nguyenLieuService = new NguyenLieuService(); // Khởi tạo service (giả sử service xử lý URL)
+            this.Load += AddIngredientForm_Load;
         }
 
         // 🌀 Load form (nếu cần init controls)
         private void AddIngredientForm_Load(object sender, EventArgs e)
         {
-            // Đặt laceholder nếu cần (nếu controls hỗ trợ)
-            // textBox1.PlaceholderText = "Nhập tên nguyên liệu..."; // Nếu TextBox hỗ trợ
+            // Đặt giá trị mặc định cho số lượng và khóa ô số lượng
+            textBox2.Text = "1";
+            textBox2.ReadOnly = true;
+            textBox2.TabStop = false;
         }
 
         // 💾 Xử lý nút Xác nhận (btnXacNhan_Click)
@@ -42,12 +46,17 @@ namespace MilkTea.Client.Forms.ChildForm_Import
                     return;
                 }
 
-                if (!decimal.TryParse(textBox2.Text, out decimal soLuong) || soLuong <= 0)
+                // Kiểm tra trùng tên (case-insensitive) bằng service
+                var existing = await _nguyenLieuService.GetByTen(tenNL);
+                if (existing != null && existing.Any(e => string.Equals(e.Ten?.Trim(), tenNL, StringComparison.OrdinalIgnoreCase)))
                 {
-                    MessageBox.Show("Số lượng phải là số dương.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    textBox2.Focus();
+                    MessageBox.Show("Tên nguyên liệu đã tồn tại. Vui lòng chọn tên khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    textBox1.Focus();
                     return;
                 }
+
+                // Số lượng cố định là 1 (đã khóa trên UI)
+                int soLuong = 1;
 
                 if (!decimal.TryParse(textBox3.Text, out decimal giaBan) || giaBan <= 0)
                 {
@@ -60,7 +69,7 @@ namespace MilkTea.Client.Forms.ChildForm_Import
                 var nl = new NguyenLieu
                 {
                     Ten = tenNL,
-                    SoLuong = (int)soLuong,
+                    SoLuong = 1 ,
                     GiaBan = giaBan,
                     TrangThai = 1  // Active mặc định
                 };

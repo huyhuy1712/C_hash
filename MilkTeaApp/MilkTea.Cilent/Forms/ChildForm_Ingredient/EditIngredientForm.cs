@@ -2,6 +2,7 @@
 using MilkTea.Client.Models;
 using MilkTea.Client.Services;
 using System;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -26,6 +27,12 @@ namespace MilkTea.Client.Forms.ChildForm_Ingredient
             btnThoat.Click += btnThoat_Click;
             textBox2.KeyPress += textBox2_KeyPress;
             textBox3.KeyPress += textBox3_KeyPress;
+
+            // Khóa ô số lượng và không cho tab vào
+            textBox2.ReadOnly = true;
+            textBox2.TabStop = false;
+            // Giá trị mặc định tạm thời (sẽ được ghi đè khi load dữ liệu thật)
+            textBox2.Text = "1";
         }
 
         private async void EditIngredientForm_Load(object sender, EventArgs e)
@@ -45,7 +52,8 @@ namespace MilkTea.Client.Forms.ChildForm_Ingredient
                     return;
                 }
                 textBox1.Text = nl.Ten ?? "";
-                textBox2.Text = nl.SoLuong.ToString();
+                // Nếu dữ liệu tồn kho hợp lệ (>0) thì hiển thị, nếu không thì mặc định 1
+                textBox2.Text = nl.SoLuong > 0 ? nl.SoLuong.ToString() : "1";
                 textBox3.Text = nl.GiaBan.ToString("N2", CultureInfo.CurrentCulture);
             }
             catch (Exception ex)
@@ -65,13 +73,24 @@ namespace MilkTea.Client.Forms.ChildForm_Ingredient
                     textBox1.Focus();
                     return;
                 }
-                if (!int.TryParse(textBox2.Text, out int soLuong) || soLuong <= 0)
+
+                // Kiểm tra trùng tên (bỏ qua chính bản ghi đang sửa)
+                var existing = await _nguyenLieuService.GetByTen(tenNL);
+                if (existing != null && existing.Any(x => x.MaNL != _maNL && string.Equals(x.Ten?.Trim(), tenNL, StringComparison.OrdinalIgnoreCase)))
                 {
-                    MessageBox.Show("Số lượng phải là số nguyên dương hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    textBox2.Focus();
-                    textBox2.SelectAll();
+                    MessageBox.Show("Tên nguyên liệu đã tồn tại. Vui lòng chọn tên khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    textBox1.Focus();
+                    textBox1.SelectAll();
                     return;
                 }
+
+                // Lấy số lượng từ ô (đã bị khóa, nhưng vẫn đảm bảo parse được)
+                if (!int.TryParse(textBox2.Text, out int soLuong) || soLuong <= 0)
+                {
+                    // Trong trường hợp bất thường (không parse được), dùng mặc định 1
+                    soLuong = 1;
+                }
+
                 if (!decimal.TryParse(textBox3.Text, NumberStyles.Any, CultureInfo.CurrentCulture, out decimal giaBan) || giaBan <= 0)
                 {
                     MessageBox.Show("Giá bán phải là số dương hợp lệ (ví dụ: 1000 hoặc 1000,50).", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);

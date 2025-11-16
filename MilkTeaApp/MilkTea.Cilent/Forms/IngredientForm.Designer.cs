@@ -122,7 +122,6 @@ namespace MilkTea.Client.Forms
             txtSearch.Placeholder = "Nhập mã hoặc tên nguyên liệu...";
             txtSearch.Size = new Size(250, 30);
             txtSearch.TabIndex = 0;
-            txtSearch.TextValue = "Từ khóa tìm kiếm...";
             txtSearch.TextChanged += txtSearch_TextChanged;
             txtSearch.KeyDown += txtSearch_KeyDown;
             // 

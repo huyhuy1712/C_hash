@@ -13,14 +13,8 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+       
+        
 
         #region Windows Form Designer generated code
 
@@ -231,10 +225,10 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             dGV_sp_KM_ADD.BackgroundColor = SystemColors.ButtonFace;
             dGV_sp_KM_ADD.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dGV_sp_KM_ADD.Columns.AddRange(new DataGridViewColumn[] { chon_add, maSP_add, tenSanPham_add, loai_add });
-            dGV_sp_KM_ADD.Dock = DockStyle.Top;
+            dGV_sp_KM_ADD.Dock = DockStyle.Fill;
             dGV_sp_KM_ADD.Location = new Point(0, 63);
             dGV_sp_KM_ADD.Name = "dGV_sp_KM_ADD";
-            dGV_sp_KM_ADD.Size = new Size(1020, 334);
+            dGV_sp_KM_ADD.Size = new Size(1020, 291);
             dGV_sp_KM_ADD.TabIndex = 1;
             // 
             // chon_add
