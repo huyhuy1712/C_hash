@@ -242,10 +242,9 @@ namespace MilkTea.Client.Forms
 
             try
             {
-                using var client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:5198");
+                using var client = new HttpClient { BaseAddress = new Uri("http://localhost:5198") };
 
-                // Bước 1: Fetch full object để lấy tất cả fields
+                // 1) Lấy object đầy đủ
                 var getResponse = await client.GetAsync($"/api/ctkhuyenmai/{maCTKhuyenMai}");
                 if (!getResponse.IsSuccessStatusCode)
                 {
@@ -254,39 +253,54 @@ namespace MilkTea.Client.Forms
                 }
 
                 var json = await getResponse.Content.ReadAsStringAsync();
-                var fullKm = JsonSerializer.Deserialize<CTKhuyenMai>(json, new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
+                var fullKm = JsonSerializer.Deserialize<CTKhuyenMai>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
                 if (fullKm == null)
                 {
-                    MessageBox.Show("Không thể lấy dữ liệu khuyến mãi để cập nhật.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Không thể đọc dữ liệu khuyến mãi để cập nhật.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                // Bước 2: Set TrangThai = 0 (soft delete), giữ nguyên fields khác
+                // 2) Set trạng thái = 0 (soft delete)
                 fullKm.TrangThai = 0;
-
-                // Bước 3: PUT full object đến /api/ctkhuyenmai (KHÔNG có /{id})
                 var updateJson = JsonSerializer.Serialize(fullKm);
                 var updateContent = new StringContent(updateJson, Encoding.UTF8, "application/json");
 
-                var putResponse = await client.PutAsync("/api/ctkhuyenmai", updateContent);  // Route đúng: không có /{id}
+                var putResponse = await client.PutAsync("/api/ctkhuyenmai", updateContent);
+                var putRaw = await putResponse.Content.ReadAsStringAsync();
 
-                if (putResponse.IsSuccessStatusCode)
+                if (!putResponse.IsSuccessStatusCode)
                 {
-                    MessageBox.Show("Đã xóa chương trình khuyến mãi thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    await LoadDiscountsAsync(); // Reload để filter ẩn row này
+                    MessageBox.Show($"Không thể cập nhật trạng thái khuyến mãi.\nStatus: {putResponse.StatusCode}\n{putRaw}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
-                else
+
+                // 3) Xóa cứng các liên kết sản phẩm thuộc MaCT (nếu API hỗ trợ)
+                try
                 {
-                    string err = await putResponse.Content.ReadAsStringAsync();
-                    MessageBox.Show($"Không thể xóa khuyến mãi!\nStatus: {putResponse.StatusCode}\n{err}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    var deleteResponse = await client.DeleteAsync($"/api/sanphamkhuyenmai/khuyenmai/{maCTKhuyenMai}");
+                    var deleteRaw = await deleteResponse.Content.ReadAsStringAsync();
+
+                    if (deleteResponse.IsSuccessStatusCode)
+                    {
+                        MessageBox.Show("Đã xóa chương trình khuyến mãi và các liên kết sản phẩm thành công.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        // Soft-delete thành công nhưng xóa liên kết thất bại -> cảnh báo
+                        MessageBox.Show($"Đã đặt trạng thái khuyến mãi = 0, nhưng không thể xóa liên kết sản phẩm.\nStatus: {deleteResponse.StatusCode}\n{deleteRaw}", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
+                catch (Exception exDel)
+                {
+                    MessageBox.Show($"Đã đặt trạng thái khuyến mãi = 0, nhưng lỗi khi xóa liên kết sản phẩm: {exDel.Message}", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+                // 4) Reload danh sách khuyến mãi
+                await LoadDiscountsAsync();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi ẩn khuyến mãi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi khi xóa/ẩn khuyến mãi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -300,9 +314,6 @@ namespace MilkTea.Client.Forms
         private async void dGV_discounts_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
-
-            // Kiểm tra nếu cột action_col tồn tại trước khi truy cập
-            // (action_col removed — using image columns: chiTiet, sua, xoa)
             var row = dGV_discounts.Rows[e.RowIndex];
 
             // Lấy MaCTKhuyenMai ưu tiên từ row.Tag, fallback parse từ tenKM_col nếu cần

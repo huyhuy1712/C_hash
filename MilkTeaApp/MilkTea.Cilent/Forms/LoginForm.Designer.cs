@@ -52,7 +52,7 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(557, 265);
+            panel1.Size = new Size(628, 245);
             panel1.TabIndex = 0;
             // 
             // pictureBox1
@@ -62,7 +62,7 @@
             pictureBox1.InitialImage = (Image)resources.GetObject("pictureBox1.InitialImage");
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(217, 265);
+            pictureBox1.Size = new Size(288, 245);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 7;
             pictureBox1.TabStop = false;
@@ -72,9 +72,9 @@
             panel2.Controls.Add(tableLayoutPanel1);
             panel2.Controls.Add(label_login);
             panel2.Dock = DockStyle.Right;
-            panel2.Location = new Point(217, 0);
+            panel2.Location = new Point(288, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(340, 265);
+            panel2.Size = new Size(340, 245);
             panel2.TabIndex = 6;
             // 
             // tableLayoutPanel1
@@ -93,7 +93,7 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel1.Size = new Size(340, 203);
+            tableLayoutPanel1.Size = new Size(340, 183);
             tableLayoutPanel1.TabIndex = 1;
             // 
             // roundedButton_Login
@@ -108,9 +108,9 @@
             roundedButton_Login.FlatStyle = FlatStyle.Flat;
             roundedButton_Login.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             roundedButton_Login.ForeColor = Color.White;
-            roundedButton_Login.Location = new Point(13, 135);
+            roundedButton_Login.Location = new Point(13, 121);
             roundedButton_Login.Name = "roundedButton_Login";
-            roundedButton_Login.Size = new Size(314, 55);
+            roundedButton_Login.Size = new Size(314, 49);
             roundedButton_Login.TabIndex = 3;
             roundedButton_Login.Text = "LOGIN";
             roundedButton_Login.UseVisualStyleBackColor = false;
@@ -127,7 +127,7 @@
             roundedTextBox_TenTK.Name = "roundedTextBox_TenTK";
             roundedTextBox_TenTK.Padding = new Padding(10, 5, 40, 5);
             roundedTextBox_TenTK.Placeholder = "Nhập tên tài khoản";
-            roundedTextBox_TenTK.Size = new Size(314, 55);
+            roundedTextBox_TenTK.Size = new Size(314, 48);
             roundedTextBox_TenTK.TabIndex = 1;
             roundedTextBox_TenTK.TextValue = "Pham Thi F";
             // 
@@ -138,11 +138,11 @@
             roundedTextBox_Password.BorderRadius = 20;
             roundedTextBox_Password.Dock = DockStyle.Fill;
             roundedTextBox_Password.FocusBorderColor = Color.DeepSkyBlue;
-            roundedTextBox_Password.Location = new Point(13, 74);
+            roundedTextBox_Password.Location = new Point(13, 67);
             roundedTextBox_Password.Name = "roundedTextBox_Password";
             roundedTextBox_Password.Padding = new Padding(10, 5, 40, 5);
             roundedTextBox_Password.Placeholder = " Nhập mật khẩu";
-            roundedTextBox_Password.Size = new Size(314, 55);
+            roundedTextBox_Password.Size = new Size(314, 48);
             roundedTextBox_Password.TabIndex = 2;
             roundedTextBox_Password.TextValue = "0901234566";
             // 
@@ -162,7 +162,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(557, 265);
+            ClientSize = new Size(628, 245);
             Controls.Add(panel1);
             Name = "LoginForm";
             Text = "LoginForm";

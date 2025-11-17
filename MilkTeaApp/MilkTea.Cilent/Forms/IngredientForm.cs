@@ -159,7 +159,7 @@ namespace MilkTea.Client.Forms
                 var confirm = MessageBox.Show($"Bạn có chắc chắn muốn xóa nguyên liệu '{row.Cells["tenNL_col"].Value}' không? ", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (confirm == DialogResult.Yes)
                 {
-                    bool hidden = await SoftDeleteIngredientAsync(maNL); // Gọi method xóa mềm inline
+                    bool hidden = await _nguyenLieuService.SoftDeleteAsync(maNL);
                     if (hidden)
                     {
                         MessageBox.Show("Đã xóa nguyên liệu thành công", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -167,41 +167,9 @@ namespace MilkTea.Client.Forms
                     }
                     else
                     {
-                        MessageBox.Show("Không thể ẩn nguyên liệu. Vui lòng thử lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Không thể xóa nguyên liệu. Vui lòng thử lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-            }
-        }
-        private async Task<bool> SoftDeleteIngredientAsync(int maNL)
-        {
-            try
-            {
-                using var client = new HttpClient();
-                client.BaseAddress = new Uri(ApiBaseUrl);
-
-                // Tạo body partial update { "TrangThai": 0 }
-                var updateData = new { TrangThai = 0 };
-                var json = JsonSerializer.Serialize(updateData);
-                var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-                // Gọi PUT /api/nguyenlieu/{maNL} (giả sử backend hỗ trợ PUT cho update)
-                var response = await client.PutAsync($"/api/nguyenlieu/{maNL}", content);
-
-                if (response.IsSuccessStatusCode)
-                {
-                    return true;
-                }
-                else
-                {
-                    var err = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine($"SoftDelete fail: {response.StatusCode} - {err}"); // Log để debug
-                    return false;
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"SoftDelete exception: {ex.Message}"); // Log
-                return false;
             }
         }
 
