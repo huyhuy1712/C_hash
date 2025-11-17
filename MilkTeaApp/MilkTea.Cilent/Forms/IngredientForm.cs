@@ -3,14 +3,8 @@ using MilkTea.Client.Models;
 using MilkTea.Client.Services;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MilkTea.Client.Forms.ChildForm_Ingredient;
@@ -19,35 +13,45 @@ namespace MilkTea.Client.Forms
 {
     public partial class IngredientForm : Form
     {
-        private List<NguyenLieu> _allIngredients = new List<NguyenLieu>(); // Lưu danh sách gốc nguyên liệu
+        private List<NguyenLieu> _allIngredients = new List<NguyenLieu>();
         private const string ApiBaseUrl = "http://localhost:5198";
-        private NguyenLieuService _nguyenLieuService; // Service cho CRUD nguyên liệu
+        private NguyenLieuService _nguyenLieuService;
 
         public IngredientForm()
         {
             InitializeComponent();
             this.Load += IngredientForm_Load;
-            _nguyenLieuService = new NguyenLieuService(); // Khởi tạo service
+            _nguyenLieuService = new NguyenLieuService();
         }
 
         private async void IngredientForm_Load(object sender, EventArgs e)
         {
-            await LoadIngredientsAsync(); // Load danh sách nguyên liệu
+            await LoadIngredientsAsync();
         }
 
-        // 🌀 Load danh sách nguyên liệu từ API
         public async Task LoadIngredientsAsync()
         {
             try
             {
-                var ingredients = await _nguyenLieuService.GetNguyenLieusAsync(); // Sử dụng method từ service
-                if (ingredients == null || !ingredients.Any())
+                var ingredients = await _nguyenLieuService.GetNguyenLieusAsync() ?? new List<NguyenLieu>();
+
+                var activeIngredients = (
+                    from nl in ingredients
+                    where nl.TrangThai == 1
+                    orderby nl.Ten, nl.MaNL
+                    select nl
+                ).ToList();
+
+                if (activeIngredients == null || activeIngredients.Count == 0)
                 {
                     MessageBox.Show("Không có dữ liệu nguyên liệu để hiển thị.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _allIngredients = new List<NguyenLieu>();
+                    DisplayIngredients(_allIngredients);
                     return;
                 }
-                _allIngredients = ingredients.Where(nl => nl.TrangThai == 1).ToList(); // Chỉ active (TrangThai = 1)
-                DisplayIngredients(_allIngredients); // Hiển thị ban đầu
+
+                _allIngredients = activeIngredients;
+                DisplayIngredients(_allIngredients);
             }
             catch (Exception ex)
             {
@@ -55,7 +59,6 @@ namespace MilkTea.Client.Forms
             }
         }
 
-        // 🧩 Hiển thị danh sách nguyên liệu vào DataGridView
         private void DisplayIngredients(List<NguyenLieu> ingredients)
         {
             dGV_ingredients.Rows.Clear();
@@ -67,6 +70,7 @@ namespace MilkTea.Client.Forms
                 dGV_ingredients.Rows[rowIndex].DefaultCellStyle.Font = new Font(dGV_ingredients.DefaultCellStyle.Font, FontStyle.Italic);
                 return;
             }
+
             foreach (var nl in ingredients)
             {
                 int rowIndex = dGV_ingredients.Rows.Add();
@@ -74,87 +78,81 @@ namespace MilkTea.Client.Forms
                 dGV_ingredients.Rows[rowIndex].Cells["tenNL_col"].Value = nl.Ten;
                 dGV_ingredients.Rows[rowIndex].Cells["soLuong_col"].Value = $"{nl.SoLuong} (đơn vị)";
                 dGV_ingredients.Rows[rowIndex].Cells["giaBan_col"].Value = $"{nl.GiaBan:N0} VNĐ";
-                // Icons for edit/delete (sử dụng text nếu resource chưa có, hoặc Bitmap nếu có)
-               
-                dGV_ingredients.Rows[rowIndex].Tag = nl.MaNL; // Store MaNL in Tag for easy access in events
+                dGV_ingredients.Rows[rowIndex].Tag = nl.MaNL;
             }
             dGV_ingredients.Refresh();
         }
+
         private void dGV_ingredients_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.ColumnIndex == dGV_ingredients.Columns["giaBan_col"].Index && e.Value != null)
             {
-                // Format decimal thành string với " VNĐ"
                 if (decimal.TryParse(e.Value.ToString(), out decimal giaBan))
                 {
                     e.Value = $"{giaBan:N0} VNĐ";
-                    e.FormattingApplied = true;  // Ngăn format default
+                    e.FormattingApplied = true;
                 }
             }
         }
 
-        // 🔍 Tìm kiếm nguyên liệu (client-side filter)
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
             string searchKeyword = txtSearch.TextValue?.Trim().ToLower() ?? "";
             if (string.IsNullOrEmpty(searchKeyword))
             {
-                DisplayIngredients(_allIngredients); // Show all
+                DisplayIngredients(_allIngredients);
                 return;
             }
+
             var filtered = _allIngredients.Where(nl =>
                 (!string.IsNullOrEmpty(nl.Ten) && nl.Ten.ToLower().Contains(searchKeyword)) ||
                 nl.MaNL.ToString().Contains(searchKeyword)
             ).ToList();
+
             DisplayIngredients(filtered);
         }
 
-        // Enter key to trigger search
         private void txtSearch_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                e.SuppressKeyPress = true; // Prevent beep
-                txtSearch_TextChanged(sender, e); // Trigger search
+                e.SuppressKeyPress = true;
+                txtSearch_TextChanged(sender, e);
             }
         }
 
-        // Xử lý click vào nút Thêm
         private async void btnAddIngredient_Click(object sender, EventArgs e)
         {
-            // TODO: Tạo AddIngredientForm nếu chưa có (modal dialog)
-            using var addForm = new ChildForm_Import.AddIngredientForm(); // Uncomment khi có form
+            using var addForm = new ChildForm_Import.AddIngredientForm();
             if (addForm.ShowDialog() == DialogResult.OK)
             {
-                await LoadIngredientsAsync(); // Reload list after add
+                await LoadIngredientsAsync();
             }
-            
         }
 
-        // Xử lý click vào cell (edit/delete icons)
         private async void dGV_ingredients_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex < 0 || e.ColumnIndex < 0) return; // Skip headers
+            if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
             var row = dGV_ingredients.Rows[e.RowIndex];
-            if (row.Tag == null) return; // Skip dummy rows
+            if (row.Tag == null) return;
             int maNL = (int)row.Tag;
             var column = dGV_ingredients.Columns[e.ColumnIndex];
-            if (column.Name == "sua_col") // Edit column
+
+            if (column.Name == "sua_col")
             {
-                // Find the NguyenLieu object from _allIngredients
                 var nguyenLieu = _allIngredients.FirstOrDefault(nl => nl.MaNL == maNL);
                 if (nguyenLieu == null)
                 {
                     MessageBox.Show("Không tìm thấy nguyên liệu để sửa.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                using var editForm = new EditIngredientForm(nguyenLieu.MaNL); // Pass MaNL (int) instead of NguyenLieu
+                using var editForm = new EditIngredientForm(nguyenLieu.MaNL);
                 if (editForm.ShowDialog() == DialogResult.OK)
                 {
-                    await LoadIngredientsAsync(); // Reload after edit
+                    await LoadIngredientsAsync();
                 }
             }
-            else if (column.Name == "xoa_col") // Delete column
+            else if (column.Name == "xoa_col")
             {
                 var confirm = MessageBox.Show($"Bạn có chắc chắn muốn xóa nguyên liệu '{row.Cells["tenNL_col"].Value}' không? ", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (confirm == DialogResult.Yes)
@@ -163,7 +161,7 @@ namespace MilkTea.Client.Forms
                     if (hidden)
                     {
                         MessageBox.Show("Đã xóa nguyên liệu thành công", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        await LoadIngredientsAsync(); // Reload để filter ẩn row này (chỉ show TrangThai=1)
+                        await LoadIngredientsAsync();
                     }
                     else
                     {

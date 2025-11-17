@@ -46,6 +46,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             roundedComboBox1.DropDownStyle = ComboBoxStyle.DropDown;
             roundedComboBox1.KeyDown += RoundedComboBox1_KeyDown;
             roundedComboBox1.Leave += RoundedComboBox1_Leave;
+            dateTimePicker1.Enabled = false;
         }
 
         private async void EditDiscountForm_Load(object sender, EventArgs e)
@@ -328,9 +329,33 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
 
         private async Task<List<SanPham>> GetAssociatedSanPhamsAsync()
         {
-            var associatedIds = await GetAssociatedSanPhamIdsAsync();
-            var associatedProducts = _allSanPhams.Where(sp => associatedIds.Contains(sp.MaSP)).ToList();
-            return associatedProducts;
+            try
+            {
+                // Get associations for this promotion (may return null/empty)
+                var associations = await _sanPhamKhuyenMaiService.GetByMaCTKhuyenMaiAsync(_maCTKhuyenMai) 
+                                   ?? new List<SanPhamKhuyenMai>();
+
+                if (!associations.Any() || _allSanPhams == null || !_allSanPhams.Any())
+                    return new List<SanPham>();
+
+                // Use LINQ join to map associations -> products and remove duplicates
+                var associatedProducts = (from sp in _allSanPhams
+                                          join a in associations on sp.MaSP equals a.MaSP
+                                          select sp)
+                                         .Distinct()
+                                         .ToList();
+
+                return associatedProducts;
+            }
+            catch (Exception ex)
+            {
+                // Keep UI-friendly behavior: surface parsing errors separately if needed
+                if (ex is JsonException)
+                {
+                    MessageBox.Show($"Lỗi parse dữ liệu liên kết: {ex.Message}\nKiểm tra API response.", "Debug Service", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                return new List<SanPham>();
+            }
         }
 
         private void DGV_sp_KM_EDIT_CurrentCellDirtyStateChanged(object sender, EventArgs e)
@@ -508,6 +533,25 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                     MessageBox.Show("Vui lòng nhập tên chương trình khuyến mãi.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+
+                // Check duplicate name (exclude current promotion by MaCTKhuyenMai)
+                try
+                {
+                    var allKms = await _ctKhuyenMaiService.GetAll();
+                    if (allKms != null && allKms.Any(k => 
+                        string.Equals(k.TenCTKhuyenMai?.Trim(), tenCT, StringComparison.OrdinalIgnoreCase)
+                        && k.MaCTKhuyenMai != _maCTKhuyenMai))
+                    {
+                        MessageBox.Show("Tên chương trình khuyến mãi đã tồn tại. Vui lòng chọn tên khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Không thể kiểm tra trùng tên khuyến mãi: {ex.Message}\nVui lòng thử lại sau.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 if (ngayBatDau >= ngayKetThuc)
                 {
                     MessageBox.Show("Ngày kết thúc phải lớn hơn ngày bắt đầu.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
