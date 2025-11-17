@@ -20,13 +20,15 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
         private List<SanPham> _allSanPhams = new List<SanPham>();
         private List<Loai> _loais = new List<Loai>();
         private Dictionary<DataGridViewCheckBoxCell, int> checkboxToMaSPMap = new Dictionary<DataGridViewCheckBoxCell, int>();
-        private const string ApiBaseUrl = "http://localhost:5198";
         private LoaiService _loaiService;
         private SanPhamService _SanPhamService;
         private SanPhamKhuyenMaiService _sanPhamKhuyenMaiService;
         private System.Windows.Forms.Timer _searchTimer;
-        private CTKhuyenMaiService _ctKhuyenMaiService;
+        private CTKhuyenMaiService _ctKhuyenMai_service;
         private HashSet<int> _lockedSanPhamIds = new HashSet<int>();
+
+        // Select-all guard to avoid re-entrancy when updating UI programmatically
+        private bool _suppressSelectAll = false;
 
         public AddDiscountForm()
         {
@@ -34,7 +36,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             _loaiService = new LoaiService();
             _SanPhamService = new SanPhamService();
             _sanPhamKhuyenMaiService = new SanPhamKhuyenMaiService();
-            _ctKhuyenMaiService = new CTKhuyenMaiService();
+            _ctKhuyenMai_service = new CTKhuyenMaiService();
             _searchTimer = new System.Windows.Forms.Timer { Interval = 500 };
             _searchTimer.Tick += SearchTimer_Tick;
             dGV_sp_KM_ADD.CurrentCellDirtyStateChanged += DGV_sp_KM_ADD_CurrentCellDirtyStateChanged;
@@ -42,6 +44,9 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             roundedComboBox1.DropDownStyle = ComboBoxStyle.DropDown;
             roundedComboBox1.KeyDown += RoundedComboBox1_KeyDown;
             roundedComboBox1.Leave += RoundedComboBox1_Leave;
+
+            // wire select-all button (ensure Designer control name is selectAll_button)
+            selectAll_button.Click += SelectAll_button_Click;
         }
 
         protected override void Dispose(bool disposing)
@@ -121,27 +126,23 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
 
             try
             {
-                // 1) Fetch associations for all products in parallel
                 var assocTasks = products.Select(sp => _sanPhamKhuyenMaiService.GetByMaSPAsync(sp.MaSP)).ToArray();
                 var assocResults = await Task.WhenAll(assocTasks);
 
-                // Flatten associations and keep mapping to product
                 var allAssociations = assocResults.Where(x => x != null)
                                                   .SelectMany(x => x)
                                                   .ToList();
 
-                // 2) Fetch distinct promotion ids (exclude none since this is Add form) and load promotions in parallel
                 var promoIds = allAssociations.Select(a => a.MaCTKhuyenMai).Distinct().ToList();
                 var promoTasks = promoIds.Select(async id =>
                 {
-                    var km = await _ctKhuyenMaiService.GetByIdRouteAsync(id) ?? await _ctKhuyenMaiService.GetCTKhuyenMaiByIdAsync(id);
+                    var km = await _ctKhuyenMai_service.GetByIdRouteAsync(id) ?? await _ctKhuyenMai_service.GetCTKhuyenMaiByIdAsync(id);
                     return (id, km);
                 }).ToArray();
 
                 var promoResults = await Task.WhenAll(promoTasks);
                 var promoMap = promoResults.Where(r => r.km != null).ToDictionary(r => r.id, r => r.km!);
 
-                // 3) For each product determine active/past flags using LINQ joins
                 var productInfo = products.Select(sp =>
                 {
                     var relatedAssociations = allAssociations.Where(a => a.MaSP == sp.MaSP).ToList();
@@ -171,14 +172,16 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                     return (sp, activeKm, hasAnyPastKm);
                 }).ToList();
 
-                // 4) Render rows
                 foreach (var (sp, activeKm, hasAnyPastKm) in productInfo)
                 {
                     var loai = _loais.Find(l => l.MaLoai == sp.MaLoai);
                     int rowIndex = dGV_sp_KM_ADD.Rows.Add();
                     var checkCell = dGV_sp_KM_ADD.Rows[rowIndex].Cells["chon_add"] as DataGridViewCheckBoxCell;
+
+                    // default unchecked
                     checkCell.Value = false;
                     checkboxToMaSPMap[checkCell] = sp.MaSP;
+
                     dGV_sp_KM_ADD.Rows[rowIndex].Cells["tenSanPham_add"].Value = sp.TenSP;
                     dGV_sp_KM_ADD.Rows[rowIndex].Cells["loai_add"].Value = loai?.TenLoai ?? "Không xác định";
                     dGV_sp_KM_ADD.Rows[rowIndex].Cells["maSP_add"].Value = sp.MaSP;
@@ -227,8 +230,8 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                         {
                             if (assoc == null) continue;
 
-                            CTKhuyenMai? km = await _ctKhuyenMaiService.GetByIdRouteAsync(assoc.MaCTKhuyenMai)
-                                         ?? await _ctKhuyenMaiService.GetCTKhuyenMaiByIdAsync(assoc.MaCTKhuyenMai);
+                            CTKhuyenMai? km = await _ctKhuyenMai_service.GetByIdRouteAsync(assoc.MaCTKhuyenMai)
+                                         ?? await _ctKhuyenMai_service.GetCTKhuyenMaiByIdAsync(assoc.MaCTKhuyenMai);
 
                             if (km == null) continue;
 
@@ -248,7 +251,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                             }
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                     }
 
@@ -355,6 +358,8 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
 
         private void DGV_sp_KM_ADD_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
+            if (_suppressSelectAll) return;
+
             if (e.RowIndex < 0 || e.ColumnIndex != dGV_sp_KM_ADD.Columns["chon_add"].Index) return;
             var row = dGV_sp_KM_ADD.Rows[e.RowIndex];
             if (row.Tag?.ToString() == "dummy") return;
@@ -379,15 +384,6 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                 {
                     checkboxToMaSPMap.Remove(checkCell);
                 }
-                if (checkBox6.Checked)
-                {
-                    if (isChecked)
-                    {
-                        checkCell.Value = false;
-                        MessageBox.Show("Vui lòng bỏ chọn 'Chọn tất cả' để chọn sản phẩm cụ thể.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        dGV_sp_KM_ADD.Refresh();
-                    }
-                }
             }
             catch (Exception ex)
             {
@@ -395,28 +391,69 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             }
         }
 
-        private void checkBox6_CheckedChanged(object sender, EventArgs e)
+        // toggles select-all for AddDiscountForm
+        private void SelectAll_button_Click(object? sender, EventArgs e)
         {
-            bool isAllSelected = checkBox6.Checked;
-            bool enabled = !isAllSelected;
-            foreach (DataGridViewRow row in dGV_sp_KM_ADD.Rows)
+            if (_suppressSelectAll) return;
+            _suppressSelectAll = true;
+            try
             {
-                if (row.Tag?.ToString() == "dummy") continue;
-                var checkCell = row.Cells["chon_add"] as DataGridViewCheckBoxCell;
-                bool isExplicitlyLocked = (row.Tag as string) == "locked";
-                if (isExplicitlyLocked)
+                var selectableIds = _allSanPhams
+                    .Where(sp => !_lockedSanPhamIds.Contains(sp.MaSP))
+                    .Select(sp => sp.MaSP)
+                    .ToList();
+
+                if (!selectableIds.Any())
+                    return;
+
+                var currentlySelected = GetSelectedSanPhamIds();
+                bool allSelected = selectableIds.All(id => currentlySelected.Contains(id));
+
+                if (!allSelected)
                 {
-                    checkCell.ReadOnly = true;
-                    checkCell.Value = false;
+                    // check all selectable
+                    foreach (DataGridViewRow row in dGV_sp_KM_ADD.Rows)
+                    {
+                        if (row.Tag?.ToString() == "dummy") continue;
+                        if (!int.TryParse(row.Cells["maSP_add"]?.Value?.ToString(), out int maSP)) continue;
+
+                        var checkCell = row.Cells["chon_add"] as DataGridViewCheckBoxCell;
+                        if (checkCell == null) continue;
+
+                        if (_lockedSanPhamIds.Contains(maSP))
+                        {
+                            checkCell.ReadOnly = true;
+                            checkCell.Value = false;
+                            checkboxToMaSPMap.Remove(checkCell);
+                        }
+                        else
+                        {
+                            checkCell.ReadOnly = false;
+                            checkCell.Value = true;
+                            checkboxToMaSPMap[checkCell] = maSP;
+                        }
+                    }
                 }
                 else
                 {
-                    checkCell.ReadOnly = !enabled;
-                    if (isAllSelected)
+                    // uncheck all
+                    foreach (DataGridViewRow row in dGV_sp_KM_ADD.Rows)
                     {
+                        if (row.Tag?.ToString() == "dummy") continue;
+                        var checkCell = row.Cells["chon_add"] as DataGridViewCheckBoxCell;
+                        if (checkCell == null) continue;
+
                         checkCell.Value = false;
+                        checkboxToMaSPMap.Remove(checkCell);
+                        checkCell.ReadOnly = (row.Tag as string) == "locked";
                     }
                 }
+
+                dGV_sp_KM_ADD.Refresh();
+            }
+            finally
+            {
+                _suppressSelectAll = false;
             }
         }
 
@@ -439,10 +476,6 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                 {
                     selectedIds.Add(maSP);
                 }
-            }
-            if (checkBox6.Checked)
-            {
-                selectedIds = _allSanPhams.Where(sp => !_lockedSanPhamIds.Contains(sp.MaSP)).Select(sp => sp.MaSP).ToList();
             }
             return selectedIds;
         }
@@ -467,19 +500,17 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                     return;
                 }
 
-                // Check duplicate name (case-insensitive, trimmed)
                 try
                 {
-                    var allKms = await _ctKhuyenMaiService.GetAll();
+                    var allKms = await _ctKhuyenMai_service.GetAll();
                     if (allKms != null && allKms.Any(k => string.Equals(k.TenCTKhuyenMai?.Trim(), tenCT, StringComparison.OrdinalIgnoreCase)))
                     {
-                        MessageBox.Show("Tên chương trình khuyễn mãi đã tồn tại. Vui lòng chọn tên khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Tên chương trình khuyến mãi đã tồn tại. Vui lòng chọn tên khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
                 }
                 catch (Exception ex)
                 {
-                    // If service fails, show a warning but allow continuing or decide to block.
                     MessageBox.Show($"Không thể kiểm tra trùng tên khuyến mãi: {ex.Message}\nVui lòng thử lại sau.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
@@ -490,21 +521,10 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                     return;
                 }
                 List<int> selectedSanPhamIds = GetSelectedSanPhamIds();
-                if (checkBox6.Checked)
+                if (selectedSanPhamIds.Count == 0)
                 {
-                    if (selectedSanPhamIds.Count == 0)
-                    {
-                        MessageBox.Show("Không có sản phẩm nào hợp lệ để áp dụng (tất cả sản phẩm đều đang thuộc chương trình khác).", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                }
-                else
-                {
-                    if (selectedSanPhamIds.Count == 0)
-                    {
-                        MessageBox.Show("Vui lòng chọn ít nhất một sản phẩm.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
+                    MessageBox.Show("Vui lòng chọn ít nhất một sản phẩm.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
                 var km = new CTKhuyenMai
                 {
@@ -515,7 +535,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                     PhanTramKhuyenMai = phanTram,
                     TrangThai = 1
                 };
-                int maCTKhuyenMai = await _ctKhuyenMaiService.AddCTKhuyenMaiAsync(km);
+                int maCTKhuyenMai = await _ctKhuyenMai_service.AddCTKhuyenMaiAsync(km);
                 if (maCTKhuyenMai == 0)
                 {
                     MessageBox.Show("Không thể thêm chương trình khuyến mãi. Vui lòng thử lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
