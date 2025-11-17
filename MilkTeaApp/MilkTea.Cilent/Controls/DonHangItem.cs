@@ -179,6 +179,7 @@ namespace MilkTea.Client.Controls
                 // Người dùng chọn Yes -> thực hiện xóa đơn hàng
                 // TODO: thêm code xóa đơn hàng ở đây
                 MessageBox.Show("Cập nhật đơn hàng thành công!");
+                 DonHangDaXoa?.Invoke(this, EventArgs.Empty);
 
                 //nhàn
                 donHang.TrangThai = 1; // Đã hoàn thành
