@@ -54,16 +54,35 @@ namespace MilkTea.Client.Forms.ChildForm_Supplier
         {
             if (!ValidateInput()) return;
 
-            var ncc = new NhaCungCap
-            {
-                TenNCC = txt_ten_NCC_ADD.Text.Trim(),
-                SDT = txt_sdt_NCC_ADD.Text.Trim(),
-                DiaChi = txt_diachi_NCC_ADD.Text.Trim(),
-                TrangThai = 1 // BẮT BUỘC GÁN KHI THÊM
-            };
+            string sdt = txt_sdt_NCC_ADD.Text.Trim();
+            string tenNCC = txt_ten_NCC_ADD.Text.Trim();
 
             try
             {
+                var allNCC = await _nhaCungCapService.GetNhaCungCapAsync();
+
+                bool isDuplicate = allNCC.Any(n =>
+                    string.Equals(n.SDT.Trim(), sdt, StringComparison.OrdinalIgnoreCase) &&
+                    (!_isEditMode || n.MaNCC != _currentNCC?.MaNCC)
+                );
+
+                if (isDuplicate)
+                {
+                    MessageBox.Show("Tên nhà cung cấp này đã tồn tại!\nVui lòng nhập tên khác.",
+                        "Trùng tên", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txt_ten_NCC_ADD.Focus();
+                    txt_ten_NCC_ADD.SelectAll();
+                    return;
+                }
+
+                var ncc = new NhaCungCap
+                {
+                    TenNCC = tenNCC,
+                    SDT = txt_sdt_NCC_ADD.Text.Trim(),
+                    DiaChi = txt_diachi_NCC_ADD.Text.Trim(),
+                    TrangThai = 1
+                };
+
                 if (_isEditMode && _currentNCC != null)
                 {
                     ncc.MaNCC = _currentNCC.MaNCC;
@@ -81,17 +100,11 @@ namespace MilkTea.Client.Forms.ChildForm_Supplier
                     var addedNCC = await _nhaCungCapService.AddAsync(ncc);
                     if (addedNCC != null)
                     {
-                        MessageBox.Show($"Thêm thành công! Mã NCC: {addedNCC.MaNCC}", "Thành công",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                        ResultNCC = addedNCC; // ĐÃ CÓ MaNCC
+                        MessageBox.Show($"Thêm thành công! Mã NCC: {addedNCC.MaNCC}", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ResultNCC = addedNCC;
                         ClearFields();
                         this.DialogResult = DialogResult.OK;
                         this.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Thêm thất bại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
