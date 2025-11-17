@@ -76,10 +76,10 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                     return;
                 }
 
-                // 4. Filter active products
+                // 4. Filter active products once
                 var activeSanPhams = sanPhams.Where(sp => sp.TrangThai == 1).ToList();
 
-                // 5. Map associations vào GridView
+                // 5. Map associations -> products using LINQ (left join), remove duplicate MaSP
                 dGV_sp_KM_CT.Rows.Clear();
 
                 if (associations == null || !associations.Any())
@@ -88,21 +88,28 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                     return;
                 }
 
-                foreach (var assoc in associations)
+                var distinctAssocs = associations.GroupBy(a => a.MaSP).Select(g => g.First()).ToList();
+
+                var productInfos = (from a in distinctAssocs
+                                    join sp in activeSanPhams on a.MaSP equals sp.MaSP into spg
+                                    from sp in spg.DefaultIfEmpty() // left join: sp == null => not active
+                                    select new { Assoc = a, Product = sp })
+                                   .ToList();
+
+                foreach (var info in productInfos)
                 {
-                    var sp = activeSanPhams.FirstOrDefault(s => s.MaSP == assoc.MaSP);
                     int rowIndex = dGV_sp_KM_CT.Rows.Add();
 
-                    if (sp != null)
+                    if (info.Product != null)
                     {
-                        var loai = _detailLoais.FirstOrDefault(l => l.MaLoai == sp.MaLoai);
-                        dGV_sp_KM_CT.Rows[rowIndex].Cells["maSP_ct"].Value = sp.MaSP;
-                        dGV_sp_KM_CT.Rows[rowIndex].Cells["tenSanPham_ct"].Value = sp.TenSP;
+                        var loai = _detailLoais.FirstOrDefault(l => l.MaLoai == info.Product.MaLoai);
+                        dGV_sp_KM_CT.Rows[rowIndex].Cells["maSP_ct"].Value = info.Product.MaSP;
+                        dGV_sp_KM_CT.Rows[rowIndex].Cells["tenSanPham_ct"].Value = info.Product.TenSP;
                         dGV_sp_KM_CT.Rows[rowIndex].Cells["loai_ct"].Value = loai?.TenLoai ?? "Không xác định";
                     }
                     else
                     {
-                        dGV_sp_KM_CT.Rows[rowIndex].Cells["maSP_ct"].Value = assoc.MaSP;
+                        dGV_sp_KM_CT.Rows[rowIndex].Cells["maSP_ct"].Value = info.Assoc.MaSP;
                         dGV_sp_KM_CT.Rows[rowIndex].Cells["tenSanPham_ct"].Value = "Sản phẩm không active";
                         dGV_sp_KM_CT.Rows[rowIndex].Cells["loai_ct"].Value = "-";
                         dGV_sp_KM_CT.Rows[rowIndex].DefaultCellStyle.ForeColor = Color.Gray;
