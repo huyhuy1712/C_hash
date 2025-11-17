@@ -29,6 +29,18 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
         private System.Windows.Forms.Timer _searchTimer;
         private HashSet<int> _lockedSanPhamIds = new HashSet<int>();
 
+        // Snapshot for change detection
+        private HashSet<int> _initialSelectedSanPhams = new HashSet<int>();
+        private string _initialTenCT = string.Empty;
+        private string _initialMoTa = string.Empty;
+        private DateTime? _initialNgayBatDau = null;
+        private DateTime? _initialNgayKetThuc = null;
+        private decimal _initialPhanTram = 0;
+
+        // Select-all state (replaces checkBox6)
+        private bool _isSelectAllActive = false;
+        private bool _suppressSelectAll = false;
+
         public EditDiscountForm(int maCTKhuyenMai)
         {
             InitializeComponent();
@@ -36,7 +48,6 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             _loaiService = new LoaiService();
             _SanPhamService = new SanPhamService();
             _sanPhamKhuyenMaiService = new SanPhamKhuyenMaiService();
-            // Initialize CTKhuyenMaiService to avoid NullReferenceException when querying discounts
             _ctKhuyenMaiService = new CTKhuyenMaiService();
 
             _searchTimer = new System.Windows.Forms.Timer { Interval = 500 };
@@ -47,6 +58,9 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             roundedComboBox1.KeyDown += RoundedComboBox1_KeyDown;
             roundedComboBox1.Leave += RoundedComboBox1_Leave;
             dateTimePicker1.Enabled = false;
+
+            // wire the select-all button (ensure control name matches Designer: selectAll_button)
+            selectAll_button.Click += SelectAll_button_Click;
         }
 
         private async void EditDiscountForm_Load(object sender, EventArgs e)
@@ -81,6 +95,12 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                         {
                             roundedComboBox1.Text = phanTramText;
                         }
+
+                        _initialTenCT = km.TenCTKhuyenMai ?? string.Empty;
+                        _initialMoTa = km.MoTa ?? string.Empty;
+                        _initialNgayBatDau = km.NgayBatDau;
+                        _initialNgayKetThuc = km.NgayKetThuc;
+                        _initialPhanTram = km.PhanTramKhuyenMai;
                     }
                 }
                 else
@@ -109,18 +129,26 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                 _allSanPhams = sanPhams.Where(sp => sp.TrangThai == 1).ToList();
                 var associatedProducts = await GetAssociatedSanPhamsAsync();
                 _currentSelectedSanPhams = new HashSet<int>(associatedProducts.Select(sp => sp.MaSP));
+
+                // Save initial selection snapshot for change detection
+                _initialSelectedSanPhams = new HashSet<int>(_currentSelectedSanPhams);
+
                 bool isAllSelectedInitially = associatedProducts.Count == _allSanPhams.Count;
                 if (isAllSelectedInitially)
                 {
-                    checkBox6.Checked = true;
+                    _isSelectAllActive = true;
                     _currentSelectedSanPhams.Clear();
                     _currentSelectedSanPhams.UnionWith(_allSanPhams.Select(sp => sp.MaSP));
+                    selectAll_button.Text = "Bỏ chọn tất cả";
                 }
-                await ApplyProductFiltersAsync();
-                if (!checkBox6.Checked)
+                else
                 {
-                    SyncGridFromSelected();
+                    _isSelectAllActive = false;
+                    selectAll_button.Text = "Chọn tất cả";
                 }
+
+                await ApplyProductFiltersAsync();
+                SyncGridFromSelected();
             }
             catch (Exception ex)
             {
@@ -179,7 +207,6 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                     {
                         if (assoc.MaCTKhuyenMai == _maCTKhuyenMai) continue;
 
-                        // Defensive: ensure _ctKhuyenMaiService is not null
                         CTKhuyenMai? km = null;
                         if (_ctKhuyenMaiService != null)
                         {
@@ -205,7 +232,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                         }
                     }
                 }
-                catch (Exception ex)
+                catch
                 {
                 }
 
@@ -218,21 +245,25 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                 var loai = _loais.Find(l => l.MaLoai == sp.MaLoai);
                 int rowIndex = dGV_sp_KM_EDIT.Rows.Add();
                 var checkCell = dGV_sp_KM_EDIT.Rows[rowIndex].Cells["chon_edit"] as DataGridViewCheckBoxCell;
-                if (checkBox6.Checked)
+
+                // If select-all state is active, check non-locked; otherwise reflect current selection
+                if (_isSelectAllActive)
                 {
-                    checkCell.Value = false;
+                    bool isLocked = activeKm != null;
+                    checkCell.Value = !isLocked;
                 }
                 else
                 {
                     checkCell.Value = _currentSelectedSanPhams.Contains(sp.MaSP);
                 }
+
                 dGV_sp_KM_EDIT.Rows[rowIndex].Cells["tenSanPham_edit"].Value = sp.TenSP;
                 dGV_sp_KM_EDIT.Rows[rowIndex].Cells["loai_edit"].Value = loai?.TenLoai ?? "Không xác định";
                 dGV_sp_KM_EDIT.Rows[rowIndex].Cells["maSP_edit"].Value = sp.MaSP;
 
-                bool isLocked = activeKm != null;
+                bool isLockedRow = activeKm != null;
                 string tooltip = "";
-                if (isLocked)
+                if (isLockedRow)
                 {
                     _lockedSanPhamIds.Add(sp.MaSP);
                     checkCell.ReadOnly = true;
@@ -331,14 +362,12 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
         {
             try
             {
-                // Get associations for this promotion (may return null/empty)
-                var associations = await _sanPhamKhuyenMaiService.GetByMaCTKhuyenMaiAsync(_maCTKhuyenMai) 
+                var associations = await _sanPhamKhuyenMaiService.GetByMaCTKhuyenMaiAsync(_maCTKhuyenMai)
                                    ?? new List<SanPhamKhuyenMai>();
 
                 if (!associations.Any() || _allSanPhams == null || !_allSanPhams.Any())
                     return new List<SanPham>();
 
-                // Use LINQ join to map associations -> products and remove duplicates
                 var associatedProducts = (from sp in _allSanPhams
                                           join a in associations on sp.MaSP equals a.MaSP
                                           select sp)
@@ -349,7 +378,6 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             }
             catch (Exception ex)
             {
-                // Keep UI-friendly behavior: surface parsing errors separately if needed
                 if (ex is JsonException)
                 {
                     MessageBox.Show($"Lỗi parse dữ liệu liên kết: {ex.Message}\nKiểm tra API response.", "Debug Service", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -390,19 +418,17 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                 {
                     _currentSelectedSanPhams.Remove(maSP);
                 }
-                if (checkBox6.Checked)
+
+                // keep select-all state in sync (if user manually unchecked one item while select-all active)
+                if (_isSelectAllActive && !_currentSelectedSanPhams.Any(id => !_lockedSanPhamIds.Contains(id) && !_currentSelectedSanPhams.Contains(id)))
                 {
-                    if (isChecked)
-                    {
-                        checkCell.Value = false;
-                        _currentSelectedSanPhams.Remove(maSP);
-                        MessageBox.Show("Vui lòng bỏ chọn 'Chọn tất cả' để chọn sản phẩm cụ thể.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        dGV_sp_KM_EDIT.Refresh();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Đã bỏ chọn sản phẩm. Nếu muốn chọn cụ thể, hãy bỏ 'Chọn tất cả'.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                    // still select-all if every selectable is selected
+                }
+                else if (_isSelectAllActive)
+                {
+                    // if user changes selection while select-all was active, turn off select-all mode
+                    _isSelectAllActive = false;
+                    selectAll_button.Text = "Chọn tất cả";
                 }
             }
             catch (Exception ex)
@@ -411,44 +437,76 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             }
         }
 
-        private void checkBox6_CheckedChanged(object sender, EventArgs e)
+        // New handler: toggles selection of all selectable (non-locked) products
+        private void SelectAll_button_Click(object? sender, EventArgs e)
         {
-            bool isAllSelected = checkBox6.Checked;
-            bool enabled = !isAllSelected;
-            foreach (DataGridViewRow row in dGV_sp_KM_EDIT.Rows)
+            if (_suppressSelectAll) return;
+            _suppressSelectAll = true;
+            try
             {
-                if (row.Tag?.ToString() == "dummy") continue;
-                var checkCell = row.Cells["chon_edit"] as DataGridViewCheckBoxCell;
-                bool isExplicitlyLocked = (row.Tag as string) == "locked";
-                if (isExplicitlyLocked)
+                var selectableIds = _allSanPhams
+                    .Where(sp => !_lockedSanPhamIds.Contains(sp.MaSP))
+                    .Select(sp => sp.MaSP)
+                    .ToList();
+
+                if (!selectableIds.Any())
                 {
-                    checkCell.ReadOnly = true;
-                    checkCell.Value = false;
+                    return;
+                }
+
+                bool allSelected = selectableIds.All(id => _currentSelectedSanPhams.Contains(id));
+
+                if (!allSelected)
+                {
+                    _currentSelectedSanPhams.Clear();
+                    _currentSelectedSanPhams.UnionWith(selectableIds);
+                    _isSelectAllActive = true;
+                    selectAll_button.Text = "Bỏ chọn tất cả";
                 }
                 else
                 {
-                    checkCell.ReadOnly = !enabled;
-                    if (isAllSelected)
+                    _currentSelectedSanPhams.Clear();
+                    _isSelectAllActive = false;
+                    selectAll_button.Text = "Chọn tất cả";
+                }
+
+                foreach (DataGridViewRow row in dGV_sp_KM_EDIT.Rows)
+                {
+                    if (row.Tag?.ToString() == "dummy") continue;
+
+                    var checkCell = row.Cells["chon_edit"] as DataGridViewCheckBoxCell;
+                    if (checkCell == null) continue;
+
+                    if (!int.TryParse(row.Cells["maSP_edit"]?.Value?.ToString(), out int maSP))
                     {
                         checkCell.Value = false;
+                        checkCell.ReadOnly = true;
+                        continue;
+                    }
+
+                    bool isLocked = (row.Tag as string) == "locked" || _lockedSanPhamIds.Contains(maSP);
+                    if (isLocked)
+                    {
+                        checkCell.ReadOnly = true;
+                        checkCell.Value = false;
+                    }
+                    else
+                    {
+                        checkCell.ReadOnly = false;
+                        checkCell.Value = _currentSelectedSanPhams.Contains(maSP);
                     }
                 }
-            }
-            if (isAllSelected)
-            {
-                _currentSelectedSanPhams.Clear();
-                _currentSelectedSanPhams.UnionWith(_allSanPhams.Select(sp => sp.MaSP));
-            }
-            else
-            {
-                SyncGridFromSelected();
+
                 dGV_sp_KM_EDIT.Refresh();
+            }
+            finally
+            {
+                _suppressSelectAll = false;
             }
         }
 
         private void SyncGridFromSelected()
         {
-            if (checkBox6.Checked) return;
             foreach (DataGridViewRow row in dGV_sp_KM_EDIT.Rows)
             {
                 if (row.Tag?.ToString() == "dummy") continue;
@@ -473,7 +531,8 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
         {
             var allActiveIds = _allSanPhams.Select(sp => sp.MaSP).ToList();
             List<int> selected;
-            if (checkBox6.Checked)
+
+            if (_isSelectAllActive)
             {
                 selected = allActiveIds.Where(id => !_lockedSanPhamIds.Contains(id)).ToList();
             }
@@ -481,6 +540,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             {
                 selected = _currentSelectedSanPhams.Where(id => allActiveIds.Contains(id) && !_lockedSanPhamIds.Contains(id)).ToList();
             }
+
             return selected;
         }
 
@@ -528,17 +588,32 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                 DateTime ngayBatDau = dateTimePicker1.Value;
                 DateTime ngayKetThuc = dateTimePicker2.Value;
                 string moTa = textBox2.Text.Trim();
+
+                var currentSelected = GetSelectedSanPhamIds();
+                bool productsEqual = currentSelected.Count == _initialSelectedSanPhams.Count && currentSelected.All(id => _initialSelectedSanPhams.Contains(id));
+                bool nameEqual = string.Equals(tenCT?.Trim() ?? string.Empty, _initialTenCT?.Trim() ?? string.Empty, StringComparison.OrdinalIgnoreCase);
+                bool moTaEqual = string.Equals(moTa?.Trim() ?? string.Empty, _initialMoTa?.Trim() ?? string.Empty, StringComparison.OrdinalIgnoreCase);
+                bool datesEqual = ((_initialNgayBatDau.HasValue && _initialNgayBatDau.Value.Date == ngayBatDau.Date) || (!_initialNgayBatDau.HasValue && false == false))
+                                  && ((_initialNgayKetThuc.HasValue && _initialNgayKetThuc.Value.Date == ngayKetThuc.Date) || (!_initialNgayKetThuc.HasValue && false == false));
+                bool phanTramEqual = (decimal)phanTram == _initialPhanTram;
+
+                if (nameEqual && moTaEqual && datesEqual && phanTramEqual && productsEqual)
+                {
+                    this.DialogResult = DialogResult.Cancel;
+                    this.Close();
+                    return;
+                }
+
                 if (string.IsNullOrEmpty(tenCT))
                 {
                     MessageBox.Show("Vui lòng nhập tên chương trình khuyến mãi.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                // Check duplicate name (exclude current promotion by MaCTKhuyenMai)
                 try
                 {
                     var allKms = await _ctKhuyenMaiService.GetAll();
-                    if (allKms != null && allKms.Any(k => 
+                    if (allKms != null && allKms.Any(k =>
                         string.Equals(k.TenCTKhuyenMai?.Trim(), tenCT, StringComparison.OrdinalIgnoreCase)
                         && k.MaCTKhuyenMai != _maCTKhuyenMai))
                     {
@@ -558,7 +633,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                     return;
                 }
                 List<int> selectedSanPhamIds = GetSelectedSanPhamIds();
-                if (!checkBox6.Checked && selectedSanPhamIds.Count == 0)
+                if (!_isSelectAllActive && selectedSanPhamIds.Count == 0)
                 {
                     MessageBox.Show("Vui lòng chọn ít nhất một sản phẩm.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;

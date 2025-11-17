@@ -14,7 +14,6 @@ namespace MilkTea.Client.Forms
     public partial class IngredientForm : Form
     {
         private List<NguyenLieu> _allIngredients = new List<NguyenLieu>();
-        private const string ApiBaseUrl = "http://localhost:5198";
         private NguyenLieuService _nguyenLieuService;
 
         public IngredientForm()
