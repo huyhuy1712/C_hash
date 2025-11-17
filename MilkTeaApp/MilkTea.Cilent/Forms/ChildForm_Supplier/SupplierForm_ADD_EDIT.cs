@@ -68,7 +68,7 @@ namespace MilkTea.Client.Forms.ChildForm_Supplier
 
                 if (isDuplicate)
                 {
-                    MessageBox.Show("Tên nhà cung cấp này đã tồn tại!\nVui lòng nhập tên khác.",
+                    MessageBox.Show("Nhà cung cấp có SDT này đã tồn tại!\nVui lòng nhập tên khác.",
                         "Trùng tên", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txt_ten_NCC_ADD.Focus();
                     txt_ten_NCC_ADD.SelectAll();
