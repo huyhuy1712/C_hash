@@ -46,6 +46,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             roundedComboBox1.DropDownStyle = ComboBoxStyle.DropDown;
             roundedComboBox1.KeyDown += RoundedComboBox1_KeyDown;
             roundedComboBox1.Leave += RoundedComboBox1_Leave;
+            dateTimePicker1.Enabled = false;
         }
 
         private async void EditDiscountForm_Load(object sender, EventArgs e)
@@ -508,6 +509,25 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                     MessageBox.Show("Vui lòng nhập tên chương trình khuyến mãi.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+
+                // Check duplicate name (exclude current promotion by MaCTKhuyenMai)
+                try
+                {
+                    var allKms = await _ctKhuyenMaiService.GetAll();
+                    if (allKms != null && allKms.Any(k => 
+                        string.Equals(k.TenCTKhuyenMai?.Trim(), tenCT, StringComparison.OrdinalIgnoreCase)
+                        && k.MaCTKhuyenMai != _maCTKhuyenMai))
+                    {
+                        MessageBox.Show("Tên chương trình khuyến mãi đã tồn tại. Vui lòng chọn tên khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Không thể kiểm tra trùng tên khuyến mãi: {ex.Message}\nVui lòng thử lại sau.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 if (ngayBatDau >= ngayKetThuc)
                 {
                     MessageBox.Show("Ngày kết thúc phải lớn hơn ngày bắt đầu.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);

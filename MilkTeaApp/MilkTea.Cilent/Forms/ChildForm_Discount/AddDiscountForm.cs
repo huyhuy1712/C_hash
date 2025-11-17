@@ -370,6 +370,24 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                     MessageBox.Show("Vui lòng nhập tên chương trình khuyến mãi.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+
+                // Check duplicate name (case-insensitive, trimmed)
+                try
+                {
+                    var allKms = await _ctKhuyenMaiService.GetAll();
+                    if (allKms != null && allKms.Any(k => string.Equals(k.TenCTKhuyenMai?.Trim(), tenCT, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        MessageBox.Show("Tên chương trình khuyến mãi đã tồn tại. Vui lòng chọn tên khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // If service fails, show a warning but allow continuing or decide to block.
+                    MessageBox.Show($"Không thể kiểm tra trùng tên khuyến mãi: {ex.Message}\nVui lòng thử lại sau.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 if (ngayBatDau >= ngayKetThuc)
                 {
                     MessageBox.Show("Ngày kết thúc phải lớn hơn ngày bắt đầu.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
