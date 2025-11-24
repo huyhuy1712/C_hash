@@ -41,20 +41,34 @@ namespace MilkTea.Client.Forms
             roundedComboBox1.Items.AddRange(columnMapping.Keys.ToArray());
             roundedComboBox1.SelectedIndex = 0;
 
+            roundedComboBox2.Items.Add("Đang làm");
+            roundedComboBox2.Items.Add("Đã hoàn thành");
+            //roundedComboBox2.SelectedIndex = 0; // mặc định Đang làm
+            // ❌ Tạm ngưng event SelectedIndexChanged
+            roundedComboBox2.SelectedIndexChanged -= roundedComboBox2_SelectedIndexChanged;
+            roundedComboBox2.SelectedIndex = 0; // set mặc định
+
+
             // 2️⃣ Tải toàn bộ đơn hàng khi mở form
-            await LoadDonHangAsync();
+            await LoadDonHangAsync(0);
+
+            // ✅ Đăng ký lại event
+            roundedComboBox2.SelectedIndexChanged += roundedComboBox2_SelectedIndexChanged;
         }
 
         // ========== LOAD TẤT CẢ ĐƠN HÀNG ==========
-        private async Task LoadDonHangAsync()
+        private async Task LoadDonHangAsync(int trangThai)
         {
             var donHangList = await _donHangService.GetAllDonHangAsync();
 
             flowLayoutPanel1.Controls.Clear();
-            flowLayoutPanel2.Controls.Clear();
+            //flowLayoutPanel2.Controls.Clear();
 
             foreach (var dh in donHangList)
             {
+                if (dh.TrangThai != trangThai)
+                    continue;
+
                 var item = new DonHangItem(dh);
                 await item.SetData(dh);
                 item.Size = new System.Drawing.Size(210, 140);
@@ -63,15 +77,17 @@ namespace MilkTea.Client.Forms
                 // Đăng ký event
                 item.DonHangDaXoa += Item_DonHangDaXoa;
 
-                if (item.trangThai == 0)
+                
+
+                //if (item.trangThai == 0)
                     flowLayoutPanel1.Controls.Add(item);
-                else if (item.trangThai == 1)
-                    flowLayoutPanel2.Controls.Add(item);
+                //else if (item.trangThai == 1)
+                //    flowLayoutPanel2.Controls.Add(item);
             }
         }
         private async void Item_DonHangDaXoa(object sender, EventArgs e)
         {
-            await LoadDonHangAsync(); // reload danh sách đơn hàng
+            await LoadDonHangAsync(roundedComboBox2.SelectedIndex); // reload danh sách đơn hàng
         }
 
         // ========== TÌM KIẾM ==========
@@ -84,10 +100,11 @@ namespace MilkTea.Client.Forms
                 string displayName = roundedComboBox1.SelectedItem.ToString();
                 string column = columnMapping[displayName];
                 string value = textboxTimKiem.Text.Trim();
+                int trangThaiDangChon = roundedComboBox2.SelectedIndex; // 0 hoặc 1
 
                 if (string.IsNullOrEmpty(value))
                 {
-                    await LoadDonHangAsync();
+                    await LoadDonHangAsync(trangThaiDangChon);
                     return;
                 }
 
@@ -103,20 +120,23 @@ namespace MilkTea.Client.Forms
 
                     // Xóa kết quả cũ
                     flowLayoutPanel1.Controls.Clear();
-                    flowLayoutPanel2.Controls.Clear();
+                    //flowLayoutPanel2.Controls.Clear();
 
                     // Hiển thị danh sách kết quả
                     foreach (var dh in list)
                     {
+                        if (dh.TrangThai != trangThaiDangChon)
+                            continue; // Chỉ hiện theo tab đang chọn
+
                         var item = new DonHangItem(dh);
                         await item.SetData(dh);
                         item.Size = new System.Drawing.Size(210, 140);
                         item.Margin = new Padding(10);
 
-                        if (item.trangThai == 0)
+                        //if (item.trangThai == 0)
                             flowLayoutPanel1.Controls.Add(item);
-                        else if (item.trangThai == 1)
-                            flowLayoutPanel2.Controls.Add(item);
+                        //else if (item.trangThai == 1)
+                        //    flowLayoutPanel2.Controls.Add(item);
                     }
                 }
                 catch (Exception ex)
@@ -139,6 +159,17 @@ namespace MilkTea.Client.Forms
             flowLayoutPanel2.Show();
         }
 
-       
+        private async void roundedComboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (roundedComboBox2.SelectedIndex == 0)
+            {
+                await LoadDonHangAsync(0); // Đang làm
+            }
+            else
+            {
+                await LoadDonHangAsync(1); // Đã hoàn thành
+            }
+        }
+
     }
 }

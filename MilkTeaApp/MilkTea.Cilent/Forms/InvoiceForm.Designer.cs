@@ -23,6 +23,7 @@
             flowLayoutPanel1 = new FlowLayoutPanel();
             flowLayoutPanel2 = new FlowLayoutPanel();
             panel2 = new Panel();
+            roundedComboBox2 = new MilkTea.Client.Controls.RoundedComboBox();
             roundedComboBox1 = new MilkTea.Client.Controls.RoundedComboBox();
             pictureBox1 = new PictureBox();
             textboxTimKiem = new MilkTea.Client.Controls.RoundedTextBox();
@@ -77,6 +78,7 @@
             // panel2
             // 
             panel2.BackColor = SystemColors.ActiveBorder;
+            panel2.Controls.Add(roundedComboBox2);
             panel2.Controls.Add(roundedComboBox1);
             panel2.Controls.Add(pictureBox1);
             panel2.Controls.Add(textboxTimKiem);
@@ -86,6 +88,25 @@
             panel2.Padding = new Padding(7);
             panel2.Size = new Size(934, 47);
             panel2.TabIndex = 1;
+            // 
+            // roundedComboBox2
+            // 
+            roundedComboBox2.BackColor = Color.White;
+            roundedComboBox2.BorderColor = Color.Gray;
+            roundedComboBox2.BorderRadius = 15;
+            roundedComboBox2.BorderSize = 1;
+            roundedComboBox2.DrawMode = DrawMode.OwnerDrawFixed;
+            roundedComboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+            roundedComboBox2.FlatStyle = FlatStyle.Flat;
+            roundedComboBox2.FocusBorderColor = Color.DeepSkyBlue;
+            roundedComboBox2.Font = new Font("Segoe UI", 10F);
+            roundedComboBox2.FormattingEnabled = true;
+            roundedComboBox2.ItemHeight = 30;
+            roundedComboBox2.Location = new Point(432, 6);
+            roundedComboBox2.Name = "roundedComboBox2";
+            roundedComboBox2.Size = new Size(151, 36);
+            roundedComboBox2.TabIndex = 4;
+            roundedComboBox2.SelectedIndexChanged += roundedComboBox2_SelectedIndexChanged;
             // 
             // roundedComboBox1
             // 
@@ -118,7 +139,6 @@
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
-            
             // 
             // textboxTimKiem
             // 
@@ -135,7 +155,6 @@
             textboxTimKiem.TabIndex = 0;
             textboxTimKiem.TextValue = "";
             textboxTimKiem.KeyDown += textboxTimKiem_KeyDown;
-
             // 
             // panel1
             // 
@@ -206,5 +225,6 @@
 
         private FlowLayoutPanel flowLayoutPanel1;
         private FlowLayoutPanel flowLayoutPanel2;
+        private Controls.RoundedComboBox roundedComboBox2;
     }
 }
