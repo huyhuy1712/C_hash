@@ -27,7 +27,20 @@ namespace MilkTea.Client.Forms
             // Khởi tạo timer debounce cho reload (500ms delay để tránh gọi API liên tục)
             _searchTimer = new System.Windows.Forms.Timer { Interval = 500 };
             _searchTimer.Tick += SearchTimer_Tick;
+
+            // Wire date pickers so changing date re-applies filters (debounced)
+            dateStart.ValueChanged += DateFilters_ValueChanged;
+            dateEnd.ValueChanged += DateFilters_ValueChanged;
         }
+
+        private void DateFilters_ValueChanged(object? sender, EventArgs e)
+        {
+            // reuse debounce so UI isn't refreshed too aggressively when user picks dates
+            _searchTimer.Stop();
+            _searchTimer.Start();
+        }
+
+       
 
         private async void DiscountForm_Load(object sender, EventArgs e)
         {
@@ -42,6 +55,10 @@ namespace MilkTea.Client.Forms
             // Clear search để tránh filter sai
             roundedTextBox2.TextValue = "";
             roundedTextBox2.Placeholder = "Nhập mã hoặc tên khuyến mãi..."; // Đảm bảo placeholder
+
+            // sensible defaults for date filters (optional)
+            dateStart.Value = DateTime.Today.AddMonths(-1);
+            dateEnd.Value = DateTime.Today;
 
             await LoadDiscountsAsync();
 
@@ -134,6 +151,22 @@ namespace MilkTea.Client.Forms
                     });
                 }
 
+                // Date-range filter (use dateStart/dateEnd from Designer)
+                DateTime from = dateStart.Value.Date;
+                DateTime to = dateEnd.Value.Date;
+                if (from > to) // normalize if user selected inverted range
+                {
+                    var tmp = from; from = to; to = tmp;
+                }
+
+                // Keep discounts whose active interval overlaps [from, to]
+                query = query.Where(d =>
+                {
+                    DateTime start = d.NgayBatDau?.Date ?? DateTime.MinValue;
+                    DateTime end = d.NgayKetThuc?.Date ?? DateTime.MaxValue;
+                    return start <= to && end >= from; // overlap test
+                });
+
                 // Materialize and display
                 var result = query.ToList();
                 DisplayDiscounts(result);
@@ -202,6 +235,18 @@ namespace MilkTea.Client.Forms
                            (statusFilter == "Hết hạn" && !isActive);
                 });
             }
+
+            // Date-range filter (use dateStart/dateEnd from Designer)
+            DateTime from = dateStart.Value.Date;
+            DateTime to = dateEnd.Value.Date;
+            if (from > to) { var tmp = from; from = to; to = tmp; }
+
+            filtered = filtered.Where(d =>
+            {
+                DateTime start = d.NgayBatDau?.Date ?? DateTime.MinValue;
+                DateTime end = d.NgayKetThuc?.Date ?? DateTime.MaxValue;
+                return start <= to && end >= from; // overlap test
+            });
 
             DisplayDiscounts(filtered.ToList());
         }
