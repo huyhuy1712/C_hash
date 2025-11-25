@@ -13,8 +13,8 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-       
-        
+
+
 
         #region Windows Form Designer generated code
 
@@ -44,7 +44,6 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             panel46 = new Panel();
             roundedTextBox1 = new RoundedTextBox();
             panel47 = new Panel();
-            checkBox6 = new CheckBox();
             panel7 = new Panel();
             panel10 = new Panel();
             label2 = new Label();
@@ -67,6 +66,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             panel6 = new Panel();
             textBox1 = new TextBox();
             label5 = new Label();
+            selectAll_button = new RoundedButton();
             panel2 = new Panel();
             panel2.SuspendLayout();
             panel1.SuspendLayout();
@@ -316,25 +316,12 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             // 
             // panel47
             // 
-            panel47.Controls.Add(checkBox6);
+            panel47.Controls.Add(selectAll_button);
             panel47.Dock = DockStyle.Left;
             panel47.Location = new Point(0, 0);
             panel47.Name = "panel47";
             panel47.Size = new Size(129, 63);
             panel47.TabIndex = 3;
-            // 
-            // checkBox6
-            // 
-            checkBox6.AutoSize = true;
-            checkBox6.Dock = DockStyle.Fill;
-            checkBox6.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            checkBox6.Location = new Point(0, 0);
-            checkBox6.Name = "checkBox6";
-            checkBox6.Size = new Size(129, 63);
-            checkBox6.TabIndex = 2;
-            checkBox6.Text = "Chọn tất cả";
-            checkBox6.UseVisualStyleBackColor = true;
-            checkBox6.CheckedChanged += checkBox6_CheckedChanged;
             // 
             // panel7
             // 
@@ -562,6 +549,23 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             label5.TextAlign = ContentAlignment.MiddleLeft;
             label5.Click += label5_Click;
             // 
+            // selectAll_button
+            // 
+            selectAll_button.BackColor = Color.DodgerBlue;
+            selectAll_button.BorderColor = Color.DodgerBlue;
+            selectAll_button.BorderRadius = 20;
+            selectAll_button.BorderSize = 0;
+            selectAll_button.FlatAppearance.BorderSize = 0;
+            selectAll_button.FlatStyle = FlatStyle.Flat;
+            selectAll_button.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            selectAll_button.ForeColor = Color.White;
+            selectAll_button.Location = new Point(0, 11);
+            selectAll_button.Name = "selectAll_button";
+            selectAll_button.Size = new Size(129, 41);
+            selectAll_button.TabIndex = 11;
+            selectAll_button.Text = "Chọn tất cả";
+            selectAll_button.UseVisualStyleBackColor = false;
+            // 
             // AddDiscountForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -586,7 +590,6 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             panel23.ResumeLayout(false);
             panel46.ResumeLayout(false);
             panel47.ResumeLayout(false);
-            panel47.PerformLayout();
             panel7.ResumeLayout(false);
             panel10.ResumeLayout(false);
             panel19.ResumeLayout(false);
@@ -669,11 +672,11 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
         private Panel panel46;
         private RoundedTextBox roundedTextBox1;
         private Panel panel47;
-        private CheckBox checkBox6;
         private DataGridView dGV_sp_KM_ADD;
         private DataGridViewCheckBoxColumn chon_add;
         private DataGridViewTextBoxColumn tenSanPham_add;
         private DataGridViewTextBoxColumn loai_add;
         private DataGridViewTextBoxColumn maSP_add;
+        private RoundedButton selectAll_button;
     }
 }

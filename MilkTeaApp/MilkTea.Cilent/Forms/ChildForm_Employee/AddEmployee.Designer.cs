@@ -1,6 +1,6 @@
-﻿namespace MilkTea.Client.Forms.ChildForm_Account
+﻿namespace MilkTea.Client.Forms.ChildForm_Employee
 {
-    partial class AddAccountForm
+    partial class AddEmployee
     {
         /// <summary>
         /// Required designer variable.
@@ -28,9 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             panel1 = new Panel();
-            panel20 = new Panel();
             button = new Panel();
             btnXacNhanTTK = new MilkTea.Client.Controls.RoundedButton();
             panel14 = new Panel();
@@ -42,12 +40,6 @@
             txtbDuongDanAnh = new TextBox();
             panel17 = new Panel();
             label6 = new Label();
-            panel7 = new Panel();
-            panel8 = new Panel();
-            btnThemQuyen = new MilkTea.Client.Controls.RoundedButton();
-            cbQuyen = new ComboBox();
-            panel9 = new Panel();
-            label4 = new Label();
             panel2 = new Panel();
             panel5 = new Panel();
             txtbMatKhau = new TextBox();
@@ -58,19 +50,9 @@
             txtbTenTaiKhoan = new TextBox();
             panel3 = new Panel();
             label2 = new Label();
-            right = new Panel();
-            panel18 = new Panel();
-            pictureBox1 = new PictureBox();
-            panel10 = new Panel();
-            panel15 = new Panel();
-            btnChonAnh = new MilkTea.Client.Controls.RoundedButton();
-            panel19 = new Panel();
             title = new Panel();
             label1 = new Label();
-            imageList1 = new ImageList(components);
-            errorProvider1 = new ErrorProvider(components);
             panel1.SuspendLayout();
-            panel20.SuspendLayout();
             button.SuspendLayout();
             panel14.SuspendLayout();
             middle.SuspendLayout();
@@ -78,54 +60,35 @@
             panel13.SuspendLayout();
             panel16.SuspendLayout();
             panel17.SuspendLayout();
-            panel7.SuspendLayout();
-            panel8.SuspendLayout();
-            panel9.SuspendLayout();
             panel2.SuspendLayout();
             panel5.SuspendLayout();
             panel6.SuspendLayout();
             field.SuspendLayout();
             panel4.SuspendLayout();
             panel3.SuspendLayout();
-            right.SuspendLayout();
-            panel18.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            panel15.SuspendLayout();
             title.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
             // panel1
             // 
-            panel1.Controls.Add(panel20);
+            panel1.Controls.Add(button);
+            panel1.Controls.Add(middle);
             panel1.Controls.Add(title);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(800, 660);
-            panel1.TabIndex = 0;
-            // 
-            // panel20
-            // 
-            panel20.BackColor = SystemColors.Control;
-            panel20.Controls.Add(button);
-            panel20.Controls.Add(middle);
-            panel20.Dock = DockStyle.Fill;
-            panel20.Location = new Point(0, 80);
-            panel20.Name = "panel20";
-            panel20.Padding = new Padding(20);
-            panel20.Size = new Size(800, 580);
-            panel20.TabIndex = 1;
+            panel1.Size = new Size(876, 623);
+            panel1.TabIndex = 2;
             // 
             // button
             // 
             button.Controls.Add(btnXacNhanTTK);
             button.Controls.Add(panel14);
             button.Dock = DockStyle.Bottom;
-            button.Location = new Point(20, 510);
+            button.Location = new Point(0, 573);
             button.Name = "button";
             button.Padding = new Padding(0, 10, 0, 0);
-            button.Size = new Size(760, 50);
+            button.Size = new Size(876, 50);
             button.TabIndex = 9;
             // 
             // btnXacNhanTTK
@@ -139,20 +102,19 @@
             btnXacNhanTTK.FlatStyle = FlatStyle.Flat;
             btnXacNhanTTK.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnXacNhanTTK.ForeColor = Color.Black;
-            btnXacNhanTTK.Location = new Point(490, 10);
+            btnXacNhanTTK.Location = new Point(606, 10);
             btnXacNhanTTK.Margin = new Padding(30);
             btnXacNhanTTK.Name = "btnXacNhanTTK";
             btnXacNhanTTK.Size = new Size(125, 40);
             btnXacNhanTTK.TabIndex = 1;
             btnXacNhanTTK.Text = "+ Thêm";
             btnXacNhanTTK.UseVisualStyleBackColor = false;
-            btnXacNhanTTK.Click += btnThemTTK_Click;
             // 
             // panel14
             // 
             panel14.Controls.Add(btnThoatTTK);
             panel14.Dock = DockStyle.Right;
-            panel14.Location = new Point(615, 10);
+            panel14.Location = new Point(731, 10);
             panel14.Name = "panel14";
             panel14.Size = new Size(145, 40);
             panel14.TabIndex = 2;
@@ -174,40 +136,37 @@
             btnThoatTTK.TabIndex = 0;
             btnThoatTTK.Text = "Thoát";
             btnThoatTTK.UseVisualStyleBackColor = false;
-            btnThoatTTK.Click += btnThoatTTK_Click;
             // 
             // middle
             // 
             middle.BackColor = SystemColors.ScrollBar;
             middle.Controls.Add(left);
-            middle.Controls.Add(right);
             middle.Dock = DockStyle.Top;
-            middle.Location = new Point(20, 20);
+            middle.Location = new Point(0, 80);
             middle.Name = "middle";
-            middle.Size = new Size(760, 370);
+            middle.Size = new Size(876, 460);
             middle.TabIndex = 1;
             // 
             // left
             // 
             left.Controls.Add(panel13);
-            left.Controls.Add(panel7);
             left.Controls.Add(panel2);
             left.Controls.Add(field);
-            left.Dock = DockStyle.Fill;
+            left.Dock = DockStyle.Left;
             left.Location = new Point(0, 0);
             left.Name = "left";
-            left.Size = new Size(548, 370);
+            left.Size = new Size(869, 460);
             left.TabIndex = 12;
             // 
             // panel13
             // 
             panel13.Controls.Add(panel16);
             panel13.Controls.Add(panel17);
-            panel13.Dock = DockStyle.Top;
-            panel13.Location = new Point(0, 270);
+            panel13.Dock = DockStyle.Fill;
+            panel13.Location = new Point(0, 180);
             panel13.Name = "panel13";
             panel13.Padding = new Padding(10, 0, 0, 0);
-            panel13.Size = new Size(548, 90);
+            panel13.Size = new Size(869, 280);
             panel13.TabIndex = 5;
             // 
             // panel16
@@ -216,8 +175,7 @@
             panel16.Dock = DockStyle.Top;
             panel16.Location = new Point(10, 50);
             panel16.Name = "panel16";
-            panel16.Padding = new Padding(0, 0, 30, 0);
-            panel16.Size = new Size(538, 40);
+            panel16.Size = new Size(859, 40);
             panel16.TabIndex = 3;
             // 
             // txtbDuongDanAnh
@@ -226,7 +184,7 @@
             txtbDuongDanAnh.Font = new Font("Segoe UI", 14F);
             txtbDuongDanAnh.Location = new Point(0, 0);
             txtbDuongDanAnh.Name = "txtbDuongDanAnh";
-            txtbDuongDanAnh.Size = new Size(508, 39);
+            txtbDuongDanAnh.Size = new Size(859, 39);
             txtbDuongDanAnh.TabIndex = 0;
             // 
             // panel17
@@ -235,7 +193,7 @@
             panel17.Dock = DockStyle.Top;
             panel17.Location = new Point(10, 0);
             panel17.Name = "panel17";
-            panel17.Size = new Size(538, 50);
+            panel17.Size = new Size(859, 50);
             panel17.TabIndex = 2;
             // 
             // label6
@@ -244,82 +202,10 @@
             label6.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label6.Location = new Point(0, 0);
             label6.Name = "label6";
-            label6.Size = new Size(538, 50);
+            label6.Size = new Size(859, 50);
             label6.TabIndex = 0;
-            label6.Text = "Đường dẫn ảnh";
+            label6.Text = "Ngày bắt đầu làm";
             label6.TextAlign = ContentAlignment.BottomLeft;
-            // 
-            // panel7
-            // 
-            panel7.Controls.Add(panel8);
-            panel7.Controls.Add(panel9);
-            panel7.Dock = DockStyle.Top;
-            panel7.Location = new Point(0, 180);
-            panel7.Name = "panel7";
-            panel7.Padding = new Padding(10, 0, 0, 0);
-            panel7.Size = new Size(548, 90);
-            panel7.TabIndex = 3;
-            // 
-            // panel8
-            // 
-            panel8.Controls.Add(btnThemQuyen);
-            panel8.Controls.Add(cbQuyen);
-            panel8.Dock = DockStyle.Top;
-            panel8.Location = new Point(10, 50);
-            panel8.Name = "panel8";
-            panel8.Padding = new Padding(0, 0, 30, 0);
-            panel8.Size = new Size(538, 40);
-            panel8.TabIndex = 3;
-            // 
-            // btnThemQuyen
-            // 
-            btnThemQuyen.BackColor = Color.DodgerBlue;
-            btnThemQuyen.BorderColor = Color.DodgerBlue;
-            btnThemQuyen.BorderRadius = 20;
-            btnThemQuyen.BorderSize = 0;
-            btnThemQuyen.Dock = DockStyle.Right;
-            btnThemQuyen.FlatAppearance.BorderSize = 0;
-            btnThemQuyen.FlatStyle = FlatStyle.Flat;
-            btnThemQuyen.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            btnThemQuyen.ForeColor = Color.White;
-            btnThemQuyen.Location = new Point(332, 0);
-            btnThemQuyen.Name = "btnThemQuyen";
-            btnThemQuyen.Size = new Size(176, 40);
-            btnThemQuyen.TabIndex = 2;
-            btnThemQuyen.Text = "Thêm quyền";
-            btnThemQuyen.UseVisualStyleBackColor = false;
-            btnThemQuyen.Click += btnThemQuyen_Click;
-            // 
-            // cbQuyen
-            // 
-            cbQuyen.Dock = DockStyle.Left;
-            cbQuyen.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbQuyen.Font = new Font("Segoe UI", 14F);
-            cbQuyen.FormattingEnabled = true;
-            cbQuyen.Location = new Point(0, 0);
-            cbQuyen.Name = "cbQuyen";
-            cbQuyen.Size = new Size(281, 39);
-            cbQuyen.TabIndex = 0;
-            // 
-            // panel9
-            // 
-            panel9.Controls.Add(label4);
-            panel9.Dock = DockStyle.Top;
-            panel9.Location = new Point(10, 0);
-            panel9.Name = "panel9";
-            panel9.Size = new Size(538, 50);
-            panel9.TabIndex = 2;
-            // 
-            // label4
-            // 
-            label4.Dock = DockStyle.Fill;
-            label4.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(0, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(538, 50);
-            label4.TabIndex = 0;
-            label4.Text = "Quyền";
-            label4.TextAlign = ContentAlignment.BottomLeft;
             // 
             // panel2
             // 
@@ -329,7 +215,7 @@
             panel2.Location = new Point(0, 90);
             panel2.Name = "panel2";
             panel2.Padding = new Padding(10, 0, 0, 0);
-            panel2.Size = new Size(548, 90);
+            panel2.Size = new Size(869, 90);
             panel2.TabIndex = 2;
             // 
             // panel5
@@ -338,8 +224,7 @@
             panel5.Dock = DockStyle.Top;
             panel5.Location = new Point(10, 50);
             panel5.Name = "panel5";
-            panel5.Padding = new Padding(0, 0, 30, 0);
-            panel5.Size = new Size(538, 40);
+            panel5.Size = new Size(859, 40);
             panel5.TabIndex = 3;
             // 
             // txtbMatKhau
@@ -348,7 +233,7 @@
             txtbMatKhau.Font = new Font("Segoe UI", 14F);
             txtbMatKhau.Location = new Point(0, 0);
             txtbMatKhau.Name = "txtbMatKhau";
-            txtbMatKhau.Size = new Size(508, 39);
+            txtbMatKhau.Size = new Size(859, 39);
             txtbMatKhau.TabIndex = 0;
             // 
             // panel6
@@ -357,7 +242,7 @@
             panel6.Dock = DockStyle.Top;
             panel6.Location = new Point(10, 0);
             panel6.Name = "panel6";
-            panel6.Size = new Size(538, 50);
+            panel6.Size = new Size(859, 50);
             panel6.TabIndex = 2;
             // 
             // label3
@@ -366,9 +251,9 @@
             label3.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.Location = new Point(0, 0);
             label3.Name = "label3";
-            label3.Size = new Size(538, 50);
+            label3.Size = new Size(859, 50);
             label3.TabIndex = 0;
-            label3.Text = "Mật khẩu";
+            label3.Text = "Số điện thoại";
             label3.TextAlign = ContentAlignment.BottomLeft;
             // 
             // field
@@ -379,7 +264,7 @@
             field.Location = new Point(0, 0);
             field.Name = "field";
             field.Padding = new Padding(10, 0, 0, 0);
-            field.Size = new Size(548, 90);
+            field.Size = new Size(869, 90);
             field.TabIndex = 1;
             // 
             // panel4
@@ -388,8 +273,7 @@
             panel4.Dock = DockStyle.Top;
             panel4.Location = new Point(10, 50);
             panel4.Name = "panel4";
-            panel4.Padding = new Padding(0, 0, 30, 0);
-            panel4.Size = new Size(538, 40);
+            panel4.Size = new Size(859, 40);
             panel4.TabIndex = 3;
             // 
             // txtbTenTaiKhoan
@@ -398,7 +282,7 @@
             txtbTenTaiKhoan.Font = new Font("Segoe UI", 14F);
             txtbTenTaiKhoan.Location = new Point(0, 0);
             txtbTenTaiKhoan.Name = "txtbTenTaiKhoan";
-            txtbTenTaiKhoan.Size = new Size(508, 39);
+            txtbTenTaiKhoan.Size = new Size(859, 39);
             txtbTenTaiKhoan.TabIndex = 0;
             // 
             // panel3
@@ -407,7 +291,7 @@
             panel3.Dock = DockStyle.Top;
             panel3.Location = new Point(10, 0);
             panel3.Name = "panel3";
-            panel3.Size = new Size(538, 50);
+            panel3.Size = new Size(859, 50);
             panel3.TabIndex = 2;
             // 
             // label2
@@ -416,87 +300,10 @@
             label2.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.Location = new Point(0, 0);
             label2.Name = "label2";
-            label2.Size = new Size(538, 50);
+            label2.Size = new Size(859, 50);
             label2.TabIndex = 0;
-            label2.Text = "Tên tài khoản";
+            label2.Text = "Tên nhân viên";
             label2.TextAlign = ContentAlignment.BottomLeft;
-            // 
-            // right
-            // 
-            right.Controls.Add(panel18);
-            right.Controls.Add(panel10);
-            right.Controls.Add(panel15);
-            right.Dock = DockStyle.Right;
-            right.Location = new Point(548, 0);
-            right.Name = "right";
-            right.Padding = new Padding(0, 0, 10, 10);
-            right.Size = new Size(212, 370);
-            right.TabIndex = 11;
-            // 
-            // panel18
-            // 
-            panel18.Controls.Add(pictureBox1);
-            panel18.Dock = DockStyle.Bottom;
-            panel18.Location = new Point(0, 39);
-            panel18.Name = "panel18";
-            panel18.Size = new Size(202, 212);
-            panel18.TabIndex = 3;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Dock = DockStyle.Fill;
-            pictureBox1.Location = new Point(0, 0);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(202, 212);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
-            // 
-            // panel10
-            // 
-            panel10.Dock = DockStyle.Bottom;
-            panel10.Location = new Point(0, 251);
-            panel10.Name = "panel10";
-            panel10.Size = new Size(202, 69);
-            panel10.TabIndex = 4;
-            // 
-            // panel15
-            // 
-            panel15.Controls.Add(btnChonAnh);
-            panel15.Controls.Add(panel19);
-            panel15.Dock = DockStyle.Bottom;
-            panel15.Location = new Point(0, 320);
-            panel15.Name = "panel15";
-            panel15.Padding = new Padding(10, 0, 0, 0);
-            panel15.Size = new Size(202, 40);
-            panel15.TabIndex = 2;
-            // 
-            // btnChonAnh
-            // 
-            btnChonAnh.BackColor = Color.DodgerBlue;
-            btnChonAnh.BorderColor = Color.DodgerBlue;
-            btnChonAnh.BorderRadius = 20;
-            btnChonAnh.BorderSize = 0;
-            btnChonAnh.Dock = DockStyle.Right;
-            btnChonAnh.FlatAppearance.BorderSize = 0;
-            btnChonAnh.FlatStyle = FlatStyle.Flat;
-            btnChonAnh.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            btnChonAnh.ForeColor = Color.White;
-            btnChonAnh.Location = new Point(40, 0);
-            btnChonAnh.Name = "btnChonAnh";
-            btnChonAnh.Size = new Size(125, 40);
-            btnChonAnh.TabIndex = 1;
-            btnChonAnh.Text = "Chọn Ảnh";
-            btnChonAnh.UseVisualStyleBackColor = false;
-            btnChonAnh.Click += btnChonAnh_Click;
-            // 
-            // panel19
-            // 
-            panel19.Dock = DockStyle.Right;
-            panel19.Location = new Point(165, 0);
-            panel19.Name = "panel19";
-            panel19.Size = new Size(37, 40);
-            panel19.TabIndex = 2;
             // 
             // title
             // 
@@ -504,7 +311,7 @@
             title.Dock = DockStyle.Top;
             title.Location = new Point(0, 0);
             title.Name = "title";
-            title.Size = new Size(800, 80);
+            title.Size = new Size(876, 80);
             title.TabIndex = 0;
             // 
             // label1
@@ -514,33 +321,20 @@
             label1.ForeColor = Color.DodgerBlue;
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
-            label1.Size = new Size(800, 80);
+            label1.Size = new Size(876, 80);
             label1.TabIndex = 0;
-            label1.Text = "Thêm Tài Khoản";
+            label1.Text = "Thêm Nhân Viên";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // imageList1
-            // 
-            imageList1.ColorDepth = ColorDepth.Depth32Bit;
-            imageList1.ImageSize = new Size(16, 16);
-            imageList1.TransparentColor = Color.Transparent;
-            // 
-            // errorProvider1
-            // 
-            errorProvider1.ContainerControl = this;
-            // 
-            // AddAccountForm
+            // AddEmployee
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 660);
+            ClientSize = new Size(876, 623);
             Controls.Add(panel1);
-            Name = "AddAccountForm";
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "AddAccountForm";
-            Load += AddAccountForm_Load;
+            Name = "AddEmployee";
+            Text = "AddEmployee";
             panel1.ResumeLayout(false);
-            panel20.ResumeLayout(false);
             button.ResumeLayout(false);
             panel14.ResumeLayout(false);
             middle.ResumeLayout(false);
@@ -549,9 +343,6 @@
             panel16.ResumeLayout(false);
             panel16.PerformLayout();
             panel17.ResumeLayout(false);
-            panel7.ResumeLayout(false);
-            panel8.ResumeLayout(false);
-            panel9.ResumeLayout(false);
             panel2.ResumeLayout(false);
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
@@ -560,62 +351,35 @@
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             panel3.ResumeLayout(false);
-            right.ResumeLayout(false);
-            panel18.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            panel15.ResumeLayout(false);
             title.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
         private Panel panel1;
-        private Panel title;
-        private Panel middle;
-        private Label label1;
-        private Controls.RoundedButton btnChonAnh;
-        private ImageList imageList1;
         private Panel button;
         private Controls.RoundedButton btnXacNhanTTK;
-        private Controls.RoundedButton btnThoatTTK;
         private Panel panel14;
-        private Panel panel15;
-        private ErrorProvider errorProvider1;
-        private Panel panel17;
-        private Panel panel16;
-        private Label label7;
-        private Panel panel18;
+        private Controls.RoundedButton btnThoatTTK;
+        private Panel middle;
         private Panel left;
-        private Panel right;
-        private Panel panel4;
-        private Panel panel3;
-        private Panel field;
-        private TextBox txtbTenTaiKhoan;
-        private Label label2;
-        private Panel panel10;
-        private Panel panel11;
-        private Panel panel12;
-        private Label label5;
-        private Panel panel7;
-        private Panel panel8;
-        private Panel panel9;
-        private Label label4;
+        private Panel panel13;
+        private Panel panel16;
+        private TextBox txtbDuongDanAnh;
+        private Panel panel17;
+        private Label label6;
         private Panel panel2;
         private Panel panel5;
         private TextBox txtbMatKhau;
         private Panel panel6;
         private Label label3;
-        private ComboBox cbNhanVien;
-        private ComboBox cbQuyen;
-        private Panel panel13;
-        private TextBox txtbDuongDanAnh;
-        private Label label6;
-        private Controls.RoundedButton btnThemNhanVien;
-        private Controls.RoundedButton btnThemQuyen;
-        private PictureBox pictureBox1;
-        private Panel panel19;
-        private Panel panel20;
+        private Panel field;
+        private Panel panel4;
+        private TextBox txtbTenTaiKhoan;
+        private Panel panel3;
+        private Label label2;
+        private Panel title;
+        private Label label1;
     }
 }

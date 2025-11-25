@@ -84,7 +84,7 @@ namespace MilkTea.Client.Forms
 
             if (list == null)
             {
-                MessageBox.Show("Chưa mở BackEnd!!!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Chưa mở BackEnd!!!\n Hoặc là chưa chỉnh password MySQL", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return null;
             }
 

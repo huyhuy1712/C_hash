@@ -3,6 +3,7 @@
 
     public interface IViewAccountForm
     {
+        Label LblId { get; }
         Label LblTaiKhoan { get; }
         Label LblHoTen { get; }
         Label LblQuyen { get; }

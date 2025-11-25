@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net.Http;
@@ -18,17 +17,18 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
 {
     public partial class AddDiscountForm : Form
     {
-        private List<SanPham> _allSanPhams = new List<SanPham>(); // Lưu danh sách gốc sản phẩm
-        private List<Loai> _loais = new List<Loai>(); // Lưu danh sách loại để map
-        private Dictionary<DataGridViewCheckBoxCell, int> checkboxToMaSPMap = new Dictionary<DataGridViewCheckBoxCell, int>(); // Map checkbox cell to MaSP
-        private const string ApiBaseUrl = "http://localhost:5198";
+        private List<SanPham> _allSanPhams = new List<SanPham>();
+        private List<Loai> _loais = new List<Loai>();
+        private Dictionary<DataGridViewCheckBoxCell, int> checkboxToMaSPMap = new Dictionary<DataGridViewCheckBoxCell, int>();
         private LoaiService _loaiService;
         private SanPhamService _SanPhamService;
         private SanPhamKhuyenMaiService _sanPhamKhuyenMaiService;
-        private System.Windows.Forms.Timer _searchTimer; // Timer cho debounce search
-        private CTKhuyenMaiService _ctKhuyenMaiService = new CTKhuyenMaiService();
-        // New: set of product IDs that are already part of a promotion (locked)
+        private System.Windows.Forms.Timer _searchTimer;
+        private CTKhuyenMaiService _ctKhuyenMai_service;
         private HashSet<int> _lockedSanPhamIds = new HashSet<int>();
+
+        // Select-all guard to avoid re-entrancy when updating UI programmatically
+        private bool _suppressSelectAll = false;
 
         public AddDiscountForm()
         {
@@ -36,13 +36,17 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             _loaiService = new LoaiService();
             _SanPhamService = new SanPhamService();
             _sanPhamKhuyenMaiService = new SanPhamKhuyenMaiService();
-            // Khởi tạo timer debounce cho search (500ms delay)
+            _ctKhuyenMai_service = new CTKhuyenMaiService();
             _searchTimer = new System.Windows.Forms.Timer { Interval = 500 };
             _searchTimer.Tick += SearchTimer_Tick;
-            // Allow typing into the combo box and wire handlers
+            dGV_sp_KM_ADD.CurrentCellDirtyStateChanged += DGV_sp_KM_ADD_CurrentCellDirtyStateChanged;
+            dGV_sp_KM_ADD.CellValueChanged += DGV_sp_KM_ADD_CellValueChanged;
             roundedComboBox1.DropDownStyle = ComboBoxStyle.DropDown;
             roundedComboBox1.KeyDown += RoundedComboBox1_KeyDown;
             roundedComboBox1.Leave += RoundedComboBox1_Leave;
+
+            // wire select-all button (ensure Designer control name is selectAll_button)
+            selectAll_button.Click += SelectAll_button_Click;
         }
 
         protected override void Dispose(bool disposing)
@@ -58,23 +62,21 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
 
         private async void AddDiscountForm_Load_1(object sender, EventArgs e)
         {
-            await LoadSanPhamAsync(); // Load sản phẩm cho DataGridView
+            await LoadSanPhamAsync();
         }
 
-        // 🌀 Hàm load danh sách sản phẩm (từ API, không filter server-side)
         private async Task LoadSanPhamAsync()
         {
             try
             {
                 var sanPhams = await _SanPhamService.GetSanPhamsAsync();
-                _loais = await _loaiService.GetLoaisAsync(); // Lưu loais để map
+                _loais = await _loaiService.GetLoaisAsync();
                 if (sanPhams == null || !sanPhams.Any())
                 {
                     MessageBox.Show("Không có dữ liệu sản phẩm để hiển thị.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
                 }
-                _allSanPhams = sanPhams.Where(sp => sp.TrangThai == 1).ToList(); // Lưu gốc, chỉ active
-                // Áp dụng filter hiện tại (search)
+                _allSanPhams = sanPhams.Where(sp => sp.TrangThai == 1).ToList();
                 await ApplyProductFiltersAsync();
             }
             catch (Exception ex)
@@ -83,154 +85,266 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             }
         }
 
-        // 🔍 Áp dụng search filter (client-side)
         private async Task ApplyProductFiltersAsync()
         {
             string searchKeyword = roundedTextBox1.TextValue?.Trim().ToLower() ?? "";
             var filtered = _allSanPhams.AsEnumerable();
-            // Filter theo search: Partial match trên TenSP và MaSP, ưu tiên exact cho mã
             if (!string.IsNullOrEmpty(searchKeyword))
             {
-                var partialMatches = filtered.Where(sp =>
+                filtered = filtered.Where(sp =>
                     (!string.IsNullOrEmpty(sp.TenSP) && sp.TenSP.ToLower().Contains(searchKeyword)) ||
                     sp.MaSP.ToString().Contains(searchKeyword)
                 ).ToList();
-
-                // Ưu tiên exact match cho mã (add to front if not already in partial)
                 if (int.TryParse(searchKeyword, out int keywordAsInt))
                 {
                     var exactMatch = _allSanPhams.FirstOrDefault(sp => sp.MaSP == keywordAsInt);
-                    if (exactMatch != null)
+                    if (exactMatch != null && !filtered.Contains(exactMatch))
                     {
-                        filtered = partialMatches.Contains(exactMatch)
-                            ? partialMatches.AsEnumerable()
-                            : new[] { exactMatch }.Union(partialMatches).AsEnumerable();
+                        var tempList = new List<SanPham> { exactMatch };
+                        tempList.AddRange(filtered);
+                        filtered = tempList.AsEnumerable();
                     }
-                    else
-                    {
-                        filtered = partialMatches.AsEnumerable();
-                    }
-                }
-                else
-                {
-                    filtered = partialMatches.AsEnumerable();
                 }
             }
             await DisplayProductsAsync(filtered.ToList());
         }
 
-        // Async version: hiển thị danh sách sản phẩm (sử dụng DataGridView) và đánh dấu sản phẩm đã thuộc chương trình khác
         private async Task DisplayProductsAsync(List<SanPham> products)
         {
             dGV_sp_KM_ADD.Rows.Clear();
             checkboxToMaSPMap.Clear();
             _lockedSanPhamIds.Clear();
-
             if (products == null || products.Count == 0)
             {
-                dGV_sp_KM_ADD.Rows.Add();
-                dGV_sp_KM_ADD.Rows[0].Cells["tenSanPham_add"].Value = "Không có sản phẩm nào phù hợp với tìm kiếm.";
-                dGV_sp_KM_ADD.Rows[0].DefaultCellStyle.ForeColor = Color.Gray;
-                dGV_sp_KM_ADD.Rows[0].DefaultCellStyle.Font = new Font(dGV_sp_KM_ADD.DefaultCellStyle.Font, FontStyle.Italic);
-                dGV_sp_KM_ADD.Rows[0].Tag = "dummy";
+                int rowIndex = dGV_sp_KM_ADD.Rows.Add();
+                dGV_sp_KM_ADD.Rows[rowIndex].Cells["tenSanPham_add"].Value = "Không có sản phẩm nào phù hợp với tìm kiếm.";
+                dGV_sp_KM_ADD.Rows[rowIndex].DefaultCellStyle.ForeColor = Color.Gray;
+                dGV_sp_KM_ADD.Rows[rowIndex].DefaultCellStyle.Font = new Font(dGV_sp_KM_ADD.DefaultCellStyle.Font, FontStyle.Italic);
+                dGV_sp_KM_ADD.Rows[rowIndex].Tag = "dummy";
                 return;
             }
 
-            var checkTasks = products.Select(async sp =>
+            try
             {
-                CTKhuyenMai? existingKm = null;
-                try
+                var assocTasks = products.Select(sp => _sanPhamKhuyenMaiService.GetByMaSPAsync(sp.MaSP)).ToArray();
+                var assocResults = await Task.WhenAll(assocTasks);
+
+                var allAssociations = assocResults.Where(x => x != null)
+                                                  .SelectMany(x => x)
+                                                  .ToList();
+
+                var promoIds = allAssociations.Select(a => a.MaCTKhuyenMai).Distinct().ToList();
+                var promoTasks = promoIds.Select(async id =>
                 {
-                    existingKm = await _ctKhuyenMaiService.GetByMaSP(sp.MaSP);
-                }
-                catch (Exception ex)
+                    var km = await _ctKhuyenMai_service.GetByIdRouteAsync(id) ?? await _ctKhuyenMai_service.GetCTKhuyenMaiByIdAsync(id);
+                    return (id, km);
+                }).ToArray();
+
+                var promoResults = await Task.WhenAll(promoTasks);
+                var promoMap = promoResults.Where(r => r.km != null).ToDictionary(r => r.id, r => r.km!);
+
+                var productInfo = products.Select(sp =>
                 {
-                    Debug.WriteLine($"Error fetching KM for MaSP={sp.MaSP}: {ex.Message}");
-                    existingKm = null;
-                }
-                return (sp, existingKm);
-            }).ToArray();
+                    var relatedAssociations = allAssociations.Where(a => a.MaSP == sp.MaSP).ToList();
+                    CTKhuyenMai? activeKm = null;
+                    bool hasAnyPastKm = false;
 
-            var results = await Task.WhenAll(checkTasks);
-
-            foreach (var (sp, existingKm) in results)
-            {
-                var loai = _loais.Find(l => l.MaLoai == sp.MaLoai);
-                int rowIndex = dGV_sp_KM_ADD.Rows.Add();
-
-                var checkCell = dGV_sp_KM_ADD.Rows[rowIndex].Cells["chon_add"] as DataGridViewCheckBoxCell;
-                if (checkCell != null)
-                {
-                    checkCell.Value = false;
-                    // Map only when checkCell exists
-                    checkboxToMaSPMap[checkCell] = sp.MaSP;
-                }
-
-                // Safe assignment of other cells
-                var tenCell = dGV_sp_KM_ADD.Rows[rowIndex].Cells["tenSanPham_add"];
-                if (tenCell != null) tenCell.Value = sp.TenSP;
-                var loaiCell = dGV_sp_KM_ADD.Rows[rowIndex].Cells["loai_add"];
-                if (loaiCell != null) loaiCell.Value = loai?.TenLoai ?? "Không xác định";
-                var maCell = dGV_sp_KM_ADD.Rows[rowIndex].Cells["maSP_add"];
-                if (maCell != null) maCell.Value = sp.MaSP;
-
-                bool isLocked = false;
-                string lockReason = "";
-
-                if (existingKm != null)
-                {
-                    bool isActive = existingKm.TrangThai == 1;
-                    // Defensive check for nullable NgayKetThuc
-                    bool isNotExpired = existingKm.NgayKetThuc.HasValue && existingKm.NgayKetThuc.Value.Date >= DateTime.Today;
-                    if (isActive && isNotExpired)
+                    foreach (var assoc in relatedAssociations)
                     {
-                        isLocked = true;
-                        lockReason = $"Đã thuộc khuyến mãi active: {existingKm.TenCTKhuyenMai}";
+                        if (!promoMap.TryGetValue(assoc.MaCTKhuyenMai, out var km) || km == null) continue;
+
+                        bool isActive = km.TrangThai == 1;
+                        bool notStarted = km.NgayBatDau.HasValue && km.NgayBatDau.Value.Date > DateTime.Today;
+                        bool alreadyEnded = km.NgayKetThuc.HasValue && km.NgayKetThuc.Value.Date < DateTime.Today;
+                        bool isOngoing = isActive && !notStarted && !alreadyEnded;
+
+                        if (isOngoing)
+                        {
+                            activeKm = km;
+                            break;
+                        }
+                        else if (isActive || relatedAssociations.Count > 0)
+                        {
+                            hasAnyPastKm = true;
+                        }
+                    }
+
+                    return (sp, activeKm, hasAnyPastKm);
+                }).ToList();
+
+                foreach (var (sp, activeKm, hasAnyPastKm) in productInfo)
+                {
+                    var loai = _loais.Find(l => l.MaLoai == sp.MaLoai);
+                    int rowIndex = dGV_sp_KM_ADD.Rows.Add();
+                    var checkCell = dGV_sp_KM_ADD.Rows[rowIndex].Cells["chon_add"] as DataGridViewCheckBoxCell;
+
+                    // default unchecked
+                    checkCell.Value = false;
+                    checkboxToMaSPMap[checkCell] = sp.MaSP;
+
+                    dGV_sp_KM_ADD.Rows[rowIndex].Cells["tenSanPham_add"].Value = sp.TenSP;
+                    dGV_sp_KM_ADD.Rows[rowIndex].Cells["loai_add"].Value = loai?.TenLoai ?? "Không xác định";
+                    dGV_sp_KM_ADD.Rows[rowIndex].Cells["maSP_add"].Value = sp.MaSP;
+
+                    bool isLocked = activeKm != null;
+                    string tooltip = "";
+                    if (isLocked)
+                    {
+                        _lockedSanPhamIds.Add(sp.MaSP);
+                        checkCell.ReadOnly = true;
+                        checkCell.Value = false;
+                        tooltip = $"Đã thuộc khuyến mãi active: {activeKm.TenCTKhuyenMai}";
+                        dGV_sp_KM_ADD.Rows[rowIndex].DefaultCellStyle.ForeColor = Color.Gray;
+                        dGV_sp_KM_ADD.Rows[rowIndex].DefaultCellStyle.Font = new Font(dGV_sp_KM_ADD.DefaultCellStyle.Font, FontStyle.Italic);
+                        dGV_sp_KM_ADD.Rows[rowIndex].Tag = "locked";
+                    }
+                    else if (hasAnyPastKm)
+                    {
+                        checkCell.ReadOnly = false;
+                        tooltip = "Đã từng thuộc khuyến mãi (không áp dụng hiện tại)";
+                        dGV_sp_KM_ADD.Rows[rowIndex].Tag = null;
                     }
                     else
                     {
-                        lockReason = existingKm.TrangThai == 0 ? "Khuyến mãi inactive" : "Khuyến mãi đã hết hạn";
+                        checkCell.ReadOnly = false;
+                        dGV_sp_KM_ADD.Rows[rowIndex].Tag = null;
                     }
+                    checkCell.ToolTipText = tooltip;
                 }
 
-                if (isLocked)
+                dGV_sp_KM_ADD.Refresh();
+            }
+            catch
+            {
+                // Fallback to previous per-product approach if batch fetch fails
+                var checkTasks = products.Select(async sp =>
                 {
-                    _lockedSanPhamIds.Add(sp.MaSP);
-                    if (checkCell != null)
+                    List<SanPhamKhuyenMai> associations = new List<SanPhamKhuyenMai>();
+                    CTKhuyenMai? activeKm = null;
+                    bool hasAnyPastKm = false;
+                    try
                     {
+                        associations = await _sanPhamKhuyenMaiService.GetByMaSPAsync(sp.MaSP);
+
+                        foreach (var assoc in associations ?? new List<SanPhamKhuyenMai>())
+                        {
+                            if (assoc == null) continue;
+
+                            CTKhuyenMai? km = await _ctKhuyenMai_service.GetByIdRouteAsync(assoc.MaCTKhuyenMai)
+                                         ?? await _ctKhuyenMai_service.GetCTKhuyenMaiByIdAsync(assoc.MaCTKhuyenMai);
+
+                            if (km == null) continue;
+
+                            bool isActive = km.TrangThai == 1;
+                            bool notStarted = km.NgayBatDau.HasValue && km.NgayBatDau.Value.Date > DateTime.Today;
+                            bool alreadyEnded = km.NgayKetThuc.HasValue && km.NgayKetThuc.Value.Date < DateTime.Today;
+                            bool isOngoing = isActive && !notStarted && !alreadyEnded;
+
+                            if (isOngoing)
+                            {
+                                activeKm = km;
+                                break;
+                            }
+                            else if (isActive || associations.Count > 0)
+                            {
+                                hasAnyPastKm = true;
+                            }
+                        }
+                    }
+                    catch (Exception)
+                    {
+                    }
+
+                    return (sp, activeKm, hasAnyPastKm);
+                }).ToArray();
+
+                var results = await Task.WhenAll(checkTasks);
+                foreach (var (sp, activeKm, hasAnyPastKm) in results)
+                {
+                    var loai = _loais.Find(l => l.MaLoai == sp.MaLoai);
+                    int rowIndex = dGV_sp_KM_ADD.Rows.Add();
+                    var checkCell = dGV_sp_KM_ADD.Rows[rowIndex].Cells["chon_add"] as DataGridViewCheckBoxCell;
+                    checkCell.Value = false;
+                    checkboxToMaSPMap[checkCell] = sp.MaSP;
+                    dGV_sp_KM_ADD.Rows[rowIndex].Cells["tenSanPham_add"].Value = sp.TenSP;
+                    dGV_sp_KM_ADD.Rows[rowIndex].Cells["loai_add"].Value = loai?.TenLoai ?? "Không xác định";
+                    dGV_sp_KM_ADD.Rows[rowIndex].Cells["maSP_add"].Value = sp.MaSP;
+
+                    bool isLocked = activeKm != null;
+                    string tooltip = "";
+                    if (isLocked)
+                    {
+                        _lockedSanPhamIds.Add(sp.MaSP);
                         checkCell.ReadOnly = true;
                         checkCell.Value = false;
-                        checkCell.ToolTipText = lockReason;
+                        tooltip = $"Đã thuộc khuyến mãi active: {activeKm.TenCTKhuyenMai}";
+                        dGV_sp_KM_ADD.Rows[rowIndex].DefaultCellStyle.ForeColor = Color.Gray;
+                        dGV_sp_KM_ADD.Rows[rowIndex].DefaultCellStyle.Font = new Font(dGV_sp_KM_ADD.DefaultCellStyle.Font, FontStyle.Italic);
+                        dGV_sp_KM_ADD.Rows[rowIndex].Tag = "locked";
                     }
-                    dGV_sp_KM_ADD.Rows[rowIndex].DefaultCellStyle.ForeColor = Color.Gray;
-                    dGV_sp_KM_ADD.Rows[rowIndex].DefaultCellStyle.Font = new Font(dGV_sp_KM_ADD.DefaultCellStyle.Font, FontStyle.Italic);
-                    dGV_sp_KM_ADD.Rows[rowIndex].Tag = "locked";
-                    Debug.WriteLine($"SP {sp.MaSP}: LOCKED - {lockReason}");
+                    else if (hasAnyPastKm)
+                    {
+                        checkCell.ReadOnly = false;
+                        tooltip = "Đã từng thuộc khuyến mãi (không áp dụng hiện tại)";
+                        dGV_sp_KM_ADD.Rows[rowIndex].Tag = null;
+                    }
+                    else
+                    {
+                        checkCell.ReadOnly = false;
+                        dGV_sp_KM_ADD.Rows[rowIndex].Tag = null;
+                    }
+                    checkCell.ToolTipText = tooltip;
                 }
-                else
-                {
-                    dGV_sp_KM_ADD.Rows[rowIndex].Tag = null;
-                    if (existingKm != null && checkCell != null)
-                        checkCell.ToolTipText = lockReason + " - Có thể chọn cho khuyến mãi mới.";
-                    Debug.WriteLine($"SP {sp.MaSP}: UNLOCKED - {lockReason}");
-                }
+                dGV_sp_KM_ADD.Refresh();
             }
-
-            dGV_sp_KM_ADD.Refresh();
-            Debug.WriteLine("--- End DisplayProductsAsync ---");
         }
 
-        // 🔍 Tìm kiếm sản phẩm (debounce với timer)
+        private void RoundedComboBox1_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                ApplyComboBoxValue();
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+            }
+        }
+
+        private void RoundedComboBox1_Leave(object? sender, EventArgs e)
+        {
+            ApplyComboBoxValue();
+        }
+
+        private void ApplyComboBoxValue()
+        {
+            var txt = roundedComboBox1.Text?.Trim();
+            if (string.IsNullOrEmpty(txt)) return;
+            if (txt.EndsWith("%")) txt = txt.Substring(0, txt.Length - 1).Trim();
+            if (int.TryParse(txt, out int value))
+            {
+                value = Math.Clamp(value, 0, 100);
+                var normalized = value + "%";
+                roundedComboBox1.Text = normalized;
+                if (!roundedComboBox1.Items.Contains(normalized))
+                    roundedComboBox1.Items.Add(normalized);
+                roundedComboBox1.SelectedItem = normalized;
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng nhập phần trăm hợp lệ (số từ 0 đến 100).", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                roundedComboBox1.Text = "0%";
+            }
+        }
+
         private void roundedTextBox1_TextChanged(object sender, EventArgs e)
         {
             _searchTimer.Stop();
-            _searchTimer.Start(); // Restart timer để debounce
+            _searchTimer.Start();
         }
 
-        private async void SearchTimer_Tick(object sender, EventArgs e)
+        private void SearchTimer_Tick(object sender, EventArgs e)
         {
-            _searchTimer.Stop(); // Dừng timer
-            await ApplyProductFiltersAsync(); // Áp dụng bộ lọc sau khi user dừng gõ
+            _searchTimer.Stop();
+            _ = ApplyProductFiltersAsync();
         }
 
         private void DGV_sp_KM_ADD_CurrentCellDirtyStateChanged(object sender, EventArgs e)
@@ -238,63 +352,130 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             if (dGV_sp_KM_ADD.IsCurrentCellInEditMode && dGV_sp_KM_ADD.CurrentCell.ColumnIndex == dGV_sp_KM_ADD.Columns["chon_add"].Index)
             {
                 dGV_sp_KM_ADD.CommitEdit(DataGridViewDataErrorContexts.Commit);
+                dGV_sp_KM_ADD.EndEdit();
             }
         }
 
         private void DGV_sp_KM_ADD_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == dGV_sp_KM_ADD.Columns["chon_add"].Index && e.RowIndex >= 0)
-            {
-                var checkCell = dGV_sp_KM_ADD.Rows[e.RowIndex].Cells["chon_add"] as DataGridViewCheckBoxCell;
-                bool isChecked = Convert.ToBoolean(checkCell?.EditedFormattedValue ?? false);
-                if (checkBox6.Checked && isChecked)
-                {
-                    checkCell.Value = false;
-                    MessageBox.Show("Vui lòng bỏ chọn 'Chọn tất cả' để chọn sản phẩm cụ thể.", "Thông báo", MessageBoxButtons.OK);
-                }
-            }
-        }
+            if (_suppressSelectAll) return;
 
-        private void checkBox6_CheckedChanged(object sender, EventArgs e)
-        {
-            bool isAllSelected = checkBox6.Checked;
-            foreach (DataGridViewRow row in dGV_sp_KM_ADD.Rows)
+            if (e.RowIndex < 0 || e.ColumnIndex != dGV_sp_KM_ADD.Columns["chon_add"].Index) return;
+            var row = dGV_sp_KM_ADD.Rows[e.RowIndex];
+            if (row.Tag?.ToString() == "dummy") return;
+            var checkCell = row.Cells["chon_add"] as DataGridViewCheckBoxCell;
+            if (checkCell == null) return;
+            bool isChecked = checkCell.Value != null && (bool)checkCell.Value;
+            var maSPValue = row.Cells["maSP_add"]?.Value?.ToString();
+            if (string.IsNullOrEmpty(maSPValue) || !int.TryParse(maSPValue, out int maSP))
             {
-                var checkCell = row.Cells["chon_add"] as DataGridViewCheckBoxCell;
-                bool isExplicitlyLocked = (row.Tag as string) == "locked";
-                if (isExplicitlyLocked)
+                return;
+            }
+            try
+            {
+                if (isChecked)
                 {
-                    checkCell.ReadOnly = true;
-                    checkCell.Value = false; // Ensure locked stay false
+                    if (!_lockedSanPhamIds.Contains(maSP))
+                    {
+                        checkboxToMaSPMap[checkCell] = maSP;
+                    }
                 }
                 else
                 {
-                    checkCell.ReadOnly = isAllSelected; // Disable if "Chọn tất cả" is checked
-                    if (isAllSelected)
-                    {
-                        checkCell.Value = true; // Visually check non-locked
-                    }
-                    // When unchecking checkBox6, optionally uncheck all: checkCell.Value = false;
+                    checkboxToMaSPMap.Remove(checkCell);
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi thay đổi lựa chọn sản phẩm: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        // Helper để lấy list MaSP đã chọn từ DataGridView checkboxes
+        // toggles select-all for AddDiscountForm
+        private void SelectAll_button_Click(object? sender, EventArgs e)
+        {
+            if (_suppressSelectAll) return;
+            _suppressSelectAll = true;
+            try
+            {
+                var selectableIds = _allSanPhams
+                    .Where(sp => !_lockedSanPhamIds.Contains(sp.MaSP))
+                    .Select(sp => sp.MaSP)
+                    .ToList();
+
+                if (!selectableIds.Any())
+                    return;
+
+                var currentlySelected = GetSelectedSanPhamIds();
+                bool allSelected = selectableIds.All(id => currentlySelected.Contains(id));
+
+                if (!allSelected)
+                {
+                    // check all selectable
+                    foreach (DataGridViewRow row in dGV_sp_KM_ADD.Rows)
+                    {
+                        if (row.Tag?.ToString() == "dummy") continue;
+                        if (!int.TryParse(row.Cells["maSP_add"]?.Value?.ToString(), out int maSP)) continue;
+
+                        var checkCell = row.Cells["chon_add"] as DataGridViewCheckBoxCell;
+                        if (checkCell == null) continue;
+
+                        if (_lockedSanPhamIds.Contains(maSP))
+                        {
+                            checkCell.ReadOnly = true;
+                            checkCell.Value = false;
+                            checkboxToMaSPMap.Remove(checkCell);
+                        }
+                        else
+                        {
+                            checkCell.ReadOnly = false;
+                            checkCell.Value = true;
+                            checkboxToMaSPMap[checkCell] = maSP;
+                        }
+                    }
+                }
+                else
+                {
+                    // uncheck all
+                    foreach (DataGridViewRow row in dGV_sp_KM_ADD.Rows)
+                    {
+                        if (row.Tag?.ToString() == "dummy") continue;
+                        var checkCell = row.Cells["chon_add"] as DataGridViewCheckBoxCell;
+                        if (checkCell == null) continue;
+
+                        checkCell.Value = false;
+                        checkboxToMaSPMap.Remove(checkCell);
+                        checkCell.ReadOnly = (row.Tag as string) == "locked";
+                    }
+                }
+
+                dGV_sp_KM_ADD.Refresh();
+            }
+            finally
+            {
+                _suppressSelectAll = false;
+            }
+        }
+
         private List<int> GetSelectedSanPhamIds()
         {
             var selectedIds = new List<int>();
             foreach (DataGridViewRow row in dGV_sp_KM_ADD.Rows)
             {
-                // safe access to the checkbox cell
+                if (row.Tag?.ToString() == "dummy") continue;
                 var checkCell = row.Cells["chon_add"] as DataGridViewCheckBoxCell;
                 if (checkCell == null) continue;
-                bool isChecked = Convert.ToBoolean(checkCell.EditedFormattedValue ?? false);
+                bool isChecked = checkCell.Value != null && (bool)checkCell.Value;
                 if (!isChecked) continue;
-                // Use the actual column name used when filling the grid ("maSP_add")
-                var maCell = row.Cells["maSP_add"];
-                if (maCell?.Value == null) continue;
-                if (int.TryParse(maCell.Value.ToString(), out int maSP))
+                var maSPValue = row.Cells["maSP_add"]?.Value?.ToString();
+                if (string.IsNullOrEmpty(maSPValue) || !int.TryParse(maSPValue, out int maSP))
+                {
+                    continue;
+                }
+                if (!_lockedSanPhamIds.Contains(maSP))
+                {
                     selectedIds.Add(maSP);
+                }
             }
             return selectedIds;
         }
@@ -303,9 +484,8 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
         {
             try
             {
-                // Lấy thông tin từ các control
                 string tenCT = textBox1.Text.Trim();
-                string discountText = roundedComboBox1.SelectedItem?.ToString()?.Replace("%", "") ?? "0";
+                string discountText = roundedComboBox1.SelectedItem?.ToString()?.Replace("%", "") ?? roundedComboBox1.Text?.Replace("%", "") ?? "0";
                 if (!int.TryParse(discountText, out int phanTram) || phanTram < 0 || phanTram > 100)
                 {
                     MessageBox.Show("Phần trăm khuyến mãi phải là số từ 0-100.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -314,40 +494,38 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                 DateTime ngayBatDau = dateTimePicker1.Value;
                 DateTime ngayKetThuc = dateTimePicker2.Value;
                 string moTa = textBox2.Text.Trim();
-                // Kiểm tra dữ liệu đầu vào
                 if (string.IsNullOrEmpty(tenCT))
                 {
                     MessageBox.Show("Vui lòng nhập tên chương trình khuyến mãi.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
+
+                try
+                {
+                    var allKms = await _ctKhuyenMai_service.GetAll();
+                    if (allKms != null && allKms.Any(k => string.Equals(k.TenCTKhuyenMai?.Trim(), tenCT, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        MessageBox.Show("Tên chương trình khuyến mãi đã tồn tại. Vui lòng chọn tên khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Không thể kiểm tra trùng tên khuyến mãi: {ex.Message}\nVui lòng thử lại sau.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 if (ngayBatDau >= ngayKetThuc)
                 {
                     MessageBox.Show("Ngày kết thúc phải lớn hơn ngày bắt đầu.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                // Kiểm tra sản phẩm đã chọn (nếu không chọn "Tất cả")
-                List<int> selectedSanPhamIds;
-                if (checkBox6.Checked)
+                List<int> selectedSanPhamIds = GetSelectedSanPhamIds();
+                if (selectedSanPhamIds.Count == 0)
                 {
-                    // Khi "Chọn tất cả" được check, lấy tất cả sản phẩm active đã tải (_allSanPhams)
-                    // Exclude locked products that already belong to other promotions
-                    selectedSanPhamIds = _allSanPhams.Where(sp => !_lockedSanPhamIds.Contains(sp.MaSP)).Select(sp => sp.MaSP).ToList();
-                    if (selectedSanPhamIds.Count == 0)
-                    {
-                        MessageBox.Show("Không có sản phẩm nào hợp lệ để áp dụng (tất cả sản phẩm đều đang thuộc chương trình khác).", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
+                    MessageBox.Show("Vui lòng chọn ít nhất một sản phẩm.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
-                else
-                {
-                    selectedSanPhamIds = GetSelectedSanPhamIds();
-                    if (selectedSanPhamIds.Count == 0)
-                    {
-                        MessageBox.Show("Vui lòng chọn ít nhất một sản phẩm.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                }
-                // Tạo object CTKhuyenMai
                 var km = new CTKhuyenMai
                 {
                     TenCTKhuyenMai = tenCT,
@@ -357,21 +535,17 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                     PhanTramKhuyenMai = phanTram,
                     TrangThai = 1
                 };
-                // Gọi service để thêm và lấy ID
-                int maCTKhuyenMai = await _ctKhuyenMaiService.AddCTKhuyenMaiAsync(km);
+                int maCTKhuyenMai = await _ctKhuyenMai_service.AddCTKhuyenMaiAsync(km);
                 if (maCTKhuyenMai == 0)
                 {
                     MessageBox.Show("Không thể thêm chương trình khuyến mãi. Vui lòng thử lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
-                Debug.WriteLine("Thêm khuyến mãi thành công với ID: " + maCTKhuyenMai);
-                // Lưu liên kết sản phẩm (nếu có)
                 bool success = true;
                 if (selectedSanPhamIds.Count > 0)
                 {
                     success = await SaveSanPhamKhuyenMaiAsync(maCTKhuyenMai, selectedSanPhamIds);
                 }
-                // Message tùy chỉnh cho sản phẩm khuyến mãi
                 if (success)
                 {
                     string productMsg = selectedSanPhamIds.Count > 0
@@ -383,7 +557,6 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
                 {
                     MessageBox.Show("Thêm chương trình khuyến mãi thành công, nhưng có lỗi khi liên kết sản phẩm. Vui lòng kiểm tra lại.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-                // Reload parent form nếu có
                 if (this.Owner is DiscountForm parentForm)
                 {
                     await parentForm.LoadDiscountsAsync();
@@ -401,7 +574,6 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
         {
             try
             {
-                // Parallelize adds for performance
                 var addTasks = selectedSanPhamIds.Select(async maSP =>
                 {
                     var item = new SanPhamKhuyenMai
@@ -436,7 +608,6 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
 
         private void roundedComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Có thể thêm logic nếu cần
         }
 
         private void roundedTextBox1_KeyDown(object sender, KeyEventArgs e)
@@ -444,7 +615,6 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             if (e.KeyCode == Keys.Enter)
             {
                 _searchTimer.Stop();
-                // Fire-and-forget is acceptable for UI responsiveness; errors are handled internally
                 _ = ApplyProductFiltersAsync();
             }
         }
@@ -453,49 +623,6 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
-        }
-
-        // Accept typed value when user presses Enter
-        private void RoundedComboBox1_KeyDown(object? sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                ApplyComboBoxValue();
-                e.Handled = true;
-                e.SuppressKeyPress = true;
-            }
-        }
-
-        // Also validate/normalize when focus leaves
-        private void RoundedComboBox1_Leave(object? sender, EventArgs e)
-        {
-            ApplyComboBoxValue();
-        }
-
-        // Normalize text to "N%" and optionally add to Items / select it
-        private void ApplyComboBoxValue()
-        {
-            var txt = roundedComboBox1.Text?.Trim();
-            if (string.IsNullOrEmpty(txt)) return;
-            // remove trailing % if present
-            if (txt.EndsWith("%")) txt = txt.Substring(0, txt.Length - 1).Trim();
-            if (int.TryParse(txt, out int value))
-            {
-                // clamp to 0..100
-                value = Math.Clamp(value, 0, 100);
-                var normalized = value + "%";
-                // update combo box display and select item
-                roundedComboBox1.Text = normalized;
-                if (!roundedComboBox1.Items.Contains(normalized))
-                    roundedComboBox1.Items.Add(normalized);
-                roundedComboBox1.SelectedItem = normalized;
-            }
-            else
-            {
-                // invalid input -> reset or notify
-                MessageBox.Show("Vui lòng nhập phần trăm hợp lệ (số từ 0 đến 100).", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                roundedComboBox1.Text = "0%";
-            }
         }
     }
 }

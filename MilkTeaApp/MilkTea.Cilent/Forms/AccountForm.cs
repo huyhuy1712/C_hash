@@ -6,9 +6,11 @@ using MilkTea.Client.Presenters;
 
 namespace MilkTea.Client.Forms
 {
-    public partial class AccountForm : Form, IBaseForm
+    public partial class AccountForm : Form, IAccountForm
     {
         private readonly AccountPresenter _presenter;
+        private List<TaiKhoan> tk;
+        private List<Quyen> q;
 
         public DataGridView Grid => dataGridView1;
         public Label LblStatus => lblStatus;
@@ -19,13 +21,24 @@ namespace MilkTea.Client.Forms
             _presenter = new AccountPresenter(this);
         }
 
+        public void setTaiKhoan(List<TaiKhoan> tk)
+        {
+            this.tk = tk;
+
+        }
+        public void setQuyen(List<Quyen> q)
+        {
+            this.q = q;
+        }
+
         private async void AccountForm_Load(object sender, EventArgs e)
         {
-            await _presenter.LoadDataAsync();
-            
             xoa.Visible = Session.HasPermission("Xóa tài khoản");
             sua.Visible = Session.HasPermission("Sửa tài khoản");
             btnThemAccount.Enabled = Session.HasPermission("Thêm tài khoản");
+
+
+            await _presenter.LoadDataAsync();
         }
 
         private void btnThemAccount_Click(object sender, EventArgs e)
@@ -67,5 +80,6 @@ namespace MilkTea.Client.Forms
             using (var frm = new DanhSachQuyenForm())
                 frm.ShowDialog();
         }
+
     }
 }

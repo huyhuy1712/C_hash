@@ -12,6 +12,11 @@ namespace MilkTea.Client.Presenters
         private readonly NhanVienService _nhanVienService = new();
         private readonly QuyenService _quyenService = new();
         private readonly IBaseForm _form;
+
+        private List<TaiKhoan> listTaiKhoan;
+        private List<Quyen> listQuyen;
+        private List<NhanVien> listNhanVien;
+
         public AccountPresenter(IBaseForm form)
         {
             _form = form;
@@ -63,9 +68,9 @@ namespace MilkTea.Client.Presenters
             var dataGridView1 = _form.Grid;
             try
             {
-                var listTaiKhoan = await _taiKhoanService.GetAccountsAsync();
-                var listNhanVien = await _nhanVienService.GetNhanVienAsync();
-                var listQuyen = await _quyenService.GetQuyensAsync();
+                listTaiKhoan = await _taiKhoanService.GetAccountsAsync();
+                listNhanVien = await _nhanVienService.GetNhanVienAsync();
+                listQuyen = await _quyenService.GetQuyensAsync();
 
                 dataGridView1.Rows.Clear();
                 if (listTaiKhoan != null && listTaiKhoan.Any())
@@ -79,9 +84,22 @@ namespace MilkTea.Client.Presenters
 
                         dataGridView1.Rows[rowIndex].Cells["ID"].Value = tk.MaTK;
                         dataGridView1.Rows[rowIndex].Cells["taiKhoan"].Value = tk.TenTaiKhoan;
-                        dataGridView1.Rows[rowIndex].Cells["hoVaTen"].Value = nv?.TenNV ?? "Chưa có nhân viên";
-                        dataGridView1.Rows[rowIndex].Cells["trangThai"].Value = tk.TrangThai == 1 ? "Hoạt động" : "Khóa";
-                        dataGridView1.Rows[rowIndex].Cells["ngayTao"].Value = DateTime.Now.ToString("dd/MM/yyyy");
+
+                        dataGridView1.Columns[2].DefaultCellStyle.Font = new Font(
+                        dataGridView1.Font, // giữ font mặc định của DataGridView
+                        FontStyle.Bold      // chuyển sang Bold
+                        );
+                        if (tk.TrangThai == 1)
+                        {
+                            dataGridView1.Rows[rowIndex].Cells["trangThai"].Value = "Hoạt động";
+                            dataGridView1.Rows[rowIndex].Cells["trangThai"].Style.ForeColor = Color.Green;
+                        }
+                        else
+                        {
+                            dataGridView1.Rows[rowIndex].Cells["trangThai"].Value = "Khóa";
+                            dataGridView1.Rows[rowIndex].Cells["trangThai"].Style.ForeColor = Color.Red;
+                        }
+
                         dataGridView1.Rows[rowIndex].Cells["quyen"].Value = q.TenQuyen;
                     }
                     lbl.ForeColor = Color.ForestGreen;

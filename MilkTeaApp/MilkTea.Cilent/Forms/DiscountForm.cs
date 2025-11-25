@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -26,7 +27,20 @@ namespace MilkTea.Client.Forms
             // Khởi tạo timer debounce cho reload (500ms delay để tránh gọi API liên tục)
             _searchTimer = new System.Windows.Forms.Timer { Interval = 500 };
             _searchTimer.Tick += SearchTimer_Tick;
+
+            // Wire date pickers so changing date re-applies filters (debounced)
+            dateStart.ValueChanged += DateFilters_ValueChanged;
+            dateEnd.ValueChanged += DateFilters_ValueChanged;
         }
+
+        private void DateFilters_ValueChanged(object? sender, EventArgs e)
+        {
+            // reuse debounce so UI isn't refreshed too aggressively when user picks dates
+            _searchTimer.Stop();
+            _searchTimer.Start();
+        }
+
+       
 
         private async void DiscountForm_Load(object sender, EventArgs e)
         {
@@ -41,6 +55,10 @@ namespace MilkTea.Client.Forms
             // Clear search để tránh filter sai
             roundedTextBox2.TextValue = "";
             roundedTextBox2.Placeholder = "Nhập mã hoặc tên khuyến mãi..."; // Đảm bảo placeholder
+
+            // sensible defaults for date filters (optional)
+            dateStart.Value = DateTime.Today.AddMonths(-1);
+            dateEnd.Value = DateTime.Today;
 
             await LoadDiscountsAsync();
 
@@ -76,24 +94,82 @@ namespace MilkTea.Client.Forms
 
             try
             {
-                using var client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:5198");
+                using var client = new HttpClient { BaseAddress = new Uri("http://localhost:5198") };
+                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
-                var response = await client.GetAsync("/api/ctkhuyenmai");
-                if (!response.IsSuccessStatusCode)
+                // Load all discounts (null-safe)
+                var discounts = await client.GetFromJsonAsync<List<CTKhuyenMai>>("/api/ctkhuyenmai") ?? new List<CTKhuyenMai>();
+                _allDiscounts = discounts;
+
+                // Build filters (LINQ style)
+                string searchKeyword = roundedTextBox2.TextValue?.Trim().ToLower() ?? "";
+                string statusFilter = roundedComboBox2.SelectedItem?.ToString() ?? "Tất cả";
+
+                // Start with base sequence
+                var query = _allDiscounts.AsEnumerable();
+
+                // Always hide soft-deleted items (TrangThai != 1)
+                query = query.Where(d => d.TrangThai == 1);
+
+                // Search filter (supports id exact-priority and partial name match)
+                if (!string.IsNullOrEmpty(searchKeyword))
                 {
-                    MessageBox.Show("Không thể tải danh sách khuyến mãi!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (int.TryParse(searchKeyword, out int keywordId))
+                    {
+                        // Exact id first, then other matches (avoid duplicates)
+                        var byId = query.Where(d => d.MaCTKhuyenMai == keywordId);
+                        var byText = query.Where(d =>
+                            (!string.IsNullOrEmpty(d.TenCTKhuyenMai) && d.TenCTKhuyenMai.ToLower().Contains(searchKeyword)) ||
+                            d.MaCTKhuyenMai.ToString().Contains(searchKeyword));
+                        query = byId.Concat(byText.Where(d => d.MaCTKhuyenMai != keywordId)).Distinct();
+                    }
+                    else
+                    {
+                        query = query.Where(d =>
+                            (!string.IsNullOrEmpty(d.TenCTKhuyenMai) && d.TenCTKhuyenMai.ToLower().Contains(searchKeyword)) ||
+                            d.MaCTKhuyenMai.ToString().Contains(searchKeyword));
+                    }
                 }
 
-                var json = await response.Content.ReadAsStringAsync();
-                _allDiscounts = JsonSerializer.Deserialize<List<CTKhuyenMai>>(json, new JsonSerializerOptions
+                // Status filter (uses date logic)
+                if (statusFilter != "Tất cả")
                 {
-                    PropertyNameCaseInsensitive = true
-                }) ?? new List<CTKhuyenMai>();
+                    DateTime now = DateTime.Now.Date;
+                    query = query.Where(d =>
+                    {
+                        bool isActive = false;
+                        if (d.NgayBatDau.HasValue && d.NgayKetThuc.HasValue)
+                        {
+                            isActive = d.NgayBatDau.Value.Date <= now && now <= d.NgayKetThuc.Value.Date;
+                        }
+                        else if (d.NgayBatDau.HasValue && !d.NgayKetThuc.HasValue)
+                        {
+                            isActive = d.NgayBatDau.Value.Date <= now;
+                        }
+                        return (statusFilter == "Đang hoạt động" && isActive) ||
+                               (statusFilter == "Hết hạn" && !isActive);
+                    });
+                }
 
-                // Áp dụng filter hiện tại (search + status) - Force "Tất cả" nếu cần
-                ApplyFilters();
+                // Date-range filter (use dateStart/dateEnd from Designer)
+                DateTime from = dateStart.Value.Date;
+                DateTime to = dateEnd.Value.Date;
+                if (from > to) // normalize if user selected inverted range
+                {
+                    var tmp = from; from = to; to = tmp;
+                }
+
+                // Keep discounts whose active interval overlaps [from, to]
+                query = query.Where(d =>
+                {
+                    DateTime start = d.NgayBatDau?.Date ?? DateTime.MinValue;
+                    DateTime end = d.NgayKetThuc?.Date ?? DateTime.MaxValue;
+                    return start <= to && end >= from; // overlap test
+                });
+
+                // Materialize and display
+                var result = query.ToList();
+                DisplayDiscounts(result);
             }
             catch (Exception ex)
             {
@@ -159,6 +235,18 @@ namespace MilkTea.Client.Forms
                            (statusFilter == "Hết hạn" && !isActive);
                 });
             }
+
+            // Date-range filter (use dateStart/dateEnd from Designer)
+            DateTime from = dateStart.Value.Date;
+            DateTime to = dateEnd.Value.Date;
+            if (from > to) { var tmp = from; from = to; to = tmp; }
+
+            filtered = filtered.Where(d =>
+            {
+                DateTime start = d.NgayBatDau?.Date ?? DateTime.MinValue;
+                DateTime end = d.NgayKetThuc?.Date ?? DateTime.MaxValue;
+                return start <= to && end >= from; // overlap test
+            });
 
             DisplayDiscounts(filtered.ToList());
         }
