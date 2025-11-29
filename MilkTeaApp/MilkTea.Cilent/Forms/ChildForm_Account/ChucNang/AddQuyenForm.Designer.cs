@@ -37,6 +37,10 @@
             ID = new DataGridViewTextBoxColumn();
             chucNang = new DataGridViewTextBoxColumn();
             chkChucNang = new DataGridViewCheckBoxColumn();
+            canView = new DataGridViewCheckBoxColumn();
+            canAdd = new DataGridViewCheckBoxColumn();
+            canEdit = new DataGridViewCheckBoxColumn();
+            canDelete = new DataGridViewCheckBoxColumn();
             TimKiem = new Panel();
             txtbSearch = new TextBox();
             Button = new Panel();
@@ -105,7 +109,7 @@
             dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.BackgroundColor = SystemColors.Control;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { ID, chucNang, chkChucNang });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { ID, chucNang, chkChucNang, canView, canAdd, canEdit, canDelete });
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(0, 0);
             dataGridView1.Name = "dataGridView1";
@@ -145,6 +149,34 @@
             chkChucNang.SortMode = DataGridViewColumnSortMode.Automatic;
             chkChucNang.TrueValue = "1";
             chkChucNang.Width = 125;
+            // 
+            // canView
+            // 
+            canView.HeaderText = "Xem";
+            canView.MinimumWidth = 6;
+            canView.Name = "canView";
+            canView.Width = 50;
+            // 
+            // canAdd
+            // 
+            canAdd.HeaderText = "Thêm";
+            canAdd.MinimumWidth = 6;
+            canAdd.Name = "canAdd";
+            canAdd.Width = 50;
+            // 
+            // canEdit
+            // 
+            canEdit.HeaderText = "Sửa";
+            canEdit.MinimumWidth = 6;
+            canEdit.Name = "canEdit";
+            canEdit.Width = 50;
+            // 
+            // canDelete
+            // 
+            canDelete.HeaderText = "Xóa";
+            canDelete.MinimumWidth = 6;
+            canDelete.Name = "canDelete";
+            canDelete.Width = 50;
             // 
             // TimKiem
             // 
@@ -354,5 +386,9 @@
         private DataGridViewCheckBoxColumn chkChucNang;
         private ErrorProvider errorProvider1;
         private TextBox txtbSearch;
+        private DataGridViewCheckBoxColumn canView;
+        private DataGridViewCheckBoxColumn canAdd;
+        private DataGridViewCheckBoxColumn canEdit;
+        private DataGridViewCheckBoxColumn canDelete;
     }
 }

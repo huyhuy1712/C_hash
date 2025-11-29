@@ -41,10 +41,10 @@ namespace MilkTea.Client.Forms.ChildForm_Account
 
         public void setQuyen(List<Quyen> q)
         {
-            this.q = q;
+            this.q = q.Where(x => x.TrangThai == 1).ToList();
             cbQuyen.DisplayMember = "TenQuyen";
             cbQuyen.ValueMember = "MaQuyen";
-            cbQuyen.DataSource = q;
+            cbQuyen.DataSource = this.q;
         }
 
         private void btnChonAnh_Click(object sender, EventArgs e)

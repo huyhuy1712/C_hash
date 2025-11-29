@@ -47,6 +47,11 @@ namespace MilkTea.Client.Forms
 
             // 🔍 Gắn sự kiện filter trạng thái (luôn attach, an toàn nếu đã có)
             roundedComboBox2.SelectedIndexChanged += roundedComboBox2_SelectedIndexChanged;
+
+            //Bật tắt các nút theo quyền
+            roundedButton1.Visible = Session.HasPermission("Thêm khuyến mãi");
+            sua.Visible = Session.HasPermission("Sửa khuyến mãi");
+            xoa.Visible = Session.HasPermission("Xóa khuyến mãi");
         }
 
         private async Task btnThemDiscount_ClickAsync(object sender, EventArgs e)

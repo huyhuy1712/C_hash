@@ -75,6 +75,11 @@ namespace MilkTea.Client.Forms
         private async void SupplierForm_Load(object sender, EventArgs e)
         {
             await LoadNhaCungCaps();
+
+            //Bật tắt các nút theo quyền
+            btn_Them_NCC.Visible = Session.HasPermission("Thêm nhà cung cấp");
+            sua_Tb_NCC.Visible = Session.HasPermission("Sửa nhà cung cấp");
+            xoa_Tb_NCC.Visible = Session.HasPermission("Xóa nhà cung cấp");
         }
 
         private void txt_Timkiem_NCC_TextChanged(object sender, EventArgs e)

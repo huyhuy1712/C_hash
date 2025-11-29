@@ -69,9 +69,9 @@
             panel1.Controls.Add(panel2);
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(3, 4, 3, 4);
+            panel1.Margin = new Padding(3, 5, 3, 5);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1684, 703);
+            panel1.Size = new Size(1924, 937);
             panel1.TabIndex = 2;
             // 
             // panel5
@@ -80,11 +80,11 @@
             panel5.Controls.Add(lblStatus_PN);
             panel5.Controls.Add(dGV_nhacungcap);
             panel5.Dock = DockStyle.Fill;
-            panel5.Location = new Point(0, 168);
-            panel5.Margin = new Padding(3, 4, 3, 4);
+            panel5.Location = new Point(0, 224);
+            panel5.Margin = new Padding(3, 5, 3, 5);
             panel5.Name = "panel5";
-            panel5.Padding = new Padding(23, 27, 23, 27);
-            panel5.Size = new Size(1684, 535);
+            panel5.Padding = new Padding(26, 36, 26, 36);
+            panel5.Size = new Size(1924, 713);
             panel5.TabIndex = 3;
             panel5.TabStop = true;
             // 
@@ -92,9 +92,9 @@
             // 
             lblStatus_PN.Dock = DockStyle.Top;
             lblStatus_PN.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblStatus_PN.Location = new Point(23, 428);
+            lblStatus_PN.Location = new Point(26, 571);
             lblStatus_PN.Name = "lblStatus_PN";
-            lblStatus_PN.Size = new Size(1638, 23);
+            lblStatus_PN.Size = new Size(1872, 31);
             lblStatus_PN.TabIndex = 1;
             lblStatus_PN.TextAlign = ContentAlignment.BottomLeft;
             // 
@@ -109,12 +109,12 @@
             dGV_nhacungcap.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dGV_nhacungcap.Columns.AddRange(new DataGridViewColumn[] { ma_Tb_NCC, ten_Tb_NCC, sdt_Tb_NCC, diachi_Tb_NCC, sua_Tb_NCC, xoa_Tb_NCC });
             dGV_nhacungcap.Dock = DockStyle.Top;
-            dGV_nhacungcap.Location = new Point(23, 27);
-            dGV_nhacungcap.Margin = new Padding(3, 4, 3, 4);
+            dGV_nhacungcap.Location = new Point(26, 36);
+            dGV_nhacungcap.Margin = new Padding(3, 5, 3, 5);
             dGV_nhacungcap.Name = "dGV_nhacungcap";
             dGV_nhacungcap.RowHeadersVisible = false;
             dGV_nhacungcap.RowHeadersWidth = 51;
-            dGV_nhacungcap.Size = new Size(1638, 401);
+            dGV_nhacungcap.Size = new Size(1872, 535);
             dGV_nhacungcap.TabIndex = 0;
             dGV_nhacungcap.CellClick += dGV_nhacungcap_CellClick;
             // 
@@ -150,6 +150,7 @@
             // 
             sua_Tb_NCC.HeaderText = "Sửa";
             sua_Tb_NCC.Image = Properties.Resources.edit;
+            sua_Tb_NCC.MinimumWidth = 6;
             sua_Tb_NCC.Name = "sua_Tb_NCC";
             sua_Tb_NCC.Width = 125;
             // 
@@ -171,10 +172,10 @@
             // 
             panel4.Controls.Add(label2);
             panel4.Dock = DockStyle.Top;
-            panel4.Location = new Point(0, 111);
-            panel4.Margin = new Padding(3, 4, 3, 4);
+            panel4.Location = new Point(0, 148);
+            panel4.Margin = new Padding(3, 5, 3, 5);
             panel4.Name = "panel4";
-            panel4.Size = new Size(1684, 57);
+            panel4.Size = new Size(1924, 76);
             panel4.TabIndex = 2;
             // 
             // label2
@@ -184,7 +185,7 @@
             label2.ForeColor = Color.DodgerBlue;
             label2.Location = new Point(0, 0);
             label2.Name = "label2";
-            label2.Size = new Size(1684, 57);
+            label2.Size = new Size(1924, 76);
             label2.TabIndex = 1;
             label2.Text = "Danh Sách Nhà Cung Cấp";
             label2.TextAlign = ContentAlignment.MiddleCenter;
@@ -195,10 +196,10 @@
             panel3.Controls.Add(panel7);
             panel3.Controls.Add(panel6);
             panel3.Dock = DockStyle.Top;
-            panel3.Location = new Point(0, 57);
-            panel3.Margin = new Padding(3, 4, 3, 4);
+            panel3.Location = new Point(0, 76);
+            panel3.Margin = new Padding(3, 5, 3, 5);
             panel3.Name = "panel3";
-            panel3.Size = new Size(1684, 54);
+            panel3.Size = new Size(1924, 72);
             panel3.TabIndex = 1;
             // 
             // panel7
@@ -206,20 +207,22 @@
             panel7.Controls.Add(txt_Timkiem_NCC);
             panel7.Controls.Add(panel8);
             panel7.Dock = DockStyle.Right;
-            panel7.Location = new Point(1200, 0);
+            panel7.Location = new Point(1371, 0);
+            panel7.Margin = new Padding(3, 4, 3, 4);
             panel7.Name = "panel7";
-            panel7.Padding = new Padding(9, 8, 9, 8);
-            panel7.Size = new Size(484, 54);
+            panel7.Padding = new Padding(10, 11, 10, 11);
+            panel7.Size = new Size(553, 72);
             panel7.TabIndex = 1;
             // 
             // txt_Timkiem_NCC
             // 
             txt_Timkiem_NCC.Dock = DockStyle.Left;
             txt_Timkiem_NCC.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txt_Timkiem_NCC.Location = new Point(9, 8);
+            txt_Timkiem_NCC.Location = new Point(10, 11);
+            txt_Timkiem_NCC.Margin = new Padding(3, 4, 3, 4);
             txt_Timkiem_NCC.Name = "txt_Timkiem_NCC";
             txt_Timkiem_NCC.PlaceholderText = "Tìm kiếm...";
-            txt_Timkiem_NCC.Size = new Size(274, 39);
+            txt_Timkiem_NCC.Size = new Size(313, 47);
             txt_Timkiem_NCC.TabIndex = 3;
             txt_Timkiem_NCC.TextChanged += txt_Timkiem_NCC_TextChanged;
             // 
@@ -227,9 +230,10 @@
             // 
             panel8.Controls.Add(cbo_timkiemtheo_NCC);
             panel8.Dock = DockStyle.Right;
-            panel8.Location = new Point(324, 8);
+            panel8.Location = new Point(370, 11);
+            panel8.Margin = new Padding(3, 4, 3, 4);
             panel8.Name = "panel8";
-            panel8.Size = new Size(151, 38);
+            panel8.Size = new Size(173, 50);
             panel8.TabIndex = 2;
             // 
             // cbo_timkiemtheo_NCC
@@ -247,8 +251,9 @@
             cbo_timkiemtheo_NCC.FormattingEnabled = true;
             cbo_timkiemtheo_NCC.ItemHeight = 30;
             cbo_timkiemtheo_NCC.Location = new Point(0, 0);
+            cbo_timkiemtheo_NCC.Margin = new Padding(3, 4, 3, 4);
             cbo_timkiemtheo_NCC.Name = "cbo_timkiemtheo_NCC";
-            cbo_timkiemtheo_NCC.Size = new Size(151, 36);
+            cbo_timkiemtheo_NCC.Size = new Size(173, 36);
             cbo_timkiemtheo_NCC.TabIndex = 0;
             // 
             // panel6
@@ -256,9 +261,10 @@
             panel6.Controls.Add(btn_Them_NCC);
             panel6.Dock = DockStyle.Left;
             panel6.Location = new Point(0, 0);
+            panel6.Margin = new Padding(3, 4, 3, 4);
             panel6.Name = "panel6";
-            panel6.Padding = new Padding(5, 7, 5, 7);
-            panel6.Size = new Size(306, 54);
+            panel6.Padding = new Padding(6, 9, 6, 9);
+            panel6.Size = new Size(350, 72);
             panel6.TabIndex = 0;
             // 
             // btn_Them_NCC
@@ -272,9 +278,10 @@
             btn_Them_NCC.FlatStyle = FlatStyle.Flat;
             btn_Them_NCC.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btn_Them_NCC.ForeColor = Color.White;
-            btn_Them_NCC.Location = new Point(5, 7);
+            btn_Them_NCC.Location = new Point(6, 9);
+            btn_Them_NCC.Margin = new Padding(3, 4, 3, 4);
             btn_Them_NCC.Name = "btn_Them_NCC";
-            btn_Them_NCC.Size = new Size(139, 40);
+            btn_Them_NCC.Size = new Size(159, 54);
             btn_Them_NCC.TabIndex = 0;
             btn_Them_NCC.Text = "Thêm";
             btn_Them_NCC.UseVisualStyleBackColor = false;
@@ -285,9 +292,9 @@
             panel2.Controls.Add(label1);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
-            panel2.Margin = new Padding(3, 4, 3, 4);
+            panel2.Margin = new Padding(3, 5, 3, 5);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1684, 57);
+            panel2.Size = new Size(1924, 76);
             panel2.TabIndex = 0;
             // 
             // label1
@@ -297,18 +304,17 @@
             label1.ForeColor = Color.DodgerBlue;
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
-            label1.Size = new Size(1684, 57);
+            label1.Size = new Size(1924, 76);
             label1.TabIndex = 0;
             label1.Text = "Nhà Cung Cấp";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // SupplierForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1684, 703);
+            ClientSize = new Size(1924, 937);
             Controls.Add(panel1);
-            Margin = new Padding(3, 2, 3, 2);
             Name = "SupplierForm";
             Text = "SupplierForm";
             Load += SupplierForm_Load;
