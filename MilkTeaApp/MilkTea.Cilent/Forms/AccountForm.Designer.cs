@@ -40,19 +40,14 @@ namespace MilkTea.Client.Forms
             label2 = new Label();
             ButtonQuyen = new Panel();
             btnDanhSachQuyen = new MilkTea.Client.Controls.RoundedButton();
-            Order = new Panel();
-            roundedComboBox1 = new MilkTea.Client.Controls.RoundedComboBox();
-            SearchFilter = new Panel();
-            roundedComboBox2 = new MilkTea.Client.Controls.RoundedComboBox();
             SearchBox = new Panel();
             Search = new MilkTea.Client.Controls.RoundedTextBox();
+            SearchFilter = new Panel();
+            cbSearchFilter = new ComboBox();
             ButtonThem = new Panel();
             btnThemAccount = new MilkTea.Client.Controls.RoundedButton();
             panel5 = new Panel();
             dataGridView1 = new DataGridView();
-            panel3 = new Panel();
-            lblStatus = new Label();
-            panel1 = new Panel();
             ID = new DataGridViewTextBoxColumn();
             taiKhoan = new DataGridViewTextBoxColumn();
             trangThai = new DataGridViewTextBoxColumn();
@@ -60,6 +55,9 @@ namespace MilkTea.Client.Forms
             chiTiet = new DataGridViewImageColumn();
             sua = new DataGridViewImageColumn();
             khoa = new DataGridViewImageColumn();
+            panel3 = new Panel();
+            lblStatus = new Label();
+            panel1 = new Panel();
             panel2 = new Panel();
             panel4 = new Panel();
             Tool = new Panel();
@@ -68,9 +66,8 @@ namespace MilkTea.Client.Forms
             panel4.SuspendLayout();
             Tool.SuspendLayout();
             ButtonQuyen.SuspendLayout();
-            Order.SuspendLayout();
-            SearchFilter.SuspendLayout();
             SearchBox.SuspendLayout();
+            SearchFilter.SuspendLayout();
             ButtonThem.SuspendLayout();
             Table.SuspendLayout();
             panel5.SuspendLayout();
@@ -128,9 +125,8 @@ namespace MilkTea.Client.Forms
             Tool.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             Tool.BackColor = SystemColors.ActiveBorder;
             Tool.Controls.Add(ButtonQuyen);
-            Tool.Controls.Add(Order);
-            Tool.Controls.Add(SearchFilter);
             Tool.Controls.Add(SearchBox);
+            Tool.Controls.Add(SearchFilter);
             Tool.Controls.Add(ButtonThem);
             Tool.Dock = DockStyle.Top;
             Tool.Location = new Point(0, 100);
@@ -143,9 +139,9 @@ namespace MilkTea.Client.Forms
             // 
             ButtonQuyen.Controls.Add(btnDanhSachQuyen);
             ButtonQuyen.Dock = DockStyle.Top;
-            ButtonQuyen.Location = new Point(773, 29);
+            ButtonQuyen.Location = new Point(611, 29);
             ButtonQuyen.Name = "ButtonQuyen";
-            ButtonQuyen.Size = new Size(864, 40);
+            ButtonQuyen.Size = new Size(1026, 40);
             ButtonQuyen.TabIndex = 16;
             // 
             // btnDanhSachQuyen
@@ -159,7 +155,7 @@ namespace MilkTea.Client.Forms
             btnDanhSachQuyen.FlatStyle = FlatStyle.Flat;
             btnDanhSachQuyen.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnDanhSachQuyen.ForeColor = Color.White;
-            btnDanhSachQuyen.Location = new Point(661, 0);
+            btnDanhSachQuyen.Location = new Point(823, 0);
             btnDanhSachQuyen.Name = "btnDanhSachQuyen";
             btnDanhSachQuyen.Size = new Size(203, 40);
             btnDanhSachQuyen.TabIndex = 4;
@@ -167,68 +163,11 @@ namespace MilkTea.Client.Forms
             btnDanhSachQuyen.UseVisualStyleBackColor = false;
             btnDanhSachQuyen.Click += btnDanhSachQuyen_Click;
             // 
-            // Order
-            // 
-            Order.Controls.Add(roundedComboBox1);
-            Order.Dock = DockStyle.Left;
-            Order.Location = new Point(611, 29);
-            Order.Name = "Order";
-            Order.Size = new Size(162, 42);
-            Order.TabIndex = 15;
-            // 
-            // roundedComboBox1
-            // 
-            roundedComboBox1.BackColor = Color.White;
-            roundedComboBox1.BorderColor = Color.Gray;
-            roundedComboBox1.BorderRadius = 15;
-            roundedComboBox1.BorderSize = 1;
-            roundedComboBox1.Dock = DockStyle.Left;
-            roundedComboBox1.DrawMode = DrawMode.OwnerDrawFixed;
-            roundedComboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            roundedComboBox1.FlatStyle = FlatStyle.Flat;
-            roundedComboBox1.FocusBorderColor = Color.DeepSkyBlue;
-            roundedComboBox1.Font = new Font("Segoe UI", 10F);
-            roundedComboBox1.FormattingEnabled = true;
-            roundedComboBox1.ItemHeight = 30;
-            roundedComboBox1.Location = new Point(0, 0);
-            roundedComboBox1.Name = "roundedComboBox1";
-            roundedComboBox1.Size = new Size(150, 36);
-            roundedComboBox1.TabIndex = 2;
-            // 
-            // SearchFilter
-            // 
-            SearchFilter.Controls.Add(roundedComboBox2);
-            SearchFilter.Dock = DockStyle.Left;
-            SearchFilter.Location = new Point(441, 29);
-            SearchFilter.Name = "SearchFilter";
-            SearchFilter.Size = new Size(170, 42);
-            SearchFilter.TabIndex = 14;
-            // 
-            // roundedComboBox2
-            // 
-            roundedComboBox2.BackColor = Color.White;
-            roundedComboBox2.BorderColor = Color.Gray;
-            roundedComboBox2.BorderRadius = 15;
-            roundedComboBox2.BorderSize = 1;
-            roundedComboBox2.Dock = DockStyle.Left;
-            roundedComboBox2.DrawMode = DrawMode.OwnerDrawFixed;
-            roundedComboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
-            roundedComboBox2.FlatStyle = FlatStyle.Flat;
-            roundedComboBox2.FocusBorderColor = Color.DeepSkyBlue;
-            roundedComboBox2.Font = new Font("Segoe UI", 10F);
-            roundedComboBox2.FormattingEnabled = true;
-            roundedComboBox2.ItemHeight = 30;
-            roundedComboBox2.Items.AddRange(new object[] { "Cũ Nhất", "Mới Nhất" });
-            roundedComboBox2.Location = new Point(0, 0);
-            roundedComboBox2.Name = "roundedComboBox2";
-            roundedComboBox2.Size = new Size(150, 36);
-            roundedComboBox2.TabIndex = 3;
-            // 
             // SearchBox
             // 
             SearchBox.Controls.Add(Search);
             SearchBox.Dock = DockStyle.Left;
-            SearchBox.Location = new Point(171, 29);
+            SearchBox.Location = new Point(341, 29);
             SearchBox.Name = "SearchBox";
             SearchBox.Size = new Size(270, 42);
             SearchBox.TabIndex = 13;
@@ -240,6 +179,7 @@ namespace MilkTea.Client.Forms
             Search.BorderRadius = 20;
             Search.Dock = DockStyle.Left;
             Search.FocusBorderColor = Color.DeepSkyBlue;
+            Search.Font = new Font("Segoe UI", 14F);
             Search.Location = new Point(0, 0);
             Search.Name = "Search";
             Search.Padding = new Padding(10, 5, 40, 5);
@@ -247,6 +187,28 @@ namespace MilkTea.Client.Forms
             Search.Size = new Size(250, 42);
             Search.TabIndex = 1;
             Search.TextValue = "";
+            Search.KeyUp += Search_KeyUp;
+            // 
+            // SearchFilter
+            // 
+            SearchFilter.Controls.Add(cbSearchFilter);
+            SearchFilter.Dock = DockStyle.Left;
+            SearchFilter.Location = new Point(171, 29);
+            SearchFilter.Name = "SearchFilter";
+            SearchFilter.Size = new Size(170, 42);
+            SearchFilter.TabIndex = 14;
+            // 
+            // cbSearchFilter
+            // 
+            cbSearchFilter.Dock = DockStyle.Left;
+            cbSearchFilter.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbSearchFilter.Font = new Font("Segoe UI", 14.8F);
+            cbSearchFilter.FormattingEnabled = true;
+            cbSearchFilter.Location = new Point(0, 0);
+            cbSearchFilter.Name = "cbSearchFilter";
+            cbSearchFilter.Size = new Size(151, 43);
+            cbSearchFilter.TabIndex = 0;
+            cbSearchFilter.SelectedIndexChanged += cbSearchFilter_SelectedIndexChanged;
             // 
             // ButtonThem
             // 
@@ -316,38 +278,6 @@ namespace MilkTea.Client.Forms
             dataGridView1.Size = new Size(1616, 197);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellClick += dataGridView1_CellClick;
-            // 
-            // panel3
-            // 
-            panel3.BackColor = Color.Transparent;
-            panel3.Controls.Add(lblStatus);
-            panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(21, 217);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(1616, 31);
-            panel3.TabIndex = 1;
-            // 
-            // lblStatus
-            // 
-            lblStatus.Dock = DockStyle.Fill;
-            lblStatus.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblStatus.Location = new Point(0, 0);
-            lblStatus.Name = "lblStatus";
-            lblStatus.Size = new Size(1616, 31);
-            lblStatus.TabIndex = 0;
-            lblStatus.TextAlign = ContentAlignment.BottomLeft;
-            // 
-            // panel1
-            // 
-            panel1.Controls.Add(Table);
-            panel1.Controls.Add(panel4);
-            panel1.Controls.Add(Tool);
-            panel1.Controls.Add(panel2);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1658, 519);
-            panel1.TabIndex = 0;
             // 
             // ID
             // 
@@ -436,6 +366,38 @@ namespace MilkTea.Client.Forms
             khoa.Resizable = DataGridViewTriState.False;
             khoa.Width = 75;
             // 
+            // panel3
+            // 
+            panel3.BackColor = Color.Transparent;
+            panel3.Controls.Add(lblStatus);
+            panel3.Dock = DockStyle.Bottom;
+            panel3.Location = new Point(21, 217);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(1616, 31);
+            panel3.TabIndex = 1;
+            // 
+            // lblStatus
+            // 
+            lblStatus.Dock = DockStyle.Fill;
+            lblStatus.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblStatus.Location = new Point(0, 0);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(1616, 31);
+            lblStatus.TabIndex = 0;
+            lblStatus.TextAlign = ContentAlignment.BottomLeft;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(Table);
+            panel1.Controls.Add(panel4);
+            panel1.Controls.Add(Tool);
+            panel1.Controls.Add(panel2);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1658, 519);
+            panel1.TabIndex = 0;
+            // 
             // AccountForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -448,9 +410,8 @@ namespace MilkTea.Client.Forms
             panel4.ResumeLayout(false);
             Tool.ResumeLayout(false);
             ButtonQuyen.ResumeLayout(false);
-            Order.ResumeLayout(false);
-            SearchFilter.ResumeLayout(false);
             SearchBox.ResumeLayout(false);
+            SearchFilter.ResumeLayout(false);
             ButtonThem.ResumeLayout(false);
             Table.ResumeLayout(false);
             panel5.ResumeLayout(false);
@@ -494,5 +455,7 @@ namespace MilkTea.Client.Forms
         private DataGridViewImageColumn sua;
         private DataGridViewImageColumn khoa;
         private DataGridViewImageColumn xoa;
+        private ComboBox comboBox1;
+        private ComboBox cbSearchFilter;
     }
 }

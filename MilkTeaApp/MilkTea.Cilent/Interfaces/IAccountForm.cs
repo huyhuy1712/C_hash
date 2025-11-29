@@ -7,5 +7,6 @@ namespace MilkTea.Client.Interfaces
     {
         void setTaiKhoan(List<TaiKhoan> tk);
         void setQuyen(List<Quyen> q);
+        ComboBox CbSearchFilter { get; }
     }
 }
