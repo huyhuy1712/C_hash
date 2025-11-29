@@ -14,6 +14,7 @@ namespace MilkTea.Client.Forms
 
         public DataGridView Grid => dataGridView1;
         public Label LblStatus => lblStatus;
+        public ComboBox CbSearchFilter => cbSearchFilter;
 
         public AccountForm()
         {
@@ -78,5 +79,14 @@ namespace MilkTea.Client.Forms
                 frm.ShowDialog();
         }
 
+        private void Search_KeyUp(object sender, KeyEventArgs e)
+        {
+            _presenter.Search(cbSearchFilter.SelectedValue.ToString(), Search.Text.Trim().Replace("'", "''"));
+        }
+
+        private void cbSearchFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _presenter.Search(cbSearchFilter.SelectedValue.ToString(), Search.Text.Trim().Replace("'", "''"));
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using MilkTea.Client.Forms.ChildForm_Account;
+﻿using Microsoft.VisualBasic.Devices;
+using MilkTea.Client.Forms.ChildForm_Account;
 using MilkTea.Client.Forms.ChildForm_Account.Account;
 using MilkTea.Client.Interfaces;
 using MilkTea.Client.Models;
@@ -14,13 +15,13 @@ namespace MilkTea.Client.Presenters
         private readonly AccountService _taiKhoanService = new();
         private readonly NhanVienService _nhanVienService = new();
         private readonly QuyenService _quyenService = new();
-        private readonly IBaseForm _form;
+        private readonly IAccountForm _form;
 
         private List<TaiKhoan> listTaiKhoan;
         private List<Quyen> listQuyen;
         private List<NhanVien> listNhanVien;
 
-        public AccountPresenter(IBaseForm form)
+        public AccountPresenter(IAccountForm form)
         {
             _form = form;
         }
@@ -95,8 +96,50 @@ namespace MilkTea.Client.Presenters
             }
         }
 
+        private class SearchOption
+        {
+            public string? Name { get; set; }
+            public string? HeaderText { get; set; }
+        }
+
+
+        private void LoadSearchColumns()
+        {
+            int count = 0;
+
+            List<SearchOption> options = new List<SearchOption>
+            {
+                new SearchOption { Name = "ID",        HeaderText = "ID" },
+                new SearchOption { Name = "taiKhoan", HeaderText = "Tài Khoản" },
+                new SearchOption { Name = "trangThai", HeaderText = "Trạng Thái" },
+                new SearchOption { Name = "quyen",    HeaderText = "Quyền" }
+            };
+            _form.CbSearchFilter.DisplayMember = "HeaderText";
+            _form.CbSearchFilter.ValueMember = "Name";
+            _form.CbSearchFilter.DataSource = options;
+            _form.CbSearchFilter.SelectedIndex = 0;                
+        }
+
+        public void Search(string column, string keyword)
+        {
+            foreach (DataGridViewRow row in _form.Grid.Rows)
+            {
+                if (row.Cells[column].Value != null &&
+                    row.Cells[column].Value.ToString().ToLower().Contains(keyword))
+                {
+                    row.Visible = true;
+                }
+                else
+                {
+                    row.Visible = false;
+                }
+            }
+        }
+
         public async Task LoadDataAsync()
         {
+            LoadSearchColumns();
+
             var grid = _form.Grid;
             var lbl = _form.LblStatus;
 
