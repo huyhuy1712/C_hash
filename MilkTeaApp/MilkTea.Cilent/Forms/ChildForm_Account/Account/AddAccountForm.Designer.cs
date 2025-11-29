@@ -71,7 +71,6 @@
             right = new Panel();
             panel18 = new Panel();
             pictureBox1 = new PictureBox();
-            panel10 = new Panel();
             panel15 = new Panel();
             btnChonAnh = new MilkTea.Client.Controls.RoundedButton();
             panel19 = new Panel();
@@ -542,7 +541,6 @@
             // right
             // 
             right.Controls.Add(panel18);
-            right.Controls.Add(panel10);
             right.Controls.Add(panel15);
             right.Dock = DockStyle.Right;
             right.Location = new Point(548, 0);
@@ -554,10 +552,10 @@
             // panel18
             // 
             panel18.Controls.Add(pictureBox1);
-            panel18.Dock = DockStyle.Bottom;
-            panel18.Location = new Point(0, 221);
+            panel18.Dock = DockStyle.Fill;
+            panel18.Location = new Point(0, 0);
             panel18.Name = "panel18";
-            panel18.Size = new Size(202, 212);
+            panel18.Size = new Size(202, 502);
             panel18.TabIndex = 3;
             // 
             // pictureBox1
@@ -565,18 +563,10 @@
             pictureBox1.Dock = DockStyle.Fill;
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(202, 212);
+            pictureBox1.Size = new Size(202, 502);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
-            // 
-            // panel10
-            // 
-            panel10.Dock = DockStyle.Bottom;
-            panel10.Location = new Point(0, 433);
-            panel10.Name = "panel10";
-            panel10.Size = new Size(202, 69);
-            panel10.TabIndex = 4;
             // 
             // panel15
             // 

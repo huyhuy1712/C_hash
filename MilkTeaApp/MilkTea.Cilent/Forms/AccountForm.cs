@@ -33,7 +33,6 @@ namespace MilkTea.Client.Forms
 
         private async void AccountForm_Load(object sender, EventArgs e)
         {
-            xoa.Visible = Session.HasPermission("Xóa tài khoản");
             sua.Visible = Session.HasPermission("Sửa tài khoản");
             btnThemAccount.Enabled = Session.HasPermission("Thêm tài khoản");
 
@@ -62,15 +61,13 @@ namespace MilkTea.Client.Forms
             switch (columnName)
             {
                 case "sua":
-                    _presenter.EditAccount(Convert.ToInt32(id));
+                    _presenter.EditAccount(id);
                     break;
-
                 case "chiTiet":
                     _presenter.ViewAccount(id);
                     break;
-
-                case "xoa":
-                    _presenter.DeleteAccount(id);
+                case "khoa":
+                    _presenter.LockAccount(id);
                     break;
             }
         }

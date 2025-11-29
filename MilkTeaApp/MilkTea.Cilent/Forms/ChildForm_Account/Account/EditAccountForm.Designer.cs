@@ -37,6 +37,12 @@
             btnThoatTTK = new MilkTea.Client.Controls.RoundedButton();
             middle = new Panel();
             left = new Panel();
+            panel2 = new Panel();
+            panel5 = new Panel();
+            panel25 = new Panel();
+            btnTrangThai = new MilkTea.Client.Controls.ToggleButton();
+            panel6 = new Panel();
+            label3 = new Label();
             panel13 = new Panel();
             panel16 = new Panel();
             txtbDuongDanAnh = new TextBox();
@@ -66,7 +72,6 @@
             right = new Panel();
             panel18 = new Panel();
             pictureBox1 = new PictureBox();
-            panel10 = new Panel();
             panel15 = new Panel();
             btnChonAnh = new MilkTea.Client.Controls.RoundedButton();
             panel19 = new Panel();
@@ -79,6 +84,10 @@
             panel14.SuspendLayout();
             middle.SuspendLayout();
             left.SuspendLayout();
+            panel2.SuspendLayout();
+            panel5.SuspendLayout();
+            panel25.SuspendLayout();
+            panel6.SuspendLayout();
             panel13.SuspendLayout();
             panel16.SuspendLayout();
             panel17.SuspendLayout();
@@ -191,11 +200,12 @@
             middle.Dock = DockStyle.Top;
             middle.Location = new Point(20, 20);
             middle.Name = "middle";
-            middle.Size = new Size(760, 460);
+            middle.Size = new Size(760, 550);
             middle.TabIndex = 1;
             // 
             // left
             // 
+            left.Controls.Add(panel2);
             left.Controls.Add(panel13);
             left.Controls.Add(panel22);
             left.Controls.Add(panel11);
@@ -204,8 +214,73 @@
             left.Dock = DockStyle.Fill;
             left.Location = new Point(0, 0);
             left.Name = "left";
-            left.Size = new Size(548, 460);
+            left.Size = new Size(548, 550);
             left.TabIndex = 12;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(panel5);
+            panel2.Controls.Add(panel6);
+            panel2.Dock = DockStyle.Top;
+            panel2.Location = new Point(0, 450);
+            panel2.Name = "panel2";
+            panel2.Padding = new Padding(10, 0, 0, 0);
+            panel2.Size = new Size(548, 90);
+            panel2.TabIndex = 8;
+            // 
+            // panel5
+            // 
+            panel5.Controls.Add(panel25);
+            panel5.Dock = DockStyle.Top;
+            panel5.Location = new Point(10, 50);
+            panel5.Name = "panel5";
+            panel5.Padding = new Padding(0, 0, 30, 0);
+            panel5.Size = new Size(538, 40);
+            panel5.TabIndex = 3;
+            // 
+            // panel25
+            // 
+            panel25.Controls.Add(btnTrangThai);
+            panel25.Dock = DockStyle.Left;
+            panel25.Location = new Point(0, 0);
+            panel25.Name = "panel25";
+            panel25.Size = new Size(123, 40);
+            panel25.TabIndex = 1;
+            // 
+            // btnTrangThai
+            // 
+            btnTrangThai.Dock = DockStyle.Fill;
+            btnTrangThai.Location = new Point(0, 0);
+            btnTrangThai.MinimumSize = new Size(45, 22);
+            btnTrangThai.Name = "btnTrangThai";
+            btnTrangThai.OffBackColor = Color.Gray;
+            btnTrangThai.OffToggleColor = Color.White;
+            btnTrangThai.OnBackColor = Color.MediumSlateBlue;
+            btnTrangThai.OnToggleColor = Color.White;
+            btnTrangThai.Size = new Size(123, 40);
+            btnTrangThai.TabIndex = 0;
+            btnTrangThai.Text = "toggleButton1";
+            btnTrangThai.UseVisualStyleBackColor = true;
+            // 
+            // panel6
+            // 
+            panel6.Controls.Add(label3);
+            panel6.Dock = DockStyle.Top;
+            panel6.Location = new Point(10, 0);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(538, 50);
+            panel6.TabIndex = 2;
+            // 
+            // label3
+            // 
+            label3.Dock = DockStyle.Fill;
+            label3.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Location = new Point(0, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(538, 50);
+            label3.TabIndex = 0;
+            label3.Text = "Trạng Thái";
+            label3.TextAlign = ContentAlignment.BottomLeft;
             // 
             // panel13
             // 
@@ -482,48 +557,40 @@
             // right
             // 
             right.Controls.Add(panel18);
-            right.Controls.Add(panel10);
             right.Controls.Add(panel15);
             right.Dock = DockStyle.Right;
             right.Location = new Point(548, 0);
             right.Name = "right";
             right.Padding = new Padding(0, 0, 10, 10);
-            right.Size = new Size(212, 460);
+            right.Size = new Size(212, 550);
             right.TabIndex = 11;
             // 
             // panel18
             // 
             panel18.Controls.Add(pictureBox1);
-            panel18.Dock = DockStyle.Bottom;
-            panel18.Location = new Point(0, 129);
+            panel18.Dock = DockStyle.Fill;
+            panel18.Location = new Point(0, 0);
             panel18.Name = "panel18";
-            panel18.Size = new Size(202, 212);
+            panel18.Size = new Size(202, 500);
             panel18.TabIndex = 3;
             // 
             // pictureBox1
             // 
             pictureBox1.Dock = DockStyle.Fill;
+            pictureBox1.Image = Properties.Resources.circle_user;
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(202, 212);
+            pictureBox1.Size = new Size(202, 500);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
-            // 
-            // panel10
-            // 
-            panel10.Dock = DockStyle.Bottom;
-            panel10.Location = new Point(0, 341);
-            panel10.Name = "panel10";
-            panel10.Size = new Size(202, 69);
-            panel10.TabIndex = 4;
             // 
             // panel15
             // 
             panel15.Controls.Add(btnChonAnh);
             panel15.Controls.Add(panel19);
             panel15.Dock = DockStyle.Bottom;
-            panel15.Location = new Point(0, 410);
+            panel15.Location = new Point(0, 500);
             panel15.Name = "panel15";
             panel15.Padding = new Padding(10, 0, 0, 0);
             panel15.Size = new Size(202, 40);
@@ -588,6 +655,7 @@
             ClientSize = new Size(800, 735);
             Controls.Add(panel1);
             Name = "EditAccountForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "EditAccountForm";
             Load += EditAccountForm_Load;
             panel1.ResumeLayout(false);
@@ -596,6 +664,10 @@
             panel14.ResumeLayout(false);
             middle.ResumeLayout(false);
             left.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel5.ResumeLayout(false);
+            panel25.ResumeLayout(false);
+            panel6.ResumeLayout(false);
             panel13.ResumeLayout(false);
             panel16.ResumeLayout(false);
             panel16.PerformLayout();
@@ -670,5 +742,12 @@
         private Controls.RoundedButton btnChonAnh;
         private Panel panel19;
         private ErrorProvider errorProvider1;
+        private Panel panel2;
+        private Panel panel5;
+        private TextBox textBox1;
+        private Panel panel6;
+        private Label label3;
+        private Panel panel25;
+        private Controls.ToggleButton btnTrangThai;
     }
 }

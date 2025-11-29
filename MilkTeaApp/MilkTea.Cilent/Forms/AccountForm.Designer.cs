@@ -34,10 +34,8 @@ namespace MilkTea.Client.Forms
             Panel Tool;
             Panel Table;
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AccountForm));
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             label1 = new Label();
             label2 = new Label();
             ButtonQuyen = new Panel();
@@ -52,6 +50,9 @@ namespace MilkTea.Client.Forms
             btnThemAccount = new MilkTea.Client.Controls.RoundedButton();
             panel5 = new Panel();
             dataGridView1 = new DataGridView();
+            panel3 = new Panel();
+            lblStatus = new Label();
+            panel1 = new Panel();
             ID = new DataGridViewTextBoxColumn();
             taiKhoan = new DataGridViewTextBoxColumn();
             trangThai = new DataGridViewTextBoxColumn();
@@ -59,10 +60,6 @@ namespace MilkTea.Client.Forms
             chiTiet = new DataGridViewImageColumn();
             sua = new DataGridViewImageColumn();
             khoa = new DataGridViewImageColumn();
-            xoa = new DataGridViewImageColumn();
-            panel3 = new Panel();
-            lblStatus = new Label();
-            panel1 = new Panel();
             panel2 = new Panel();
             panel4 = new Panel();
             Tool = new Panel();
@@ -310,7 +307,7 @@ namespace MilkTea.Client.Forms
             dataGridView1.BackgroundColor = SystemColors.Control;
             dataGridView1.CellBorderStyle = DataGridViewCellBorderStyle.None;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { ID, taiKhoan, trangThai, quyen, chiTiet, sua, khoa, xoa });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { ID, taiKhoan, trangThai, quyen, chiTiet, sua, khoa });
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(0, 0);
             dataGridView1.Name = "dataGridView1";
@@ -319,6 +316,38 @@ namespace MilkTea.Client.Forms
             dataGridView1.Size = new Size(1616, 197);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellClick += dataGridView1_CellClick;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.Transparent;
+            panel3.Controls.Add(lblStatus);
+            panel3.Dock = DockStyle.Bottom;
+            panel3.Location = new Point(21, 217);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(1616, 31);
+            panel3.TabIndex = 1;
+            // 
+            // lblStatus
+            // 
+            lblStatus.Dock = DockStyle.Fill;
+            lblStatus.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblStatus.Location = new Point(0, 0);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(1616, 31);
+            lblStatus.TabIndex = 0;
+            lblStatus.TextAlign = ContentAlignment.BottomLeft;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(Table);
+            panel1.Controls.Add(panel4);
+            panel1.Controls.Add(Tool);
+            panel1.Controls.Add(panel2);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1658, 519);
+            panel1.TabIndex = 0;
             // 
             // ID
             // 
@@ -359,13 +388,13 @@ namespace MilkTea.Client.Forms
             quyen.Name = "quyen";
             quyen.ReadOnly = true;
             quyen.Resizable = DataGridViewTriState.False;
-            quyen.Width = 150;
+            quyen.Width = 200;
             // 
             // chiTiet
             // 
             chiTiet.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.NullValue = resources.GetObject("dataGridViewCellStyle1.NullValue");
+            dataGridViewCellStyle1.NullValue = null;
             dataGridViewCellStyle1.Padding = new Padding(3);
             chiTiet.DefaultCellStyle = dataGridViewCellStyle1;
             chiTiet.HeaderText = "Chi Tiết";
@@ -380,7 +409,7 @@ namespace MilkTea.Client.Forms
             // sua
             // 
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.NullValue = resources.GetObject("dataGridViewCellStyle2.NullValue");
+            dataGridViewCellStyle2.NullValue = null;
             dataGridViewCellStyle2.Padding = new Padding(3);
             sua.DefaultCellStyle = dataGridViewCellStyle2;
             sua.HeaderText = "Sửa";
@@ -395,7 +424,7 @@ namespace MilkTea.Client.Forms
             // khoa
             // 
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.NullValue = resources.GetObject("dataGridViewCellStyle3.NullValue");
+            dataGridViewCellStyle3.NullValue = null;
             dataGridViewCellStyle3.Padding = new Padding(3);
             khoa.DefaultCellStyle = dataGridViewCellStyle3;
             khoa.HeaderText = "Khóa";
@@ -406,53 +435,6 @@ namespace MilkTea.Client.Forms
             khoa.ReadOnly = true;
             khoa.Resizable = DataGridViewTriState.False;
             khoa.Width = 75;
-            // 
-            // xoa
-            // 
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.NullValue = resources.GetObject("dataGridViewCellStyle4.NullValue");
-            dataGridViewCellStyle4.Padding = new Padding(3);
-            xoa.DefaultCellStyle = dataGridViewCellStyle4;
-            xoa.HeaderText = "Xóa";
-            xoa.Image = Properties.Resources.trash;
-            xoa.ImageLayout = DataGridViewImageCellLayout.Zoom;
-            xoa.MinimumWidth = 6;
-            xoa.Name = "xoa";
-            xoa.ReadOnly = true;
-            xoa.Resizable = DataGridViewTriState.False;
-            xoa.Width = 75;
-            // 
-            // panel3
-            // 
-            panel3.BackColor = Color.Transparent;
-            panel3.Controls.Add(lblStatus);
-            panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(21, 217);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(1616, 31);
-            panel3.TabIndex = 1;
-            // 
-            // lblStatus
-            // 
-            lblStatus.Dock = DockStyle.Fill;
-            lblStatus.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblStatus.Location = new Point(0, 0);
-            lblStatus.Name = "lblStatus";
-            lblStatus.Size = new Size(1616, 31);
-            lblStatus.TabIndex = 0;
-            lblStatus.TextAlign = ContentAlignment.BottomLeft;
-            // 
-            // panel1
-            // 
-            panel1.Controls.Add(Table);
-            panel1.Controls.Add(panel4);
-            panel1.Controls.Add(Tool);
-            panel1.Controls.Add(panel2);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1658, 519);
-            panel1.TabIndex = 0;
             // 
             // AccountForm
             // 

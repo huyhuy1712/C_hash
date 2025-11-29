@@ -5,6 +5,7 @@ using MilkTea.Client.Models;
 using MilkTea.Client.Services;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MilkTea.Client.Presenters
 {
@@ -23,7 +24,7 @@ namespace MilkTea.Client.Presenters
         {
             _form = form;
         }
-        public void EditAccount(int id)
+        public void EditAccount(string id)
         {
             using (var frm = new EditAccountForm(id))
             {
@@ -43,39 +44,57 @@ namespace MilkTea.Client.Presenters
             }
         }
 
-        public async Task DeleteAccount(string id)
+        public async Task LockAccount(string id)
         {
-            if (string.IsNullOrEmpty(id)) return;
-
-            if (MessageBox.Show("Bạn có thật sự muốn xóa?", "Xác nhận", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
-                == DialogResult.OK)
+            TaiKhoan tk = null;
+            try
             {
-                bool success = false;
+                tk = await _taiKhoanService.GetAccountsByIdAsync(Convert.ToInt32(id));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi lấy thông tin tài khoản!\n" + ex.Message);
+            }
+
+            if (tk != null)
+            {
+                if (tk.TrangThai == 1)
+                {
+                    tk.TrangThai = 0;
+                }
+                else
+                {
+                    tk.TrangThai = 1;
+                }
                 try
                 {
-                    var result = await _nhanVienService.DeleteByMaTKAsync(Convert.ToInt32(id));
-                    await _taiKhoanService.DeleteAccountsAsync(Convert.ToInt32(id));
-                    if (!result.success)
+                    await _taiKhoanService.UpdateAccountsAsync(tk);
+                    foreach (DataGridViewRow row in _form.Grid.Rows)
                     {
-                        MessageBox.Show("Lỗi khi xóa nhân viên!" + result.message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        success = true;
+                        if (row.Cells["ID"].Value != null &&
+                            Convert.ToInt32(row.Cells["ID"].Value) == tk.MaTK)
+                        {
+                            if (tk.TrangThai == 1)
+                            {
+                                row.Cells["trangThai"].Value = "Hoạt động";
+                                row.Cells["trangThai"].Style.ForeColor = Color.Green;
+                            }
+                            else
+                            {
+                                row.Cells["trangThai"].Value = "Khóa";
+                                row.Cells["trangThai"].Style.ForeColor = Color.Red;
+                            }
+                            break;
+                        }
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Lỗi khi xóa tài khoản!" + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-
-                if (success)
-                {
-                    MessageBox.Show("Xóa tài khoản thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    _ = LoadDataAsync();
+                    MessageBox.Show("Lỗi khi cập nhật trạng thái!\n" + ex.Message);
                 }
             }
         }
+
         public async Task LoadDataAsync()
         {
             var grid = _form.Grid;

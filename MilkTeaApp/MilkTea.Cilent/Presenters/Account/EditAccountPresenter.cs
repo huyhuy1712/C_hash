@@ -25,10 +25,20 @@ namespace MilkTea.Client.Presenters.Account
         {
             try
             {
-                _form.setQuyen(await _quyenService.GetQuyensAsync());
                 tk = await _accountService.GetAccountsByIdAsync(id);
                 _form.setTaiKhoan(tk);
+                _form.setQuyen(await _quyenService.GetQuyensAsync());
                 _form.setNhanVien(await _nhanVienService.GetByMaTK(id));
+
+                // Load picture
+                string duongDanAnh = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images\\nhan_vien", tk.anh);
+                if (File.Exists(duongDanAnh))
+                {
+                    using (var img = Image.FromFile(duongDanAnh))
+                    {
+                        _form.Pic.Image = new Bitmap(img); // clone để tránh file bị lock
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -38,7 +48,7 @@ namespace MilkTea.Client.Presenters.Account
 
         public void ChonAnh()
         {
-            
+
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Title = "Chọn ảnh";
             ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
@@ -58,7 +68,10 @@ namespace MilkTea.Client.Presenters.Account
 
         public async Task<bool> SaveAsync()
         {
-            var input = _form.GetTaiKhoanInput();
+            var tk = _form.GetTaiKhoanInput();
+            tk.MatKhau = this.tk.MatKhau;
+            tk.MaTK = this.tk.MaTK;
+
             string duongDanNguon = tk.anh;
 
             if (!await Validate(tk))
@@ -66,32 +79,23 @@ namespace MilkTea.Client.Presenters.Account
                 return false;
             }
 
-            if (input.anh != tk.anh)
+            if (this.tk.anh != tk.anh)
             {
                 if (!string.IsNullOrEmpty(duongDanNguon))
                 {
                     tk.anh = CopyAnh(duongDanNguon);
                 }
-                return true;
             }
 
-            int maTK;
             try
             {
                 await _accountService.UpdateAccountsAsync(tk);
-                if (await themNhanVien(maTK))
-                {
-                    MessageBox.Show("Lỗi khi thêm nhân viên: ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return false;
-                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi thêm tài khoản: " + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return false;
             }
-
-            MessageBox.Show("Đã thêm tài khoản thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             return true;
         }
 
@@ -106,18 +110,24 @@ namespace MilkTea.Client.Presenters.Account
                 return false;
             }
 
-            if (await _accountService.CheckUsernameExistsAsync(tk.TenTaiKhoan))
+            if (this.tk.TenTaiKhoan != tk.TenTaiKhoan)
             {
-                _form.Error.SetError(_form.TxtbTenTaiKhoan, "Tên tài khoản đã tồn tại.");
-                _form.TxtbTenTaiKhoan.Focus();
-                return false;
+                if (await _accountService.CheckUsernameExistsAsync(tk.TenTaiKhoan))
+                {
+                    _form.Error.SetError(_form.TxtbTenTaiKhoan, "Tên tài khoản đã tồn tại.");
+                    _form.TxtbTenTaiKhoan.Focus();
+                    return false;
+                }
             }
 
-            if (!string.IsNullOrEmpty(tk.anh) && !File.Exists(tk.anh))
+            if (this.tk.anh != tk.anh)
             {
-                _form.Error.SetError(_form.TxtbDuongDanAnh, "Đường dẫn ảnh không hợp lệ!");
-                _form.TxtbDuongDanAnh.Focus();
-                return false;
+                if (!string.IsNullOrEmpty(tk.anh) && !File.Exists(tk.anh))
+                {
+                    _form.Error.SetError(_form.TxtbDuongDanAnh, "Đường dẫn ảnh không hợp lệ!");
+                    _form.TxtbDuongDanAnh.Focus();
+                    return false;
+                }
             }
 
             if (string.IsNullOrWhiteSpace(_form.TxtbTenNhanVien.Text))

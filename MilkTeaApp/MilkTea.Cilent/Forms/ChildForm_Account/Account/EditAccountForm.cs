@@ -23,11 +23,11 @@ namespace MilkTea.Client.Forms.ChildForm_Account.Account
         public PictureBox Pic => pictureBox1;
         public ErrorProvider Error => errorProvider1;
 
-        public EditAccountForm(int id)
+        public EditAccountForm(string id)
         {
             InitializeComponent();
             _presenter = new EditAccountPresenter(this);
-            this.id = id;
+            this.id = Convert.ToInt32(id);
         }
 
         public TaiKhoan GetTaiKhoanInput()
@@ -36,7 +36,7 @@ namespace MilkTea.Client.Forms.ChildForm_Account.Account
             {
                 TenTaiKhoan = txtbTenTaiKhoan.Text,
                 MaQuyen = int.Parse(cbQuyen.SelectedValue.ToString()),
-                TrangThai = 1,
+                TrangThai = Convert.ToInt32(btnTrangThai.Checked),
                 anh = txtbDuongDanAnh.Text
             };
         }
@@ -47,6 +47,7 @@ namespace MilkTea.Client.Forms.ChildForm_Account.Account
             cbQuyen.DisplayMember = "TenQuyen";
             cbQuyen.ValueMember = "MaQuyen";
             cbQuyen.DataSource = q;
+            cbQuyen.SelectedValue = tk.MaQuyen;
         }
 
         public void setTaiKhoan(TaiKhoan tk)
@@ -67,6 +68,7 @@ namespace MilkTea.Client.Forms.ChildForm_Account.Account
             txtbTenNhanVien.Text = nv.TenNV;
             txtbSoDienThoai.Text = nv.SDT;
             txtbDuongDanAnh.Text = tk.anh;
+            btnTrangThai.Checked = Convert.ToBoolean(tk.TrangThai);
         }
 
         private void btnThoatTTK_Click(object sender, EventArgs e)
@@ -94,6 +96,7 @@ namespace MilkTea.Client.Forms.ChildForm_Account.Account
         {
             if (await _presenter.SaveAsync())
             {
+                MessageBox.Show("Đã sửa tài khoản thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;
                 Close();
             }
