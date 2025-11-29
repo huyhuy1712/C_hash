@@ -41,6 +41,9 @@
             panel9 = new Panel();
             lblQuyen = new Label();
             label7 = new Label();
+            panel13 = new Panel();
+            lblSoDienThoai = new Label();
+            label6 = new Label();
             panel8 = new Panel();
             lblHoTen = new Label();
             label4 = new Label();
@@ -61,6 +64,7 @@
             panel6.SuspendLayout();
             panel10.SuspendLayout();
             panel9.SuspendLayout();
+            panel13.SuspendLayout();
             panel8.SuspendLayout();
             panel7.SuspendLayout();
             panel12.SuspendLayout();
@@ -145,6 +149,7 @@
             // 
             panel6.Controls.Add(panel10);
             panel6.Controls.Add(panel9);
+            panel6.Controls.Add(panel13);
             panel6.Controls.Add(panel8);
             panel6.Controls.Add(panel7);
             panel6.Controls.Add(panel12);
@@ -159,7 +164,7 @@
             panel10.Controls.Add(lblTrangThai);
             panel10.Controls.Add(label9);
             panel10.Dock = DockStyle.Top;
-            panel10.Location = new Point(0, 200);
+            panel10.Location = new Point(0, 250);
             panel10.Name = "panel10";
             panel10.Size = new Size(590, 50);
             panel10.TabIndex = 3;
@@ -167,7 +172,7 @@
             // lblTrangThai
             // 
             lblTrangThai.Dock = DockStyle.Fill;
-            lblTrangThai.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTrangThai.Font = new Font("Segoe UI Black", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTrangThai.Location = new Point(170, 0);
             lblTrangThai.Name = "lblTrangThai";
             lblTrangThai.Size = new Size(420, 50);
@@ -191,7 +196,7 @@
             panel9.Controls.Add(lblQuyen);
             panel9.Controls.Add(label7);
             panel9.Dock = DockStyle.Top;
-            panel9.Location = new Point(0, 150);
+            panel9.Location = new Point(0, 200);
             panel9.Name = "panel9";
             panel9.Size = new Size(590, 50);
             panel9.TabIndex = 2;
@@ -217,6 +222,38 @@
             label7.TabIndex = 1;
             label7.Text = "Quyền ";
             label7.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // panel13
+            // 
+            panel13.Controls.Add(lblSoDienThoai);
+            panel13.Controls.Add(label6);
+            panel13.Dock = DockStyle.Top;
+            panel13.Location = new Point(0, 150);
+            panel13.Name = "panel13";
+            panel13.Size = new Size(590, 50);
+            panel13.TabIndex = 5;
+            // 
+            // lblSoDienThoai
+            // 
+            lblSoDienThoai.Dock = DockStyle.Fill;
+            lblSoDienThoai.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblSoDienThoai.Location = new Point(170, 0);
+            lblSoDienThoai.Name = "lblSoDienThoai";
+            lblSoDienThoai.Size = new Size(420, 50);
+            lblSoDienThoai.TabIndex = 2;
+            lblSoDienThoai.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label6
+            // 
+            label6.Dock = DockStyle.Left;
+            label6.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.ForeColor = Color.DodgerBlue;
+            label6.Location = new Point(0, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(170, 50);
+            label6.TabIndex = 1;
+            label6.Text = "Số Điện Thoại";
+            label6.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // panel8
             // 
@@ -373,6 +410,7 @@
             panel6.ResumeLayout(false);
             panel10.ResumeLayout(false);
             panel9.ResumeLayout(false);
+            panel13.ResumeLayout(false);
             panel8.ResumeLayout(false);
             panel7.ResumeLayout(false);
             panel12.ResumeLayout(false);
@@ -410,5 +448,8 @@
         private Panel panel12;
         private Label lblId;
         private Label label5;
+        private Panel panel13;
+        private Label lblSoDienThoai;
+        private Label label6;
     }
 }
