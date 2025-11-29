@@ -18,7 +18,7 @@ namespace MilkTea.Client.Forms.ChildForm_Account
             //Bật tắt các nút theo quyền
             sua.Visible = Session.HasPermission("Sửa quyền");
             xoa.Visible = Session.HasPermission("Xóa quyền");
-            btnThemQuyen.Enabled = Session.HasPermission("Thêm quyền");
+            btnThemQuyen.Visible = Session.HasPermission("Thêm quyền");
         }
 
         private void btnDong_Click(object sender, EventArgs e)

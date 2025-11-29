@@ -43,11 +43,15 @@ namespace MilkTea.Client.Forms.ChildForm_Account.Account
 
         public void setQuyen(List<Quyen> q)
         {
-            this.q = q;
+            this.q = q.Where(x => x.TrangThai == 1).ToList();
             cbQuyen.DisplayMember = "TenQuyen";
             cbQuyen.ValueMember = "MaQuyen";
-            cbQuyen.DataSource = q;
-            cbQuyen.SelectedValue = tk.MaQuyen;
+            cbQuyen.DataSource = this.q;
+
+            if (this.q.Where(x => x.MaQuyen == tk.MaQuyen).ToList().Count == 1)
+            {
+                cbQuyen.SelectedValue = tk.MaQuyen;
+            }
         }
 
         public void setTaiKhoan(TaiKhoan tk)
