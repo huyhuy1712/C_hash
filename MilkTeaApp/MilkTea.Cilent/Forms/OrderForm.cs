@@ -42,7 +42,7 @@ namespace MilkTea.Client.Forms
             await LoadDataAsync();
 
             //Bật tắt các nút theo quyền
-            roundedButton1.Enabled = Session.HasPermission("Thêm sản phẩm");
+            roundedButton1.Visible = Session.HasPermission("Thêm sản phẩm");
         }
 
         private async Task LoadLoaiAsync()

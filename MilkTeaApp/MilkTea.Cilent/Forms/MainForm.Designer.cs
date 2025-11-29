@@ -33,17 +33,19 @@
             avatarUser = new PictureBox();
             panelMenu = new Panel();
             layoutMenu = new TableLayoutPanel();
+            btnNhanVien = new Button();
             btnDangXuat = new Button();
             btnNguyenLieu = new Button();
             btnOrder = new Button();
             btnHoaDon = new Button();
             btnThongKe = new Button();
             btnKhuyenMai = new Button();
-            btnNhanVien = new Button();
             btnPhieuNhap = new Button();
             btnTaiKhoan = new Button();
             btnNhaCungCap = new Button();
+            label1 = new Label();
             panelMain.SuspendLayout();
+            panelContent.SuspendLayout();
             panelFooter.SuspendLayout();
             Infopanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)avatarUser).BeginInit();
@@ -64,10 +66,10 @@
             // panelContent
             // 
             panelContent.BackColor = SystemColors.Menu;
+            panelContent.Controls.Add(label1);
             panelContent.Dock = DockStyle.Fill;
             panelContent.Location = new Point(0, 0);
             panelContent.Name = "panelContent";
-            panelContent.Padding = new Padding(0, 0, 30, 0);
             panelContent.Size = new Size(1675, 826);
             panelContent.TabIndex = 1;
             // 
@@ -172,6 +174,23 @@
             layoutMenu.Size = new Size(176, 885);
             layoutMenu.TabIndex = 0;
             // 
+            // btnNhanVien
+            // 
+            btnNhanVien.Dock = DockStyle.Fill;
+            btnNhanVien.FlatAppearance.BorderSize = 0;
+            btnNhanVien.FlatStyle = FlatStyle.Flat;
+            btnNhanVien.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnNhanVien.ForeColor = SystemColors.ButtonHighlight;
+            btnNhanVien.Image = Properties.Resources.ncc;
+            btnNhanVien.ImageAlign = ContentAlignment.MiddleLeft;
+            btnNhanVien.Location = new Point(3, 707);
+            btnNhanVien.Name = "btnNhanVien";
+            btnNhanVien.Size = new Size(170, 82);
+            btnNhanVien.TabIndex = 9;
+            btnNhanVien.Text = "Nhân viên";
+            btnNhanVien.UseVisualStyleBackColor = true;
+            btnNhanVien.Click += btnNhanVien_Click;
+            // 
             // btnDangXuat
             // 
             btnDangXuat.Dock = DockStyle.Fill;
@@ -274,23 +293,6 @@
             btnKhuyenMai.UseVisualStyleBackColor = true;
             btnKhuyenMai.Click += btnDiscount_Click;
             // 
-            // btnNhanVien
-            // 
-            btnNhanVien.Dock = DockStyle.Fill;
-            btnNhanVien.FlatAppearance.BorderSize = 0;
-            btnNhanVien.FlatStyle = FlatStyle.Flat;
-            btnNhanVien.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            btnNhanVien.ForeColor = SystemColors.ButtonHighlight;
-            btnNhanVien.Image = Properties.Resources.ncc;
-            btnNhanVien.ImageAlign = ContentAlignment.MiddleLeft;
-            btnNhanVien.Location = new Point(3, 707);
-            btnNhanVien.Name = "btnNhanVien";
-            btnNhanVien.Size = new Size(170, 82);
-            btnNhanVien.TabIndex = 9;
-            btnNhanVien.Text = "Nhân viên";
-            btnNhanVien.UseVisualStyleBackColor = true;
-            btnNhanVien.Click += btnNhanVien_Click;
-            // 
             // btnPhieuNhap
             // 
             btnPhieuNhap.Dock = DockStyle.Fill;
@@ -343,6 +345,18 @@
             btnNhaCungCap.UseVisualStyleBackColor = true;
             btnNhaCungCap.Click += btnNhaCungCap_Click;
             // 
+            // label1
+            // 
+            label1.Dock = DockStyle.Fill;
+            label1.Font = new Font("Segoe UI", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.DodgerBlue;
+            label1.Location = new Point(0, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(1675, 826);
+            label1.TabIndex = 0;
+            label1.Text = "Welcome Home Cheater";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -354,6 +368,7 @@
             Text = "MainForm";
             Load += MainForm_Load;
             panelMain.ResumeLayout(false);
+            panelContent.ResumeLayout(false);
             panelFooter.ResumeLayout(false);
             Infopanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)avatarUser).EndInit();
@@ -388,5 +403,6 @@
         private Button btnDangXuat;
         private Button btnNguyenLieu;
         private Button btnNhanVien;
+        private Label label1;
     }
 }
