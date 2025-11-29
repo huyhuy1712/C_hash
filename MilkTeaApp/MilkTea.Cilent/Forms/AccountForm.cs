@@ -1,4 +1,5 @@
-﻿using MilkTea.Client.Forms.ChildForm_Account;
+﻿using DocumentFormat.OpenXml.Office2016.Drawing.Command;
+using MilkTea.Client.Forms.ChildForm_Account;
 using MilkTea.Client.Interfaces;
 using MilkTea.Client.Models;
 using MilkTea.Client.Presenters;
@@ -35,8 +36,8 @@ namespace MilkTea.Client.Forms
         private async void AccountForm_Load(object sender, EventArgs e)
         {
             sua.Visible = Session.HasPermission("Sửa tài khoản");
-            btnThemAccount.Enabled = Session.HasPermission("Thêm tài khoản");
-
+            btnThemAccount.Visible = Session.HasPermission("Thêm tài khoản");
+            chiTiet.Visible = Session.HasPermission("Xem tài khoản");
 
             await _presenter.LoadDataAsync();
         }

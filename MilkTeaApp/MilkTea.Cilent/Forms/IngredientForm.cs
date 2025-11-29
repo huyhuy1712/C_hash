@@ -26,6 +26,11 @@ namespace MilkTea.Client.Forms
         private async void IngredientForm_Load(object sender, EventArgs e)
         {
             await LoadIngredientsAsync();
+
+            //Bật tắt các nút theo quyền
+            btnAddIngredient.Visible = Session.HasPermission("Thêm nguyên liệu");
+            sua_col.Visible = Session.HasPermission("Sửa nguyên liệu");
+            xoa_col.Visible = Session.HasPermission("Xóa nguyên liệu");
         }
 
         public async Task LoadIngredientsAsync()
