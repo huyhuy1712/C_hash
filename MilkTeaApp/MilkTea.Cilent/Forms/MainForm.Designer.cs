@@ -26,6 +26,7 @@
         {
             panelMain = new Panel();
             panelContent = new Panel();
+            label1 = new Label();
             panelFooter = new Panel();
             signature = new Label();
             Infopanel = new Panel();
@@ -43,7 +44,6 @@
             btnPhieuNhap = new Button();
             btnTaiKhoan = new Button();
             btnNhaCungCap = new Button();
-            label1 = new Label();
             panelMain.SuspendLayout();
             panelContent.SuspendLayout();
             panelFooter.SuspendLayout();
@@ -72,6 +72,19 @@
             panelContent.Name = "panelContent";
             panelContent.Size = new Size(1675, 826);
             panelContent.TabIndex = 1;
+            // 
+            // label1
+            // 
+            label1.Dock = DockStyle.Fill;
+            label1.Font = new Font("Segoe UI", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.DodgerBlue;
+            label1.Location = new Point(0, 0);
+            label1.Name = "label1";
+            label1.Padding = new Padding(0, 0, 30, 0);
+            label1.Size = new Size(1675, 826);
+            label1.TabIndex = 0;
+            label1.Text = "Welcome Home Cheater";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panelFooter
             // 
@@ -344,18 +357,6 @@
             btnNhaCungCap.TextAlign = ContentAlignment.MiddleRight;
             btnNhaCungCap.UseVisualStyleBackColor = true;
             btnNhaCungCap.Click += btnNhaCungCap_Click;
-            // 
-            // label1
-            // 
-            label1.Dock = DockStyle.Fill;
-            label1.Font = new Font("Segoe UI", 48F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.DodgerBlue;
-            label1.Location = new Point(0, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(1675, 826);
-            label1.TabIndex = 0;
-            label1.Text = "Welcome Home Cheater";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // MainForm
             // 
