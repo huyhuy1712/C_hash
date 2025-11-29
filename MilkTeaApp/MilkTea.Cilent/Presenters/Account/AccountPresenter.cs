@@ -1,8 +1,10 @@
 ﻿using MilkTea.Client.Forms.ChildForm_Account;
+using MilkTea.Client.Forms.ChildForm_Account.Account;
 using MilkTea.Client.Interfaces;
 using MilkTea.Client.Models;
 using MilkTea.Client.Services;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace MilkTea.Client.Presenters
 {
@@ -21,11 +23,9 @@ namespace MilkTea.Client.Presenters
         {
             _form = form;
         }
-        public void EditAccount(string id)
+        public void EditAccount(int id)
         {
-            if (string.IsNullOrEmpty(id)) return;
-
-            using (var frm = new EditQuyentForm())
+            using (var frm = new EditAccountForm(id))
             {
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
@@ -43,18 +43,37 @@ namespace MilkTea.Client.Presenters
             }
         }
 
-        public void DeleteAccount(string id)
+        public async Task DeleteAccount(string id)
         {
             if (string.IsNullOrEmpty(id)) return;
 
             if (MessageBox.Show("Bạn có thật sự muốn xóa?", "Xác nhận", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
                 == DialogResult.OK)
             {
-                // TODO: Gọi API xóa
-                // await _service.DeleteAccountAsync(int.Parse(id));
+                bool success = false;
+                try
+                {
+                    var result = await _nhanVienService.DeleteByMaTKAsync(Convert.ToInt32(id));
+                    await _taiKhoanService.DeleteAccountsAsync(Convert.ToInt32(id));
+                    if (!result.success)
+                    {
+                        MessageBox.Show("Lỗi khi xóa nhân viên!" + result.message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        success = true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi xóa tài khoản!" + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
 
-                MessageBox.Show("Đã xóa tài khoản thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                _ = LoadDataAsync();
+                if (success)
+                {
+                    MessageBox.Show("Xóa tài khoản thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _ = LoadDataAsync();
+                }
             }
         }
         public async Task LoadDataAsync()

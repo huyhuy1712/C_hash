@@ -16,6 +16,8 @@ namespace MilkTea.Client.Forms.ChildForm_Account
         public TextBox TxtbTenTaiKhoan => txtbTenTaiKhoan;
         public TextBox TxtbMatKhau => txtbMatKhau;
         public TextBox TxtbDuongDanAnh => txtbDuongDanAnh;
+        public TextBox TxtbTenNhanVien => txtbTenNhanVien;
+        public TextBox TxtbSoDienThoai => txtbSoDienThoai;
         public PictureBox Pic => pictureBox1;
         public ErrorProvider Error => errorProvider1;
 
@@ -33,6 +35,7 @@ namespace MilkTea.Client.Forms.ChildForm_Account
                 MaQuyen = int.Parse(cbQuyen.SelectedValue.ToString()),
                 TrangThai = 1,
                 anh = txtbDuongDanAnh.Text
+
             };
         }
 
@@ -66,6 +69,7 @@ namespace MilkTea.Client.Forms.ChildForm_Account
         private async void btnThemQuyen_Click(object sender, EventArgs e)
         {
             _presenter.ThemQuyen();
+            await _presenter.LoadDataAsync();
         }
 
         private async void AddAccountForm_Load(object sender, EventArgs e)

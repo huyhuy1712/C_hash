@@ -62,7 +62,7 @@ namespace MilkTea.Client.Forms
             switch (columnName)
             {
                 case "sua":
-                    _presenter.EditAccount(id);
+                    _presenter.EditAccount(Convert.ToInt32(id));
                     break;
 
                 case "chiTiet":
