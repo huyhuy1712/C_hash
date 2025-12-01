@@ -7,5 +7,9 @@ namespace MilkTea.Client.Models
 
         // Mã chương trình khuyến mãi (FK tới CTKhuyenMai)
         public int MaCTKhuyenMai { get; set; }
+        public DateTime? NgayBatDau { get; set; }
+
+        // Ngày kết thúc khuyến mãi (từ CTKhuyenMai)
+        public DateTime? NgayKetThuc { get; set; }
     }
 }

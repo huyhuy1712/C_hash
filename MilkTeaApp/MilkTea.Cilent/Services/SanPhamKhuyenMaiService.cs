@@ -22,8 +22,7 @@ namespace MilkTea.Client.Services
 
                 if (response.IsSuccessStatusCode)
                 {
-                    // Parse JSON response để lấy RowsAffected nếu có (hỗ trợ cả Add và Edit)
-                    // Controller trả { Message: "...", RowsAffected: x } hoặc chỉ message cho Add cũ
+                    
                     int rowsAffected = 1; // Default fallback cho trường hợp không có RowsAffected
                     try
                     {
