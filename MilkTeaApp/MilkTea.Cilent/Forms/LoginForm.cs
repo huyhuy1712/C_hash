@@ -89,7 +89,7 @@ namespace MilkTea.Client.Forms
             }
 
             // Tìm tài khoản theo username và password
-            var account = list.FirstOrDefault(tk => tk.TenTaiKhoan == username && tk.MatKhau == password);
+            var account = list.FirstOrDefault(tk => tk.TenTaiKhoan == username && tk.MatKhau == password && tk.TrangThai == 1);
 
             return account; // Nếu không tìm thấy thì trả về null
         }
