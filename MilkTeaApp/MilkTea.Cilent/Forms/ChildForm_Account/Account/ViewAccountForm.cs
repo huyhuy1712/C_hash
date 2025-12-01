@@ -7,6 +7,7 @@ namespace MilkTea.Client.Forms.ChildForm_Account
     {
         public Label LblId => lblId;
         public Label LblTaiKhoan => lblTaiKhoan;
+        public Label LblSoDienThoai => lblSoDienThoai;
         public Label LblHoTen => lblHoTen;
         public Label LblQuyen => lblQuyen;
         public Label LblTrangThai => lblTrangThai;

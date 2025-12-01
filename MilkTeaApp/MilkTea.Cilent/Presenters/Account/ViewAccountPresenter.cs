@@ -37,6 +37,7 @@ namespace MilkTea.Client.Presenters
                 _form.LblTaiKhoan.Text = account.TenTaiKhoan.ToString();
                 _form.LblHoTen.Text = nhanVien != null ? nhanVien.TenNV.ToString() : "Chưa có nhân viên";
                 _form.LblQuyen.Text = quyen != null ? quyen.TenQuyen.ToString() : "Không tìm thấy quyền";
+                _form.LblSoDienThoai.Text = nhanVien.SDT;
 
                 if (account.TrangThai == 1)
                 {

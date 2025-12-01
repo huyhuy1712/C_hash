@@ -41,7 +41,7 @@ namespace MilkTea.Client.Forms.ChildForm_Account
 
         private void txtbSearch_KeyUp(object sender, KeyEventArgs e)
         {
-            _addQuyenPresenter.SearchChucNangTheoTen(txtbSearch.Text.Trim());
+            _addQuyenPresenter.SearchChucNangTheoTen("chucNang", txtbSearch.Text.Trim());
         }
     }
 }

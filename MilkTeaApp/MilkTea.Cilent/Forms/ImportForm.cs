@@ -37,8 +37,10 @@ namespace MilkTea.Client.Forms
         private async void ImportForm_Load(object sender, EventArgs e)
         {
             await LoadPhieuNhaps();
-            roundedButton1.Enabled = Session.HasPermission("Thêm phiếu nhập");
-            roundedButton2.Enabled = Session.HasPermission("Nhập excel phiếu nhập");
+
+            //Bật tắt các nút theo quyền
+            roundedButton1.Visible = Session.HasPermission("Thêm phiếu nhập");
+            roundedButton2.Visible = Session.HasPermission("Nhập excel phiếu nhập");
             xoa_Tb_iPort.Visible = Session.HasPermission("Xóa phiếu nhập");
         }
 

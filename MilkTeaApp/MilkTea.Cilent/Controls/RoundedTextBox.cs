@@ -80,6 +80,23 @@ namespace MilkTea.Client.Controls
             }
             this.Invalidate();
         }
+        public override Font Font
+        {
+            get => base.Font;
+            set
+            {
+                base.Font = value;
+
+                if (textBox != null)
+                {
+                    textBox.Font = value;
+                    AdjustLayout();   // cập nhật lại layout theo font mới
+                }
+
+                this.Invalidate();
+            }
+        }
+
 
         protected override void OnPaint(PaintEventArgs e)
         {
