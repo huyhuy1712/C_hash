@@ -33,6 +33,12 @@
             panel5 = new Panel();
             lblStatus_PN = new Label();
             dGV_nhacungcap = new DataGridView();
+            ma_Tb_NCC = new DataGridViewTextBoxColumn();
+            ten_Tb_NCC = new DataGridViewTextBoxColumn();
+            sdt_Tb_NCC = new DataGridViewTextBoxColumn();
+            diachi_Tb_NCC = new DataGridViewTextBoxColumn();
+            sua_Tb_NCC = new DataGridViewImageColumn();
+            xoa_Tb_NCC = new DataGridViewImageColumn();
             panel4 = new Panel();
             label2 = new Label();
             panel3 = new Panel();
@@ -45,12 +51,6 @@
             btn_Them_NCC = new MilkTea.Client.Controls.RoundedButton();
             panel2 = new Panel();
             label1 = new Label();
-            ma_Tb_NCC = new DataGridViewTextBoxColumn();
-            ten_Tb_NCC = new DataGridViewTextBoxColumn();
-            sdt_Tb_NCC = new DataGridViewTextBoxColumn();
-            diachi_Tb_NCC = new DataGridViewTextBoxColumn();
-            sua_Tb_NCC = new DataGridViewImageColumn();
-            xoa_Tb_NCC = new DataGridViewImageColumn();
             panel1.SuspendLayout();
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dGV_nhacungcap).BeginInit();
@@ -119,6 +119,56 @@
             dGV_nhacungcap.Size = new Size(1872, 535);
             dGV_nhacungcap.TabIndex = 0;
             dGV_nhacungcap.CellClick += dGV_nhacungcap_CellClick;
+            // 
+            // ma_Tb_NCC
+            // 
+            ma_Tb_NCC.HeaderText = "Mã nhà cung cấp";
+            ma_Tb_NCC.MinimumWidth = 6;
+            ma_Tb_NCC.Name = "ma_Tb_NCC";
+            ma_Tb_NCC.Width = 200;
+            // 
+            // ten_Tb_NCC
+            // 
+            ten_Tb_NCC.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            ten_Tb_NCC.HeaderText = "Tên nhà cung cấp";
+            ten_Tb_NCC.MinimumWidth = 6;
+            ten_Tb_NCC.Name = "ten_Tb_NCC";
+            // 
+            // sdt_Tb_NCC
+            // 
+            sdt_Tb_NCC.HeaderText = "Số điện thoại";
+            sdt_Tb_NCC.MinimumWidth = 6;
+            sdt_Tb_NCC.Name = "sdt_Tb_NCC";
+            sdt_Tb_NCC.Width = 175;
+            // 
+            // diachi_Tb_NCC
+            // 
+            diachi_Tb_NCC.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            diachi_Tb_NCC.HeaderText = "Địa chỉ";
+            diachi_Tb_NCC.MinimumWidth = 6;
+            diachi_Tb_NCC.Name = "diachi_Tb_NCC";
+            // 
+            // sua_Tb_NCC
+            // 
+            sua_Tb_NCC.HeaderText = "Sửa";
+            sua_Tb_NCC.Image = Properties.Resources.edit;
+            sua_Tb_NCC.MinimumWidth = 6;
+            sua_Tb_NCC.Name = "sua_Tb_NCC";
+            sua_Tb_NCC.Width = 75;
+            // 
+            // xoa_Tb_NCC
+            // 
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.NullValue = null;
+            dataGridViewCellStyle1.Padding = new Padding(3);
+            xoa_Tb_NCC.DefaultCellStyle = dataGridViewCellStyle1;
+            xoa_Tb_NCC.HeaderText = "Xóa";
+            xoa_Tb_NCC.Image = Properties.Resources.trash;
+            xoa_Tb_NCC.MinimumWidth = 6;
+            xoa_Tb_NCC.Name = "xoa_Tb_NCC";
+            xoa_Tb_NCC.Resizable = DataGridViewTriState.True;
+            xoa_Tb_NCC.SortMode = DataGridViewColumnSortMode.Automatic;
+            xoa_Tb_NCC.Width = 75;
             // 
             // panel4
             // 
@@ -261,56 +311,6 @@
             label1.TabIndex = 0;
             label1.Text = "Nhà Cung Cấp";
             label1.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // ma_Tb_NCC
-            // 
-            ma_Tb_NCC.HeaderText = "Mã nhà cung cấp";
-            ma_Tb_NCC.MinimumWidth = 6;
-            ma_Tb_NCC.Name = "ma_Tb_NCC";
-            ma_Tb_NCC.Width = 200;
-            // 
-            // ten_Tb_NCC
-            // 
-            ten_Tb_NCC.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            ten_Tb_NCC.HeaderText = "Tên nhà cung cấp";
-            ten_Tb_NCC.MinimumWidth = 6;
-            ten_Tb_NCC.Name = "ten_Tb_NCC";
-            // 
-            // sdt_Tb_NCC
-            // 
-            sdt_Tb_NCC.HeaderText = "Số điện thoại";
-            sdt_Tb_NCC.MinimumWidth = 6;
-            sdt_Tb_NCC.Name = "sdt_Tb_NCC";
-            sdt_Tb_NCC.Width = 175;
-            // 
-            // diachi_Tb_NCC
-            // 
-            diachi_Tb_NCC.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            diachi_Tb_NCC.HeaderText = "Địa chỉ";
-            diachi_Tb_NCC.MinimumWidth = 6;
-            diachi_Tb_NCC.Name = "diachi_Tb_NCC";
-            // 
-            // sua_Tb_NCC
-            // 
-            sua_Tb_NCC.HeaderText = "Sửa";
-            sua_Tb_NCC.Image = Properties.Resources.edit;
-            sua_Tb_NCC.MinimumWidth = 6;
-            sua_Tb_NCC.Name = "sua_Tb_NCC";
-            sua_Tb_NCC.Width = 75;
-            // 
-            // xoa_Tb_NCC
-            // 
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.NullValue = null;
-            dataGridViewCellStyle1.Padding = new Padding(3);
-            xoa_Tb_NCC.DefaultCellStyle = dataGridViewCellStyle1;
-            xoa_Tb_NCC.HeaderText = "Xóa";
-            xoa_Tb_NCC.Image = Properties.Resources.trash;
-            xoa_Tb_NCC.MinimumWidth = 6;
-            xoa_Tb_NCC.Name = "xoa_Tb_NCC";
-            xoa_Tb_NCC.Resizable = DataGridViewTriState.True;
-            xoa_Tb_NCC.SortMode = DataGridViewColumnSortMode.Automatic;
-            xoa_Tb_NCC.Width = 75;
             // 
             // SupplierForm
             // 
