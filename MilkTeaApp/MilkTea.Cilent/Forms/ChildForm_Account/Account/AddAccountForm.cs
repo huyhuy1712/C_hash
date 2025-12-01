@@ -11,9 +11,15 @@ namespace MilkTea.Client.Forms.ChildForm_Account
         private List<Quyen> q;
         private List<NhanVien> nv;
 
-
         public ComboBox CbQuyen => cbQuyen;
         public ComboBox CbNhanVien => cbNhanVien;
+        public TextBox TxtbTenTaiKhoan => txtbTenTaiKhoan;
+        public TextBox TxtbMatKhau => txtbMatKhau;
+        public TextBox TxtbDuongDanAnh => txtbDuongDanAnh;
+        public TextBox TxtbTenNhanVien => txtbTenNhanVien;
+        public TextBox TxtbSoDienThoai => txtbSoDienThoai;
+        public PictureBox Pic => pictureBox1;
+        public ErrorProvider Error => errorProvider1;
 
         public AddAccountForm()
         {
@@ -29,45 +35,21 @@ namespace MilkTea.Client.Forms.ChildForm_Account
                 MaQuyen = int.Parse(cbQuyen.SelectedValue.ToString()),
                 TrangThai = 1,
                 anh = txtbDuongDanAnh.Text
+
             };
         }
 
         public void setQuyen(List<Quyen> q)
         {
-            this.q = q;
+            this.q = q.Where(x => x.TrangThai == 1).ToList();
             cbQuyen.DisplayMember = "TenQuyen";
             cbQuyen.ValueMember = "MaQuyen";
-            cbQuyen.DataSource = q;
-        }
-
-        public void setNhanVien(List<NhanVien> nv)
-        {
-            this.nv = nv.Where(nhanvien => nhanvien.MaTK == null).ToList();
-
-            foreach (var i in nv)
-            {
-                if (i.MaTK == null)
-                {
-                    Debug.WriteLine(i.TenNV);
-                }
-            }
-
-            cbNhanVien.DisplayMember = "TenNV";
-            cbNhanVien.ValueMember = "MaNV";
-            cbNhanVien.DataSource = this.nv;
+            cbQuyen.DataSource = this.q;
         }
 
         private void btnChonAnh_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Title = "Chọn ảnh";
-            ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
-
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                txtbDuongDanAnh.Text = ofd.FileName; // hiện đường dẫn ảnh
-                //pictureBox1.Image = Image.FromFile(ofd.FileName); // load ảnh xem trước
-            }
+            _presenter.ChonAnh();
         }
 
         private void btnThoatTTK_Click(object sender, EventArgs e)
@@ -77,13 +59,17 @@ namespace MilkTea.Client.Forms.ChildForm_Account
 
         private async void btnThemTTK_Click(object sender, EventArgs e)
         {
-
-            errorProvider1.SetError(txtbTenTaiKhoan, "Tên tài khoản không được để trống.");
+            if (await _presenter.SaveAsync())
+            {
+                DialogResult = DialogResult.OK;
+                Close();
+            }
         }
 
         private async void btnThemQuyen_Click(object sender, EventArgs e)
         {
             _presenter.ThemQuyen();
+            await _presenter.LoadDataAsync();
         }
 
         private async void AddAccountForm_Load(object sender, EventArgs e)

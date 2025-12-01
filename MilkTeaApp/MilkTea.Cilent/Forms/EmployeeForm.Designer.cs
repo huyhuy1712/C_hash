@@ -28,358 +28,473 @@
         /// </summary>
         private void InitializeComponent()
         {
-            panel1 = new Panel();
-            button = new Panel();
-            btnXacNhanTTK = new MilkTea.Client.Controls.RoundedButton();
-            panel14 = new Panel();
-            btnThoatTTK = new MilkTea.Client.Controls.RoundedButton();
-            middle = new Panel();
-            left = new Panel();
-            panel13 = new Panel();
-            panel16 = new Panel();
-            txtbDuongDanAnh = new TextBox();
-            panel17 = new Panel();
-            label6 = new Label();
-            panel2 = new Panel();
+            Panel Table;
+            Panel panel4;
+            Panel Tool;
+            Panel panel2;
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EmployeeForm));
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             panel5 = new Panel();
-            txtbMatKhau = new TextBox();
-            panel6 = new Panel();
-            label3 = new Label();
-            field = new Panel();
-            panel4 = new Panel();
-            txtbTenTaiKhoan = new TextBox();
+            dataGridView1 = new DataGridView();
             panel3 = new Panel();
+            lblStatus = new Label();
             label2 = new Label();
-            title = new Panel();
+            ButtonQuyen = new Panel();
+            btnDanhSachQuyen = new MilkTea.Client.Controls.RoundedButton();
+            Order = new Panel();
+            roundedComboBox1 = new MilkTea.Client.Controls.RoundedComboBox();
+            SearchFilter = new Panel();
+            roundedComboBox2 = new MilkTea.Client.Controls.RoundedComboBox();
+            SearchBox = new Panel();
+            Search = new MilkTea.Client.Controls.RoundedTextBox();
+            ButtonThem = new Panel();
+            btnThemAccount = new MilkTea.Client.Controls.RoundedButton();
             label1 = new Label();
-            panel1.SuspendLayout();
-            button.SuspendLayout();
-            panel14.SuspendLayout();
-            middle.SuspendLayout();
-            left.SuspendLayout();
-            panel13.SuspendLayout();
-            panel16.SuspendLayout();
-            panel17.SuspendLayout();
-            panel2.SuspendLayout();
+            panel1 = new Panel();
+            ID = new DataGridViewTextBoxColumn();
+            hoVaTen = new DataGridViewTextBoxColumn();
+            sDT = new DataGridViewTextBoxColumn();
+            ngayLam = new DataGridViewTextBoxColumn();
+            taiKhoan = new DataGridViewTextBoxColumn();
+            chiTiet = new DataGridViewImageColumn();
+            sua = new DataGridViewImageColumn();
+            xoa = new DataGridViewImageColumn();
+            Table = new Panel();
+            panel4 = new Panel();
+            Tool = new Panel();
+            panel2 = new Panel();
+            Table.SuspendLayout();
             panel5.SuspendLayout();
-            panel6.SuspendLayout();
-            field.SuspendLayout();
-            panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel3.SuspendLayout();
-            title.SuspendLayout();
+            panel4.SuspendLayout();
+            Tool.SuspendLayout();
+            ButtonQuyen.SuspendLayout();
+            Order.SuspendLayout();
+            SearchFilter.SuspendLayout();
+            SearchBox.SuspendLayout();
+            ButtonThem.SuspendLayout();
+            panel2.SuspendLayout();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
-            // panel1
+            // Table
             // 
-            panel1.Controls.Add(button);
-            panel1.Controls.Add(middle);
-            panel1.Controls.Add(title);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(881, 664);
-            panel1.TabIndex = 1;
-            // 
-            // button
-            // 
-            button.Controls.Add(btnXacNhanTTK);
-            button.Controls.Add(panel14);
-            button.Dock = DockStyle.Bottom;
-            button.Location = new Point(0, 614);
-            button.Name = "button";
-            button.Padding = new Padding(0, 10, 0, 0);
-            button.Size = new Size(881, 50);
-            button.TabIndex = 9;
-            // 
-            // btnXacNhanTTK
-            // 
-            btnXacNhanTTK.BackColor = Color.Lime;
-            btnXacNhanTTK.BorderColor = Color.DodgerBlue;
-            btnXacNhanTTK.BorderRadius = 20;
-            btnXacNhanTTK.BorderSize = 0;
-            btnXacNhanTTK.Dock = DockStyle.Right;
-            btnXacNhanTTK.FlatAppearance.BorderSize = 0;
-            btnXacNhanTTK.FlatStyle = FlatStyle.Flat;
-            btnXacNhanTTK.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            btnXacNhanTTK.ForeColor = Color.Black;
-            btnXacNhanTTK.Location = new Point(611, 10);
-            btnXacNhanTTK.Margin = new Padding(30);
-            btnXacNhanTTK.Name = "btnXacNhanTTK";
-            btnXacNhanTTK.Size = new Size(125, 40);
-            btnXacNhanTTK.TabIndex = 1;
-            btnXacNhanTTK.Text = "+ Thêm";
-            btnXacNhanTTK.UseVisualStyleBackColor = false;
-            // 
-            // panel14
-            // 
-            panel14.Controls.Add(btnThoatTTK);
-            panel14.Dock = DockStyle.Right;
-            panel14.Location = new Point(736, 10);
-            panel14.Name = "panel14";
-            panel14.Size = new Size(145, 40);
-            panel14.TabIndex = 2;
-            // 
-            // btnThoatTTK
-            // 
-            btnThoatTTK.BackColor = Color.Red;
-            btnThoatTTK.BorderColor = Color.DodgerBlue;
-            btnThoatTTK.BorderRadius = 20;
-            btnThoatTTK.BorderSize = 0;
-            btnThoatTTK.Dock = DockStyle.Right;
-            btnThoatTTK.FlatAppearance.BorderSize = 0;
-            btnThoatTTK.FlatStyle = FlatStyle.Flat;
-            btnThoatTTK.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            btnThoatTTK.ForeColor = Color.White;
-            btnThoatTTK.Location = new Point(20, 0);
-            btnThoatTTK.Name = "btnThoatTTK";
-            btnThoatTTK.Size = new Size(125, 40);
-            btnThoatTTK.TabIndex = 0;
-            btnThoatTTK.Text = "Thoát";
-            btnThoatTTK.UseVisualStyleBackColor = false;
-            // 
-            // middle
-            // 
-            middle.BackColor = SystemColors.ScrollBar;
-            middle.Controls.Add(left);
-            middle.Dock = DockStyle.Top;
-            middle.Location = new Point(0, 80);
-            middle.Name = "middle";
-            middle.Size = new Size(881, 460);
-            middle.TabIndex = 1;
-            // 
-            // left
-            // 
-            left.Controls.Add(panel13);
-            left.Controls.Add(panel2);
-            left.Controls.Add(field);
-            left.Dock = DockStyle.Left;
-            left.Location = new Point(0, 0);
-            left.Name = "left";
-            left.Size = new Size(869, 460);
-            left.TabIndex = 12;
-            // 
-            // panel13
-            // 
-            panel13.Controls.Add(panel16);
-            panel13.Controls.Add(panel17);
-            panel13.Dock = DockStyle.Fill;
-            panel13.Location = new Point(0, 180);
-            panel13.Name = "panel13";
-            panel13.Padding = new Padding(10, 0, 0, 0);
-            panel13.Size = new Size(869, 280);
-            panel13.TabIndex = 5;
-            // 
-            // panel16
-            // 
-            panel16.Controls.Add(txtbDuongDanAnh);
-            panel16.Dock = DockStyle.Top;
-            panel16.Location = new Point(10, 50);
-            panel16.Name = "panel16";
-            panel16.Size = new Size(859, 40);
-            panel16.TabIndex = 3;
-            // 
-            // txtbDuongDanAnh
-            // 
-            txtbDuongDanAnh.Dock = DockStyle.Fill;
-            txtbDuongDanAnh.Font = new Font("Segoe UI", 14F);
-            txtbDuongDanAnh.Location = new Point(0, 0);
-            txtbDuongDanAnh.Name = "txtbDuongDanAnh";
-            txtbDuongDanAnh.Size = new Size(859, 39);
-            txtbDuongDanAnh.TabIndex = 0;
-            // 
-            // panel17
-            // 
-            panel17.Controls.Add(label6);
-            panel17.Dock = DockStyle.Top;
-            panel17.Location = new Point(10, 0);
-            panel17.Name = "panel17";
-            panel17.Size = new Size(859, 50);
-            panel17.TabIndex = 2;
-            // 
-            // label6
-            // 
-            label6.Dock = DockStyle.Fill;
-            label6.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(0, 0);
-            label6.Name = "label6";
-            label6.Size = new Size(859, 50);
-            label6.TabIndex = 0;
-            label6.Text = "Ngày bắt đầu làm";
-            label6.TextAlign = ContentAlignment.BottomLeft;
-            // 
-            // panel2
-            // 
-            panel2.Controls.Add(panel5);
-            panel2.Controls.Add(panel6);
-            panel2.Dock = DockStyle.Top;
-            panel2.Location = new Point(0, 90);
-            panel2.Name = "panel2";
-            panel2.Padding = new Padding(10, 0, 0, 0);
-            panel2.Size = new Size(869, 90);
-            panel2.TabIndex = 2;
+            Table.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            Table.BackColor = SystemColors.ScrollBar;
+            Table.Controls.Add(panel5);
+            Table.Controls.Add(panel3);
+            Table.Dock = DockStyle.Fill;
+            Table.Location = new Point(0, 251);
+            Table.Name = "Table";
+            Table.Padding = new Padding(21, 20, 21, 20);
+            Table.Size = new Size(1658, 268);
+            Table.TabIndex = 4;
             // 
             // panel5
             // 
-            panel5.Controls.Add(txtbMatKhau);
-            panel5.Dock = DockStyle.Top;
-            panel5.Location = new Point(10, 50);
+            panel5.Controls.Add(dataGridView1);
+            panel5.Dock = DockStyle.Fill;
+            panel5.Location = new Point(21, 20);
             panel5.Name = "panel5";
-            panel5.Size = new Size(859, 40);
-            panel5.TabIndex = 3;
+            panel5.Size = new Size(1616, 197);
+            panel5.TabIndex = 2;
             // 
-            // txtbMatKhau
+            // dataGridView1
             // 
-            txtbMatKhau.Dock = DockStyle.Fill;
-            txtbMatKhau.Font = new Font("Segoe UI", 14F);
-            txtbMatKhau.Location = new Point(0, 0);
-            txtbMatKhau.Name = "txtbMatKhau";
-            txtbMatKhau.Size = new Size(859, 39);
-            txtbMatKhau.TabIndex = 0;
-            // 
-            // panel6
-            // 
-            panel6.Controls.Add(label3);
-            panel6.Dock = DockStyle.Top;
-            panel6.Location = new Point(10, 0);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(859, 50);
-            panel6.TabIndex = 2;
-            // 
-            // label3
-            // 
-            label3.Dock = DockStyle.Fill;
-            label3.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(0, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(859, 50);
-            label3.TabIndex = 0;
-            label3.Text = "Số điện thoại";
-            label3.TextAlign = ContentAlignment.BottomLeft;
-            // 
-            // field
-            // 
-            field.Controls.Add(panel4);
-            field.Controls.Add(panel3);
-            field.Dock = DockStyle.Top;
-            field.Location = new Point(0, 0);
-            field.Name = "field";
-            field.Padding = new Padding(10, 0, 0, 0);
-            field.Size = new Size(869, 90);
-            field.TabIndex = 1;
-            // 
-            // panel4
-            // 
-            panel4.Controls.Add(txtbTenTaiKhoan);
-            panel4.Dock = DockStyle.Top;
-            panel4.Location = new Point(10, 50);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(859, 40);
-            panel4.TabIndex = 3;
-            // 
-            // txtbTenTaiKhoan
-            // 
-            txtbTenTaiKhoan.Dock = DockStyle.Fill;
-            txtbTenTaiKhoan.Font = new Font("Segoe UI", 14F);
-            txtbTenTaiKhoan.Location = new Point(0, 0);
-            txtbTenTaiKhoan.Name = "txtbTenTaiKhoan";
-            txtbTenTaiKhoan.Size = new Size(859, 39);
-            txtbTenTaiKhoan.TabIndex = 0;
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToResizeColumns = false;
+            dataGridView1.AllowUserToResizeRows = false;
+            dataGridView1.BackgroundColor = SystemColors.Control;
+            dataGridView1.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { ID, hoVaTen, sDT, ngayLam, taiKhoan, chiTiet, sua, xoa });
+            dataGridView1.Dock = DockStyle.Fill;
+            dataGridView1.Location = new Point(0, 0);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersVisible = false;
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(1616, 197);
+            dataGridView1.TabIndex = 0;
             // 
             // panel3
             // 
-            panel3.Controls.Add(label2);
-            panel3.Dock = DockStyle.Top;
-            panel3.Location = new Point(10, 0);
+            panel3.BackColor = Color.Transparent;
+            panel3.Controls.Add(lblStatus);
+            panel3.Dock = DockStyle.Bottom;
+            panel3.Location = new Point(21, 217);
             panel3.Name = "panel3";
-            panel3.Size = new Size(859, 50);
-            panel3.TabIndex = 2;
+            panel3.Size = new Size(1616, 31);
+            panel3.TabIndex = 1;
+            // 
+            // lblStatus
+            // 
+            lblStatus.Dock = DockStyle.Fill;
+            lblStatus.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblStatus.Location = new Point(0, 0);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(1616, 31);
+            lblStatus.TabIndex = 0;
+            lblStatus.TextAlign = ContentAlignment.BottomLeft;
+            // 
+            // panel4
+            // 
+            panel4.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            panel4.Controls.Add(label2);
+            panel4.Dock = DockStyle.Top;
+            panel4.Location = new Point(0, 200);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(1658, 51);
+            panel4.TabIndex = 3;
             // 
             // label2
             // 
             label2.Dock = DockStyle.Fill;
-            label2.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.ForeColor = Color.DodgerBlue;
             label2.Location = new Point(0, 0);
             label2.Name = "label2";
-            label2.Size = new Size(859, 50);
+            label2.Size = new Size(1658, 51);
             label2.TabIndex = 0;
-            label2.Text = "Tên nhân viên";
-            label2.TextAlign = ContentAlignment.BottomLeft;
+            label2.Text = "Danh Sách Nhân Viên";
+            label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // title
+            // Tool
             // 
-            title.Controls.Add(label1);
-            title.Dock = DockStyle.Top;
-            title.Location = new Point(0, 0);
-            title.Name = "title";
-            title.Size = new Size(881, 80);
-            title.TabIndex = 0;
+            Tool.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            Tool.BackColor = SystemColors.ActiveBorder;
+            Tool.Controls.Add(ButtonQuyen);
+            Tool.Controls.Add(Order);
+            Tool.Controls.Add(SearchFilter);
+            Tool.Controls.Add(SearchBox);
+            Tool.Controls.Add(ButtonThem);
+            Tool.Dock = DockStyle.Top;
+            Tool.Location = new Point(0, 100);
+            Tool.Name = "Tool";
+            Tool.Padding = new Padding(21, 29, 21, 29);
+            Tool.Size = new Size(1658, 100);
+            Tool.TabIndex = 2;
+            // 
+            // ButtonQuyen
+            // 
+            ButtonQuyen.Controls.Add(btnDanhSachQuyen);
+            ButtonQuyen.Dock = DockStyle.Top;
+            ButtonQuyen.Location = new Point(773, 29);
+            ButtonQuyen.Name = "ButtonQuyen";
+            ButtonQuyen.Size = new Size(864, 40);
+            ButtonQuyen.TabIndex = 16;
+            // 
+            // btnDanhSachQuyen
+            // 
+            btnDanhSachQuyen.BackColor = Color.DodgerBlue;
+            btnDanhSachQuyen.BorderColor = Color.DodgerBlue;
+            btnDanhSachQuyen.BorderRadius = 20;
+            btnDanhSachQuyen.BorderSize = 0;
+            btnDanhSachQuyen.Dock = DockStyle.Right;
+            btnDanhSachQuyen.FlatAppearance.BorderSize = 0;
+            btnDanhSachQuyen.FlatStyle = FlatStyle.Flat;
+            btnDanhSachQuyen.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnDanhSachQuyen.ForeColor = Color.White;
+            btnDanhSachQuyen.Location = new Point(661, 0);
+            btnDanhSachQuyen.Name = "btnDanhSachQuyen";
+            btnDanhSachQuyen.Size = new Size(203, 40);
+            btnDanhSachQuyen.TabIndex = 4;
+            btnDanhSachQuyen.Text = "Danh Sách Quyền";
+            btnDanhSachQuyen.UseVisualStyleBackColor = false;
+            // 
+            // Order
+            // 
+            Order.Controls.Add(roundedComboBox1);
+            Order.Dock = DockStyle.Left;
+            Order.Location = new Point(611, 29);
+            Order.Name = "Order";
+            Order.Size = new Size(162, 42);
+            Order.TabIndex = 15;
+            // 
+            // roundedComboBox1
+            // 
+            roundedComboBox1.BackColor = Color.White;
+            roundedComboBox1.BorderColor = Color.Gray;
+            roundedComboBox1.BorderRadius = 15;
+            roundedComboBox1.BorderSize = 1;
+            roundedComboBox1.Dock = DockStyle.Left;
+            roundedComboBox1.DrawMode = DrawMode.OwnerDrawFixed;
+            roundedComboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            roundedComboBox1.FlatStyle = FlatStyle.Flat;
+            roundedComboBox1.FocusBorderColor = Color.DeepSkyBlue;
+            roundedComboBox1.Font = new Font("Segoe UI", 10F);
+            roundedComboBox1.FormattingEnabled = true;
+            roundedComboBox1.ItemHeight = 30;
+            roundedComboBox1.Location = new Point(0, 0);
+            roundedComboBox1.Name = "roundedComboBox1";
+            roundedComboBox1.Size = new Size(150, 36);
+            roundedComboBox1.TabIndex = 2;
+            // 
+            // SearchFilter
+            // 
+            SearchFilter.Controls.Add(roundedComboBox2);
+            SearchFilter.Dock = DockStyle.Left;
+            SearchFilter.Location = new Point(441, 29);
+            SearchFilter.Name = "SearchFilter";
+            SearchFilter.Size = new Size(170, 42);
+            SearchFilter.TabIndex = 14;
+            // 
+            // roundedComboBox2
+            // 
+            roundedComboBox2.BackColor = Color.White;
+            roundedComboBox2.BorderColor = Color.Gray;
+            roundedComboBox2.BorderRadius = 15;
+            roundedComboBox2.BorderSize = 1;
+            roundedComboBox2.Dock = DockStyle.Left;
+            roundedComboBox2.DrawMode = DrawMode.OwnerDrawFixed;
+            roundedComboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+            roundedComboBox2.FlatStyle = FlatStyle.Flat;
+            roundedComboBox2.FocusBorderColor = Color.DeepSkyBlue;
+            roundedComboBox2.Font = new Font("Segoe UI", 10F);
+            roundedComboBox2.FormattingEnabled = true;
+            roundedComboBox2.ItemHeight = 30;
+            roundedComboBox2.Items.AddRange(new object[] { "Cũ Nhất", "Mới Nhất" });
+            roundedComboBox2.Location = new Point(0, 0);
+            roundedComboBox2.Name = "roundedComboBox2";
+            roundedComboBox2.Size = new Size(150, 36);
+            roundedComboBox2.TabIndex = 3;
+            // 
+            // SearchBox
+            // 
+            SearchBox.Controls.Add(Search);
+            SearchBox.Dock = DockStyle.Left;
+            SearchBox.Location = new Point(171, 29);
+            SearchBox.Name = "SearchBox";
+            SearchBox.Size = new Size(270, 42);
+            SearchBox.TabIndex = 13;
+            // 
+            // Search
+            // 
+            Search.BackColor = Color.White;
+            Search.BorderColor = Color.Gray;
+            Search.BorderRadius = 20;
+            Search.Dock = DockStyle.Left;
+            Search.FocusBorderColor = Color.DeepSkyBlue;
+            Search.Location = new Point(0, 0);
+            Search.Name = "Search";
+            Search.Padding = new Padding(10, 5, 40, 5);
+            Search.Placeholder = "Từ khóa tìm kiếm...";
+            Search.Size = new Size(250, 42);
+            Search.TabIndex = 1;
+            Search.TextValue = "";
+            // 
+            // ButtonThem
+            // 
+            ButtonThem.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            ButtonThem.Controls.Add(btnThemAccount);
+            ButtonThem.Dock = DockStyle.Left;
+            ButtonThem.Location = new Point(21, 29);
+            ButtonThem.Name = "ButtonThem";
+            ButtonThem.Size = new Size(150, 42);
+            ButtonThem.TabIndex = 9;
+            // 
+            // btnThemAccount
+            // 
+            btnThemAccount.BackColor = Color.DodgerBlue;
+            btnThemAccount.BorderColor = Color.DodgerBlue;
+            btnThemAccount.BorderRadius = 20;
+            btnThemAccount.BorderSize = 0;
+            btnThemAccount.Dock = DockStyle.Left;
+            btnThemAccount.FlatAppearance.BorderSize = 0;
+            btnThemAccount.FlatStyle = FlatStyle.Flat;
+            btnThemAccount.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnThemAccount.ForeColor = Color.White;
+            btnThemAccount.Location = new Point(0, 0);
+            btnThemAccount.Name = "btnThemAccount";
+            btnThemAccount.Size = new Size(130, 42);
+            btnThemAccount.TabIndex = 0;
+            btnThemAccount.Text = "+ Thêm";
+            btnThemAccount.UseVisualStyleBackColor = false;
+            // 
+            // panel2
+            // 
+            panel2.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            panel2.Controls.Add(label1);
+            panel2.Dock = DockStyle.Top;
+            panel2.Location = new Point(0, 0);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(1658, 100);
+            panel2.TabIndex = 1;
             // 
             // label1
             // 
             label1.Dock = DockStyle.Fill;
-            label1.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.DodgerBlue;
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
-            label1.Size = new Size(881, 80);
+            label1.Size = new Size(1658, 100);
             label1.TabIndex = 0;
-            label1.Text = "Thêm Nhân Viên";
+            label1.Text = "Nhân Viên";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // AddEmployee
+            // panel1
+            // 
+            panel1.Controls.Add(Table);
+            panel1.Controls.Add(panel4);
+            panel1.Controls.Add(Tool);
+            panel1.Controls.Add(panel2);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1658, 519);
+            panel1.TabIndex = 1;
+            // 
+            // ID
+            // 
+            ID.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            ID.DataPropertyName = "MaNV";
+            ID.HeaderText = "ID";
+            ID.MinimumWidth = 6;
+            ID.Name = "ID";
+            ID.ReadOnly = true;
+            ID.Resizable = DataGridViewTriState.False;
+            ID.Width = 125;
+            // 
+            // hoVaTen
+            // 
+            hoVaTen.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            hoVaTen.DataPropertyName = "TenNV";
+            hoVaTen.HeaderText = "Họ Và Tên";
+            hoVaTen.MinimumWidth = 6;
+            hoVaTen.Name = "hoVaTen";
+            hoVaTen.ReadOnly = true;
+            hoVaTen.Resizable = DataGridViewTriState.False;
+            // 
+            // sDT
+            // 
+            sDT.DataPropertyName = "SDT";
+            sDT.HeaderText = "Số Điện Thoại";
+            sDT.MinimumWidth = 6;
+            sDT.Name = "sDT";
+            sDT.ReadOnly = true;
+            sDT.Resizable = DataGridViewTriState.False;
+            sDT.Width = 200;
+            // 
+            // ngayLam
+            // 
+            ngayLam.DataPropertyName = "NgayLam";
+            ngayLam.HeaderText = "Ngày Bắt Đầu Làm";
+            ngayLam.MinimumWidth = 6;
+            ngayLam.Name = "ngayLam";
+            ngayLam.ReadOnly = true;
+            ngayLam.Resizable = DataGridViewTriState.False;
+            ngayLam.Width = 200;
+            // 
+            // taiKhoan
+            // 
+            taiKhoan.DataPropertyName = "TaiKhoan";
+            taiKhoan.HeaderText = "Tài Khoản";
+            taiKhoan.MinimumWidth = 6;
+            taiKhoan.Name = "taiKhoan";
+            taiKhoan.ReadOnly = true;
+            taiKhoan.Resizable = DataGridViewTriState.False;
+            taiKhoan.Width = 200;
+            // 
+            // chiTiet
+            // 
+            chiTiet.AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.NullValue = resources.GetObject("dataGridViewCellStyle1.NullValue");
+            dataGridViewCellStyle1.Padding = new Padding(3);
+            chiTiet.DefaultCellStyle = dataGridViewCellStyle1;
+            chiTiet.HeaderText = "Chi Tiết";
+            chiTiet.Image = Properties.Resources.info;
+            chiTiet.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            chiTiet.MinimumWidth = 6;
+            chiTiet.Name = "chiTiet";
+            chiTiet.ReadOnly = true;
+            chiTiet.Resizable = DataGridViewTriState.False;
+            chiTiet.Width = 75;
+            // 
+            // sua
+            // 
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.NullValue = resources.GetObject("dataGridViewCellStyle2.NullValue");
+            dataGridViewCellStyle2.Padding = new Padding(3);
+            sua.DefaultCellStyle = dataGridViewCellStyle2;
+            sua.HeaderText = "Sửa";
+            sua.Image = Properties.Resources.edit;
+            sua.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            sua.MinimumWidth = 6;
+            sua.Name = "sua";
+            sua.ReadOnly = true;
+            sua.Resizable = DataGridViewTriState.False;
+            sua.Width = 75;
+            // 
+            // xoa
+            // 
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.NullValue = resources.GetObject("dataGridViewCellStyle3.NullValue");
+            dataGridViewCellStyle3.Padding = new Padding(3);
+            xoa.DefaultCellStyle = dataGridViewCellStyle3;
+            xoa.HeaderText = "Xóa";
+            xoa.Image = Properties.Resources.trash;
+            xoa.ImageLayout = DataGridViewImageCellLayout.Zoom;
+            xoa.MinimumWidth = 6;
+            xoa.Name = "xoa";
+            xoa.ReadOnly = true;
+            xoa.Resizable = DataGridViewTriState.False;
+            xoa.Width = 75;
+            // 
+            // EmployeeForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(881, 664);
+            ClientSize = new Size(1658, 519);
             Controls.Add(panel1);
-            Name = "AddEmployee";
-            Text = "Form1";
-            panel1.ResumeLayout(false);
-            button.ResumeLayout(false);
-            panel14.ResumeLayout(false);
-            middle.ResumeLayout(false);
-            left.ResumeLayout(false);
-            panel13.ResumeLayout(false);
-            panel16.ResumeLayout(false);
-            panel16.PerformLayout();
-            panel17.ResumeLayout(false);
-            panel2.ResumeLayout(false);
+            Name = "EmployeeForm";
+            Text = "Quản Lý Nhân Viên";
+            Load += EmployeeForm_Load;
+            Table.ResumeLayout(false);
             panel5.ResumeLayout(false);
-            panel5.PerformLayout();
-            panel6.ResumeLayout(false);
-            field.ResumeLayout(false);
-            panel4.ResumeLayout(false);
-            panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             panel3.ResumeLayout(false);
-            title.ResumeLayout(false);
+            panel4.ResumeLayout(false);
+            Tool.ResumeLayout(false);
+            ButtonQuyen.ResumeLayout(false);
+            Order.ResumeLayout(false);
+            SearchFilter.ResumeLayout(false);
+            SearchBox.ResumeLayout(false);
+            ButtonThem.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
         private Panel panel1;
-        private Panel button;
-        private Controls.RoundedButton btnXacNhanTTK;
-        private Panel panel14;
-        private Controls.RoundedButton btnThoatTTK;
-        private Panel middle;
-        private Panel left;
-        private Panel panel13;
-        private Panel panel16;
-        private TextBox txtbDuongDanAnh;
-        private Panel panel17;
-        private Label label6;
-        private Panel panel2;
         private Panel panel5;
-        private TextBox txtbMatKhau;
-        private Panel panel6;
-        private Label label3;
-        private Panel field;
-        private Panel panel4;
-        private TextBox txtbTenTaiKhoan;
+        private DataGridView dataGridView1;
         private Panel panel3;
+        private Label lblStatus;
         private Label label2;
-        private Panel title;
+        private Panel ButtonQuyen;
+        private Controls.RoundedButton btnDanhSachQuyen;
+        private Panel Order;
+        private Controls.RoundedComboBox roundedComboBox1;
+        private Panel SearchFilter;
+        private Controls.RoundedComboBox roundedComboBox2;
+        private Panel SearchBox;
+        private Controls.RoundedTextBox Search;
+        private Panel ButtonThem;
+        private Controls.RoundedButton btnThemAccount;
         private Label label1;
+        private DataGridViewTextBoxColumn ID;
+        private DataGridViewTextBoxColumn hoVaTen;
+        private DataGridViewTextBoxColumn sDT;
+        private DataGridViewTextBoxColumn ngayLam;
+        private DataGridViewTextBoxColumn taiKhoan;
+        private DataGridViewImageColumn chiTiet;
+        private DataGridViewImageColumn sua;
+        private DataGridViewImageColumn xoa;
     }
 }

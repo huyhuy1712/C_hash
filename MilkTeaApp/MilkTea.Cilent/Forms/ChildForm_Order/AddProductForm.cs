@@ -174,30 +174,35 @@ namespace MilkTea.Client.Forms.ChildForm_Order
             // === Lưu ảnh vào thư mục images/tra_sua ===
             try
             {
-                // Lấy đường dẫn đến thư mục gốc của project (ra khỏi bin\Debug)
-                string projectRoot = Path.GetFullPath(Path.Combine(Application.StartupPath, @"..\..\.."));
-                string targetFolder = Path.Combine(projectRoot, "images", "tra_sua");
-                Directory.CreateDirectory(targetFolder);
-
                 string fileName = Path.GetFileName(_selectedImagePath);
-                string targetPath = Path.Combine(targetFolder, fileName);
 
-                // Nếu file đích đã tồn tại thì xóa trước
-                if (File.Exists(targetPath))
-                    File.Delete(targetPath);
-
-                // Copy file theo dạng stream để tránh lỗi GDI+
+                // 1️ Lưu tạm vào bin để load ngay
+                string binFolder = Path.Combine(Application.StartupPath, "images", "tra_sua");
+                Directory.CreateDirectory(binFolder);
+                string binPath = Path.Combine(binFolder, fileName);
                 using (FileStream sourceStream = new FileStream(_selectedImagePath, FileMode.Open, FileAccess.Read))
-                using (FileStream destStream = new FileStream(targetPath, FileMode.CreateNew, FileAccess.Write))
+                using (FileStream destStream = new FileStream(binPath, FileMode.Create, FileAccess.Write))
                 {
                     await sourceStream.CopyToAsync(destStream);
                 }
 
+                // 2️ Lưu vào folder images gốc trong project để giữ lâu dài
+                string projectRoot = Path.GetFullPath(Path.Combine(Application.StartupPath, @"..\..\.."));
+                string projectFolder = Path.Combine(projectRoot, "images", "tra_sua");
+                Directory.CreateDirectory(projectFolder);
+                string projectPath = Path.Combine(projectFolder, fileName);
+
+                // Nếu file đã tồn tại trong project, xóa trước
+                if (File.Exists(projectPath))
+                    File.Delete(projectPath);
+
+                File.Copy(binPath, projectPath);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi lưu ảnh: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
 
 
 

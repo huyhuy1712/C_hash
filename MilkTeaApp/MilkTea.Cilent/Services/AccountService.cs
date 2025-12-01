@@ -1,6 +1,7 @@
 ﻿using MilkTea.Client.Models;
 using System.Diagnostics;
 using System.Net.Http.Json;
+using System.Text.Json;
 
 namespace MilkTea.Client.Services
 {
@@ -35,12 +36,17 @@ namespace MilkTea.Client.Services
         }
 
         // Thêm tài khoản
-        public async Task AddAccountsAsync(TaiKhoan tk)
+        public async Task<int> AddAccountsAsync(TaiKhoan tk)
         {
             var response = await _http.PostAsJsonAsync("/api/taikhoan", tk);
+
             if (!response.IsSuccessStatusCode)
                 throw new Exception("Thêm tài khoản không thành công");
+
+            var id = await response.Content.ReadFromJsonAsync<int>();
+            return id;
         }
+
 
         // Cập nhật tài khoản
         public async Task UpdateAccountsAsync(TaiKhoan tk)
@@ -70,6 +76,28 @@ namespace MilkTea.Client.Services
             {
                 Debug.WriteLine($"[SearchAccountsAsync] Error: {ex.Message}");
                 return null;
+            }
+        }
+
+        // KIỂM TRA TÊN TÀI KHOẢN CÓ TỒN TẠI KHÔNG
+        public async Task<bool> CheckUsernameExistsAsync(string username)
+        {
+            try
+            {
+                var res = await _http.GetFromJsonAsync<JsonElement>(
+                    $"/api/taikhoan/check-username?username={username}");
+
+                if (res.TryGetProperty("exists", out var existsProp))
+                {
+                    return existsProp.GetBoolean();
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"[CheckUsernameExistsAsync] Error: {ex.Message}");
+                return false;
             }
         }
     }

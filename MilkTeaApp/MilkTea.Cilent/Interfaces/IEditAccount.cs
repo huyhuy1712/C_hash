@@ -1,9 +1,8 @@
-﻿using MilkTea.Client.Controls;
-using MilkTea.Client.Models;
+﻿using MilkTea.Client.Models;
 
 namespace MilkTea.Client.Interfaces
 {
-    public interface IAddAccountForm
+    public interface IEditAccount
     {
         // Lấy dữ liệu người dùng nhập trên form
         TaiKhoan GetTaiKhoanInput();
@@ -11,11 +10,11 @@ namespace MilkTea.Client.Interfaces
         // Hiển thị kết quả thêm tài khoản
         //void ShowResult(string message, bool success);
         ComboBox CbQuyen { get; }
-        ComboBox CbNhanVien { get; }
         void setQuyen(List<Quyen> q);
+        void setTaiKhoan(TaiKhoan tk);
+        void setNhanVien(NhanVien nv);
         ErrorProvider Error { get; }
         TextBox TxtbTenTaiKhoan { get; }
-        TextBox TxtbMatKhau { get; }
         TextBox TxtbDuongDanAnh { get; }
         TextBox TxtbSoDienThoai { get; }
         TextBox TxtbTenNhanVien { get; }

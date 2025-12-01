@@ -5,14 +5,18 @@ namespace MilkTea.Client.Forms.ChildForm_Account
 {
     public partial class ViewAccountForm : Form, IViewAccountForm
     {
-        private readonly string _id;
+        public Label LblId => lblId;
         public Label LblTaiKhoan => lblTaiKhoan;
+        public Label LblSoDienThoai => lblSoDienThoai;
         public Label LblHoTen => lblHoTen;
         public Label LblQuyen => lblQuyen;
         public Label LblTrangThai => lblTrangThai;
         public Label LblStatus => lblStatus;
         public PictureBox PicAnh => picAnh;
+
         private readonly ViewAccountPresenter _presenter;
+
+        private readonly string _id;
 
         public ViewAccountForm(string id)
         {

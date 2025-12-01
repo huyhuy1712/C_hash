@@ -348,11 +348,11 @@
         private Panel TextBox;
         private Panel panel2;
         private Label lblStatus;
-        private DataGridViewTextBoxColumn ID;
-        private DataGridViewTextBoxColumn chucNang;
         private DataGridViewCheckBoxColumn chon;
-        private DataGridViewCheckBoxColumn chkChucNang;
         private ErrorProvider errorProvider1;
         private TextBox txtbSearch;
+        private DataGridViewTextBoxColumn ID;
+        private DataGridViewTextBoxColumn chucNang;
+        private DataGridViewCheckBoxColumn chkChucNang;
     }
 }

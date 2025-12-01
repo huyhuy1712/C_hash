@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -46,6 +47,11 @@ namespace MilkTea.Client.Forms
 
             // 🔍 Gắn sự kiện filter trạng thái (luôn attach, an toàn nếu đã có)
             roundedComboBox2.SelectedIndexChanged += roundedComboBox2_SelectedIndexChanged;
+
+            //Bật tắt các nút theo quyền
+            roundedButton1.Visible = Session.HasPermission("Thêm khuyến mãi");
+            sua.Visible = Session.HasPermission("Sửa khuyến mãi");
+            xoa.Visible = Session.HasPermission("Xóa khuyến mãi");
         }
 
         private async Task btnThemDiscount_ClickAsync(object sender, EventArgs e)
@@ -76,24 +82,66 @@ namespace MilkTea.Client.Forms
 
             try
             {
-                using var client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:5198");
+                using var client = new HttpClient { BaseAddress = new Uri("http://localhost:5198") };
+                var options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 
-                var response = await client.GetAsync("/api/ctkhuyenmai");
-                if (!response.IsSuccessStatusCode)
+                // Load all discounts (null-safe)
+                var discounts = await client.GetFromJsonAsync<List<CTKhuyenMai>>("/api/ctkhuyenmai") ?? new List<CTKhuyenMai>();
+                _allDiscounts = discounts;
+
+                // Build filters (LINQ style)
+                string searchKeyword = roundedTextBox2.TextValue?.Trim().ToLower() ?? "";
+                string statusFilter = roundedComboBox2.SelectedItem?.ToString() ?? "Tất cả";
+
+                // Start with base sequence
+                var query = _allDiscounts.AsEnumerable();
+
+                // Always hide soft-deleted items (TrangThai != 1)
+                query = query.Where(d => d.TrangThai == 1);
+
+                // Search filter (supports id exact-priority and partial name match)
+                if (!string.IsNullOrEmpty(searchKeyword))
                 {
-                    MessageBox.Show("Không thể tải danh sách khuyến mãi!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    if (int.TryParse(searchKeyword, out int keywordId))
+                    {
+                        // Exact id first, then other matches (avoid duplicates)
+                        var byId = query.Where(d => d.MaCTKhuyenMai == keywordId);
+                        var byText = query.Where(d =>
+                            (!string.IsNullOrEmpty(d.TenCTKhuyenMai) && d.TenCTKhuyenMai.ToLower().Contains(searchKeyword)) ||
+                            d.MaCTKhuyenMai.ToString().Contains(searchKeyword));
+                        query = byId.Concat(byText.Where(d => d.MaCTKhuyenMai != keywordId)).Distinct();
+                    }
+                    else
+                    {
+                        query = query.Where(d =>
+                            (!string.IsNullOrEmpty(d.TenCTKhuyenMai) && d.TenCTKhuyenMai.ToLower().Contains(searchKeyword)) ||
+                            d.MaCTKhuyenMai.ToString().Contains(searchKeyword));
+                    }
                 }
 
-                var json = await response.Content.ReadAsStringAsync();
-                _allDiscounts = JsonSerializer.Deserialize<List<CTKhuyenMai>>(json, new JsonSerializerOptions
+                // Status filter (uses date logic)
+                if (statusFilter != "Tất cả")
                 {
-                    PropertyNameCaseInsensitive = true
-                }) ?? new List<CTKhuyenMai>();
+                    DateTime now = DateTime.Now.Date;
+                    query = query.Where(d =>
+                    {
+                        bool isActive = false;
+                        if (d.NgayBatDau.HasValue && d.NgayKetThuc.HasValue)
+                        {
+                            isActive = d.NgayBatDau.Value.Date <= now && now <= d.NgayKetThuc.Value.Date;
+                        }
+                        else if (d.NgayBatDau.HasValue && !d.NgayKetThuc.HasValue)
+                        {
+                            isActive = d.NgayBatDau.Value.Date <= now;
+                        }
+                        return (statusFilter == "Đang hoạt động" && isActive) ||
+                               (statusFilter == "Hết hạn" && !isActive);
+                    });
+                }
 
-                // Áp dụng filter hiện tại (search + status) - Force "Tất cả" nếu cần
-                ApplyFilters();
+                // Materialize and display
+                var result = query.ToList();
+                DisplayDiscounts(result);
             }
             catch (Exception ex)
             {
