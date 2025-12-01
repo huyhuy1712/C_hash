@@ -2,6 +2,7 @@
 using MilkTea.Client.Interfaces;
 using MilkTea.Client.Models;
 using MilkTea.Client.Services;
+using MilkTea.Server.Models;
 using System.Windows.Forms;
 
 namespace MilkTea.Client.Presenters
@@ -9,6 +10,7 @@ namespace MilkTea.Client.Presenters
     public class QuyenPresenter
     {
         private readonly QuyenService _quyenService = new();
+        private readonly AccountService _accountService = new();
         private readonly IBaseForm _form;
         private List<Quyen> listQuyen;
 
@@ -89,6 +91,31 @@ namespace MilkTea.Client.Presenters
                 q.TenQuyen = tenQuyen;
                 q.TrangThai = 0;
                 q.Mota = "123";
+
+                List<TaiKhoan> tk;
+                try
+                {
+                    tk = await _accountService.GetAccountsAsync();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi lấy danh sách tài khoản! " + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                tk.Where(x => x.MaQuyen == q.MaQuyen).ToList();
+                string list = "";
+                foreach (TaiKhoan taikhoan in tk)
+                {
+                    list += taikhoan.TenTaiKhoan;
+                    list += "\n";
+                }
+
+                if (tk.Any())
+                {
+                    MessageBox.Show($"Tài khoản: \n{list}Đang có quyền {q.TenQuyen}! ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
 
                 try
                 {
