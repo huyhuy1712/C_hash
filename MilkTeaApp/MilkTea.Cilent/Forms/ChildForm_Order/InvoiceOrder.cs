@@ -146,7 +146,7 @@ namespace MilkTea.Client.Forms.ChildForm_Order
                 lblTopping.GotFocus += (s, ev) => ((TextBox)s).Parent.Focus();
 
                 lblTopping.Text = (item.Toppings != null && item.Toppings.Any())
-                    ? string.Join(Environment.NewLine, item.Toppings.Select(t => $"{t.gia:N0} ({t.SL}%) {t.ten}"))
+                    ? string.Join(Environment.NewLine, item.Toppings.Select(t => $"{t.gia:N0} ({t.SL}g) {t.ten}"))
                     : "Không có";
 
                 //  Đợi control render xong, rồi đo kích thước thật
