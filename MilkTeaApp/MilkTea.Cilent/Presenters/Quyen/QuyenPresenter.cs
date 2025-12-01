@@ -103,9 +103,9 @@ namespace MilkTea.Client.Presenters
                     return;
                 }
 
-                tk.Where(x => x.MaQuyen == q.MaQuyen).ToList();
+                var filtered = tk.Where(x => x.MaQuyen == q.MaQuyen).ToList();
                 string list = "";
-                foreach (TaiKhoan taikhoan in tk)
+                foreach (TaiKhoan taikhoan in filtered)
                 {
                     list += taikhoan.TenTaiKhoan;
                     list += "\n";
