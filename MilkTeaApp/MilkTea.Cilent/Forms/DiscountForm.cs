@@ -40,8 +40,6 @@ namespace MilkTea.Client.Forms
             _searchTimer.Start();
         }
 
-       
-
         private async void DiscountForm_Load(object sender, EventArgs e)
         {
             // Thêm "Tất cả" vào ComboBox trạng thái (nếu chưa có)
@@ -56,19 +54,22 @@ namespace MilkTea.Client.Forms
             roundedTextBox2.TextValue = "";
             roundedTextBox2.Placeholder = "Nhập mã hoặc tên khuyến mãi..."; // Đảm bảo placeholder
 
-            // sensible defaults for date filters (optional)
-            dateStart.Value = DateTime.Today.AddMonths(-1);
+            // Set sensible defaults for date filters: start = Jan 1st of current year, end = today
+            try
+            {
+                dateStart.Value = new DateTime(DateTime.Today.Year, 1, 1);
+            }
+            catch
+            {
+                // In case DateTimePicker.MinDate/MaxDate prevents setting — fall back to DateTime.Today
+                dateStart.Value = DateTime.Today;
+            }
             dateEnd.Value = DateTime.Today;
 
             await LoadDiscountsAsync();
 
             // 🔍 Gắn sự kiện filter trạng thái (luôn attach, an toàn nếu đã có)
             roundedComboBox2.SelectedIndexChanged += roundedComboBox2_SelectedIndexChanged;
-
-            //Bật tắt các nút theo quyền
-            roundedButton1.Visible = Session.HasPermission("Thêm khuyến mãi");
-            sua.Visible = Session.HasPermission("Sửa khuyến mãi");
-            xoa.Visible = Session.HasPermission("Xóa khuyến mãi");
         }
 
         private async Task btnThemDiscount_ClickAsync(object sender, EventArgs e)
