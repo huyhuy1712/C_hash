@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             panel1 = new Panel();
             panel5 = new Panel();
             lblStatus_PN = new Label();
@@ -45,11 +45,12 @@
             panel7 = new Panel();
             txt_Timkiem_NCC = new TextBox();
             panel8 = new Panel();
-            cbo_timkiemtheo_NCC = new MilkTea.Client.Controls.RoundedComboBox();
             panel6 = new Panel();
             btn_Them_NCC = new MilkTea.Client.Controls.RoundedButton();
             panel2 = new Panel();
             label1 = new Label();
+            panel9 = new Panel();
+            cbo_timkiemtheo_NCC = new ComboBox();
             panel1.SuspendLayout();
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dGV_nhacungcap).BeginInit();
@@ -59,6 +60,7 @@
             panel8.SuspendLayout();
             panel6.SuspendLayout();
             panel2.SuspendLayout();
+            panel9.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -156,10 +158,10 @@
             // 
             // xoa_Tb_NCC
             // 
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.NullValue = null;
-            dataGridViewCellStyle1.Padding = new Padding(3);
-            xoa_Tb_NCC.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.NullValue = null;
+            dataGridViewCellStyle6.Padding = new Padding(3);
+            xoa_Tb_NCC.DefaultCellStyle = dataGridViewCellStyle6;
             xoa_Tb_NCC.HeaderText = "Xóa";
             xoa_Tb_NCC.Image = Properties.Resources.trash;
             xoa_Tb_NCC.MinimumWidth = 6;
@@ -204,61 +206,41 @@
             // 
             // panel7
             // 
-            panel7.Controls.Add(txt_Timkiem_NCC);
             panel7.Controls.Add(panel8);
+            panel7.Controls.Add(txt_Timkiem_NCC);
             panel7.Dock = DockStyle.Right;
-            panel7.Location = new Point(1371, 0);
+            panel7.Location = new Point(1390, 0);
             panel7.Margin = new Padding(3, 4, 3, 4);
             panel7.Name = "panel7";
-            panel7.Padding = new Padding(10, 11, 10, 11);
-            panel7.Size = new Size(553, 72);
+            panel7.Padding = new Padding(16);
+            panel7.Size = new Size(534, 72);
             panel7.TabIndex = 1;
             // 
             // txt_Timkiem_NCC
             // 
-            txt_Timkiem_NCC.Dock = DockStyle.Left;
-            txt_Timkiem_NCC.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txt_Timkiem_NCC.Location = new Point(10, 11);
+            txt_Timkiem_NCC.Dock = DockStyle.Right;
+            txt_Timkiem_NCC.Font = new Font("Segoe UI", 15F);
+            txt_Timkiem_NCC.Location = new Point(205, 16);
             txt_Timkiem_NCC.Margin = new Padding(3, 4, 3, 4);
             txt_Timkiem_NCC.Name = "txt_Timkiem_NCC";
             txt_Timkiem_NCC.PlaceholderText = "Tìm kiếm...";
-            txt_Timkiem_NCC.Size = new Size(313, 47);
+            txt_Timkiem_NCC.Size = new Size(313, 41);
             txt_Timkiem_NCC.TabIndex = 3;
             txt_Timkiem_NCC.TextChanged += txt_Timkiem_NCC_TextChanged;
             // 
             // panel8
             // 
             panel8.Controls.Add(cbo_timkiemtheo_NCC);
-            panel8.Dock = DockStyle.Right;
-            panel8.Location = new Point(370, 11);
+            panel8.Dock = DockStyle.Left;
+            panel8.Location = new Point(16, 16);
             panel8.Margin = new Padding(3, 4, 3, 4);
             panel8.Name = "panel8";
-            panel8.Size = new Size(173, 50);
+            panel8.Size = new Size(151, 40);
             panel8.TabIndex = 2;
-            // 
-            // cbo_timkiemtheo_NCC
-            // 
-            cbo_timkiemtheo_NCC.BackColor = Color.White;
-            cbo_timkiemtheo_NCC.BorderColor = Color.Gray;
-            cbo_timkiemtheo_NCC.BorderRadius = 15;
-            cbo_timkiemtheo_NCC.BorderSize = 1;
-            cbo_timkiemtheo_NCC.Dock = DockStyle.Fill;
-            cbo_timkiemtheo_NCC.DrawMode = DrawMode.OwnerDrawFixed;
-            cbo_timkiemtheo_NCC.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbo_timkiemtheo_NCC.FlatStyle = FlatStyle.Flat;
-            cbo_timkiemtheo_NCC.FocusBorderColor = Color.DeepSkyBlue;
-            cbo_timkiemtheo_NCC.Font = new Font("Segoe UI", 10F);
-            cbo_timkiemtheo_NCC.FormattingEnabled = true;
-            cbo_timkiemtheo_NCC.ItemHeight = 30;
-            cbo_timkiemtheo_NCC.Location = new Point(0, 0);
-            cbo_timkiemtheo_NCC.Margin = new Padding(3, 4, 3, 4);
-            cbo_timkiemtheo_NCC.Name = "cbo_timkiemtheo_NCC";
-            cbo_timkiemtheo_NCC.Size = new Size(173, 36);
-            cbo_timkiemtheo_NCC.TabIndex = 0;
             // 
             // panel6
             // 
-            panel6.Controls.Add(btn_Them_NCC);
+            panel6.Controls.Add(panel9);
             panel6.Dock = DockStyle.Left;
             panel6.Location = new Point(0, 0);
             panel6.Margin = new Padding(3, 4, 3, 4);
@@ -278,10 +260,10 @@
             btn_Them_NCC.FlatStyle = FlatStyle.Flat;
             btn_Them_NCC.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btn_Them_NCC.ForeColor = Color.White;
-            btn_Them_NCC.Location = new Point(6, 9);
+            btn_Them_NCC.Location = new Point(6, 6);
             btn_Them_NCC.Margin = new Padding(3, 4, 3, 4);
             btn_Them_NCC.Name = "btn_Them_NCC";
-            btn_Them_NCC.Size = new Size(159, 54);
+            btn_Them_NCC.Size = new Size(130, 42);
             btn_Them_NCC.TabIndex = 0;
             btn_Them_NCC.Text = "Thêm";
             btn_Them_NCC.UseVisualStyleBackColor = false;
@@ -309,6 +291,27 @@
             label1.Text = "Nhà Cung Cấp";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // panel9
+            // 
+            panel9.Controls.Add(btn_Them_NCC);
+            panel9.Dock = DockStyle.Fill;
+            panel9.Location = new Point(6, 9);
+            panel9.Name = "panel9";
+            panel9.Padding = new Padding(6);
+            panel9.Size = new Size(338, 54);
+            panel9.TabIndex = 1;
+            // 
+            // cbo_timkiemtheo_NCC
+            // 
+            cbo_timkiemtheo_NCC.Dock = DockStyle.Fill;
+            cbo_timkiemtheo_NCC.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbo_timkiemtheo_NCC.Font = new Font("Segoe UI", 15F);
+            cbo_timkiemtheo_NCC.FormattingEnabled = true;
+            cbo_timkiemtheo_NCC.Location = new Point(0, 0);
+            cbo_timkiemtheo_NCC.Name = "cbo_timkiemtheo_NCC";
+            cbo_timkiemtheo_NCC.Size = new Size(151, 43);
+            cbo_timkiemtheo_NCC.TabIndex = 0;
+            // 
             // SupplierForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -328,6 +331,7 @@
             panel8.ResumeLayout(false);
             panel6.ResumeLayout(false);
             panel2.ResumeLayout(false);
+            panel9.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -344,7 +348,6 @@
         private Panel panel7;
         private TextBox txt_Timkiem_NCC;
         private Panel panel8;
-        private Controls.RoundedComboBox cbo_timkiemtheo_NCC;
         private Panel panel9;
         private Controls.RoundedButton btn_Them_NCC;
         private Panel panel10;
@@ -356,5 +359,6 @@
         private DataGridViewTextBoxColumn diachi_Tb_NCC;
         private DataGridViewImageColumn sua_Tb_NCC;
         private DataGridViewImageColumn xoa_Tb_NCC;
+        private ComboBox cbo_timkiemtheo_NCC;
     }
 }
