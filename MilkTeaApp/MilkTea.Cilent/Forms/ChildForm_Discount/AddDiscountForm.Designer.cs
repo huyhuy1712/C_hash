@@ -67,6 +67,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             panel6 = new Panel();
             textBox1 = new TextBox();
             label5 = new Label();
+            panel11 = new Panel();
             panel2 = new Panel();
             panel2.SuspendLayout();
             panel1.SuspendLayout();
@@ -125,7 +126,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             panel1.Location = new Point(0, 0);
             panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1166, 983);
+            panel1.Size = new Size(1166, 836);
             panel1.TabIndex = 0;
             // 
             // panel3
@@ -135,14 +136,14 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             panel3.Location = new Point(0, 80);
             panel3.Margin = new Padding(3, 4, 3, 4);
             panel3.Name = "panel3";
-            panel3.Size = new Size(1166, 903);
+            panel3.Size = new Size(1166, 756);
             panel3.TabIndex = 3;
             // 
             // panel5
             // 
             panel5.BackColor = SystemColors.Control;
-            panel5.Controls.Add(panel9);
             panel5.Controls.Add(panel8);
+            panel5.Controls.Add(panel9);
             panel5.Controls.Add(panel7);
             panel5.Controls.Add(panel19);
             panel5.Controls.Add(panel18);
@@ -153,19 +154,21 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             panel5.Location = new Point(0, 0);
             panel5.Margin = new Padding(3, 4, 3, 4);
             panel5.Name = "panel5";
-            panel5.Size = new Size(1166, 903);
+            panel5.Size = new Size(1166, 756);
             panel5.TabIndex = 1;
             panel5.Paint += panel5_Paint;
             // 
             // panel9
             // 
             panel9.Controls.Add(btnThoatDiscount);
+            panel9.Controls.Add(panel11);
             panel9.Controls.Add(btnThemDiscount);
             panel9.Dock = DockStyle.Bottom;
-            panel9.Location = new Point(0, 848);
+            panel9.Location = new Point(0, 694);
             panel9.Margin = new Padding(3, 4, 3, 4);
             panel9.Name = "panel9";
-            panel9.Size = new Size(1166, 55);
+            panel9.Padding = new Padding(0, 10, 10, 10);
+            panel9.Size = new Size(1166, 62);
             panel9.TabIndex = 2;
             // 
             // btnThoatDiscount
@@ -179,9 +182,9 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             btnThoatDiscount.FlatStyle = FlatStyle.Flat;
             btnThoatDiscount.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnThoatDiscount.ForeColor = Color.White;
-            btnThoatDiscount.Location = new Point(927, 0);
+            btnThoatDiscount.Location = new Point(838, 10);
             btnThoatDiscount.Name = "btnThoatDiscount";
-            btnThoatDiscount.Size = new Size(94, 55);
+            btnThoatDiscount.Size = new Size(141, 42);
             btnThoatDiscount.TabIndex = 3;
             btnThoatDiscount.Text = "Hủy";
             btnThoatDiscount.UseVisualStyleBackColor = false;
@@ -199,9 +202,9 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             btnThemDiscount.FlatStyle = FlatStyle.Flat;
             btnThemDiscount.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnThemDiscount.ForeColor = Color.White;
-            btnThemDiscount.Location = new Point(1021, 0);
+            btnThemDiscount.Location = new Point(1011, 10);
             btnThemDiscount.Name = "btnThemDiscount";
-            btnThemDiscount.Size = new Size(145, 55);
+            btnThemDiscount.Size = new Size(145, 42);
             btnThemDiscount.TabIndex = 2;
             btnThemDiscount.Text = "Xác nhận";
             btnThemDiscount.UseVisualStyleBackColor = false;
@@ -211,11 +214,11 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             // 
             panel8.Controls.Add(dGV_sp_KM_ADD);
             panel8.Controls.Add(panel4);
-            panel8.Dock = DockStyle.Top;
+            panel8.Dock = DockStyle.Fill;
             panel8.Location = new Point(0, 377);
             panel8.Margin = new Padding(3, 4, 3, 4);
             panel8.Name = "panel8";
-            panel8.Size = new Size(1166, 472);
+            panel8.Size = new Size(1166, 317);
             panel8.TabIndex = 1;
             // 
             // dGV_sp_KM_ADD
@@ -228,11 +231,11 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             dGV_sp_KM_ADD.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dGV_sp_KM_ADD.Columns.AddRange(new DataGridViewColumn[] { chon_add, maSP_add, tenSanPham_add, loai_add });
             dGV_sp_KM_ADD.Dock = DockStyle.Fill;
-            dGV_sp_KM_ADD.Location = new Point(0, 84);
+            dGV_sp_KM_ADD.Location = new Point(0, 76);
             dGV_sp_KM_ADD.Margin = new Padding(3, 4, 3, 4);
             dGV_sp_KM_ADD.Name = "dGV_sp_KM_ADD";
             dGV_sp_KM_ADD.RowHeadersWidth = 51;
-            dGV_sp_KM_ADD.Size = new Size(1166, 388);
+            dGV_sp_KM_ADD.Size = new Size(1166, 241);
             dGV_sp_KM_ADD.TabIndex = 1;
             // 
             // chon_add
@@ -273,7 +276,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             panel4.Location = new Point(0, 0);
             panel4.Margin = new Padding(3, 4, 3, 4);
             panel4.Name = "panel4";
-            panel4.Size = new Size(1166, 84);
+            panel4.Size = new Size(1166, 76);
             panel4.TabIndex = 0;
             // 
             // panel14
@@ -284,7 +287,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             panel14.Location = new Point(0, 0);
             panel14.Margin = new Padding(3, 4, 3, 4);
             panel14.Name = "panel14";
-            panel14.Size = new Size(1166, 84);
+            panel14.Size = new Size(1166, 76);
             panel14.TabIndex = 2;
             // 
             // panel23
@@ -294,7 +297,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             panel23.Location = new Point(147, 0);
             panel23.Margin = new Padding(3, 4, 3, 4);
             panel23.Name = "panel23";
-            panel23.Size = new Size(1019, 84);
+            panel23.Size = new Size(1019, 76);
             panel23.TabIndex = 4;
             // 
             // panel46
@@ -303,8 +306,8 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             panel46.Dock = DockStyle.Left;
             panel46.Location = new Point(0, 0);
             panel46.Name = "panel46";
-            panel46.Padding = new Padding(15, 15, 15, 15);
-            panel46.Size = new Size(237, 84);
+            panel46.Padding = new Padding(15);
+            panel46.Size = new Size(237, 76);
             panel46.TabIndex = 9;
             // 
             // roundedTextBox1
@@ -318,7 +321,7 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             roundedTextBox1.Name = "roundedTextBox1";
             roundedTextBox1.Padding = new Padding(10, 5, 40, 5);
             roundedTextBox1.Placeholder = "Từ khóa tìm kiếm...";
-            roundedTextBox1.Size = new Size(207, 54);
+            roundedTextBox1.Size = new Size(207, 46);
             roundedTextBox1.TabIndex = 0;
             roundedTextBox1.TextValue = "";
             roundedTextBox1.DataContextChanged += roundedTextBox1_TextChanged;
@@ -331,7 +334,8 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             panel47.Location = new Point(0, 0);
             panel47.Margin = new Padding(3, 4, 3, 4);
             panel47.Name = "panel47";
-            panel47.Size = new Size(147, 84);
+            panel47.Padding = new Padding(0, 17, 0, 17);
+            panel47.Size = new Size(147, 76);
             panel47.TabIndex = 3;
             // 
             // selectAll_button
@@ -340,14 +344,15 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             selectAll_button.BorderColor = Color.DodgerBlue;
             selectAll_button.BorderRadius = 20;
             selectAll_button.BorderSize = 0;
+            selectAll_button.Dock = DockStyle.Fill;
             selectAll_button.FlatAppearance.BorderSize = 0;
             selectAll_button.FlatStyle = FlatStyle.Flat;
             selectAll_button.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             selectAll_button.ForeColor = Color.White;
-            selectAll_button.Location = new Point(0, 15);
+            selectAll_button.Location = new Point(0, 17);
             selectAll_button.Margin = new Padding(3, 4, 3, 4);
             selectAll_button.Name = "selectAll_button";
-            selectAll_button.Size = new Size(147, 55);
+            selectAll_button.Size = new Size(147, 42);
             selectAll_button.TabIndex = 11;
             selectAll_button.Text = "Chọn tất cả";
             selectAll_button.UseVisualStyleBackColor = false;
@@ -592,11 +597,19 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
             label5.TextAlign = ContentAlignment.MiddleLeft;
             label5.Click += label5_Click;
             // 
+            // panel11
+            // 
+            panel11.Dock = DockStyle.Right;
+            panel11.Location = new Point(979, 10);
+            panel11.Name = "panel11";
+            panel11.Size = new Size(32, 42);
+            panel11.TabIndex = 4;
+            // 
             // AddDiscountForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1166, 983);
+            ClientSize = new Size(1166, 836);
             Controls.Add(panel1);
             Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
@@ -705,5 +718,6 @@ namespace MilkTea.Client.Forms.ChildForm_Discount
         private DataGridViewTextBoxColumn loai_add;
         private DataGridViewTextBoxColumn maSP_add;
         private RoundedButton selectAll_button;
+        private Panel panel11;
     }
 }
