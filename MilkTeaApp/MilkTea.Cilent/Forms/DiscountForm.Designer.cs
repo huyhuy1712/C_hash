@@ -37,6 +37,12 @@ namespace MilkTea.Client.Forms
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             label1 = new Label();
+            panel8 = new Panel();
+            dateEnd = new DateTimePicker();
+            label5 = new Label();
+            panel7 = new Panel();
+            dateStart = new DateTimePicker();
+            label4 = new Label();
             panel10 = new Panel();
             roundedButton1 = new RoundedButton();
             panel6 = new Panel();
@@ -57,17 +63,13 @@ namespace MilkTea.Client.Forms
             chiTiet = new DataGridViewImageColumn();
             sua = new DataGridViewImageColumn();
             xoa = new DataGridViewImageColumn();
-            panel7 = new Panel();
-            label4 = new Label();
-            dateStart = new DateTimePicker();
-            panel8 = new Panel();
-            dateEnd = new DateTimePicker();
-            label5 = new Label();
             panel2 = new Panel();
             panel3 = new Panel();
             panel4 = new Panel();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
+            panel8.SuspendLayout();
+            panel7.SuspendLayout();
             panel10.SuspendLayout();
             panel6.SuspendLayout();
             panel5.SuspendLayout();
@@ -75,8 +77,6 @@ namespace MilkTea.Client.Forms
             panel4.SuspendLayout();
             DiscountPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dGV_discounts).BeginInit();
-            panel7.SuspendLayout();
-            panel8.SuspendLayout();
             SuspendLayout();
             // 
             // panel2
@@ -117,6 +117,82 @@ namespace MilkTea.Client.Forms
             panel3.Padding = new Padding(5);
             panel3.Size = new Size(1897, 51);
             panel3.TabIndex = 3;
+            // 
+            // panel8
+            // 
+            panel8.Controls.Add(dateEnd);
+            panel8.Controls.Add(label5);
+            panel8.Dock = DockStyle.Left;
+            panel8.Location = new Point(928, 5);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(337, 41);
+            panel8.TabIndex = 5;
+            // 
+            // dateEnd
+            // 
+            dateEnd.CalendarForeColor = Color.Black;
+            dateEnd.CalendarMonthBackground = Color.Transparent;
+            dateEnd.CalendarTitleBackColor = Color.Transparent;
+            dateEnd.CalendarTitleForeColor = Color.Transparent;
+            dateEnd.CalendarTrailingForeColor = Color.Transparent;
+            dateEnd.CustomFormat = "dd/MM/yyyy";
+            dateEnd.Dock = DockStyle.Fill;
+            dateEnd.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dateEnd.Format = DateTimePickerFormat.Custom;
+            dateEnd.Location = new Point(163, 0);
+            dateEnd.Margin = new Padding(3, 8, 3, 3);
+            dateEnd.Name = "dateEnd";
+            dateEnd.Size = new Size(174, 43);
+            dateEnd.TabIndex = 2;
+            // 
+            // label5
+            // 
+            label5.Dock = DockStyle.Left;
+            label5.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.Location = new Point(0, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(163, 41);
+            label5.TabIndex = 1;
+            label5.Text = "Ngày kết thúc";
+            label5.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // panel7
+            // 
+            panel7.Controls.Add(dateStart);
+            panel7.Controls.Add(label4);
+            panel7.Dock = DockStyle.Left;
+            panel7.Location = new Point(582, 5);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(346, 41);
+            panel7.TabIndex = 4;
+            // 
+            // dateStart
+            // 
+            dateStart.CalendarForeColor = Color.Black;
+            dateStart.CalendarMonthBackground = Color.Transparent;
+            dateStart.CalendarTitleBackColor = Color.Transparent;
+            dateStart.CalendarTitleForeColor = Color.Transparent;
+            dateStart.CalendarTrailingForeColor = Color.Transparent;
+            dateStart.CustomFormat = "dd/MM/yyyy";
+            dateStart.Dock = DockStyle.Fill;
+            dateStart.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dateStart.Format = DateTimePickerFormat.Custom;
+            dateStart.Location = new Point(163, 0);
+            dateStart.Margin = new Padding(3, 8, 3, 3);
+            dateStart.Name = "dateStart";
+            dateStart.Size = new Size(183, 43);
+            dateStart.TabIndex = 2;
+            // 
+            // label4
+            // 
+            label4.Dock = DockStyle.Left;
+            label4.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.Location = new Point(0, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(163, 41);
+            label4.TabIndex = 1;
+            label4.Text = "Ngày bắt đầu ";
+            label4.TextAlign = ContentAlignment.TopCenter;
             // 
             // panel10
             // 
@@ -367,82 +443,6 @@ namespace MilkTea.Client.Forms
             xoa.Resizable = DataGridViewTriState.False;
             xoa.Width = 75;
             // 
-            // panel7
-            // 
-            panel7.Controls.Add(dateStart);
-            panel7.Controls.Add(label4);
-            panel7.Dock = DockStyle.Left;
-            panel7.Location = new Point(509, 4);
-            panel7.Name = "panel7";
-            panel7.Size = new Size(291, 30);
-            panel7.TabIndex = 4;
-            // 
-            // label4
-            // 
-            label4.Dock = DockStyle.Left;
-            label4.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(0, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(163, 30);
-            label4.TabIndex = 1;
-            label4.Text = "Ngày bắt đầu ";
-            label4.TextAlign = ContentAlignment.TopCenter;
-            // 
-            // dateStart
-            // 
-            dateStart.CalendarForeColor = Color.Black;
-            dateStart.CalendarMonthBackground = Color.Transparent;
-            dateStart.CalendarTitleBackColor = Color.Transparent;
-            dateStart.CalendarTitleForeColor = Color.Transparent;
-            dateStart.CalendarTrailingForeColor = Color.Transparent;
-            dateStart.CustomFormat = "dd/MM/yyyy";
-            dateStart.Dock = DockStyle.Fill;
-            dateStart.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateStart.Format = DateTimePickerFormat.Custom;
-            dateStart.Location = new Point(163, 0);
-            dateStart.Margin = new Padding(3, 8, 3, 3);
-            dateStart.Name = "dateStart";
-            dateStart.Size = new Size(128, 36);
-            dateStart.TabIndex = 2;
-            // 
-            // panel8
-            // 
-            panel8.Controls.Add(dateEnd);
-            panel8.Controls.Add(label5);
-            panel8.Dock = DockStyle.Left;
-            panel8.Location = new Point(800, 4);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(291, 30);
-            panel8.TabIndex = 5;
-            // 
-            // dateEnd
-            // 
-            dateEnd.CalendarForeColor = Color.Black;
-            dateEnd.CalendarMonthBackground = Color.Transparent;
-            dateEnd.CalendarTitleBackColor = Color.Transparent;
-            dateEnd.CalendarTitleForeColor = Color.Transparent;
-            dateEnd.CalendarTrailingForeColor = Color.Transparent;
-            dateEnd.CustomFormat = "dd/MM/yyyy";
-            dateEnd.Dock = DockStyle.Fill;
-            dateEnd.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateEnd.Format = DateTimePickerFormat.Custom;
-            dateEnd.Location = new Point(163, 0);
-            dateEnd.Margin = new Padding(3, 8, 3, 3);
-            dateEnd.Name = "dateEnd";
-            dateEnd.Size = new Size(128, 36);
-            dateEnd.TabIndex = 2;
-            // 
-            // label5
-            // 
-            label5.Dock = DockStyle.Left;
-            label5.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(0, 0);
-            label5.Name = "label5";
-            label5.Size = new Size(163, 30);
-            label5.TabIndex = 1;
-            label5.Text = "Ngày kết thúc";
-            label5.TextAlign = ContentAlignment.TopCenter;
-            // 
             // DiscountForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -453,6 +453,8 @@ namespace MilkTea.Client.Forms
             Text = "DiscountForm";
             panel2.ResumeLayout(false);
             panel3.ResumeLayout(false);
+            panel8.ResumeLayout(false);
+            panel7.ResumeLayout(false);
             panel10.ResumeLayout(false);
             panel6.ResumeLayout(false);
             panel5.ResumeLayout(false);
@@ -460,8 +462,6 @@ namespace MilkTea.Client.Forms
             panel4.ResumeLayout(false);
             DiscountPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dGV_discounts).EndInit();
-            panel7.ResumeLayout(false);
-            panel8.ResumeLayout(false);
             ResumeLayout(false);
 
             //Bật tắt các nút theo quyền
