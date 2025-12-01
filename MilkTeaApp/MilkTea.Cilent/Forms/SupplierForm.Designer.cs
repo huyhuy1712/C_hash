@@ -28,29 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             panel1 = new Panel();
             panel5 = new Panel();
             lblStatus_PN = new Label();
             dGV_nhacungcap = new DataGridView();
+            panel4 = new Panel();
+            label2 = new Label();
+            panel3 = new Panel();
+            panel7 = new Panel();
+            panel8 = new Panel();
+            cbo_timkiemtheo_NCC = new ComboBox();
+            txt_Timkiem_NCC = new TextBox();
+            panel6 = new Panel();
+            panel9 = new Panel();
+            btn_Them_NCC = new MilkTea.Client.Controls.RoundedButton();
+            panel2 = new Panel();
+            label1 = new Label();
             ma_Tb_NCC = new DataGridViewTextBoxColumn();
             ten_Tb_NCC = new DataGridViewTextBoxColumn();
             sdt_Tb_NCC = new DataGridViewTextBoxColumn();
             diachi_Tb_NCC = new DataGridViewTextBoxColumn();
             sua_Tb_NCC = new DataGridViewImageColumn();
             xoa_Tb_NCC = new DataGridViewImageColumn();
-            panel4 = new Panel();
-            label2 = new Label();
-            panel3 = new Panel();
-            panel7 = new Panel();
-            txt_Timkiem_NCC = new TextBox();
-            panel8 = new Panel();
-            panel6 = new Panel();
-            btn_Them_NCC = new MilkTea.Client.Controls.RoundedButton();
-            panel2 = new Panel();
-            label1 = new Label();
-            panel9 = new Panel();
-            cbo_timkiemtheo_NCC = new ComboBox();
             panel1.SuspendLayout();
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dGV_nhacungcap).BeginInit();
@@ -59,8 +59,8 @@
             panel7.SuspendLayout();
             panel8.SuspendLayout();
             panel6.SuspendLayout();
-            panel2.SuspendLayout();
             panel9.SuspendLayout();
+            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -107,7 +107,7 @@
             dGV_nhacungcap.AllowUserToResizeColumns = false;
             dGV_nhacungcap.AllowUserToResizeRows = false;
             dGV_nhacungcap.BackgroundColor = SystemColors.ButtonFace;
-            dGV_nhacungcap.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dGV_nhacungcap.CellBorderStyle = DataGridViewCellBorderStyle.Raised;
             dGV_nhacungcap.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dGV_nhacungcap.Columns.AddRange(new DataGridViewColumn[] { ma_Tb_NCC, ten_Tb_NCC, sdt_Tb_NCC, diachi_Tb_NCC, sua_Tb_NCC, xoa_Tb_NCC });
             dGV_nhacungcap.Dock = DockStyle.Top;
@@ -119,56 +119,6 @@
             dGV_nhacungcap.Size = new Size(1872, 535);
             dGV_nhacungcap.TabIndex = 0;
             dGV_nhacungcap.CellClick += dGV_nhacungcap_CellClick;
-            // 
-            // ma_Tb_NCC
-            // 
-            ma_Tb_NCC.HeaderText = "Mã nhà cung cấp";
-            ma_Tb_NCC.MinimumWidth = 6;
-            ma_Tb_NCC.Name = "ma_Tb_NCC";
-            ma_Tb_NCC.Width = 200;
-            // 
-            // ten_Tb_NCC
-            // 
-            ten_Tb_NCC.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            ten_Tb_NCC.HeaderText = "Tên nhà cung cấp";
-            ten_Tb_NCC.MinimumWidth = 6;
-            ten_Tb_NCC.Name = "ten_Tb_NCC";
-            // 
-            // sdt_Tb_NCC
-            // 
-            sdt_Tb_NCC.HeaderText = "Số điện thoại";
-            sdt_Tb_NCC.MinimumWidth = 6;
-            sdt_Tb_NCC.Name = "sdt_Tb_NCC";
-            sdt_Tb_NCC.Width = 175;
-            // 
-            // diachi_Tb_NCC
-            // 
-            diachi_Tb_NCC.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            diachi_Tb_NCC.HeaderText = "Địa chỉ";
-            diachi_Tb_NCC.MinimumWidth = 6;
-            diachi_Tb_NCC.Name = "diachi_Tb_NCC";
-            // 
-            // sua_Tb_NCC
-            // 
-            sua_Tb_NCC.HeaderText = "Sửa";
-            sua_Tb_NCC.Image = Properties.Resources.edit;
-            sua_Tb_NCC.MinimumWidth = 6;
-            sua_Tb_NCC.Name = "sua_Tb_NCC";
-            sua_Tb_NCC.Width = 125;
-            // 
-            // xoa_Tb_NCC
-            // 
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.NullValue = null;
-            dataGridViewCellStyle6.Padding = new Padding(3);
-            xoa_Tb_NCC.DefaultCellStyle = dataGridViewCellStyle6;
-            xoa_Tb_NCC.HeaderText = "Xóa";
-            xoa_Tb_NCC.Image = Properties.Resources.trash;
-            xoa_Tb_NCC.MinimumWidth = 6;
-            xoa_Tb_NCC.Name = "xoa_Tb_NCC";
-            xoa_Tb_NCC.Resizable = DataGridViewTriState.True;
-            xoa_Tb_NCC.SortMode = DataGridViewColumnSortMode.Automatic;
-            xoa_Tb_NCC.Width = 125;
             // 
             // panel4
             // 
@@ -209,24 +159,12 @@
             panel7.Controls.Add(panel8);
             panel7.Controls.Add(txt_Timkiem_NCC);
             panel7.Dock = DockStyle.Right;
-            panel7.Location = new Point(1390, 0);
+            panel7.Location = new Point(1272, 0);
             panel7.Margin = new Padding(3, 4, 3, 4);
             panel7.Name = "panel7";
             panel7.Padding = new Padding(16);
-            panel7.Size = new Size(534, 72);
+            panel7.Size = new Size(652, 72);
             panel7.TabIndex = 1;
-            // 
-            // txt_Timkiem_NCC
-            // 
-            txt_Timkiem_NCC.Dock = DockStyle.Right;
-            txt_Timkiem_NCC.Font = new Font("Segoe UI", 15F);
-            txt_Timkiem_NCC.Location = new Point(205, 16);
-            txt_Timkiem_NCC.Margin = new Padding(3, 4, 3, 4);
-            txt_Timkiem_NCC.Name = "txt_Timkiem_NCC";
-            txt_Timkiem_NCC.PlaceholderText = "Tìm kiếm...";
-            txt_Timkiem_NCC.Size = new Size(313, 41);
-            txt_Timkiem_NCC.TabIndex = 3;
-            txt_Timkiem_NCC.TextChanged += txt_Timkiem_NCC_TextChanged;
             // 
             // panel8
             // 
@@ -235,8 +173,31 @@
             panel8.Location = new Point(16, 16);
             panel8.Margin = new Padding(3, 4, 3, 4);
             panel8.Name = "panel8";
-            panel8.Size = new Size(151, 40);
+            panel8.Size = new Size(259, 40);
             panel8.TabIndex = 2;
+            // 
+            // cbo_timkiemtheo_NCC
+            // 
+            cbo_timkiemtheo_NCC.Dock = DockStyle.Fill;
+            cbo_timkiemtheo_NCC.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbo_timkiemtheo_NCC.Font = new Font("Segoe UI", 15F);
+            cbo_timkiemtheo_NCC.FormattingEnabled = true;
+            cbo_timkiemtheo_NCC.Location = new Point(0, 0);
+            cbo_timkiemtheo_NCC.Name = "cbo_timkiemtheo_NCC";
+            cbo_timkiemtheo_NCC.Size = new Size(259, 43);
+            cbo_timkiemtheo_NCC.TabIndex = 0;
+            // 
+            // txt_Timkiem_NCC
+            // 
+            txt_Timkiem_NCC.Dock = DockStyle.Right;
+            txt_Timkiem_NCC.Font = new Font("Segoe UI", 15F);
+            txt_Timkiem_NCC.Location = new Point(323, 16);
+            txt_Timkiem_NCC.Margin = new Padding(3, 4, 3, 4);
+            txt_Timkiem_NCC.Name = "txt_Timkiem_NCC";
+            txt_Timkiem_NCC.PlaceholderText = "Tìm kiếm...";
+            txt_Timkiem_NCC.Size = new Size(313, 41);
+            txt_Timkiem_NCC.TabIndex = 3;
+            txt_Timkiem_NCC.TextChanged += txt_Timkiem_NCC_TextChanged;
             // 
             // panel6
             // 
@@ -248,6 +209,16 @@
             panel6.Padding = new Padding(6, 9, 6, 9);
             panel6.Size = new Size(350, 72);
             panel6.TabIndex = 0;
+            // 
+            // panel9
+            // 
+            panel9.Controls.Add(btn_Them_NCC);
+            panel9.Dock = DockStyle.Fill;
+            panel9.Location = new Point(6, 9);
+            panel9.Name = "panel9";
+            panel9.Padding = new Padding(6);
+            panel9.Size = new Size(338, 54);
+            panel9.TabIndex = 1;
             // 
             // btn_Them_NCC
             // 
@@ -291,26 +262,55 @@
             label1.Text = "Nhà Cung Cấp";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // panel9
+            // ma_Tb_NCC
             // 
-            panel9.Controls.Add(btn_Them_NCC);
-            panel9.Dock = DockStyle.Fill;
-            panel9.Location = new Point(6, 9);
-            panel9.Name = "panel9";
-            panel9.Padding = new Padding(6);
-            panel9.Size = new Size(338, 54);
-            panel9.TabIndex = 1;
+            ma_Tb_NCC.HeaderText = "Mã nhà cung cấp";
+            ma_Tb_NCC.MinimumWidth = 6;
+            ma_Tb_NCC.Name = "ma_Tb_NCC";
+            ma_Tb_NCC.Width = 200;
             // 
-            // cbo_timkiemtheo_NCC
+            // ten_Tb_NCC
             // 
-            cbo_timkiemtheo_NCC.Dock = DockStyle.Fill;
-            cbo_timkiemtheo_NCC.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbo_timkiemtheo_NCC.Font = new Font("Segoe UI", 15F);
-            cbo_timkiemtheo_NCC.FormattingEnabled = true;
-            cbo_timkiemtheo_NCC.Location = new Point(0, 0);
-            cbo_timkiemtheo_NCC.Name = "cbo_timkiemtheo_NCC";
-            cbo_timkiemtheo_NCC.Size = new Size(151, 43);
-            cbo_timkiemtheo_NCC.TabIndex = 0;
+            ten_Tb_NCC.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            ten_Tb_NCC.HeaderText = "Tên nhà cung cấp";
+            ten_Tb_NCC.MinimumWidth = 6;
+            ten_Tb_NCC.Name = "ten_Tb_NCC";
+            // 
+            // sdt_Tb_NCC
+            // 
+            sdt_Tb_NCC.HeaderText = "Số điện thoại";
+            sdt_Tb_NCC.MinimumWidth = 6;
+            sdt_Tb_NCC.Name = "sdt_Tb_NCC";
+            sdt_Tb_NCC.Width = 175;
+            // 
+            // diachi_Tb_NCC
+            // 
+            diachi_Tb_NCC.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            diachi_Tb_NCC.HeaderText = "Địa chỉ";
+            diachi_Tb_NCC.MinimumWidth = 6;
+            diachi_Tb_NCC.Name = "diachi_Tb_NCC";
+            // 
+            // sua_Tb_NCC
+            // 
+            sua_Tb_NCC.HeaderText = "Sửa";
+            sua_Tb_NCC.Image = Properties.Resources.edit;
+            sua_Tb_NCC.MinimumWidth = 6;
+            sua_Tb_NCC.Name = "sua_Tb_NCC";
+            sua_Tb_NCC.Width = 75;
+            // 
+            // xoa_Tb_NCC
+            // 
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.NullValue = null;
+            dataGridViewCellStyle1.Padding = new Padding(3);
+            xoa_Tb_NCC.DefaultCellStyle = dataGridViewCellStyle1;
+            xoa_Tb_NCC.HeaderText = "Xóa";
+            xoa_Tb_NCC.Image = Properties.Resources.trash;
+            xoa_Tb_NCC.MinimumWidth = 6;
+            xoa_Tb_NCC.Name = "xoa_Tb_NCC";
+            xoa_Tb_NCC.Resizable = DataGridViewTriState.True;
+            xoa_Tb_NCC.SortMode = DataGridViewColumnSortMode.Automatic;
+            xoa_Tb_NCC.Width = 75;
             // 
             // SupplierForm
             // 
@@ -330,8 +330,8 @@
             panel7.PerformLayout();
             panel8.ResumeLayout(false);
             panel6.ResumeLayout(false);
-            panel2.ResumeLayout(false);
             panel9.ResumeLayout(false);
+            panel2.ResumeLayout(false);
             ResumeLayout(false);
         }
 
