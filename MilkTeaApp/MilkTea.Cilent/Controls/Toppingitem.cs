@@ -23,9 +23,9 @@ namespace MilkTea.Client.Controls
             lb_slcl.Text = nl.SoLuong.ToString();
 
             comboBox3.Items.Clear();
-            comboBox3.Items.Add($"25% - {nl.GiaBan:N0} VND");
-            comboBox3.Items.Add($"50% - {(nl.GiaBan * 2):N0} VND");
-            comboBox3.Items.Add($"75% - {(nl.GiaBan * 3):N0} VND");
+            comboBox3.Items.Add($"25g - {nl.GiaBan:N0} VND");
+            comboBox3.Items.Add($"50g - {(nl.GiaBan * 2):N0} VND");
+            comboBox3.Items.Add($"75g - {(nl.GiaBan * 3):N0} VND");
             comboBox3.SelectedIndex = 0;
 
             checkBox1.Checked = false;

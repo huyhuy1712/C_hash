@@ -1,5 +1,6 @@
 ﻿using MilkTea.Client.Models;
 using MilkTea.Client.Services;
+using MilkTea.Server.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,10 +21,12 @@ namespace MilkTea.Client.Forms.ChildForm_Import
         private readonly NguyenLieuService _nguyenLieuService;
         private readonly NhanVienService _nhanVienService;
         private readonly NhaCungCapService _nhaCungCapService;
+        private readonly DonViTinhService _donViTinhService;
 
         private ImportForm _parentForm;
         private List<NguyenLieu> _nguyenLieus;
         private List<NhaCungCap> _nhaCungCaps;
+        private List<DonViTinh> _donViTinhs;
         private List<TempChiTiet> _tempChiTiets = new List<TempChiTiet>();
         private NhanVien nv;
 
@@ -34,8 +37,10 @@ namespace MilkTea.Client.Forms.ChildForm_Import
             public int SoLuong { get; set; }
             public decimal DonGiaNhap { get; set; }
             public decimal TongGia { get; set; }
+            public string DonVi { get; set; }
         }
 
+        public PhieuNhap? ResultPhieuNhap { get; private set; }
 
         public ImportForm_Add(ImportForm parentForm)
         {
@@ -45,6 +50,7 @@ namespace MilkTea.Client.Forms.ChildForm_Import
             _nguyenLieuService = new NguyenLieuService();
             _nhanVienService = new NhanVienService();
             _nhaCungCapService = new NhaCungCapService();
+            _donViTinhService = new DonViTinhService();
             _parentForm = parentForm;
         }
 
@@ -74,27 +80,46 @@ namespace MilkTea.Client.Forms.ChildForm_Import
             cbo_HangHoa_PN_ADD.DataSource = _nguyenLieus;
             cbo_HangHoa_PN_ADD.DisplayMember = "Ten";
             cbo_HangHoa_PN_ADD.ValueMember = "MaNL";
+
+            // Load đơn vị tính
+            _donViTinhs = await _donViTinhService.GetAllAsync();
+            cbo_donvitinh_add.DataSource = _donViTinhs;
+            cbo_donvitinh_add.DisplayMember = "TenDVT";
+            cbo_donvitinh_add.ValueMember = "MaDVT";
         }
 
         private void btn_Them_PN_ADD_Click(object sender, EventArgs e)
         {
             if (cbo_HangHoa_PN_ADD.SelectedItem is NguyenLieu selectedNL && nb_soLuong_PN_ADD.Value > 0)
             {
-                int soLuong = (int)nb_soLuong_PN_ADD.Value;
+                int soLuongMoi = (int)nb_soLuong_PN_ADD.Value;
                 decimal donGiaNhap = selectedNL.GiaBan;
-                decimal tongGia = soLuong * donGiaNhap;
+                int maNL = selectedNL.MaNL;
+                string donViTinh = cbo_donvitinh_add.Text;
 
-                _tempChiTiets.Add(new TempChiTiet
+                var existingItem = _tempChiTiets.FirstOrDefault(t => t.MaNL == maNL);
+
+                if (existingItem != null)
                 {
-                    MaNL = selectedNL.MaNL,
-                    TenNL = selectedNL.Ten,
-                    SoLuong = soLuong,
-                    DonGiaNhap = donGiaNhap,
-                    TongGia = tongGia
-                });
+                    existingItem.SoLuong += soLuongMoi;
+                    existingItem.TongGia = existingItem.SoLuong * existingItem.DonGiaNhap;
+                }
+                else
+                {
+                    decimal tongGia = soLuongMoi * donGiaNhap;
+                    _tempChiTiets.Add(new TempChiTiet
+                    {
+                        MaNL = maNL,
+                        TenNL = selectedNL.Ten,
+                        SoLuong = soLuongMoi,
+                        DonGiaNhap = donGiaNhap,
+                        TongGia = tongGia,
+                        DonVi = donViTinh
+                    });
+                }
 
                 RefreshGrid();
-                nb_soLuong_PN_ADD.Value = 0;
+                nb_soLuong_PN_ADD.Value = 0; // Reset số lượng sau khi thêm
             }
             else
             {
@@ -118,6 +143,7 @@ namespace MilkTea.Client.Forms.ChildForm_Import
 
         private async void btn_Luu_Iport_add_Click(object sender, EventArgs e)
         {
+            string donViTinh = cbo_donvitinh_add.Text;
             if (_tempChiTiets.Count == 0)
             {
                 MessageBox.Show("Không có chi tiết nào để lưu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -133,11 +159,26 @@ namespace MilkTea.Client.Forms.ChildForm_Import
                     TrangThai = 1,
                     MaNCC = (int?)cbo_NhaCungCap_PN_ADD.SelectedValue,
                     MaNV = nv.MaNV,
+                    DonViTinh = donViTinh,
                     TongTien = _tempChiTiets.Sum(t => t.TongGia),
                 };
 
                 int newMaPN = await _phieuNhapService.AddPhieuNhapAsync(pn);
 
+                // Tạo object đầy đủ để trả về
+                var fullPhieuNhap = new PhieuNhap
+                {
+                    MaPN = newMaPN,
+                    NgayNhap = pn.NgayNhap,
+                    SoLuong = pn.SoLuong,
+                    TrangThai = 1,
+                    MaNCC = pn.MaNCC,
+                    MaNV = pn.MaNV,
+                    DonViTinh = pn.DonViTinh,
+                    TongTien = pn.TongTien
+                };
+
+                // Lưu chi tiết
                 foreach (var temp in _tempChiTiets)
                 {
                     var ct = new ChiTietPhieuNhap
@@ -146,18 +187,20 @@ namespace MilkTea.Client.Forms.ChildForm_Import
                         MaNguyenLieu = temp.MaNL,
                         SoLuong = temp.SoLuong,
                         DonGiaNhap = temp.DonGiaNhap,
-                        TongGia = temp.TongGia
+                        TongGia = temp.TongGia,
+                        DonViTinh = temp.DonVi
                     };
                     await _chiTietPhieuNhapService.AddChiTietPhieuNhapAsync(ct);
                     await _nguyenLieuService.CongNguyenLieuAsync(temp.MaNL, temp.SoLuong);
                 }
-                // Reset danh sách sau khi lưu thành công
+
+                ResultPhieuNhap = fullPhieuNhap;
+
                 _tempChiTiets.Clear();
                 RefreshGrid();
 
-                // Thông báo và làm mới form cha (ImportForm)
                 MessageBox.Show("Lưu phiếu nhập thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                _parentForm.LoadPhieuNhaps(); // Gọi lại phương thức load dữ liệu
+                this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             catch (Exception ex)
@@ -173,13 +216,42 @@ namespace MilkTea.Client.Forms.ChildForm_Import
         private async void RefreshGrid()
         {
             dGV_HangHoa_PN_ADD.Rows.Clear();
-            string maPhieu = Convert.ToString(txt_maPN_PN_ADD.Text);
+
+            string maPhieu = txt_maPN_PN_ADD.Text;
             string ngayNhap = dt_iPort_ngaylap.Text;
             string tenNV = txt_iPort_nguoitao.Text;
 
             foreach (var item in _tempChiTiets)
             {
-                dGV_HangHoa_PN_ADD.Rows.Add(maPhieu, ngayNhap, item.TenNL, item.SoLuong, tenNV, item.TongGia);
+                int rowIndex = dGV_HangHoa_PN_ADD.Rows.Add(
+                    maPhieu,
+                    ngayNhap,
+                    item.TenNL,
+                    item.SoLuong,
+                    tenNV,
+                    item.TongGia,
+                    item.DonVi
+                );
+            }
+        }
+
+        private void dGV_HangHoa_PN_ADD_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dGV_HangHoa_PN_ADD.Columns["xoa_tb_add"].Index && e.RowIndex >= 0)
+            {
+                // Xác nhận xóa
+                var confirmResult = MessageBox.Show(
+                    "Bạn có chắc muốn xóa nguyên liệu này khỏi phiếu nhập?",
+                    "Xác nhận xóa",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (confirmResult == DialogResult.Yes)
+                {
+                    // Xóa khỏi danh sách tạm
+                    _tempChiTiets.RemoveAt(e.RowIndex);
+                    RefreshGrid(); // Cập nhật lại grid
+                }
             }
         }
     }

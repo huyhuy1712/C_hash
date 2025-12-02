@@ -6,7 +6,8 @@
     {
         _http = new HttpClient
         {
-            BaseAddress = new Uri("http://localhost:5000") // Dùng HTTP thay vì HTTPS
+            BaseAddress = new Uri("http://localhost:5198" +
+            "") // Dùng HTTP thay vì HTTPS
         };
     }
 }

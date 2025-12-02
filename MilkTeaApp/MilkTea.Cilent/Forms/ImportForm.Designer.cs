@@ -37,7 +37,7 @@ namespace MilkTea.Client.Forms
             panel7 = new Panel();
             txt_TimkiemPN_PN = new TextBox();
             panel8 = new Panel();
-            cbo_timkiemtheo_PN = new MilkTea.Client.Controls.RoundedComboBox();
+            cbo_timkiemtheo_PN = new ComboBox();
             panel6 = new Panel();
             roundedButton2 = new MilkTea.Client.Controls.RoundedButton();
             roundedButton1 = new MilkTea.Client.Controls.RoundedButton();
@@ -109,48 +109,41 @@ namespace MilkTea.Client.Forms
             panel7.Dock = DockStyle.Right;
             panel7.Location = new Point(1200, 0);
             panel7.Name = "panel7";
-            panel7.Padding = new Padding(9, 8, 9, 8);
+            panel7.Padding = new Padding(15, 13, 15, 13);
             panel7.Size = new Size(484, 54);
             panel7.TabIndex = 1;
             // 
             // txt_TimkiemPN_PN
             // 
-            txt_TimkiemPN_PN.Dock = DockStyle.Left;
-            txt_TimkiemPN_PN.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txt_TimkiemPN_PN.Location = new Point(9, 8);
+            txt_TimkiemPN_PN.Dock = DockStyle.Right;
+            txt_TimkiemPN_PN.Font = new Font("Segoe UI", 15F);
+            txt_TimkiemPN_PN.Location = new Point(195, 13);
             txt_TimkiemPN_PN.Name = "txt_TimkiemPN_PN";
             txt_TimkiemPN_PN.PlaceholderText = "Tìm kiếm...";
-            txt_TimkiemPN_PN.Size = new Size(274, 39);
+            txt_TimkiemPN_PN.Size = new Size(274, 34);
             txt_TimkiemPN_PN.TabIndex = 3;
             txt_TimkiemPN_PN.TextChanged += txt_TimkiemPN_PN_TextChanged;
             // 
             // panel8
             // 
             panel8.Controls.Add(cbo_timkiemtheo_PN);
-            panel8.Dock = DockStyle.Right;
-            panel8.Location = new Point(324, 8);
+            panel8.Dock = DockStyle.Left;
+            panel8.Location = new Point(15, 13);
             panel8.Name = "panel8";
-            panel8.Size = new Size(151, 38);
+            panel8.Size = new Size(151, 28);
             panel8.TabIndex = 2;
             // 
             // cbo_timkiemtheo_PN
             // 
-            cbo_timkiemtheo_PN.BackColor = Color.White;
-            cbo_timkiemtheo_PN.BorderColor = Color.Gray;
-            cbo_timkiemtheo_PN.BorderRadius = 15;
-            cbo_timkiemtheo_PN.BorderSize = 1;
             cbo_timkiemtheo_PN.Dock = DockStyle.Fill;
-            cbo_timkiemtheo_PN.DrawMode = DrawMode.OwnerDrawFixed;
             cbo_timkiemtheo_PN.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbo_timkiemtheo_PN.FlatStyle = FlatStyle.Flat;
-            cbo_timkiemtheo_PN.FocusBorderColor = Color.DeepSkyBlue;
-            cbo_timkiemtheo_PN.Font = new Font("Segoe UI", 10F);
+            cbo_timkiemtheo_PN.Font = new Font("Segoe UI", 15F);
             cbo_timkiemtheo_PN.FormattingEnabled = true;
-            cbo_timkiemtheo_PN.ItemHeight = 30;
             cbo_timkiemtheo_PN.Location = new Point(0, 0);
+            cbo_timkiemtheo_PN.Margin = new Padding(3, 2, 3, 2);
             cbo_timkiemtheo_PN.Name = "cbo_timkiemtheo_PN";
             cbo_timkiemtheo_PN.Size = new Size(151, 36);
-            cbo_timkiemtheo_PN.TabIndex = 0;
+            cbo_timkiemtheo_PN.TabIndex = 2;
             // 
             // panel6
             // 
@@ -159,8 +152,8 @@ namespace MilkTea.Client.Forms
             panel6.Dock = DockStyle.Left;
             panel6.Location = new Point(0, 0);
             panel6.Name = "panel6";
-            panel6.Padding = new Padding(5, 7, 5, 7);
-            panel6.Size = new Size(306, 54);
+            panel6.Padding = new Padding(13, 11, 13, 11);
+            panel6.Size = new Size(278, 54);
             panel6.TabIndex = 0;
             // 
             // roundedButton2
@@ -174,9 +167,9 @@ namespace MilkTea.Client.Forms
             roundedButton2.FlatStyle = FlatStyle.Flat;
             roundedButton2.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             roundedButton2.ForeColor = Color.White;
-            roundedButton2.Location = new Point(160, 7);
+            roundedButton2.Location = new Point(151, 11);
             roundedButton2.Name = "roundedButton2";
-            roundedButton2.Size = new Size(141, 40);
+            roundedButton2.Size = new Size(114, 32);
             roundedButton2.TabIndex = 1;
             roundedButton2.Text = "Excel";
             roundedButton2.UseVisualStyleBackColor = false;
@@ -193,9 +186,9 @@ namespace MilkTea.Client.Forms
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             roundedButton1.ForeColor = Color.White;
-            roundedButton1.Location = new Point(5, 7);
+            roundedButton1.Location = new Point(13, 11);
             roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(139, 40);
+            roundedButton1.Size = new Size(114, 32);
             roundedButton1.TabIndex = 0;
             roundedButton1.Text = "Thêm";
             roundedButton1.UseVisualStyleBackColor = false;
@@ -288,7 +281,7 @@ namespace MilkTea.Client.Forms
             dGV_phieuNhap.AllowUserToResizeColumns = false;
             dGV_phieuNhap.AllowUserToResizeRows = false;
             dGV_phieuNhap.BackgroundColor = SystemColors.ButtonFace;
-            dGV_phieuNhap.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dGV_phieuNhap.CellBorderStyle = DataGridViewCellBorderStyle.Raised;
             dGV_phieuNhap.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dGV_phieuNhap.Columns.AddRange(new DataGridViewColumn[] { maPhieuNhap_Tb_iPort, ngayNhap_Tb_iPort, soLuong_Tb_iPort, NhaCungCap_Tb_iPort, tenNVN_Tb_iPort, tongTien_Tb_iPort, thongTin_Tb_iPort, xoa_Tb_iPort });
             dGV_phieuNhap.Dock = DockStyle.Top;
@@ -356,7 +349,7 @@ namespace MilkTea.Client.Forms
             thongTin_Tb_iPort.Name = "thongTin_Tb_iPort";
             thongTin_Tb_iPort.Resizable = DataGridViewTriState.True;
             thongTin_Tb_iPort.SortMode = DataGridViewColumnSortMode.Automatic;
-            thongTin_Tb_iPort.Width = 125;
+            thongTin_Tb_iPort.Width = 75;
             // 
             // xoa_Tb_iPort
             // 
@@ -370,7 +363,7 @@ namespace MilkTea.Client.Forms
             xoa_Tb_iPort.Name = "xoa_Tb_iPort";
             xoa_Tb_iPort.Resizable = DataGridViewTriState.True;
             xoa_Tb_iPort.SortMode = DataGridViewColumnSortMode.Automatic;
-            xoa_Tb_iPort.Width = 125;
+            xoa_Tb_iPort.Width = 75;
             // 
             // panel1
             // 
@@ -428,7 +421,6 @@ namespace MilkTea.Client.Forms
         private Panel panel6;
         private Controls.RoundedButton roundedButton2;
         private Controls.RoundedButton roundedButton1;
-        private Controls.RoundedComboBox cbo_timkiemtheo_PN;
         private Panel panel8;
         private TextBox txt_TimkiemPN_PN;
         private Label lblStatus_PN;
@@ -440,5 +432,7 @@ namespace MilkTea.Client.Forms
         private DataGridViewTextBoxColumn tongTien_Tb_iPort;
         private DataGridViewImageColumn thongTin_Tb_iPort;
         private DataGridViewImageColumn xoa_Tb_iPort;
+        private ComboBox comboBox1;
+        private ComboBox cbo_timkiemtheo_PN;
     }
 }

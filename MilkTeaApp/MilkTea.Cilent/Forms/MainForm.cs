@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MilkTea.Client.Forms;
+using MilkTea.Client.Forms.ChildForm_Account.NewFolder;
 using MilkTea.Client.Models;
 using MilkTea.Client.Services;
 using System;
@@ -39,7 +40,7 @@ namespace MilkTea.Client.Forms
         private void MainForm_Load(object sender, EventArgs e)
         {
             // Mặc định load Trang Chủ khi mở form
-            LoadForm(new OrderForm(_account));
+            //LoadForm(new OrderForm(_account));
             username.Text = _account.TenTaiKhoan;
             try
             {
@@ -71,7 +72,7 @@ namespace MilkTea.Client.Forms
             btnThongKe.Enabled = Session.HasPermission("Vào thống kê");
             btnKhuyenMai.Enabled = Session.HasPermission("Vào khuyến mãi");
             btnPhieuNhap.Enabled = Session.HasPermission("Vào nhập hàng");
-            btnTaiKhoan.Enabled = Session.HasPermission("Vào tài khoản");
+            btnTaiKhoan.Enabled  = Session.HasPermission("Vào tài khoản");
             btnNhaCungCap.Enabled = Session.HasPermission("Vào nhà cung cấp");
             btnNguyenLieu.Enabled = Session.HasPermission("Vào nguyên liệu");
         }
@@ -120,6 +121,7 @@ namespace MilkTea.Client.Forms
             LoadForm(new IngredientForm());
         }
 
+
         private void btnDangXuat_Click(object sender, EventArgs e)
         {
             var result = MessageBox.Show(
@@ -137,9 +139,8 @@ namespace MilkTea.Client.Forms
 
                 _account = null;
 
-                this.Close(); 
+                this.Close();
             }
         }
-
     }
 }

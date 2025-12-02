@@ -23,17 +23,15 @@
             flowLayoutPanel1 = new FlowLayoutPanel();
             flowLayoutPanel2 = new FlowLayoutPanel();
             panel2 = new Panel();
+            roundedComboBox2 = new MilkTea.Client.Controls.RoundedComboBox();
             roundedComboBox1 = new MilkTea.Client.Controls.RoundedComboBox();
             pictureBox1 = new PictureBox();
             textboxTimKiem = new MilkTea.Client.Controls.RoundedTextBox();
             panel1 = new Panel();
-            btn_lamxong = new Button();
-            btn_danglam = new Button();
             invoicePanel.SuspendLayout();
             panel3.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // invoicePanel
@@ -61,6 +59,8 @@
             // flowLayoutPanel1
             // 
             flowLayoutPanel1.Dock = DockStyle.Fill;
+            flowLayoutPanel1.AutoScroll = true;
+
             flowLayoutPanel1.Location = new Point(0, 0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(934, 492);
@@ -77,6 +77,7 @@
             // panel2
             // 
             panel2.BackColor = SystemColors.ActiveBorder;
+            panel2.Controls.Add(roundedComboBox2);
             panel2.Controls.Add(roundedComboBox1);
             panel2.Controls.Add(pictureBox1);
             panel2.Controls.Add(textboxTimKiem);
@@ -86,6 +87,25 @@
             panel2.Padding = new Padding(7);
             panel2.Size = new Size(934, 47);
             panel2.TabIndex = 1;
+            // 
+            // roundedComboBox2
+            // 
+            roundedComboBox2.BackColor = Color.White;
+            roundedComboBox2.BorderColor = Color.Gray;
+            roundedComboBox2.BorderRadius = 15;
+            roundedComboBox2.BorderSize = 1;
+            roundedComboBox2.DrawMode = DrawMode.OwnerDrawFixed;
+            roundedComboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
+            roundedComboBox2.FlatStyle = FlatStyle.Flat;
+            roundedComboBox2.FocusBorderColor = Color.DeepSkyBlue;
+            roundedComboBox2.Font = new Font("Segoe UI", 10F);
+            roundedComboBox2.FormattingEnabled = true;
+            roundedComboBox2.ItemHeight = 30;
+            roundedComboBox2.Location = new Point(432, 6);
+            roundedComboBox2.Name = "roundedComboBox2";
+            roundedComboBox2.Size = new Size(151, 36);
+            roundedComboBox2.TabIndex = 4;
+            roundedComboBox2.SelectedIndexChanged += roundedComboBox2_SelectedIndexChanged;
             // 
             // roundedComboBox1
             // 
@@ -118,8 +138,6 @@
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
-
             // 
             // textboxTimKiem
             // 
@@ -135,43 +153,16 @@
             textboxTimKiem.Size = new Size(234, 33);
             textboxTimKiem.TabIndex = 0;
             textboxTimKiem.TextValue = "";
+            textboxTimKiem.KeyDown += textboxTimKiem_KeyDown;
             // 
             // panel1
             // 
-            panel1.Controls.Add(btn_lamxong);
-            panel1.Controls.Add(btn_danglam);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Padding = new Padding(5);
             panel1.Size = new Size(934, 49);
             panel1.TabIndex = 0;
-            // 
-            // btn_lamxong
-            // 
-            btn_lamxong.Dock = DockStyle.Left;
-            btn_lamxong.Location = new Point(180, 5);
-            btn_lamxong.Margin = new Padding(10);
-            btn_lamxong.Name = "btn_lamxong";
-            btn_lamxong.Size = new Size(152, 39);
-            btn_lamxong.TabIndex = 1;
-            btn_lamxong.Text = "Đã hoàn thành";
-            btn_lamxong.UseVisualStyleBackColor = true;
-            btn_lamxong.Click += btn_lamxong_Click;
-            // 
-            // btn_danglam
-            // 
-            btn_danglam.BackColor = SystemColors.MenuHighlight;
-            btn_danglam.Dock = DockStyle.Left;
-            btn_danglam.ForeColor = SystemColors.ButtonHighlight;
-            btn_danglam.Location = new Point(5, 5);
-            btn_danglam.Margin = new Padding(10);
-            btn_danglam.Name = "btn_danglam";
-            btn_danglam.Size = new Size(175, 39);
-            btn_danglam.TabIndex = 0;
-            btn_danglam.Text = "Đang làm";
-            btn_danglam.UseVisualStyleBackColor = false;
-            btn_danglam.Click += btn_danglam_Click;
             // 
             // InvoiceForm
             // 
@@ -186,7 +177,6 @@
             panel3.ResumeLayout(false);
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
         #endregion
@@ -205,5 +195,6 @@
 
         private FlowLayoutPanel flowLayoutPanel1;
         private FlowLayoutPanel flowLayoutPanel2;
+        private Controls.RoundedComboBox roundedComboBox2;
     }
 }

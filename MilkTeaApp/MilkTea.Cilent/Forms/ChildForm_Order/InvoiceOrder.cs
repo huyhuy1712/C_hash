@@ -146,7 +146,7 @@ namespace MilkTea.Client.Forms.ChildForm_Order
                 lblTopping.GotFocus += (s, ev) => ((TextBox)s).Parent.Focus();
 
                 lblTopping.Text = (item.Toppings != null && item.Toppings.Any())
-                    ? string.Join(Environment.NewLine, item.Toppings.Select(t => $"{t.gia:N0} ({t.SL}%) {t.ten}"))
+                    ? string.Join(Environment.NewLine, item.Toppings.Select(t => $"{t.gia:N0} ({t.SL}g) {t.ten}"))
                     : "Không có";
 
                 //  Đợi control render xong, rồi đo kích thước thật
@@ -246,6 +246,8 @@ namespace MilkTea.Client.Forms.ChildForm_Order
                 var buzzerService = new buzzerService();
                 var nguyenLieuService = new NguyenLieuService();
                 var congThucService = new CTCongThucService(); 
+                var phieuNhapService = new PhieuNhapService();
+                var chiTietPhieuNhapService = new ChiTietPhieuNhapService();
 
                 var nhanVienId = await nhanVienService.GetMaNVByTenAsync(ten_thu_ngan_label.Text);
                 var buzzerID = await buzzerService.GetMaMayBySoHieuAsync(mamay_label.Text);

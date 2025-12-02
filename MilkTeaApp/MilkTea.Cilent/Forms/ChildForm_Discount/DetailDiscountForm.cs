@@ -1,146 +1,136 @@
-﻿using System;
+﻿using MilkTea.Client.Controls;
+using MilkTea.Client.Models;
+using MilkTea.Client.Services;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
-using System.Net.Http;
-using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MilkTea.Client.Models;
 
 namespace MilkTea.Client.Forms.ChildForm_Discount
 {
     public partial class DetailDiscountForm : Form
     {
-        private readonly int _maCTKhuyenMai;
-        private List<SanPham> danhSachSanPhamApDung = new List<SanPham>(); // Lưu list sản phẩm để dùng
+        private LoaiService _loaiService;
+        private SanPhamService _sanPhamService;
+        private SanPhamKhuyenMaiService _sanPhamKhuyenMaiService;
+        private CTKhuyenMaiService _ctKhuyenMaiService;
+        private int _maCTKhuyenMai;
+        private List<Loai> _detailLoais;
 
         public DetailDiscountForm(int maCTKhuyenMai)
         {
             InitializeComponent();
             _maCTKhuyenMai = maCTKhuyenMai;
-
-            // Gắn sự kiện load
+            _loaiService = new LoaiService();
+            _sanPhamService = new SanPhamService();
+            _sanPhamKhuyenMaiService = new SanPhamKhuyenMaiService();
+            _ctKhuyenMaiService = new CTKhuyenMaiService();
+            _detailLoais = new List<Loai>();
             this.Load += DetailDiscountForm_Load;
         }
 
         private async void DetailDiscountForm_Load(object sender, EventArgs e)
         {
-            await LoadDiscountDetailAsync();
+            SetupFallbackUI();
+            await LoadDiscountAndProductsAsync();
         }
 
-        private async Task LoadDiscountDetailAsync()
+        private void SetupFallbackUI()
+        {
+            label1.Text = "Đang tải...";
+            label5.Text = "0%";
+            label6.Text = "Ngày không xác định";
+            label7.Text = "Ngày không xác định";
+            dGV_sp_KM_CT.Rows.Clear();
+        }
+
+        private async Task LoadDiscountAndProductsAsync()
         {
             try
             {
-                using var client = new HttpClient();
-                client.BaseAddress = new Uri("http://localhost:5198"); // Đổi port nếu backend khác
+                // 1. Lấy khuyến mãi và danh sách sản phẩm liên kết
+                var (km, associations) = await _ctKhuyenMaiService.GetDiscountWithAssociationsAsync(_maCTKhuyenMai);
 
-                // Load chi tiết CTKhuyenMai
-                var kmResponse = await client.GetAsync($"/api/ctkhuyenmai/{_maCTKhuyenMai}");
-                CTKhuyenMai km = null;
-                if (kmResponse.IsSuccessStatusCode)
+                if (km == null)
                 {
-                    var kmJson = await kmResponse.Content.ReadAsStringAsync();
-                    km = JsonSerializer.Deserialize<CTKhuyenMai>(kmJson, new JsonSerializerOptions
+                    SetupFallbackUI();
+                    MessageBox.Show("Không tìm thấy chương trình khuyến mãi này.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // 2. Set dữ liệu chi tiết khuyến mãi vào Labels
+                label1.Text = km.TenCTKhuyenMai ?? "Không xác định";
+                label6.Text = km.NgayBatDau?.ToString("dd/MM/yyyy") ?? "Không xác định";
+                label7.Text = km.NgayKetThuc?.ToString("dd/MM/yyyy") ?? "Không xác định";
+                label5.Text = $"{(km.PhanTramKhuyenMai == default(decimal) ? 0 : km.PhanTramKhuyenMai)}%";
+
+                // 3. Lấy tất cả sản phẩm và loại
+                var sanPhams = await _sanPhamService.GetSanPhamsAsync();
+                _detailLoais = await _loaiService.GetLoaisAsync();
+
+                if (sanPhams == null || !_detailLoais.Any())
+                {
+                    AddNoProductsRow("Không thể tải sản phẩm/loại.");
+                    return;
+                }
+
+                // 4. Filter active products once
+                var activeSanPhams = sanPhams.Where(sp => sp.TrangThai == 1).ToList();
+
+                // 5. Map associations -> products using LINQ (left join), remove duplicate MaSP
+                dGV_sp_KM_CT.Rows.Clear();
+
+                if (associations == null || !associations.Any())
+                {
+                    AddNoProductsRow("Chưa có sản phẩm nào được liên kết.");
+                    return;
+                }
+
+                var distinctAssocs = associations.GroupBy(a => a.MaSP).Select(g => g.First()).ToList();
+
+                var productInfos = (from a in distinctAssocs
+                                    join sp in activeSanPhams on a.MaSP equals sp.MaSP into spg
+                                    from sp in spg.DefaultIfEmpty() // left join: sp == null => not active
+                                    select new { Assoc = a, Product = sp })
+                                   .ToList();
+
+                foreach (var info in productInfos)
+                {
+                    int rowIndex = dGV_sp_KM_CT.Rows.Add();
+
+                    if (info.Product != null)
                     {
-                        PropertyNameCaseInsensitive = true
-                    });
-                }
-
-                // Gán dữ liệu khuyến mãi vào labels
-                if (km != null)
-                {
-                    label1.Text = km.TenCTKhuyenMai ?? "Chương trình khuyến mãi";
-                    label3.Text = $"Hạn sử dụng: {km.NgayBatDau?.ToString("dd/MM/yyyy") ?? "?"} - {km.NgayKetThuc?.ToString("dd/MM/yyyy") ?? "?"}";
-                    label4.Text = $"Giảm {(km.PhanTramKhuyenMai > 0 ? km.PhanTramKhuyenMai : 0)}% với các sản phẩm sau:";
-                }
-                else
-                {
-                    label1.Text = "Chương trình khuyến mãi";
-                    label3.Text = "Hạn sử dụng: Không xác định";
-                    label4.Text = "Giảm giá: Không xác định";
-                }
-
-                // Load danh sách sản phẩm từ sanpham_khuyenmai (JOIN với sanpham)
-                var spResponse = await client.GetAsync($"/api/sanphamkhuyenmai/by-khuyenmai/{_maCTKhuyenMai}");
-                if (spResponse.IsSuccessStatusCode)
-                {
-                    var spJson = await spResponse.Content.ReadAsStringAsync();
-                    danhSachSanPhamApDung = JsonSerializer.Deserialize<List<SanPham>>(spJson, new JsonSerializerOptions
+                        var loai = _detailLoais.FirstOrDefault(l => l.MaLoai == info.Product.MaLoai);
+                        dGV_sp_KM_CT.Rows[rowIndex].Cells["maSP_ct"].Value = info.Product.MaSP;
+                        dGV_sp_KM_CT.Rows[rowIndex].Cells["tenSanPham_ct"].Value = info.Product.TenSP;
+                        dGV_sp_KM_CT.Rows[rowIndex].Cells["loai_ct"].Value = loai?.TenLoai ?? "Không xác định";
+                    }
+                    else
                     {
-                        PropertyNameCaseInsensitive = true
-                    }) ?? new List<SanPham>();
-
-                    // Hiển thị sản phẩm vào label5, label6, label7 (tối đa 3 sản phẩm)
-                    HienThiSanPhamDonGian();
-                }
-                else
-                {
-                    // Nếu không có sản phẩm cụ thể, hiển thị "áp dụng tất cả"
-                    HienThiApDungTatCa();
+                        dGV_sp_KM_CT.Rows[rowIndex].Cells["maSP_ct"].Value = info.Assoc.MaSP;
+                        dGV_sp_KM_CT.Rows[rowIndex].Cells["tenSanPham_ct"].Value = "Sản phẩm không active";
+                        dGV_sp_KM_CT.Rows[rowIndex].Cells["loai_ct"].Value = "-";
+                        dGV_sp_KM_CT.Rows[rowIndex].DefaultCellStyle.ForeColor = Color.Gray;
+                        dGV_sp_KM_CT.Rows[rowIndex].DefaultCellStyle.Font = new Font(dGV_sp_KM_CT.DefaultCellStyle.Font, FontStyle.Italic);
+                    }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi tải chi tiết khuyến mãi:\n{ex.Message}",
-                                "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                SetupFallbackUI();
+                MessageBox.Show($"Lỗi khi tải dữ liệu khuyến mãi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        // Method hiển thị sản phẩm đơn giản với label5,6,7 (tối đa 3)
-        private void HienThiSanPhamDonGian()
+        private void AddNoProductsRow(string message = "Chưa có sản phẩm nào được liên kết với chương trình này.")
         {
-            if (danhSachSanPhamApDung.Any())
-            {
-                label5.Text = $"+ {danhSachSanPhamApDung[0].TenSP}";
-                if (danhSachSanPhamApDung.Count > 1)
-                    label6.Text = $"+ {danhSachSanPhamApDung[1].TenSP}";
-                else
-                    label6.Text = "";
-                if (danhSachSanPhamApDung.Count > 2)
-                {
-                    int remaining = danhSachSanPhamApDung.Count - 2;
-                    label7.Text = $"+ {danhSachSanPhamApDung[2].TenSP}{(remaining > 1 ? $" và {remaining - 1} sản phẩm khác" : "")}";
-                }
-                else
-                    label7.Text = "";
-
-                // Cập nhật label4 với số lượng
-                label4.Text += $" ({danhSachSanPhamApDung.Count} sản phẩm)";
-            }
-            else
-            {
-                label5.Text = "";
-                label6.Text = "";
-                label7.Text = "";
-                label4.Text += " (Áp dụng cho tất cả sản phẩm)";
-            }
-        }
-
-        // Xử lý nếu không có sản phẩm cụ thể (áp dụng tất cả)
-        private void HienThiApDungTatCa()
-        {
-            label5.Text = "Áp dụng cho tất cả sản phẩm";
-            label6.Text = "";
-            label7.Text = "";
-            label4.Text += " (Áp dụng cho tất cả sản phẩm)";
-        }
-
-        // Event cho label4 nếu cần (từ Designer)
-        private void label4_Click(object sender, EventArgs e)
-        {
-            // Có thể thêm logic mở rộng nếu click (ví dụ: show all products in MessageBox)
-            if (danhSachSanPhamApDung.Count > 3)
-            {
-                string allProducts = string.Join("\n", danhSachSanPhamApDung.Select(sp => $"+ {sp.TenSP}"));
-                MessageBox.Show($"Danh sách đầy đủ:\n{allProducts}", "Tất cả sản phẩm áp dụng", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
-        // Event Paint cho panel3 nếu cần (từ Designer)
-        private void panel3_Paint(object sender, PaintEventArgs e)
-        {
-            // Không cần implement nếu chỉ là vẽ background
+            dGV_sp_KM_CT.Rows.Clear();
+            int rowIndex = dGV_sp_KM_CT.Rows.Add();
+            dGV_sp_KM_CT.Rows[rowIndex].Cells["tenSanPham_ct"].Value = message;
+            dGV_sp_KM_CT.Rows[rowIndex].DefaultCellStyle.ForeColor = Color.Gray;
+            dGV_sp_KM_CT.Rows[rowIndex].DefaultCellStyle.Font = new Font(dGV_sp_KM_CT.DefaultCellStyle.Font, FontStyle.Italic);
         }
     }
 }

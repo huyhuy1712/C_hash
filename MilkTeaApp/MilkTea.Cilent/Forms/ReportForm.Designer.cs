@@ -35,6 +35,7 @@ namespace MilkTea.Client.Forms
             txtLoiNhuan = new Label();
             txtDoanhThu = new Label();
             txtChiPhi = new Label();
+            label8 = new Label();
             dataGridView1 = new DataGridView();
             thoiGian = new DataGridViewTextBoxColumn();
             sanPham = new DataGridViewTextBoxColumn();
@@ -108,24 +109,24 @@ namespace MilkTea.Client.Forms
             // 
             // tableLayoutPanel2
             // 
-            tableLayoutPanel2.ColumnCount = 8;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.5F));
-            tableLayoutPanel2.Controls.Add(txtLoiNhuan, 7, 0);
-            tableLayoutPanel2.Controls.Add(txtDoanhThu, 6, 0);
-            tableLayoutPanel2.Controls.Add(txtChiPhi, 5, 0);
+            tableLayoutPanel2.ColumnCount = 7;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857141F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857141F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857141F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857141F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857141F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857141F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.2857141F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 18F));
+            tableLayoutPanel2.Controls.Add(txtLoiNhuan, 6, 0);
+            tableLayoutPanel2.Controls.Add(txtDoanhThu, 5, 0);
+            tableLayoutPanel2.Controls.Add(txtChiPhi, 4, 0);
+            tableLayoutPanel2.Controls.Add(label8, 0, 0);
             tableLayoutPanel2.Dock = DockStyle.Bottom;
             tableLayoutPanel2.Location = new Point(0, 454);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 1;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 38F));
             tableLayoutPanel2.Size = new Size(948, 38);
             tableLayoutPanel2.TabIndex = 2;
             // 
@@ -134,9 +135,9 @@ namespace MilkTea.Client.Forms
             txtLoiNhuan.AutoSize = true;
             txtLoiNhuan.Dock = DockStyle.Fill;
             txtLoiNhuan.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtLoiNhuan.Location = new Point(829, 0);
+            txtLoiNhuan.Location = new Point(813, 0);
             txtLoiNhuan.Name = "txtLoiNhuan";
-            txtLoiNhuan.Size = new Size(116, 38);
+            txtLoiNhuan.Size = new Size(132, 38);
             txtLoiNhuan.TabIndex = 7;
             txtLoiNhuan.Text = "Tổng";
             txtLoiNhuan.TextAlign = ContentAlignment.MiddleCenter;
@@ -146,9 +147,9 @@ namespace MilkTea.Client.Forms
             txtDoanhThu.AutoSize = true;
             txtDoanhThu.Dock = DockStyle.Fill;
             txtDoanhThu.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtDoanhThu.Location = new Point(711, 0);
+            txtDoanhThu.Location = new Point(678, 0);
             txtDoanhThu.Name = "txtDoanhThu";
-            txtDoanhThu.Size = new Size(112, 38);
+            txtDoanhThu.Size = new Size(129, 38);
             txtDoanhThu.TabIndex = 6;
             txtDoanhThu.Text = "Tổng";
             txtDoanhThu.TextAlign = ContentAlignment.MiddleCenter;
@@ -158,12 +159,25 @@ namespace MilkTea.Client.Forms
             txtChiPhi.AutoSize = true;
             txtChiPhi.Dock = DockStyle.Fill;
             txtChiPhi.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtChiPhi.Location = new Point(593, 0);
+            txtChiPhi.Location = new Point(543, 0);
             txtChiPhi.Name = "txtChiPhi";
-            txtChiPhi.Size = new Size(112, 38);
+            txtChiPhi.Size = new Size(129, 38);
             txtChiPhi.TabIndex = 0;
             txtChiPhi.Text = "Tổng";
             txtChiPhi.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Dock = DockStyle.Fill;
+            label8.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label8.Location = new Point(3, 0);
+            label8.Name = "label8";
+            label8.Size = new Size(129, 38);
+            label8.TabIndex = 8;
+            label8.Text = "Tổng cộng";
+            label8.TextAlign = ContentAlignment.MiddleCenter;
+            label8.Click += label8_Click;
             // 
             // dataGridView1
             // 
@@ -244,7 +258,7 @@ namespace MilkTea.Client.Forms
             Order.Dock = DockStyle.Fill;
             Order.Location = new Point(0, 82);
             Order.Name = "Order";
-            Order.Padding = new Padding(5);
+            Order.Padding = new Padding(5, 5, 5, 5);
             Order.Size = new Size(948, 60);
             Order.TabIndex = 1;
             Order.Paint += Order_Paint;
@@ -274,11 +288,12 @@ namespace MilkTea.Client.Forms
             cbbLoc.Font = new Font("Segoe UI", 10F);
             cbbLoc.FormattingEnabled = true;
             cbbLoc.ItemHeight = 30;
-            cbbLoc.Items.AddRange(new object[] { "Doanh thu cao đến thấp", "Doanh thu thấp đến cao", "Số lượng cao đến thấp", "Số lượng thấp đến cao" });
+            cbbLoc.Items.AddRange(new object[] { "Tất cả", "Doanh thu cao đến thấp", "Doanh thu thấp đến cao", "Số lượng cao đến thấp", "Số lượng thấp đến cao" });
             cbbLoc.Location = new Point(51, 11);
             cbbLoc.Name = "cbbLoc";
             cbbLoc.Size = new Size(227, 36);
             cbbLoc.TabIndex = 1;
+            cbbLoc.SelectedIndexChanged += cbbLoc_SelectedIndexChanged;
             // 
             // label1
             // 
@@ -471,10 +486,11 @@ namespace MilkTea.Client.Forms
             cbbSP.Font = new Font("Segoe UI", 10F);
             cbbSP.FormattingEnabled = true;
             cbbSP.ItemHeight = 30;
-            cbbSP.Location = new Point(87, 16);
+            cbbSP.Location = new Point(35, 16);
             cbbSP.Name = "cbbSP";
-            cbbSP.Size = new Size(54, 36);
+            cbbSP.Size = new Size(106, 36);
             cbbSP.TabIndex = 1;
+            cbbSP.SelectedIndexChanged += cbbSP_SelectedIndexChanged;
             // 
             // label6
             // 
@@ -484,9 +500,9 @@ namespace MilkTea.Client.Forms
             label6.Location = new Point(9, 16);
             label6.Name = "label6";
             label6.Padding = new Padding(0, 7, 0, 0);
-            label6.Size = new Size(78, 27);
+            label6.Size = new Size(26, 27);
             label6.TabIndex = 0;
-            label6.Text = "Sản phẩm";
+            label6.Text = "SP";
             // 
             // panel7
             // 
@@ -537,7 +553,6 @@ namespace MilkTea.Client.Forms
             btnLayDuLieu.BorderColor = Color.DodgerBlue;
             btnLayDuLieu.BorderRadius = 20;
             btnLayDuLieu.BorderSize = 0;
-            btnLayDuLieu.Dock = DockStyle.Fill;
             btnLayDuLieu.FlatAppearance.BorderSize = 0;
             btnLayDuLieu.FlatStyle = FlatStyle.Flat;
             btnLayDuLieu.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
@@ -545,7 +560,7 @@ namespace MilkTea.Client.Forms
             btnLayDuLieu.Location = new Point(795, 13);
             btnLayDuLieu.Margin = new Padding(9, 8, 9, 8);
             btnLayDuLieu.Name = "btnLayDuLieu";
-            btnLayDuLieu.Size = new Size(138, 56);
+            btnLayDuLieu.Size = new Size(138, 40);
             btnLayDuLieu.TabIndex = 10;
             btnLayDuLieu.Text = "Lấy dữ liệu";
             btnLayDuLieu.UseVisualStyleBackColor = false;
@@ -655,5 +670,6 @@ namespace MilkTea.Client.Forms
         private DataGridViewTextBoxColumn chiPhi;
         private DataGridViewTextBoxColumn doanhThu;
         private DataGridViewTextBoxColumn loiNhuan;
+        private Label label8;
     }
 }

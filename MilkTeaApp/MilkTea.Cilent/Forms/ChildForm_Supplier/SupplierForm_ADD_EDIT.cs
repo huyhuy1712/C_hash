@@ -18,13 +18,14 @@ namespace MilkTea.Client.Forms.ChildForm_Supplier
         private NhaCungCap? _currentNCC; // Dùng khi sửa
         private bool _isEditMode = false;
 
+        public NhaCungCap? ResultNCC { get; private set; }
+
         public SupplierForm_ADD_EDIT(NhaCungCap? ncc = null)
         {
             InitializeComponent();
             _nhaCungCapService = new NhaCungCapService();
             _currentNCC = ncc;
             _isEditMode = ncc != null;
-
             InitializeForm();
         }
 
@@ -53,56 +54,63 @@ namespace MilkTea.Client.Forms.ChildForm_Supplier
         {
             if (!ValidateInput()) return;
 
-            var ncc = new NhaCungCap
-            {
-                TenNCC = txt_ten_NCC_ADD.Text.Trim(),
-                SDT = txt_sdt_NCC_ADD.Text.Trim(),
-                DiaChi = txt_diachi_NCC_ADD.Text.Trim(),
-                TrangThai = 1 // Mặc định hoạt động
-            };
+            string sdt = txt_sdt_NCC_ADD.Text.Trim();
+            string tenNCC = txt_ten_NCC_ADD.Text.Trim();
 
             try
             {
+                var allNCC = await _nhaCungCapService.GetNhaCungCapAsync();
+
+                bool isDuplicate = allNCC.Any(n =>
+                    string.Equals(n.SDT.Trim(), sdt, StringComparison.OrdinalIgnoreCase) &&
+                    (!_isEditMode || n.MaNCC != _currentNCC?.MaNCC)
+                );
+
+                if (isDuplicate)
+                {
+                    MessageBox.Show("Nhà cung cấp có SDT này đã tồn tại!\nVui lòng nhập tên khác.",
+                        "Trùng tên", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txt_ten_NCC_ADD.Focus();
+                    txt_ten_NCC_ADD.SelectAll();
+                    return;
+                }
+
+                var ncc = new NhaCungCap
+                {
+                    TenNCC = tenNCC,
+                    SDT = txt_sdt_NCC_ADD.Text.Trim(),
+                    DiaChi = txt_diachi_NCC_ADD.Text.Trim(),
+                    TrangThai = 1
+                };
+
                 if (_isEditMode && _currentNCC != null)
                 {
-                    // Cập nhật
                     ncc.MaNCC = _currentNCC.MaNCC;
-                    var response = await _nhaCungCapService.UpdateAsync(ncc);
-                    if (response)
+                    var success = await _nhaCungCapService.UpdateAsync(ncc);
+                    if (success)
                     {
-                        MessageBox.Show("Cập nhật nhà cung cấp thành công!", "Thành công",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("Cập nhật thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ResultNCC = ncc;
                         this.DialogResult = DialogResult.OK;
                         this.Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Cập nhật thất bại. Vui lòng thử lại.", "Lỗi",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
                 else
                 {
-                    // Thêm mới
                     var addedNCC = await _nhaCungCapService.AddAsync(ncc);
                     if (addedNCC != null)
                     {
-                        MessageBox.Show("Thêm nhà cung cấp thành công!", "Thành công",
-                            MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show($"Thêm thành công! Mã NCC: {addedNCC.MaNCC}", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        ResultNCC = addedNCC;
                         ClearFields();
                         this.DialogResult = DialogResult.OK;
-                    }
-                    else
-                    {
-                        MessageBox.Show("Thêm thất bại. Vui lòng kiểm tra lại.", "Lỗi",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        this.Close();
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

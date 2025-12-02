@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,25 +28,20 @@ namespace MilkTea.Client.Services
         // Thêm nhà cung cấp mới
         public async Task<NhaCungCap?> AddAsync(NhaCungCap ncc)
         {
-            if (ncc == null) throw new ArgumentNullException(nameof(ncc));
-            if (string.IsNullOrWhiteSpace(ncc.TenNCC))
-                throw new ArgumentException("Tên nhà cung cấp không được để trống.");
-
             try
             {
-                var response = await _http.PostAsJsonAsync("/api/nhacungcap", ncc);
-
+                var response = await _http.PostAsJsonAsync("api/NhaCungCap", ncc);
                 if (response.IsSuccessStatusCode)
                 {
-                    return await response.Content.ReadFromJsonAsync<NhaCungCap>();
+                    var addedNcc = await response.Content.ReadFromJsonAsync<NhaCungCap>();
+                    return addedNcc; // ĐÃ CÓ MaNCC từ server
                 }
-
-                var error = await response.Content.ReadAsStringAsync();
-                throw new Exception($"Thêm thất bại: {response.StatusCode} - {error}");
+                return null;
             }
-            catch (HttpRequestException ex)
+            catch (Exception ex)
             {
-                throw new Exception("Lỗi kết nối khi thêm nhà cung cấp.", ex);
+                MessageBox.Show($"Lỗi: {ex.Message}");
+                return null;
             }
         }
 

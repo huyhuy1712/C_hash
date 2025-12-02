@@ -1,5 +1,6 @@
 ﻿using MilkTea.Client.Forms.ChildForm_Import;
 using MilkTea.Client.Forms.ChildForm_Supplier;
+using MilkTea.Client.Models;
 using MilkTea.Client.Services;
 using System;
 using System.Collections.Generic;
@@ -65,15 +66,20 @@ namespace MilkTea.Client.Forms
         private void btn_Them_NCC_Click(object sender, EventArgs e)
         {
             var form = new SupplierForm_ADD_EDIT();
-            if (form.ShowDialog() == DialogResult.OK)
+            if (form.ShowDialog() == DialogResult.OK && form.ResultNCC != null)
             {
-                _ = LoadNhaCungCaps(); // Tải lại sau khi thêm
+                AddNhaCungCapToGrid(form.ResultNCC);
             }
         }
 
         private async void SupplierForm_Load(object sender, EventArgs e)
         {
             await LoadNhaCungCaps();
+
+            //Bật tắt các nút theo quyền
+            btn_Them_NCC.Visible = Session.HasPermission("Thêm nhà cung cấp");
+            sua_Tb_NCC.Visible = Session.HasPermission("Sửa nhà cung cấp");
+            xoa_Tb_NCC.Visible = Session.HasPermission("Xóa nhà cung cấp");
         }
 
         private void txt_Timkiem_NCC_TextChanged(object sender, EventArgs e)
@@ -161,7 +167,6 @@ namespace MilkTea.Client.Forms
                 // 1. Click vào cột "Thông Tin"
                 if (columnName == "sua_Tb_NCC")
                 {
-                    // Lấy thông tin NCC từ API để đảm bảo dữ liệu mới nhất
                     var ncc = await _nhaCungCapService.GetByMaNCC(maNCC);
                     if (ncc == null)
                     {
@@ -170,9 +175,9 @@ namespace MilkTea.Client.Forms
                     }
 
                     var editForm = new SupplierForm_ADD_EDIT(ncc);
-                    if (editForm.ShowDialog() == DialogResult.OK)
+                    if (editForm.ShowDialog() == DialogResult.OK && editForm.ResultNCC != null)
                     {
-                        await LoadNhaCungCaps();
+                        UpdateNhaCungCapInGrid(editForm.ResultNCC);
                     }
                 }
 
@@ -205,6 +210,47 @@ namespace MilkTea.Client.Forms
             {
                 MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void AddNhaCungCapToGrid(NhaCungCap ncc)
+        {
+            // Kiểm tra trùng MaNCC
+            foreach (DataGridViewRow row in dGV_nhacungcap.Rows)
+            {
+                if (row.Cells["ma_Tb_NCC"].Value?.ToString() == ncc.MaNCC.ToString())
+                    return;
+            }
+
+            int rowIndex = dGV_nhacungcap.Rows.Add();
+            var newRow = dGV_nhacungcap.Rows[rowIndex];
+            newRow.Cells["ma_Tb_NCC"].Value = ncc.MaNCC;
+            newRow.Cells["ten_Tb_NCC"].Value = ncc.TenNCC;
+            newRow.Cells["sdt_Tb_NCC"].Value = ncc.SDT;
+            newRow.Cells["diachi_Tb_NCC"].Value = ncc.DiaChi;
+
+            ApplySearchFilter();
+        }
+
+        private void UpdateNhaCungCapInGrid(NhaCungCap ncc)
+        {
+            foreach (DataGridViewRow row in dGV_nhacungcap.Rows)
+            {
+                if (row.Cells["ma_Tb_NCC"].Value?.ToString() == ncc.MaNCC.ToString())
+                {
+                    row.Cells["ten_Tb_NCC"].Value = ncc.TenNCC;
+                    row.Cells["sdt_Tb_NCC"].Value = ncc.SDT;
+                    row.Cells["diachi_Tb_NCC"].Value = ncc.DiaChi;
+                    break;
+                }
+            }
+
+            // Cập nhật lại hiển thị nếu đang tìm kiếm
+            ApplySearchFilter();
+        }
+
+        private void ApplySearchFilter()
+        {
+            txt_Timkiem_NCC_TextChanged(txt_Timkiem_NCC, EventArgs.Empty);
         }
     }
 }

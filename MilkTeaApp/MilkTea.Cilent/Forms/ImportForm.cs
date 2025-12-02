@@ -10,6 +10,8 @@ namespace MilkTea.Client.Forms
         private readonly PhieuNhapService _phieuNhapService;
         private readonly NhanVienService _nhanVienService;
         private readonly NhaCungCapService _nhaCungCapService;
+        private List<NhanVien> _cachedNhanViens;
+        private List<NhaCungCap> _cachedNhaCungCaps;
 
         public ImportForm()
         {
@@ -27,27 +29,176 @@ namespace MilkTea.Client.Forms
             cbo_timkiemtheo_PN.SelectedIndex = 0; // Chọn mục đầu tiên làm mặc định
         }
 
+        private void ApplySearchFilter()
+        {
+            txt_TimkiemPN_PN_TextChanged(txt_TimkiemPN_PN, EventArgs.Empty);
+        }
 
         private async void ImportForm_Load(object sender, EventArgs e)
         {
             await LoadPhieuNhaps();
 
             //Bật tắt các nút theo quyền
-            roundedButton1.Enabled = Session.HasPermission("Thêm phiếu nhập");
-            roundedButton2.Enabled = Session.HasPermission("Nhập excel phiếu nhập");
+            roundedButton1.Visible = Session.HasPermission("Thêm phiếu nhập");
+            roundedButton2.Visible = Session.HasPermission("Nhập excel phiếu nhập");
             xoa_Tb_iPort.Visible = Session.HasPermission("Xóa phiếu nhập");
         }
 
 
-        private void roundedButton1_Click_1(object sender, EventArgs e)
+        private async void roundedButton1_Click_1(object sender, EventArgs e)
         {
-            ImportForm_Add form = new ImportForm_Add(this);
-            form.ShowDialog();
+            using (var form = new ImportForm_Add(this))
+            {
+                if (form.ShowDialog() == DialogResult.OK && form.ResultPhieuNhap != null)
+                {
+                    var pn = form.ResultPhieuNhap;
+
+                    // Lấy tên NV và NCC từ cache (nếu chưa có thì load 1 lần)
+                    if (_cachedNhanViens == null) _cachedNhanViens = await _nhanVienService.GetNhanVienAsync();
+                    if (_cachedNhaCungCaps == null) _cachedNhaCungCaps = await _nhaCungCapService.GetNhaCungCapAsync();
+
+                    var nhanvien = _cachedNhanViens.Find(n => n.MaNV == pn.MaNV);
+                    var nhacungcap = _cachedNhaCungCaps.Find(n => n.MaNCC == pn.MaNCC);
+
+                    // Thêm trực tiếp vào Grid
+                    int rowIndex = dGV_phieuNhap.Rows.Add();
+                    dGV_phieuNhap.Rows[rowIndex].Cells["maPhieuNhap_Tb_iPort"].Value = pn.MaPN;
+                    dGV_phieuNhap.Rows[rowIndex].Cells["ngayNhap_Tb_iPort"].Value = pn.NgayNhap?.ToString("dd/MM/yyyy");
+                    dGV_phieuNhap.Rows[rowIndex].Cells["soLuong_Tb_iPort"].Value = pn.SoLuong;
+                    dGV_phieuNhap.Rows[rowIndex].Cells["nhaCungCap_Tb_iPort"].Value = nhacungcap?.TenNCC ?? "N/A";
+                    dGV_phieuNhap.Rows[rowIndex].Cells["tenNVN_Tb_iPort"].Value = nhanvien?.TenNV ?? "N/A";
+                    dGV_phieuNhap.Rows[rowIndex].Cells["tongTien_Tb_iPort"].Value = pn.TongTien;
+
+                    // Áp dụng bộ lọc tìm kiếm (nếu đang tìm)
+                    ApplySearchFilter();
+                }
+            }
         }
 
         private void roundedButton2_Click(object sender, EventArgs e)
         {
+            // Kiểm tra dữ liệu hiển thị
+            var visibleRows = dGV_phieuNhap.Rows.Cast<DataGridViewRow>().Where(r => r.Visible).ToList();
+            if (!visibleRows.Any())
+            {
+                MessageBox.Show("Không có dữ liệu để xuất Excel.", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
 
+            using (SaveFileDialog saveDialog = new SaveFileDialog())
+            {
+                saveDialog.Filter = "Excel files (*.xlsx)|*.xlsx";
+                saveDialog.Title = "Xuất danh sách phiếu nhập ra Excel";
+                saveDialog.FileName = $"PhieuNhap_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx";
+
+                if (saveDialog.ShowDialog() != DialogResult.OK) return;
+
+                try
+                {
+                    using (var workbook = new ClosedXML.Excel.XLWorkbook())
+                    {
+                        var ws = workbook.Worksheets.Add("Phiếu Nhập");
+
+                        // === TIÊU ĐỀ CHÍNH ===
+                        ws.Cell(1, 1).Value = "DANH SÁCH PHIẾU NHẬP";
+                        var titleRange = ws.Range("A1:F1");
+                        titleRange.Merge();
+
+                        var style = titleRange.Style;
+                        style.Font.SetBold();
+                        style.Font.FontSize = 18;
+                        style.Font.FontColor = ClosedXML.Excel.XLColor.White;
+                        style.Fill.BackgroundColor = ClosedXML.Excel.XLColor.FromArgb(0, 102, 204);
+                        style.Alignment.Horizontal = ClosedXML.Excel.XLAlignmentHorizontalValues.Center;
+                        style.Alignment.Vertical = ClosedXML.Excel.XLAlignmentVerticalValues.Center;
+
+                        ws.Row(1).Height = 40;
+                        // === THÔNG TIN BỔ SUNG ===
+                        ws.Cell(2, 1).Value = $"Ngày xuất: {DateTime.Now:dd/MM/yyyy HH:mm}";
+                        ws.Cell(3, 1).Value = $"Người xuất: {Session.CurrentUser?.TenTaiKhoan ?? "Không xác định"}";
+                        ws.Range("A2:A3").Style.Font.Italic = true;
+
+                        // === TIÊU ĐỀ CỘT (dòng 5) ===
+                        string[] headers = { "Mã Phiếu", "Ngày Nhập", "Số Lượng", "Nhà Cung Cấp", "Nhân Viên", "Tổng Tiền" };
+                        for (int i = 0; i < headers.Length; i++)
+                            ws.Cell(5, i + 1).Value = headers[i];
+
+                        var headerRange = ws.Range("A5:F5");
+                        headerRange.Style
+                            .Font.SetBold()
+                            .Fill.SetBackgroundColor(ClosedXML.Excel.XLColor.LightGray)
+                            .Alignment.SetHorizontal(ClosedXML.Excel.XLAlignmentHorizontalValues.Center)
+                            .Border.SetInsideBorder(ClosedXML.Excel.XLBorderStyleValues.Thin);
+
+                        // === XUẤT DỮ LIỆU ===
+                        int row = 6;
+                        foreach (DataGridViewRow dgvRow in visibleRows)
+                        {
+                            ws.Cell(row, 1).Value = dgvRow.Cells["maPhieuNhap_Tb_iPort"].Value?.ToString();
+
+                            var ngayNhapStr = dgvRow.Cells["ngayNhap_Tb_iPort"].Value?.ToString();
+                            if (DateTime.TryParseExact(ngayNhapStr, "dd/MM/yyyy", null,
+                                System.Globalization.DateTimeStyles.None, out DateTime ngayNhap))
+                            {
+                                ws.Cell(row, 2).Value = ngayNhap;
+                                ws.Cell(row, 2).Style.DateFormat.Format = "dd/MM/yyyy";
+                            }
+                            else
+                            {
+                                ws.Cell(row, 2).Value = ngayNhapStr;
+                            }
+
+                            if (int.TryParse(dgvRow.Cells["soLuong_Tb_iPort"].Value?.ToString(), out int soLuong))
+                                ws.Cell(row, 3).Value = soLuong;
+
+                            ws.Cell(row, 4).Value = dgvRow.Cells["nhaCungCap_Tb_iPort"].Value?.ToString();
+                            ws.Cell(row, 5).Value = dgvRow.Cells["tenNVN_Tb_iPort"].Value?.ToString();
+
+                            if (decimal.TryParse(dgvRow.Cells["tongTien_Tb_iPort"].Value?.ToString(), out decimal tongTien))
+                            {
+                                ws.Cell(row, 6).Value = tongTien;
+                                ws.Cell(row, 6).Style.NumberFormat.Format = "#,##0";
+                            }
+
+                            row++;
+                        }
+
+                        // === ĐỊNH DẠNG BẢNG DỮ LIỆU ===
+                        var dataRange = ws.Range($"A5:F{row - 1}");
+                        dataRange.Style
+                            .Border.SetInsideBorder(ClosedXML.Excel.XLBorderStyleValues.Thin)
+                            .Border.SetOutsideBorder(ClosedXML.Excel.XLBorderStyleValues.Medium);
+
+                        // Căn chỉnh cột
+                        ws.Column(3).Style.Alignment.Horizontal = ClosedXML.Excel.XLAlignmentHorizontalValues.Center;
+                        ws.Column(6).Style.Alignment.Horizontal = ClosedXML.Excel.XLAlignmentHorizontalValues.Right;
+
+                        // Tự động điều chỉnh cột
+                        ws.Columns(1, 6).AdjustToContents();
+
+                        // Cố định tiêu đề
+                        ws.SheetView.FreezeRows(4);
+
+                        // Lưu file
+                        workbook.SaveAs(saveDialog.FileName);
+                    }
+
+                    MessageBox.Show($"Xuất Excel thành công!\n{saveDialog.FileName}",
+                        "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    if (MessageBox.Show("Mở file Excel vừa xuất?", "Mở file",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        Process.Start(new ProcessStartInfo(saveDialog.FileName) { UseShellExecute = true });
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi xuất Excel:\n{ex.Message}", "Lỗi",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         private async void dGV_phieuNhap_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -74,8 +225,6 @@ namespace MilkTea.Client.Forms
                     {
                         frm.ShowDialog();
                     }
-                    // Tùy chọn: reload nếu form chi tiết có thể sửa dữ liệu
-                    // await LoadPhieuNhaps();
                 }
 
                 // 2. Click vào cột "Xóa"
