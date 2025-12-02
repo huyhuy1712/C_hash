@@ -125,6 +125,10 @@ namespace MilkTea.Client.Controls
             }
         }
 
-
+        private void pictureBox_congthuc_Click(object sender, EventArgs e)
+        {
+            RecipeDetailForm recipeForm = new RecipeDetailForm(sanPham);
+            recipeForm.ShowDialog();
+        }
     }
 }

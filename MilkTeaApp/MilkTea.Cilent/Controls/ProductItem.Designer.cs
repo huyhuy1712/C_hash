@@ -30,6 +30,7 @@
         {
             product_panel_1 = new Panel();
             product_bottom_panel_1 = new Panel();
+            pictureBox_congthuc = new PictureBox();
             product_delete_btn1 = new PictureBox();
             product_edit_btn1 = new PictureBox();
             product_top_panel_1 = new Panel();
@@ -40,6 +41,7 @@
             gia_label1 = new Label();
             product_panel_1.SuspendLayout();
             product_bottom_panel_1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox_congthuc).BeginInit();
             ((System.ComponentModel.ISupportInitialize)product_delete_btn1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)product_edit_btn1).BeginInit();
             product_top_panel_1.SuspendLayout();
@@ -62,6 +64,7 @@
             // product_bottom_panel_1
             // 
             product_bottom_panel_1.BorderStyle = BorderStyle.FixedSingle;
+            product_bottom_panel_1.Controls.Add(pictureBox_congthuc);
             product_bottom_panel_1.Controls.Add(product_delete_btn1);
             product_bottom_panel_1.Controls.Add(product_edit_btn1);
             product_bottom_panel_1.Dock = DockStyle.Bottom;
@@ -69,6 +72,18 @@
             product_bottom_panel_1.Name = "product_bottom_panel_1";
             product_bottom_panel_1.Size = new Size(203, 23);
             product_bottom_panel_1.TabIndex = 1;
+            // 
+            // pictureBox_congthuc
+            // 
+            pictureBox_congthuc.Cursor = Cursors.Hand;
+            pictureBox_congthuc.Image = Properties.Resources.Hopstarter_Book_Recipe_Book_32;
+            pictureBox_congthuc.Location = new Point(83, 0);
+            pictureBox_congthuc.Name = "pictureBox_congthuc";
+            pictureBox_congthuc.Size = new Size(29, 19);
+            pictureBox_congthuc.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox_congthuc.TabIndex = 2;
+            pictureBox_congthuc.TabStop = false;
+            pictureBox_congthuc.Click += pictureBox_congthuc_Click;
             // 
             // product_delete_btn1
             // 
@@ -172,6 +187,7 @@
             Size = new Size(205, 129);
             product_panel_1.ResumeLayout(false);
             product_bottom_panel_1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox_congthuc).EndInit();
             ((System.ComponentModel.ISupportInitialize)product_delete_btn1).EndInit();
             ((System.ComponentModel.ISupportInitialize)product_edit_btn1).EndInit();
             product_top_panel_1.ResumeLayout(false);
@@ -193,5 +209,6 @@
         private Label ten_sp_label1;
         private Label gia_label1;
         private PictureBox product_picture1;
+        private PictureBox pictureBox_congthuc;
     }
 }
