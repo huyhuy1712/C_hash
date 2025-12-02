@@ -31,13 +31,14 @@
             panel1 = new Panel();
             panel5 = new Panel();
             dGV_chitietphieunhap = new DataGridView();
+            panel2 = new Panel();
+            label1 = new Label();
             maPhieuNhap_tb_info = new DataGridViewTextBoxColumn();
             soLuong_tb_add = new DataGridViewTextBoxColumn();
             tenNL_tb_info = new DataGridViewTextBoxColumn();
+            donvitinh_tb_info = new DataGridViewTextBoxColumn();
             donGia_tb_info = new DataGridViewTextBoxColumn();
             tongTien_tb_info = new DataGridViewTextBoxColumn();
-            panel2 = new Panel();
-            label1 = new Label();
             panel1.SuspendLayout();
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dGV_chitietphieunhap).BeginInit();
@@ -51,7 +52,7 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(962, 527);
+            panel1.Size = new Size(976, 527);
             panel1.TabIndex = 1;
             // 
             // panel5
@@ -62,7 +63,7 @@
             panel5.Location = new Point(0, 80);
             panel5.Name = "panel5";
             panel5.Padding = new Padding(20);
-            panel5.Size = new Size(962, 447);
+            panel5.Size = new Size(976, 447);
             panel5.TabIndex = 5;
             panel5.TabStop = true;
             // 
@@ -74,12 +75,33 @@
             dGV_chitietphieunhap.AllowUserToResizeRows = false;
             dGV_chitietphieunhap.BackgroundColor = SystemColors.ButtonFace;
             dGV_chitietphieunhap.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dGV_chitietphieunhap.Columns.AddRange(new DataGridViewColumn[] { maPhieuNhap_tb_info, soLuong_tb_add, tenNL_tb_info, donGia_tb_info, tongTien_tb_info });
+            dGV_chitietphieunhap.Columns.AddRange(new DataGridViewColumn[] { maPhieuNhap_tb_info, soLuong_tb_add, tenNL_tb_info, donvitinh_tb_info, donGia_tb_info, tongTien_tb_info });
             dGV_chitietphieunhap.Dock = DockStyle.Top;
             dGV_chitietphieunhap.Location = new Point(20, 20);
             dGV_chitietphieunhap.Name = "dGV_chitietphieunhap";
-            dGV_chitietphieunhap.Size = new Size(922, 404);
+            dGV_chitietphieunhap.Size = new Size(936, 404);
             dGV_chitietphieunhap.TabIndex = 0;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(label1);
+            panel2.Dock = DockStyle.Top;
+            panel2.Location = new Point(0, 0);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(976, 80);
+            panel2.TabIndex = 0;
+            // 
+            // label1
+            // 
+            label1.Dock = DockStyle.Fill;
+            label1.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.DodgerBlue;
+            label1.Location = new Point(0, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(976, 80);
+            label1.TabIndex = 1;
+            label1.Text = "Chi Tiết Phiếu Nhập Kho";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // maPhieuNhap_tb_info
             // 
@@ -99,6 +121,11 @@
             tenNL_tb_info.HeaderText = "Tên nguyên liệu";
             tenNL_tb_info.Name = "tenNL_tb_info";
             // 
+            // donvitinh_tb_info
+            // 
+            donvitinh_tb_info.HeaderText = "Đơn vị";
+            donvitinh_tb_info.Name = "donvitinh_tb_info";
+            // 
             // donGia_tb_info
             // 
             donGia_tb_info.HeaderText = "Đơn giá";
@@ -110,32 +137,11 @@
             tongTien_tb_info.Name = "tongTien_tb_info";
             tongTien_tb_info.Width = 200;
             // 
-            // panel2
-            // 
-            panel2.Controls.Add(label1);
-            panel2.Dock = DockStyle.Top;
-            panel2.Location = new Point(0, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(962, 80);
-            panel2.TabIndex = 0;
-            // 
-            // label1
-            // 
-            label1.Dock = DockStyle.Fill;
-            label1.Font = new Font("Segoe UI", 24F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.DodgerBlue;
-            label1.Location = new Point(0, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(962, 80);
-            label1.TabIndex = 1;
-            label1.Text = "Chi Tiết Phiếu Nhập Kho";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
-            // 
             // ImportForm_Info
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(962, 527);
+            ClientSize = new Size(976, 527);
             Controls.Add(panel1);
             MaximizeBox = false;
             MinimizeBox = false;
@@ -160,6 +166,7 @@
         private DataGridViewTextBoxColumn maPhieuNhap_tb_info;
         private DataGridViewTextBoxColumn soLuong_tb_add;
         private DataGridViewTextBoxColumn tenNL_tb_info;
+        private DataGridViewTextBoxColumn donvitinh_tb_info;
         private DataGridViewTextBoxColumn donGia_tb_info;
         private DataGridViewTextBoxColumn tongTien_tb_info;
     }
