@@ -39,22 +39,19 @@
             label3 = new Label();
             label5 = new Label();
             label12 = new Label();
-            dataGridView1 = new DataGridView();
-            Column1 = new DataGridViewTextBoxColumn();
-            Column2 = new DataGridViewTextBoxColumn();
-            Column3 = new DataGridViewTextBoxColumn();
             panel1 = new Panel();
             label6 = new Label();
             label7 = new Label();
             footer_panel = new Panel();
             huy_btn = new MilkTea.Client.Controls.RoundedButton();
             XacNhan_btn = new MilkTea.Client.Controls.RoundedButton();
+            dataGridView1 = new DataGridView();
             panel2.SuspendLayout();
             header_panel.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel1.SuspendLayout();
             footer_panel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -182,7 +179,7 @@
             label5.Name = "label5";
             label5.Size = new Size(139, 37);
             label5.TabIndex = 1;
-            label5.Text = "Số lượng";
+            label5.Text = "SL cần dùng";
             label5.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label12
@@ -196,40 +193,6 @@
             label12.TabIndex = 0;
             label12.Text = "Nguyên liệu";
             label12.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.AllowDrop = true;
-            dataGridView1.AllowUserToOrderColumns = true;
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridView1.ColumnHeadersHeight = 29;
-            dataGridView1.ColumnHeadersVisible = false;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3 });
-            dataGridView1.Dock = DockStyle.Top;
-            dataGridView1.Location = new Point(0, 208);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersVisible = false;
-            dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(441, 271);
-            dataGridView1.TabIndex = 0;
-            // 
-            // Column1
-            // 
-            Column1.HeaderText = "Column1";
-            Column1.MinimumWidth = 6;
-            Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            Column2.HeaderText = "Column2";
-            Column2.MinimumWidth = 6;
-            Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            Column3.HeaderText = "Column3";
-            Column3.MinimumWidth = 6;
-            Column3.Name = "Column3";
             // 
             // panel1
             // 
@@ -316,6 +279,22 @@
             XacNhan_btn.Text = "Xác nhận";
             XacNhan_btn.UseVisualStyleBackColor = false;
             // 
+            // dataGridView1
+            // 
+            dataGridView1.AllowDrop = true;
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToOrderColumns = true;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.ColumnHeadersHeight = 29;
+            dataGridView1.ColumnHeadersVisible = false;
+            dataGridView1.Dock = DockStyle.Top;
+            dataGridView1.Location = new Point(0, 208);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersVisible = false;
+            dataGridView1.RowHeadersWidth = 51;
+            dataGridView1.Size = new Size(441, 271);
+            dataGridView1.TabIndex = 0;
+            // 
             // RecipeDetailForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -330,13 +309,14 @@
             Controls.Add(panel2);
             Controls.Add(label1);
             Name = "RecipeDetailForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "RecipeDetailForm";
             panel2.ResumeLayout(false);
             header_panel.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             panel1.ResumeLayout(false);
             footer_panel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
 
@@ -352,16 +332,13 @@
         private TableLayoutPanel tableLayoutPanel1;
         private Label label5;
         private Label label12;
-        private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn Column1;
-        private DataGridViewTextBoxColumn Column2;
         private Label label3;
-        private DataGridViewTextBoxColumn Column3;
         private Panel panel1;
         private Label label6;
         private Label label7;
         private Panel footer_panel;
         private Controls.RoundedButton huy_btn;
         private Controls.RoundedButton XacNhan_btn;
+        private DataGridView dataGridView1;
     }
 }
