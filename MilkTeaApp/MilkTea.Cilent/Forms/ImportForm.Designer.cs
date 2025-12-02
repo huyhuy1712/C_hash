@@ -48,7 +48,6 @@ namespace MilkTea.Client.Forms
             panel5 = new Panel();
             lblStatus_PN = new Label();
             dGV_phieuNhap = new DataGridView();
-            panel1 = new Panel();
             maPhieuNhap_Tb_iPort = new DataGridViewTextBoxColumn();
             ngayNhap_Tb_iPort = new DataGridViewTextBoxColumn();
             soLuong_Tb_iPort = new DataGridViewTextBoxColumn();
@@ -57,6 +56,7 @@ namespace MilkTea.Client.Forms
             tongTien_Tb_iPort = new DataGridViewTextBoxColumn();
             thongTin_Tb_iPort = new DataGridViewImageColumn();
             xoa_Tb_iPort = new DataGridViewImageColumn();
+            panel1 = new Panel();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel7.SuspendLayout();
@@ -73,9 +73,9 @@ namespace MilkTea.Client.Forms
             panel2.Controls.Add(label1);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
-            panel2.Margin = new Padding(3, 5, 3, 5);
+            panel2.Margin = new Padding(3, 4, 3, 4);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1924, 76);
+            panel2.Size = new Size(1684, 57);
             panel2.TabIndex = 0;
             // 
             // label1
@@ -85,7 +85,7 @@ namespace MilkTea.Client.Forms
             label1.ForeColor = Color.DodgerBlue;
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
-            label1.Size = new Size(1924, 76);
+            label1.Size = new Size(1684, 57);
             label1.TabIndex = 0;
             label1.Text = "Phiếu Nhập Kho";
             label1.TextAlign = ContentAlignment.MiddleCenter;
@@ -96,10 +96,10 @@ namespace MilkTea.Client.Forms
             panel3.Controls.Add(panel7);
             panel3.Controls.Add(panel6);
             panel3.Dock = DockStyle.Top;
-            panel3.Location = new Point(0, 76);
-            panel3.Margin = new Padding(3, 5, 3, 5);
+            panel3.Location = new Point(0, 57);
+            panel3.Margin = new Padding(3, 4, 3, 4);
             panel3.Name = "panel3";
-            panel3.Size = new Size(1924, 72);
+            panel3.Size = new Size(1684, 54);
             panel3.TabIndex = 1;
             // 
             // panel7
@@ -107,22 +107,20 @@ namespace MilkTea.Client.Forms
             panel7.Controls.Add(txt_TimkiemPN_PN);
             panel7.Controls.Add(panel8);
             panel7.Dock = DockStyle.Right;
-            panel7.Location = new Point(1371, 0);
-            panel7.Margin = new Padding(3, 4, 3, 4);
+            panel7.Location = new Point(1200, 0);
             panel7.Name = "panel7";
-            panel7.Padding = new Padding(17);
-            panel7.Size = new Size(553, 72);
+            panel7.Padding = new Padding(15, 13, 15, 13);
+            panel7.Size = new Size(484, 54);
             panel7.TabIndex = 1;
             // 
             // txt_TimkiemPN_PN
             // 
             txt_TimkiemPN_PN.Dock = DockStyle.Right;
             txt_TimkiemPN_PN.Font = new Font("Segoe UI", 15F);
-            txt_TimkiemPN_PN.Location = new Point(223, 17);
-            txt_TimkiemPN_PN.Margin = new Padding(3, 4, 3, 4);
+            txt_TimkiemPN_PN.Location = new Point(195, 13);
             txt_TimkiemPN_PN.Name = "txt_TimkiemPN_PN";
             txt_TimkiemPN_PN.PlaceholderText = "Tìm kiếm...";
-            txt_TimkiemPN_PN.Size = new Size(313, 41);
+            txt_TimkiemPN_PN.Size = new Size(274, 34);
             txt_TimkiemPN_PN.TabIndex = 3;
             txt_TimkiemPN_PN.TextChanged += txt_TimkiemPN_PN_TextChanged;
             // 
@@ -130,10 +128,9 @@ namespace MilkTea.Client.Forms
             // 
             panel8.Controls.Add(cbo_timkiemtheo_PN);
             panel8.Dock = DockStyle.Left;
-            panel8.Location = new Point(17, 17);
-            panel8.Margin = new Padding(3, 4, 3, 4);
+            panel8.Location = new Point(15, 13);
             panel8.Name = "panel8";
-            panel8.Size = new Size(173, 38);
+            panel8.Size = new Size(151, 28);
             panel8.TabIndex = 2;
             // 
             // cbo_timkiemtheo_PN
@@ -143,8 +140,9 @@ namespace MilkTea.Client.Forms
             cbo_timkiemtheo_PN.Font = new Font("Segoe UI", 15F);
             cbo_timkiemtheo_PN.FormattingEnabled = true;
             cbo_timkiemtheo_PN.Location = new Point(0, 0);
+            cbo_timkiemtheo_PN.Margin = new Padding(3, 2, 3, 2);
             cbo_timkiemtheo_PN.Name = "cbo_timkiemtheo_PN";
-            cbo_timkiemtheo_PN.Size = new Size(173, 43);
+            cbo_timkiemtheo_PN.Size = new Size(151, 36);
             cbo_timkiemtheo_PN.TabIndex = 2;
             // 
             // panel6
@@ -153,10 +151,9 @@ namespace MilkTea.Client.Forms
             panel6.Controls.Add(roundedButton1);
             panel6.Dock = DockStyle.Left;
             panel6.Location = new Point(0, 0);
-            panel6.Margin = new Padding(3, 4, 3, 4);
             panel6.Name = "panel6";
-            panel6.Padding = new Padding(15);
-            panel6.Size = new Size(318, 72);
+            panel6.Padding = new Padding(13, 11, 13, 11);
+            panel6.Size = new Size(278, 54);
             panel6.TabIndex = 0;
             // 
             // roundedButton2
@@ -170,10 +167,9 @@ namespace MilkTea.Client.Forms
             roundedButton2.FlatStyle = FlatStyle.Flat;
             roundedButton2.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             roundedButton2.ForeColor = Color.White;
-            roundedButton2.Location = new Point(173, 15);
-            roundedButton2.Margin = new Padding(3, 4, 3, 4);
+            roundedButton2.Location = new Point(151, 11);
             roundedButton2.Name = "roundedButton2";
-            roundedButton2.Size = new Size(130, 42);
+            roundedButton2.Size = new Size(114, 32);
             roundedButton2.TabIndex = 1;
             roundedButton2.Text = "Excel";
             roundedButton2.UseVisualStyleBackColor = false;
@@ -190,10 +186,9 @@ namespace MilkTea.Client.Forms
             roundedButton1.FlatStyle = FlatStyle.Flat;
             roundedButton1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             roundedButton1.ForeColor = Color.White;
-            roundedButton1.Location = new Point(15, 15);
-            roundedButton1.Margin = new Padding(3, 4, 3, 4);
+            roundedButton1.Location = new Point(13, 11);
             roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(130, 42);
+            roundedButton1.Size = new Size(114, 32);
             roundedButton1.TabIndex = 0;
             roundedButton1.Text = "Thêm";
             roundedButton1.UseVisualStyleBackColor = false;
@@ -237,10 +232,10 @@ namespace MilkTea.Client.Forms
             // 
             panel4.Controls.Add(label2);
             panel4.Dock = DockStyle.Top;
-            panel4.Location = new Point(0, 148);
-            panel4.Margin = new Padding(3, 5, 3, 5);
+            panel4.Location = new Point(0, 111);
+            panel4.Margin = new Padding(3, 4, 3, 4);
             panel4.Name = "panel4";
-            panel4.Size = new Size(1924, 76);
+            panel4.Size = new Size(1684, 57);
             panel4.TabIndex = 2;
             // 
             // label2
@@ -250,7 +245,7 @@ namespace MilkTea.Client.Forms
             label2.ForeColor = Color.DodgerBlue;
             label2.Location = new Point(0, 0);
             label2.Name = "label2";
-            label2.Size = new Size(1924, 76);
+            label2.Size = new Size(1684, 57);
             label2.TabIndex = 1;
             label2.Text = "Danh Sách Phiếu Nhập";
             label2.TextAlign = ContentAlignment.MiddleCenter;
@@ -261,11 +256,11 @@ namespace MilkTea.Client.Forms
             panel5.Controls.Add(lblStatus_PN);
             panel5.Controls.Add(dGV_phieuNhap);
             panel5.Dock = DockStyle.Fill;
-            panel5.Location = new Point(0, 224);
-            panel5.Margin = new Padding(3, 5, 3, 5);
+            panel5.Location = new Point(0, 168);
+            panel5.Margin = new Padding(3, 4, 3, 4);
             panel5.Name = "panel5";
-            panel5.Padding = new Padding(26, 36, 26, 36);
-            panel5.Size = new Size(1924, 713);
+            panel5.Padding = new Padding(23, 27, 23, 27);
+            panel5.Size = new Size(1684, 535);
             panel5.TabIndex = 3;
             panel5.TabStop = true;
             // 
@@ -273,9 +268,9 @@ namespace MilkTea.Client.Forms
             // 
             lblStatus_PN.Dock = DockStyle.Top;
             lblStatus_PN.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblStatus_PN.Location = new Point(26, 571);
+            lblStatus_PN.Location = new Point(23, 428);
             lblStatus_PN.Name = "lblStatus_PN";
-            lblStatus_PN.Size = new Size(1872, 31);
+            lblStatus_PN.Size = new Size(1638, 23);
             lblStatus_PN.TabIndex = 1;
             lblStatus_PN.TextAlign = ContentAlignment.BottomLeft;
             // 
@@ -290,27 +285,14 @@ namespace MilkTea.Client.Forms
             dGV_phieuNhap.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dGV_phieuNhap.Columns.AddRange(new DataGridViewColumn[] { maPhieuNhap_Tb_iPort, ngayNhap_Tb_iPort, soLuong_Tb_iPort, NhaCungCap_Tb_iPort, tenNVN_Tb_iPort, tongTien_Tb_iPort, thongTin_Tb_iPort, xoa_Tb_iPort });
             dGV_phieuNhap.Dock = DockStyle.Top;
-            dGV_phieuNhap.Location = new Point(26, 36);
-            dGV_phieuNhap.Margin = new Padding(3, 5, 3, 5);
+            dGV_phieuNhap.Location = new Point(23, 27);
+            dGV_phieuNhap.Margin = new Padding(3, 4, 3, 4);
             dGV_phieuNhap.Name = "dGV_phieuNhap";
             dGV_phieuNhap.RowHeadersVisible = false;
             dGV_phieuNhap.RowHeadersWidth = 51;
-            dGV_phieuNhap.Size = new Size(1872, 535);
+            dGV_phieuNhap.Size = new Size(1638, 401);
             dGV_phieuNhap.TabIndex = 0;
             dGV_phieuNhap.CellClick += dGV_phieuNhap_CellClick;
-            // 
-            // panel1
-            // 
-            panel1.Controls.Add(panel5);
-            panel1.Controls.Add(panel4);
-            panel1.Controls.Add(panel3);
-            panel1.Controls.Add(panel2);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(3, 5, 3, 5);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1924, 937);
-            panel1.TabIndex = 0;
             // 
             // maPhieuNhap_Tb_iPort
             // 
@@ -383,13 +365,25 @@ namespace MilkTea.Client.Forms
             xoa_Tb_iPort.SortMode = DataGridViewColumnSortMode.Automatic;
             xoa_Tb_iPort.Width = 75;
             // 
+            // panel1
+            // 
+            panel1.Controls.Add(panel5);
+            panel1.Controls.Add(panel4);
+            panel1.Controls.Add(panel3);
+            panel1.Controls.Add(panel2);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(3, 4, 3, 4);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1684, 703);
+            panel1.TabIndex = 0;
+            // 
             // ImportForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1924, 937);
+            ClientSize = new Size(1684, 703);
             Controls.Add(panel1);
-            Margin = new Padding(3, 4, 3, 4);
             Name = "ImportForm";
             Text = "Import Form";
             Load += ImportForm_Load;

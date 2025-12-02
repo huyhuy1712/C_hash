@@ -1,5 +1,6 @@
 ﻿using MilkTea.Client.Models;
 using MilkTea.Client.Services;
+using MilkTea.Server.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,10 +21,12 @@ namespace MilkTea.Client.Forms.ChildForm_Import
         private readonly NguyenLieuService _nguyenLieuService;
         private readonly NhanVienService _nhanVienService;
         private readonly NhaCungCapService _nhaCungCapService;
+        private readonly DonViTinhService _donViTinhService;
 
         private ImportForm _parentForm;
         private List<NguyenLieu> _nguyenLieus;
         private List<NhaCungCap> _nhaCungCaps;
+        private List<DonViTinh> _donViTinhs;
         private List<TempChiTiet> _tempChiTiets = new List<TempChiTiet>();
         private NhanVien nv;
 
@@ -34,6 +37,7 @@ namespace MilkTea.Client.Forms.ChildForm_Import
             public int SoLuong { get; set; }
             public decimal DonGiaNhap { get; set; }
             public decimal TongGia { get; set; }
+            public string DonVi { get; set; }
         }
 
         public PhieuNhap? ResultPhieuNhap { get; private set; }
@@ -46,6 +50,7 @@ namespace MilkTea.Client.Forms.ChildForm_Import
             _nguyenLieuService = new NguyenLieuService();
             _nhanVienService = new NhanVienService();
             _nhaCungCapService = new NhaCungCapService();
+            _donViTinhService = new DonViTinhService();
             _parentForm = parentForm;
         }
 
@@ -75,6 +80,12 @@ namespace MilkTea.Client.Forms.ChildForm_Import
             cbo_HangHoa_PN_ADD.DataSource = _nguyenLieus;
             cbo_HangHoa_PN_ADD.DisplayMember = "Ten";
             cbo_HangHoa_PN_ADD.ValueMember = "MaNL";
+
+            // Load đơn vị tính
+            _donViTinhs = await _donViTinhService.GetAllAsync();
+            cbo_donvitinh_add.DataSource = _donViTinhs;
+            cbo_donvitinh_add.DisplayMember = "TenDVT";
+            cbo_donvitinh_add.ValueMember = "MaDVT";
         }
 
         private void btn_Them_PN_ADD_Click(object sender, EventArgs e)
@@ -84,6 +95,7 @@ namespace MilkTea.Client.Forms.ChildForm_Import
                 int soLuongMoi = (int)nb_soLuong_PN_ADD.Value;
                 decimal donGiaNhap = selectedNL.GiaBan;
                 int maNL = selectedNL.MaNL;
+                string donViTinh = cbo_donvitinh_add.Text;
 
                 var existingItem = _tempChiTiets.FirstOrDefault(t => t.MaNL == maNL);
 
@@ -101,7 +113,8 @@ namespace MilkTea.Client.Forms.ChildForm_Import
                         TenNL = selectedNL.Ten,
                         SoLuong = soLuongMoi,
                         DonGiaNhap = donGiaNhap,
-                        TongGia = tongGia
+                        TongGia = tongGia,
+                        DonVi = donViTinh
                     });
                 }
 
@@ -130,6 +143,7 @@ namespace MilkTea.Client.Forms.ChildForm_Import
 
         private async void btn_Luu_Iport_add_Click(object sender, EventArgs e)
         {
+            string donViTinh = cbo_donvitinh_add.Text;
             if (_tempChiTiets.Count == 0)
             {
                 MessageBox.Show("Không có chi tiết nào để lưu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -145,6 +159,7 @@ namespace MilkTea.Client.Forms.ChildForm_Import
                     TrangThai = 1,
                     MaNCC = (int?)cbo_NhaCungCap_PN_ADD.SelectedValue,
                     MaNV = nv.MaNV,
+                    DonViTinh = donViTinh,
                     TongTien = _tempChiTiets.Sum(t => t.TongGia),
                 };
 
@@ -159,6 +174,7 @@ namespace MilkTea.Client.Forms.ChildForm_Import
                     TrangThai = 1,
                     MaNCC = pn.MaNCC,
                     MaNV = pn.MaNV,
+                    DonViTinh = pn.DonViTinh,
                     TongTien = pn.TongTien
                 };
 
@@ -171,7 +187,8 @@ namespace MilkTea.Client.Forms.ChildForm_Import
                         MaNguyenLieu = temp.MaNL,
                         SoLuong = temp.SoLuong,
                         DonGiaNhap = temp.DonGiaNhap,
-                        TongGia = temp.TongGia
+                        TongGia = temp.TongGia,
+                        DonViTinh = temp.DonVi
                     };
                     await _chiTietPhieuNhapService.AddChiTietPhieuNhapAsync(ct);
                     await _nguyenLieuService.CongNguyenLieuAsync(temp.MaNL, temp.SoLuong);
@@ -212,7 +229,8 @@ namespace MilkTea.Client.Forms.ChildForm_Import
                     item.TenNL,
                     item.SoLuong,
                     tenNV,
-                    item.TongGia
+                    item.TongGia,
+                    item.DonVi
                 );
             }
         }

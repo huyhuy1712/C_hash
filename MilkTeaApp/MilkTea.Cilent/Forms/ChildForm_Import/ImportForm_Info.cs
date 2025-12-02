@@ -44,6 +44,7 @@ namespace MilkTea.Client.Forms.ChildForm_Import
                         dGV_chitietphieunhap.Rows[rowIndex].Cells["maPhieuNhap_tb_info"].Value = ctpn.MaChiTietPhieuNhap;
                         dGV_chitietphieunhap.Rows[rowIndex].Cells["soLuong_tb_add"].Value = ctpn.SoLuong;
                         dGV_chitietphieunhap.Rows[rowIndex].Cells["tenNL_tb_info"].Value = nguyenLieu.Ten;
+                        dGV_chitietphieunhap.Rows[rowIndex].Cells["donvitinh_tb_info"].Value = ctpn.DonViTinh;
                         dGV_chitietphieunhap.Rows[rowIndex].Cells["donGia_tb_info"].Value = ctpn.DonGiaNhap; // Định dạng số với dấu phân cách hàng nghìn
                         dGV_chitietphieunhap.Rows[rowIndex].Cells["tongTien_tb_info"].Value = ctpn.TongGia;
                     }
