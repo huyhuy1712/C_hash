@@ -114,6 +114,13 @@ namespace MilkTea.Client.Services
             }
         }
 
+        public async Task<List<DonHang>> FilterByDateAsync(DateTime from, DateTime to)
+        {
+            string url = $"/api/donhang/filter-date?from={from:yyyy-MM-dd}&to={to:yyyy-MM-dd}";
+            return await _http.GetFromJsonAsync<List<DonHang>>(url)
+                   ?? new List<DonHang>();
+        }
+
 
 
 
