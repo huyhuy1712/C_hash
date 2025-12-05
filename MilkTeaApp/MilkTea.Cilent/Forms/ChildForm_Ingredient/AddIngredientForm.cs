@@ -9,6 +9,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace MilkTea.Client.Forms.ChildForm_Import
 {
@@ -27,9 +28,25 @@ namespace MilkTea.Client.Forms.ChildForm_Import
         private void AddIngredientForm_Load(object sender, EventArgs e)
         {
             // Đặt giá trị mặc định cho số lượng và khóa ô số lượng
-            textBox2.Text = "1";
+            textBox2.Text = "0";
             textBox2.ReadOnly = true;
             textBox2.TabStop = false;
+
+            // Khóa giá bán và đặt mặc định = 0
+            textBox3.Text = "0";
+            textBox3.ReadOnly = true;
+            textBox3.TabStop = false;
+
+            // Nếu muốn, bạn có thể preload một số đơn vị mẫu (textBox4 là ô 'Đơn vị' trên Designer)
+            try
+            {
+                // Nếu bạn có ComboBox thay vì TextBox, thay đổi tương ứng. Hiện Designer có textBox4 cho Đơn vị.
+                // Không tự động ghi vào textBox4 để cho người dùng nhập/tùy chỉnh.
+            }
+            catch
+            {
+                // ignore
+            }
         }
 
         // 💾 Xử lý nút Xác nhận (btnXacNhan_Click)
@@ -46,6 +63,19 @@ namespace MilkTea.Client.Forms.ChildForm_Import
                     return;
                 }
 
+                // Lấy đơn vị từ textBox4 (Designer)
+                string donVi = textBox4.Text?.Trim() ?? "";
+
+                // Validate DonVi với regex
+                // pattern: allow Unicode letters, digits, spaces and these punctuation: - / ( ) . , length 1..20
+                const string DonViPattern = @"^[\p{L}0-9\s\-/().,]{1,20}$";
+                if (string.IsNullOrEmpty(donVi) || !Regex.IsMatch(donVi, DonViPattern, RegexOptions.Compiled | RegexOptions.CultureInvariant))
+                {
+                    MessageBox.Show("Đơn vị không hợp lệ. Chỉ cho phép chữ, số, khoảng trắng và ký tự - / ( ) . , (1-20 ký tự).", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    textBox4.Focus();
+                    return;
+                }
+
                 // Kiểm tra trùng tên (case-insensitive) bằng service
                 var existing = await _nguyenLieuService.GetByTen(tenNL);
                 if (existing != null && existing.Any(e => string.Equals(e.Ten?.Trim(), tenNL, StringComparison.OrdinalIgnoreCase)))
@@ -55,12 +85,12 @@ namespace MilkTea.Client.Forms.ChildForm_Import
                     return;
                 }
 
-                // Số lượng cố định là 1 (đã khóa trên UI)
-                int soLuong = 1;
-
-                if (!decimal.TryParse(textBox3.Text, out decimal giaBan) || giaBan <= 0)
+                // Số lượng mặc định = 0 (đã khóa trên UI)
+                int soLuong = 0;
+                // Giá bán khóa mặc định = 0, cho phép >= 0
+                if (!decimal.TryParse(textBox3.Text, out decimal giaBan) || giaBan < 0)
                 {
-                    MessageBox.Show("Giá bán phải là số dương.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Giá bán phải là số không âm.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     textBox3.Focus();
                     return;
                 }
@@ -69,9 +99,10 @@ namespace MilkTea.Client.Forms.ChildForm_Import
                 var nl = new NguyenLieu
                 {
                     Ten = tenNL,
-                    SoLuong = 1 ,
+                    SoLuong = soLuong,
                     GiaBan = giaBan,
-                    TrangThai = 1  // Active mặc định
+                    TrangThai = 1,  // Active mặc định
+                    DonVi = donVi
                 };
 
                 // Gửi POST qua service (giả sử service có AddAsync)

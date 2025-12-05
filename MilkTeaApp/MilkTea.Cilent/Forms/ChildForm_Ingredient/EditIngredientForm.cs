@@ -9,6 +9,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace MilkTea.Client.Forms.ChildForm_Ingredient
 {
@@ -28,11 +29,15 @@ namespace MilkTea.Client.Forms.ChildForm_Ingredient
             textBox2.KeyPress += textBox2_KeyPress;
             textBox3.KeyPress += textBox3_KeyPress;
 
-            // Khóa ô số lượng và không cho tab vào
+            // Khóa ô số lượng và không cho tab vào (mặc định giống Add)
             textBox2.ReadOnly = true;
             textBox2.TabStop = false;
-            // Giá trị mặc định tạm thời (sẽ được ghi đè khi load dữ liệu thật)
-            textBox2.Text = "1";
+            textBox2.Text = "0";
+
+            // Khóa giá bán và đặt mặc định = 0 (giống Add)
+            textBox3.ReadOnly = true;
+            textBox3.TabStop = false;
+            textBox3.Text = "0";
         }
 
         private async void EditIngredientForm_Load(object sender, EventArgs e)
@@ -52,9 +57,15 @@ namespace MilkTea.Client.Forms.ChildForm_Ingredient
                     return;
                 }
                 textBox1.Text = nl.Ten ?? "";
-                // Nếu dữ liệu tồn kho hợp lệ (>0) thì hiển thị, nếu không thì mặc định 1
-                textBox2.Text = nl.SoLuong > 0 ? nl.SoLuong.ToString() : "1";
+
+                // Hiển thị số lượng nếu có, ngược lại giữ mặc định 0
+                textBox2.Text = nl.SoLuong >= 0 ? nl.SoLuong.ToString() : "0";
+
+                // Hiển thị giá bán; nếu null/0 thì giữ "0.00"
                 textBox3.Text = nl.GiaBan.ToString("N2", CultureInfo.CurrentCulture);
+
+                // Hiển thị đơn vị (Designer: textBox4)
+                textBox4.Text = nl.DonVi ?? string.Empty;
             }
             catch (Exception ex)
             {
@@ -84,26 +95,40 @@ namespace MilkTea.Client.Forms.ChildForm_Ingredient
                     return;
                 }
 
-                // Lấy số lượng từ ô (đã bị khóa, nhưng vẫn đảm bảo parse được)
-                if (!int.TryParse(textBox2.Text, out int soLuong) || soLuong <= 0)
+                // Lấy số lượng từ ô (đã bị khóa, vẫn parse được). Nếu không hợp lệ -> 0
+                if (!int.TryParse(textBox2.Text, out int soLuong) || soLuong < 0)
                 {
-                    // Trong trường hợp bất thường (không parse được), dùng mặc định 1
-                    soLuong = 1;
+                    soLuong = 0;
                 }
 
-                if (!decimal.TryParse(textBox3.Text, NumberStyles.Any, CultureInfo.CurrentCulture, out decimal giaBan) || giaBan <= 0)
+                // Giá bán là ô khoá — chấp nhận số >= 0
+                if (!decimal.TryParse(textBox3.Text, NumberStyles.Any, CultureInfo.CurrentCulture, out decimal giaBan) || giaBan < 0)
                 {
-                    MessageBox.Show("Giá bán phải là số dương hợp lệ (ví dụ: 1000 hoặc 1000,50).", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Giá bán phải là số không âm hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     textBox3.Focus();
                     textBox3.SelectAll();
                     return;
                 }
+
+                // Đơn vị từ textBox4 (Designer)
+                string donVi = textBox4.Text?.Trim() ?? "";
+
+                // Validate DonVi với regex (Unicode letters, digits, spaces and - / ( ) . , ; length 1..20)
+                const string DonViPattern = @"^[\p{L}0-9\s\-/().,]{1,20}$";
+                if (string.IsNullOrEmpty(donVi) || !Regex.IsMatch(donVi, DonViPattern, RegexOptions.Compiled | RegexOptions.CultureInvariant))
+                {
+                    MessageBox.Show("Đơn vị không hợp lệ. Chỉ cho phép chữ, số, khoảng trắng và ký tự - / ( ) . , (1-20 ký tự).", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    textBox4.Focus();
+                    return;
+                }
+
                 var nl = new NguyenLieu
                 {
                     MaNL = _maNL,
                     Ten = tenNL,
                     SoLuong = soLuong,
                     GiaBan = giaBan,
+                    DonVi = donVi,
                     TrangThai = 1
                 };
 
