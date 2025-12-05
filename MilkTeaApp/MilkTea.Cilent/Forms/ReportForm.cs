@@ -61,9 +61,9 @@ namespace MilkTea.Client.Forms
             dataGridView1.AutoGenerateColumns = false;
             dataGridView1.DataSource = dtThongKe;
 
-            thoiGian.DataPropertyName = "thoiGian";
+            //thoiGian.DataPropertyName = "thoiGian";
             sanPham.DataPropertyName = "sanPham";
-            size1.DataPropertyName = "size1";
+            //size1.DataPropertyName = "size1";
             soLuong.DataPropertyName = "soLuong";
             chiPhi.DataPropertyName = "chiPhi";
             doanhThu.DataPropertyName = "doanhThu";
@@ -265,23 +265,19 @@ namespace MilkTea.Client.Forms
         {
             try
             {
+                
                 var temp = new List<DoanhThu>(list);
                 dtThongKe.Rows.Clear();
                 cbbLoc.SelectedItem = "Tất Cả";
 
-                // Lấy ngày bắt đầu và kết thúc
                 DateTime tuNgay = dateFrom.Value.Date;
                 DateTime denNgay = dateTo.Value.Date;
 
-                // Kiểm tra hợp lệ
                 if (denNgay < tuNgay)
                 {
                     MessageBox.Show("Ngày kết thúc phải lớn hơn hoặc bằng ngày bắt đầu!");
                     return;
                 }
-
-                // Gọi API để lấy danh sách doanh thu
-
 
                 if (list == null || list.Count == 0)
                 {
@@ -306,12 +302,12 @@ namespace MilkTea.Client.Forms
 
                 if (selectedSP != 0)
                 {
-                    temp = list.Where(x => x.MaSP == selectedSP).ToList();
+                    temp = temp.Where(x => x.MaSP == selectedSP).ToList();
                 }
 
                 if (selectedSize != 0)
                 {
-                    temp = list.Where(x => x.MaSize == selectedSize).ToList();
+                    temp = temp.Where(x => x.MaSize == selectedSize).ToList();
                 }
 
                 // --- Lọc theo thời gian ---
@@ -327,7 +323,10 @@ namespace MilkTea.Client.Forms
                     return;
                 }
 
-                // --- Hiển thị dữ liệu ---
+                DataTable dtTam = dtThongKe.Clone();
+
+
+                // --- HIỂN THỊ CHI TIẾT ---
                 foreach (var item in temp)
                 {
                     var sp = await _SanPhamService.GetSanPhamsByIdAsync(item.MaSP.Value);
@@ -336,46 +335,52 @@ namespace MilkTea.Client.Forms
                     var size = await _sizeService.GetSizeByIdAsync(item.MaSize.Value);
                     string tenSize = size?.TenSize ?? "Không xác định";
 
-                    DateTime date = new DateTime(item.Nam, item.Thang, item.Ngay);
-                    string thoiGian = date.ToString("dd/MM/yyyy");
-
-
-                    DataRow row = dtThongKe.NewRow();
-
-                    row["thoiGian"] = thoiGian;
+                    DataRow row = dtTam.NewRow();
                     row["sanPham"] = tenSP;
-                    row["size1"] = tenSize;
                     row["soLuong"] = item.SLBan;
                     row["chiPhi"] = item.TongChiPhi;
                     row["doanhThu"] = item.TongDoanhThu;
                     row["loiNhuan"] = item.TongDoanhThu - item.TongChiPhi;
-                    dataGridView1.Columns["size1"].Visible = true;
-                    dataGridView1.Columns["thoiGian"].Visible = true;
+                    dtTam.Rows.Add(row);
+                }
 
+                // --- TỔNG HỢP THEO SẢN PHẨM ---
+                var tongHop = dtTam.AsEnumerable()
+                    .GroupBy(row => row.Field<string>("sanPham"))
+                    .Select(g => new
+                    {
+                        TenSP = g.Key,
+                        TongSoLuong = g.Sum(r => r.Field<int>("soLuong")),
+                        TongChiPhi = g.Sum(r => r.Field<decimal>("chiPhi")),
+                        TongDoanhThu = g.Sum(r => r.Field<decimal>("doanhThu")),
+                        LoiNhuan = g.Sum(r => r.Field<decimal>("doanhThu") - r.Field<decimal>("chiPhi"))
+                    })
+                    .ToList();
 
+                // Xóa dtThongKe cũ để ghi bảng tổng hợp
+                dtThongKe.Rows.Clear();
+
+                // Đổ lại dữ liệu nhóm vào dtThongKe
+                foreach (var item in tongHop)
+                {
+                    DataRow row = dtThongKe.NewRow();
+
+                    row["sanPham"] = item.TenSP;
+                    row["soLuong"] = item.TongSoLuong;
+                    row["chiPhi"] = item.TongChiPhi;
+                    row["doanhThu"] = item.TongDoanhThu;
+                    row["loiNhuan"] = item.LoiNhuan;
 
                     dtThongKe.Rows.Add(row);
                 }
 
-                decimal tongChiPhi = 0, tongDoanhThu = 0, tongLoiNhuan = 0;
-                foreach (DataRow row in dtThongKe.AsEnumerable())
-                {
-                    tongChiPhi += row.Field<decimal>("chiPhi");
-                    tongDoanhThu += row.Field<decimal>("doanhThu");
-                    tongLoiNhuan += row.Field<decimal>("loiNhuan");
-                }
-
-                txtChiPhi.Text = tongChiPhi.ToString("N0");
-                txtDoanhThu.Text = tongDoanhThu.ToString("N0");
-                txtLoiNhuan.Text = tongLoiNhuan.ToString("N0");
-
-                tableLayoutPanel2.ColumnStyles[1].SizeType = SizeType.Percent;
-                tableLayoutPanel2.ColumnStyles[1].Width = 14.29f;
-
-                tableLayoutPanel2.ColumnStyles[2].SizeType = SizeType.Percent;
-                tableLayoutPanel2.ColumnStyles[2].Width = 14.29f;
-
+                // Hiển thị lại
                 dataGridView1.DataSource = dtThongKe;
+
+                // Tổng cuối cùng
+                txtChiPhi.Text = tongHop.Sum(x => x.TongChiPhi).ToString("N0");
+                txtDoanhThu.Text = tongHop.Sum(x => x.TongDoanhThu).ToString("N0");
+                txtLoiNhuan.Text = tongHop.Sum(x => x.LoiNhuan).ToString("N0");
             }
             catch (Exception ex)
             {
@@ -404,41 +409,8 @@ namespace MilkTea.Client.Forms
             if (dtThongKe == null || dtThongKe.Rows.Count == 0)
                 return;
 
-            // --- Bước 1: Gộp dữ liệu theo sản phẩm ---
-            var tongHop = dtThongKe.AsEnumerable()
-                .GroupBy(row => row.Field<string>("sanPham"))
-                .Select(g => new
-                {
-                    TenSP = g.Key,
-                    TongSoLuong = g.Sum(r => r.Field<int>("soLuong")),
-                    TongChiPhi = g.Sum(r => r.Field<decimal>("chiPhi")),
-                    TongDoanhThu = g.Sum(r => r.Field<decimal>("doanhThu")),
-                    LoiNhuan = g.Sum(r => r.Field<decimal>("doanhThu") - r.Field<decimal>("chiPhi"))
-                })
-                .ToList();
-
-            // --- Bước 2: Chuyển thành DataTable để hiển thị ---
-            DataTable dtGop = new DataTable();
-
-            dtGop.Columns.Add("thoiGian", typeof(string));
-            dtGop.Columns.Add("sanPham", typeof(string));
-            dtGop.Columns.Add("size1", typeof(string));
-            dtGop.Columns.Add("soLuong", typeof(int));
-            dtGop.Columns.Add("chiPhi", typeof(decimal));
-            dtGop.Columns.Add("doanhThu", typeof(decimal));
-            dtGop.Columns.Add("loiNhuan", typeof(decimal));
-            dataGridView1.Columns["size1"].Visible = false;
-            dataGridView1.Columns["thoiGian"].Visible = false;
-
-            foreach (var item in tongHop)
-            {
-                dtGop.Rows.Add("", item.TenSP, "", item.TongSoLuong, item.TongChiPhi, item.TongDoanhThu, item.LoiNhuan);
-            }
-
-            // --- Bước 3: Tạo sortExpression dựa theo lựa chọn ---
-            string sortExpression = "";
             string tieuChi = cbbLoc.SelectedItem?.ToString() ?? "";
-
+            string sortExpression = "";
 
             switch (tieuChi)
             {
@@ -455,31 +427,20 @@ namespace MilkTea.Client.Forms
                     sortExpression = "soLuong ASC";
                     break;
                 default:
-                    loadDataGridView();
+                    // Trả về bảng ban đầu nếu chọn "Tất cả"
+                    dataGridView1.DataSource = dtThongKe;
                     return;
             }
 
-            // --- Bước 4: Áp dụng DataView để sắp xếp ---
-            DataView dv = dtGop.DefaultView;
+            // --- Sắp xếp ---
+            DataView dv = dtThongKe.DefaultView;
             dv.Sort = sortExpression;
 
+            DataTable dtSorted = dv.ToTable();
 
-            // --- Bước 5: Gán vào DataGridView ---
-            dataGridView1.DataSource = dv.ToTable();
-            decimal tongChiPhi = 0, tongDoanhThu = 0, tongLoiNhuan = 0;
+            // --- Gán lại vào DataGrid ---
+            dataGridView1.DataSource = dtSorted;
 
-            foreach (DataRow row in dv.ToTable().Rows)
-            {
-                tongChiPhi += row.Field<decimal>("chiPhi");
-                tongDoanhThu += row.Field<decimal>("doanhThu");
-                tongLoiNhuan += row.Field<decimal>("loiNhuan");
-            }
-
-            txtChiPhi.Text = tongChiPhi.ToString("N0");
-            txtDoanhThu.Text = tongDoanhThu.ToString("N0");
-            txtLoiNhuan.Text = tongLoiNhuan.ToString("N0");
-            tableLayoutPanel2.ColumnStyles[1].Width = 0;
-            tableLayoutPanel2.ColumnStyles[2].Width = 0;
 
         }
 
