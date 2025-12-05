@@ -1,4 +1,5 @@
 ﻿using MilkTea.Client.Controls;
+using MilkTea.Client.Forms.ChildForm_Report;
 using MilkTea.Client.Models;
 using MilkTea.Client.Services;
 using System;
@@ -18,7 +19,7 @@ namespace MilkTea.Client.Forms
     public partial class ReportForm : Form
     {
         private List<SanPham> _allProducts = new List<SanPham>();
-
+        private List<DoanhThu> chiTietDoanhThuDaLoc = new List<DoanhThu>();
 
         private readonly LoaiService _loaiService;
         private readonly SanPhamService _SanPhamService;
@@ -48,9 +49,9 @@ namespace MilkTea.Client.Forms
 
         private void TaoCauTrucBangThongKe()
         {
-            dtThongKe.Columns.Add("thoiGian", typeof(string));
+            //dtThongKe.Columns.Add("thoiGian", typeof(string));
             dtThongKe.Columns.Add("sanPham", typeof(string));
-            dtThongKe.Columns.Add("size1", typeof(string));
+            //dtThongKe.Columns.Add("size1", typeof(string));
 
             dtThongKe.Columns.Add("soLuong", typeof(int));
             dtThongKe.Columns.Add("chiPhi", typeof(decimal));
@@ -127,7 +128,7 @@ namespace MilkTea.Client.Forms
                 //load bảng
                 TaoCauTrucBangThongKe();
                 loadDataGridView();
-                
+
             }
             catch (Exception ex)
             {
@@ -156,10 +157,40 @@ namespace MilkTea.Client.Forms
 
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0) return;
 
+            string tenSP = dataGridView1.Rows[e.RowIndex].Cells["sanPham"].Value.ToString();
+
+            // Tìm mã SP
+            var sp = allSP.FirstOrDefault(x => x.TenSP == tenSP);
+            if (sp == null)
+            {
+                MessageBox.Show("Không tìm thấy mã sản phẩm.");
+                return;
+            }
+
+            int maSP = sp.MaSP;
+
+            // 👉 Lọc doanh thu chi tiết ĐÃ LỌC THEO THỜI GIAN
+            var chiTiet = chiTietDoanhThuDaLoc
+                            .Where(x => x.MaSP == maSP)
+                            .ToList();
+
+            if (chiTiet.Count == 0)
+            {
+                MessageBox.Show("Không có hóa đơn cho sản phẩm này.");
+                return;
+            }
+
+            // Truyền LIST DoanhThu vào InvoiceReport
+            InvoiceReport frm = new InvoiceReport(chiTiet);
+            frm.ShowDialog();
         }
+
+
+
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
@@ -265,7 +296,7 @@ namespace MilkTea.Client.Forms
         {
             try
             {
-                
+
                 var temp = new List<DoanhThu>(list);
                 dtThongKe.Rows.Clear();
                 cbbLoc.SelectedItem = "Tất Cả";
@@ -322,6 +353,7 @@ namespace MilkTea.Client.Forms
                     MessageBox.Show("Không có dữ liệu phù hợp với bộ lọc.");
                     return;
                 }
+                chiTietDoanhThuDaLoc = temp;
 
                 DataTable dtTam = dtThongKe.Clone();
 
@@ -331,9 +363,6 @@ namespace MilkTea.Client.Forms
                 {
                     var sp = await _SanPhamService.GetSanPhamsByIdAsync(item.MaSP.Value);
                     string tenSP = sp?.TenSP ?? "Không xác định";
-
-                    var size = await _sizeService.GetSizeByIdAsync(item.MaSize.Value);
-                    string tenSize = size?.TenSize ?? "Không xác định";
 
                     DataRow row = dtTam.NewRow();
                     row["sanPham"] = tenSP;
@@ -378,6 +407,7 @@ namespace MilkTea.Client.Forms
                 dataGridView1.DataSource = dtThongKe;
 
                 // Tổng cuối cùng
+                txtSoLuong.Text = tongHop.Sum(x => x.TongSoLuong).ToString("N0");
                 txtChiPhi.Text = tongHop.Sum(x => x.TongChiPhi).ToString("N0");
                 txtDoanhThu.Text = tongHop.Sum(x => x.TongDoanhThu).ToString("N0");
                 txtLoiNhuan.Text = tongHop.Sum(x => x.LoiNhuan).ToString("N0");
@@ -450,6 +480,11 @@ namespace MilkTea.Client.Forms
         }
 
         private void cbbSP_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtSoLuong_Paint(object sender, PaintEventArgs e)
         {
 
         }

@@ -31,11 +31,12 @@ namespace MilkTea.Client.Forms
         {
             ReportPanel = new Panel();
             Content = new Panel();
-            tableLayoutPanel2 = new TableLayoutPanel();
+            TableLayout3 = new TableLayoutPanel();
             txtLoiNhuan = new Label();
             txtDoanhThu = new Label();
             txtChiPhi = new Label();
             label8 = new Label();
+            txtSoLuong = new Label();
             dataGridView1 = new DataGridView();
             sanPham = new DataGridViewTextBoxColumn();
             soLuong = new DataGridViewTextBoxColumn();
@@ -68,7 +69,7 @@ namespace MilkTea.Client.Forms
             label2 = new Label();
             ReportPanel.SuspendLayout();
             Content.SuspendLayout();
-            tableLayoutPanel2.SuspendLayout();
+            TableLayout3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             Filter.SuspendLayout();
             Order.SuspendLayout();
@@ -95,7 +96,7 @@ namespace MilkTea.Client.Forms
             // 
             // Content
             // 
-            Content.Controls.Add(tableLayoutPanel2);
+            Content.Controls.Add(TableLayout3);
             Content.Controls.Add(dataGridView1);
             Content.Controls.Add(Filter);
             Content.Dock = DockStyle.Fill;
@@ -105,28 +106,30 @@ namespace MilkTea.Client.Forms
             Content.Size = new Size(1083, 656);
             Content.TabIndex = 1;
             // 
-            // tableLayoutPanel2
+            // TableLayout3
             // 
-            tableLayoutPanel2.ColumnCount = 5;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 19.9999962F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 19.9999962F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.0000019F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.0000019F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.0000019F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel2.Controls.Add(txtLoiNhuan, 4, 0);
-            tableLayoutPanel2.Controls.Add(txtDoanhThu, 3, 0);
-            tableLayoutPanel2.Controls.Add(txtChiPhi, 2, 0);
-            tableLayoutPanel2.Controls.Add(label8, 0, 0);
-            tableLayoutPanel2.Dock = DockStyle.Bottom;
-            tableLayoutPanel2.Location = new Point(0, 605);
-            tableLayoutPanel2.Margin = new Padding(3, 4, 3, 4);
-            tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 1;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.Size = new Size(1083, 51);
-            tableLayoutPanel2.TabIndex = 2;
+            TableLayout3.ColumnCount = 5;
+            TableLayout3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 19.9999962F));
+            TableLayout3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 19.9999962F));
+            TableLayout3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.0000019F));
+            TableLayout3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.0000019F));
+            TableLayout3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 20.0000019F));
+            TableLayout3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            TableLayout3.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            TableLayout3.Controls.Add(txtLoiNhuan, 4, 0);
+            TableLayout3.Controls.Add(txtDoanhThu, 3, 0);
+            TableLayout3.Controls.Add(txtChiPhi, 2, 0);
+            TableLayout3.Controls.Add(label8, 0, 0);
+            TableLayout3.Controls.Add(txtSoLuong, 1, 0);
+            TableLayout3.Dock = DockStyle.Bottom;
+            TableLayout3.Location = new Point(0, 605);
+            TableLayout3.Margin = new Padding(3, 4, 3, 4);
+            TableLayout3.Name = "TableLayout3";
+            TableLayout3.RowCount = 1;
+            TableLayout3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            TableLayout3.Size = new Size(1083, 51);
+            TableLayout3.TabIndex = 2;
+            TableLayout3.Paint += txtSoLuong_Paint;
             // 
             // txtLoiNhuan
             // 
@@ -177,6 +180,18 @@ namespace MilkTea.Client.Forms
             label8.TextAlign = ContentAlignment.MiddleCenter;
             label8.Click += label8_Click;
             // 
+            // txtSoLuong
+            // 
+            txtSoLuong.AutoSize = true;
+            txtSoLuong.Dock = DockStyle.Fill;
+            txtSoLuong.Font = new Font("Segoe UI", 13.8F);
+            txtSoLuong.Location = new Point(219, 0);
+            txtSoLuong.Name = "txtSoLuong";
+            txtSoLuong.Size = new Size(210, 51);
+            txtSoLuong.TabIndex = 9;
+            txtSoLuong.Text = "Tổng";
+            txtSoLuong.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // dataGridView1
             // 
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -190,7 +205,7 @@ namespace MilkTea.Client.Forms
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(1083, 467);
             dataGridView1.TabIndex = 2;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            dataGridView1.CellClick += dataGridView1_CellClick;
             // 
             // sanPham
             // 
@@ -600,8 +615,8 @@ namespace MilkTea.Client.Forms
             Load += ReportForm_Load;
             ReportPanel.ResumeLayout(false);
             Content.ResumeLayout(false);
-            tableLayoutPanel2.ResumeLayout(false);
-            tableLayoutPanel2.PerformLayout();
+            TableLayout3.ResumeLayout(false);
+            TableLayout3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             Filter.ResumeLayout(false);
             Order.ResumeLayout(false);
@@ -655,7 +670,7 @@ namespace MilkTea.Client.Forms
         private Panel panel7;
         private Label label7;
         private Controls.RoundedButton btnLayDuLieu;
-        private TableLayoutPanel tableLayoutPanel2;
+        private TableLayoutPanel TableLayout3;
         private Label txtChiPhi;
         private Label txtLoiNhuan;
         private Label txtDoanhThu;
@@ -666,5 +681,6 @@ namespace MilkTea.Client.Forms
         private DataGridViewTextBoxColumn chiPhi;
         private DataGridViewTextBoxColumn doanhThu;
         private DataGridViewTextBoxColumn loiNhuan;
+        private Label txtSoLuong;
     }
 }
