@@ -28,15 +28,16 @@
             pictureBox1 = new PictureBox();
             textboxTimKiem = new MilkTea.Client.Controls.RoundedTextBox();
             panel1 = new Panel();
+            label2 = new Label();
+            label1 = new Label();
             btnFilter = new MilkTea.Client.Controls.RoundedButton();
             dtpToDate = new DateTimePicker();
             dtpFromDate = new DateTimePicker();
-            label1 = new Label();
-            label2 = new Label();
             invoicePanel.SuspendLayout();
             panel3.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // invoicePanel
@@ -63,9 +64,8 @@
             // 
             // flowLayoutPanel1
             // 
-            flowLayoutPanel1.Dock = DockStyle.Fill;
             flowLayoutPanel1.AutoScroll = true;
-
+            flowLayoutPanel1.Dock = DockStyle.Fill;
             flowLayoutPanel1.Location = new Point(0, 0);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(934, 492);
@@ -108,7 +108,7 @@
             roundedComboBox2.ItemHeight = 30;
             roundedComboBox2.Location = new Point(414, 4);
             roundedComboBox2.Name = "roundedComboBox2";
-            roundedComboBox2.Size = new Size(151, 36);
+            roundedComboBox2.Size = new Size(198, 36);
             roundedComboBox2.TabIndex = 4;
             roundedComboBox2.SelectedIndexChanged += roundedComboBox2_SelectedIndexChanged;
             // 
@@ -174,6 +174,27 @@
             panel1.Size = new Size(934, 49);
             panel1.TabIndex = 0;
             // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 12F);
+            label2.Location = new Point(242, 17);
+            label2.Name = "label2";
+            label2.Size = new Size(47, 28);
+            label2.TabIndex = 13;
+            label2.Text = "Đến";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 12F);
+            label1.Location = new Point(44, 19);
+            label1.Name = "label1";
+            label1.Size = new Size(34, 28);
+            label1.TabIndex = 12;
+            label1.Text = "Từ";
+            label1.Click += label1_Click;
+            // 
             // btnFilter
             // 
             btnFilter.BackColor = Color.SteelBlue;
@@ -184,7 +205,7 @@
             btnFilter.FlatStyle = FlatStyle.Flat;
             btnFilter.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnFilter.ForeColor = Color.White;
-            btnFilter.Location = new Point(487, 6);
+            btnFilter.Location = new Point(454, 6);
             btnFilter.Margin = new Padding(10, 11, 10, 11);
             btnFilter.Name = "btnFilter";
             btnFilter.Size = new Size(88, 39);
@@ -216,27 +237,6 @@
             dtpFromDate.TabIndex = 5;
             dtpFromDate.Value = new DateTime(2025, 1, 1, 0, 0, 0, 0);
             dtpFromDate.ValueChanged += dtpFromDate_ValueChanged_1;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 12F);
-            label1.Location = new Point(39, 14);
-            label1.Name = "label1";
-            label1.Size = new Size(34, 28);
-            label1.TabIndex = 12;
-            label1.Text = "Từ";
-            label1.Click += label1_Click;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(237, 12);
-            label2.Name = "label2";
-            label2.Size = new Size(47, 28);
-            label2.TabIndex = 13;
-            label2.Text = "Đến";
             // 
             // InvoiceForm
             // 

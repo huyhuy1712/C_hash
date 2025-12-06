@@ -44,7 +44,6 @@
             label7 = new Label();
             footer_panel = new Panel();
             huy_btn = new MilkTea.Client.Controls.RoundedButton();
-            XacNhan_btn = new MilkTea.Client.Controls.RoundedButton();
             dataGridView1 = new DataGridView();
             panel2.SuspendLayout();
             header_panel.SuspendLayout();
@@ -232,7 +231,6 @@
             // footer_panel
             // 
             footer_panel.Controls.Add(huy_btn);
-            footer_panel.Controls.Add(XacNhan_btn);
             footer_panel.Dock = DockStyle.Bottom;
             footer_panel.Location = new Point(0, 512);
             footer_panel.Name = "footer_panel";
@@ -252,32 +250,13 @@
             huy_btn.FlatStyle = FlatStyle.Flat;
             huy_btn.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             huy_btn.ForeColor = Color.White;
-            huy_btn.Location = new Point(225, 10);
+            huy_btn.Location = new Point(326, 10);
             huy_btn.Name = "huy_btn";
-            huy_btn.Size = new Size(80, 36);
+            huy_btn.Size = new Size(105, 36);
             huy_btn.TabIndex = 1;
             huy_btn.Text = "Hủy";
             huy_btn.UseVisualStyleBackColor = false;
             huy_btn.Click += huy_btn_Click;
-            // 
-            // XacNhan_btn
-            // 
-            XacNhan_btn.BackColor = Color.DodgerBlue;
-            XacNhan_btn.BorderColor = Color.DodgerBlue;
-            XacNhan_btn.BorderRadius = 20;
-            XacNhan_btn.BorderSize = 0;
-            XacNhan_btn.Cursor = Cursors.Hand;
-            XacNhan_btn.Dock = DockStyle.Right;
-            XacNhan_btn.FlatAppearance.BorderSize = 0;
-            XacNhan_btn.FlatStyle = FlatStyle.Flat;
-            XacNhan_btn.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            XacNhan_btn.ForeColor = Color.White;
-            XacNhan_btn.Location = new Point(305, 10);
-            XacNhan_btn.Name = "XacNhan_btn";
-            XacNhan_btn.Size = new Size(126, 36);
-            XacNhan_btn.TabIndex = 0;
-            XacNhan_btn.Text = "Xác nhận";
-            XacNhan_btn.UseVisualStyleBackColor = false;
             // 
             // dataGridView1
             // 
@@ -338,7 +317,6 @@
         private Label label7;
         private Panel footer_panel;
         private Controls.RoundedButton huy_btn;
-        private Controls.RoundedButton XacNhan_btn;
         private DataGridView dataGridView1;
     }
 }

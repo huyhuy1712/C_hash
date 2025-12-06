@@ -71,7 +71,7 @@ namespace MilkTea.Client.Forms.ChildForm_Order
             colSoLuong.HeaderText = "Số Lượng";
             colSoLuong.Name = "colSoLuong";
             // Đặt ReadOnly = false để cho phép nhập số (được ràng buộc bằng sự kiện ColSoLuong_KeyPress)
-            colSoLuong.ReadOnly = false;
+            colSoLuong.ReadOnly = true;
             // Nguồn dữ liệu cho ComboBox
             dataGridView1.Columns.Add(colSoLuong);
 
