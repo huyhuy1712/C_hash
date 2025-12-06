@@ -28,8 +28,11 @@
             pictureBox1 = new PictureBox();
             textboxTimKiem = new MilkTea.Client.Controls.RoundedTextBox();
             panel1 = new Panel();
-            btn_lamxong = new Button();
-            btn_danglam = new Button();
+            btnFilter = new MilkTea.Client.Controls.RoundedButton();
+            dtpToDate = new DateTimePicker();
+            dtpFromDate = new DateTimePicker();
+            label1 = new Label();
+            label2 = new Label();
             invoicePanel.SuspendLayout();
             panel3.SuspendLayout();
             panel2.SuspendLayout();
@@ -102,7 +105,7 @@
             roundedComboBox2.Font = new Font("Segoe UI", 10F);
             roundedComboBox2.FormattingEnabled = true;
             roundedComboBox2.ItemHeight = 30;
-            roundedComboBox2.Location = new Point(432, 6);
+            roundedComboBox2.Location = new Point(414, 4);
             roundedComboBox2.Name = "roundedComboBox2";
             roundedComboBox2.Size = new Size(151, 36);
             roundedComboBox2.TabIndex = 4;
@@ -121,7 +124,7 @@
             roundedComboBox1.Font = new Font("Segoe UI", 10F);
             roundedComboBox1.FormattingEnabled = true;
             roundedComboBox1.ItemHeight = 30;
-            roundedComboBox1.Location = new Point(272, 6);
+            roundedComboBox1.Location = new Point(254, 4);
             roundedComboBox1.Margin = new Padding(10);
             roundedComboBox1.Name = "roundedComboBox1";
             roundedComboBox1.Size = new Size(147, 36);
@@ -158,8 +161,11 @@
             // 
             // panel1
             // 
-            panel1.Controls.Add(btn_lamxong);
-            panel1.Controls.Add(btn_danglam);
+            panel1.Controls.Add(label2);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(btnFilter);
+            panel1.Controls.Add(dtpToDate);
+            panel1.Controls.Add(dtpFromDate);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
@@ -167,31 +173,69 @@
             panel1.Size = new Size(934, 49);
             panel1.TabIndex = 0;
             // 
-            // btn_lamxong
+            // btnFilter
             // 
-            btn_lamxong.Dock = DockStyle.Left;
-            btn_lamxong.Location = new Point(180, 5);
-            btn_lamxong.Margin = new Padding(10);
-            btn_lamxong.Name = "btn_lamxong";
-            btn_lamxong.Size = new Size(152, 39);
-            btn_lamxong.TabIndex = 1;
-            btn_lamxong.Text = "Đã hoàn thành";
-            btn_lamxong.UseVisualStyleBackColor = true;
-            btn_lamxong.Click += btn_lamxong_Click;
+            btnFilter.BackColor = Color.SteelBlue;
+            btnFilter.BorderColor = Color.DodgerBlue;
+            btnFilter.BorderRadius = 20;
+            btnFilter.BorderSize = 0;
+            btnFilter.FlatAppearance.BorderSize = 0;
+            btnFilter.FlatStyle = FlatStyle.Flat;
+            btnFilter.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnFilter.ForeColor = Color.White;
+            btnFilter.Location = new Point(487, 6);
+            btnFilter.Margin = new Padding(10, 11, 10, 11);
+            btnFilter.Name = "btnFilter";
+            btnFilter.Size = new Size(88, 39);
+            btnFilter.TabIndex = 11;
+            btnFilter.Text = "Lọc";
+            btnFilter.UseVisualStyleBackColor = false;
+            btnFilter.Click += btnFilter_Click;
             // 
-            // btn_danglam
+            // dtpToDate
             // 
-            btn_danglam.BackColor = SystemColors.MenuHighlight;
-            btn_danglam.Dock = DockStyle.Left;
-            btn_danglam.ForeColor = SystemColors.ButtonHighlight;
-            btn_danglam.Location = new Point(5, 5);
-            btn_danglam.Margin = new Padding(10);
-            btn_danglam.Name = "btn_danglam";
-            btn_danglam.Size = new Size(175, 39);
-            btn_danglam.TabIndex = 0;
-            btn_danglam.Text = "Đang làm";
-            btn_danglam.UseVisualStyleBackColor = false;
-            btn_danglam.Click += btn_danglam_Click;
+            dtpToDate.CalendarFont = new Font("Segoe UI", 14F);
+            dtpToDate.CustomFormat = "dd/MM/yyyy";
+            dtpToDate.Font = new Font("Segoe UI", 12F);
+            dtpToDate.Format = DateTimePickerFormat.Custom;
+            dtpToDate.Location = new Point(290, 6);
+            dtpToDate.Name = "dtpToDate";
+            dtpToDate.Size = new Size(151, 34);
+            dtpToDate.TabIndex = 6;
+            // 
+            // dtpFromDate
+            // 
+            dtpFromDate.CalendarFont = new Font("Segoe UI", 14F);
+            dtpFromDate.CustomFormat = "dd/MM/yyyy";
+            dtpFromDate.Font = new Font("Segoe UI", 12F);
+            dtpFromDate.Format = DateTimePickerFormat.Custom;
+            dtpFromDate.Location = new Point(76, 7);
+            dtpFromDate.Name = "dtpFromDate";
+            dtpFromDate.Size = new Size(151, 34);
+            dtpFromDate.TabIndex = 5;
+            dtpFromDate.Value = new DateTime(2025, 1, 1, 0, 0, 0, 0);
+            dtpFromDate.ValueChanged += dtpFromDate_ValueChanged_1;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 12F);
+            label1.Location = new Point(39, 14);
+            label1.Name = "label1";
+            label1.Size = new Size(34, 28);
+            label1.TabIndex = 12;
+            label1.Text = "Từ";
+            label1.Click += label1_Click;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 12F);
+            label2.Location = new Point(237, 12);
+            label2.Name = "label2";
+            label2.Size = new Size(47, 28);
+            label2.TabIndex = 13;
+            label2.Text = "Đến";
             // 
             // InvoiceForm
             // 
@@ -207,6 +251,7 @@
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
         }
         #endregion
@@ -214,8 +259,6 @@
         #region Variables
         private Panel invoicePanel;
         private Panel panel1;
-        private Button btn_danglam;
-        private Button btn_lamxong;
         private Panel panel2;
         private Controls.RoundedTextBox textboxTimKiem;
         private PictureBox pictureBox1;
@@ -226,5 +269,12 @@
         private FlowLayoutPanel flowLayoutPanel1;
         private FlowLayoutPanel flowLayoutPanel2;
         private Controls.RoundedComboBox roundedComboBox2;
+        private DateTimePicker dtpFromDate;
+        private DateTimePicker dtpToDate;
+        private Controls.RoundedButton btnFilter;
+        private TextBox textBox1;
+        private TextBox textBox2;
+        private Label label2;
+        private Label label1;
     }
 }

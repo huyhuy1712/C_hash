@@ -13,163 +13,163 @@ namespace MilkTea.Client.Forms
     public partial class InvoiceForm : Form
     {
         private readonly DonHangService _donHangService;
-        private readonly CTDonHangService _CTdonHangService;
         private Dictionary<string, string> columnMapping;
 
         public InvoiceForm()
         {
             InitializeComponent();
-            _donHangService = new DonHangService(); // khởi tạo service
+            _donHangService = new DonHangService();
         }
 
-        // ========== LOAD FORM ==========
         private async void InvoiceForm_Load(object sender, EventArgs e)
         {
-            // 1️⃣ Khởi tạo danh sách cột tìm kiếm
             columnMapping = new Dictionary<string, string>
             {
                 { "Mã đơn hàng", "MaDH" },
                 { "Mã nhân viên", "MaNV" },
-                //{ "Tên nhân viên", "TenNV" },  // ✅ thêm dòng này
-                //{ "Ngày lập", "NgayLap" },
-                //{ "Giờ lập", "GioLap" },
                 { "Mã Buzzer", "MaBuzzer" },
                 { "pttt", "PhuongThucThanhToan" }
             };
-
 
             roundedComboBox1.Items.AddRange(columnMapping.Keys.ToArray());
             roundedComboBox1.SelectedIndex = 0;
 
             roundedComboBox2.Items.Add("Đang làm");
             roundedComboBox2.Items.Add("Đã hoàn thành");
-            //roundedComboBox2.SelectedIndex = 0; // mặc định Đang làm
-            // ❌ Tạm ngưng event SelectedIndexChanged
+
             roundedComboBox2.SelectedIndexChanged -= roundedComboBox2_SelectedIndexChanged;
-            roundedComboBox2.SelectedIndex = 0; // set mặc định
-
-
-            // 2️⃣ Tải toàn bộ đơn hàng khi mở form
-            await LoadDonHangAsync(0);
-
-            // ✅ Đăng ký lại event
+            roundedComboBox2.SelectedIndex = 0;
             roundedComboBox2.SelectedIndexChanged += roundedComboBox2_SelectedIndexChanged;
+
+            await FilterAllAsync();
         }
 
-        // ========== LOAD TẤT CẢ ĐƠN HÀNG ==========
-        private async Task LoadDonHangAsync(int trangThai)
-        {
-            var donHangList = await _donHangService.GetAllDonHangAsync();
-
-            flowLayoutPanel1.Controls.Clear();
-            //flowLayoutPanel2.Controls.Clear();
-
-            foreach (var dh in donHangList)
-            {
-                if (dh.TrangThai != trangThai)
-                    continue;
-
-                var item = new DonHangItem(dh);
-                await item.SetData(dh);
-                item.Size = new System.Drawing.Size(210, 140);
-                item.Margin = new Padding(10);
-
-                // Đăng ký event
-                item.DonHangDaXoa += Item_DonHangDaXoa;
-
-                
-
-                //if (item.trangThai == 0)
-                    flowLayoutPanel1.Controls.Add(item);
-                //else if (item.trangThai == 1)
-                //    flowLayoutPanel2.Controls.Add(item);
-            }
-        }
-        private async void Item_DonHangDaXoa(object sender, EventArgs e)
-        {
-            await LoadDonHangAsync(roundedComboBox2.SelectedIndex); // reload danh sách đơn hàng
-        }
-
-        // ========== TÌM KIẾM ==========
         private async void textboxTimKiem_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                e.SuppressKeyPress = true; // tránh âm "ding"
+                e.SuppressKeyPress = true;
 
-                string displayName = roundedComboBox1.SelectedItem.ToString();
-                string column = columnMapping[displayName];
-                string value = textboxTimKiem.Text.Trim();
-                int trangThaiDangChon = roundedComboBox2.SelectedIndex; // 0 hoặc 1
-
-                if (string.IsNullOrEmpty(value))
-                {
-                    await LoadDonHangAsync(trangThaiDangChon);
-                    return;
-                }
-
-                // Nếu tìm kiếm theo buzzer và người dùng nhập dạng "BZ01"
-                if (column == "MaBuzzer" && value.StartsWith("BZ", StringComparison.OrdinalIgnoreCase))
-                {
-                    value = value.Substring(2); // Lấy phần số phía sau "BZ"
-                }
-                try
-                {
-                    // Gọi service tìm kiếm
-                    var list = await _donHangService.SearchAsync(column, value);
-
-                    // Xóa kết quả cũ
-                    flowLayoutPanel1.Controls.Clear();
-                    //flowLayoutPanel2.Controls.Clear();
-
-                    // Hiển thị danh sách kết quả
-                    foreach (var dh in list)
-                    {
-                        if (dh.TrangThai != trangThaiDangChon)
-                            continue; // Chỉ hiện theo tab đang chọn
-
-                        var item = new DonHangItem(dh);
-                        await item.SetData(dh);
-                        item.Size = new System.Drawing.Size(210, 140);
-                        item.Margin = new Padding(10);
-
-                        //if (item.trangThai == 0)
-                            flowLayoutPanel1.Controls.Add(item);
-                        //else if (item.trangThai == 1)
-                        //    flowLayoutPanel2.Controls.Add(item);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Lỗi tìm kiếm: {ex.Message}");
-                }
+                await FilterAllAsync();
             }
         }
 
-        // ========== CHUYỂN TAB ==========
-        private void btn_danglam_Click(object sender, EventArgs e)
+        private async void btnFilter_Click(object sender, EventArgs e)
         {
-            flowLayoutPanel2.Hide();
-            flowLayoutPanel1.Show();
-        }
-
-        private void btn_lamxong_Click(object sender, EventArgs e)
-        {
-            flowLayoutPanel1.Hide();
-            flowLayoutPanel2.Show();
+            await FilterAllAsync();
         }
 
         private async void roundedComboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (roundedComboBox2.SelectedIndex == 0)
+            await FilterAllAsync();
+        }
+
+        private async Task FilterAllAsync()
+        {
+            string displayName = roundedComboBox1.SelectedItem.ToString();
+            string column = columnMapping[displayName];
+            string keyword = textboxTimKiem.Text.Trim();
+            int trangThai = roundedComboBox2.SelectedIndex;
+            DateTime from = dtpFromDate.Value.Date;
+            DateTime to = dtpToDate.Value.Date;
+
+            var list = await _donHangService.GetAllDonHangAsync();
+
+            var ketQua = list.Where(dh => dh.TrangThai == trangThai);
+
+            ketQua = ketQua.Where(dh =>
+                dh.NgayLap.HasValue &&
+                dh.NgayLap.Value.Date >= from &&
+                dh.NgayLap.Value.Date <= to);
+
+            if (!string.IsNullOrEmpty(keyword))
             {
-                await LoadDonHangAsync(0); // Đang làm
+                switch (column)
+                {
+                    case "MaDH":
+                        ketQua = ketQua.Where(dh => dh.MaDH.ToString().Contains(keyword));
+                        break;
+
+                    case "MaNV":
+                        ketQua = ketQua.Where(dh => dh.MaNV.HasValue &&
+                                                    dh.MaNV.Value.ToString().Contains(keyword));
+                        break;
+
+                    case "MaBuzzer":
+                        string raw = keyword.Trim().ToUpper();
+
+                        // Nếu nhập BZ05 hoặc BZ5
+                        if (raw.StartsWith("BZ"))
+                            raw = raw.Substring(2);
+
+                        // Nếu nhập 05 → chuyển thành 5
+                        if (int.TryParse(raw, out int buzzerSearch))
+                        {
+                            ketQua = ketQua.Where(dh =>
+                                dh.MaBuzzer.HasValue &&
+                                dh.MaBuzzer.Value == buzzerSearch);
+                        }
+                        break;
+
+
+                    case "PhuongThucThanhToan":
+                        int? pt = null;
+                        string kw = keyword.Trim().ToLower();
+
+                        // Nếu người dùng nhập "tm" → 0
+                        if (kw == "tm")
+                            pt = 0;
+
+                        // Nếu người dùng nhập "ck" → 1
+                        else if (kw == "ck")
+                            pt = 1;
+
+                        // Ngược lại: thử xem người dùng có nhập số trực tiếp không
+                        else if (int.TryParse(kw, out int so))
+                            pt = so;
+
+                        if (pt.HasValue)
+                        {
+                            ketQua = ketQua.Where(dh =>
+                                dh.PhuongThucThanhToan.HasValue &&
+                                dh.PhuongThucThanhToan.Value == pt.Value);
+                        }
+                        break;
+
+                }
             }
-            else
+            var resultList = ketQua.ToList(); // √ chỉ ToList ở cuối
+
+            flowLayoutPanel1.Controls.Clear();
+
+            foreach (var dh in resultList)
             {
-                await LoadDonHangAsync(1); // Đã hoàn thành
+                var item = new DonHangItem(dh);
+                await item.SetData(dh);
+                item.Size = new System.Drawing.Size(210, 140);
+                item.Margin = new Padding(10);
+                flowLayoutPanel1.Controls.Add(item);
             }
         }
 
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void dtpFromDate_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dtpFromDate_ValueChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
