@@ -112,15 +112,15 @@ namespace MilkTea.Client.Forms
                 cbbSP.ValueMember = "MaSP";
 
                 // --- Load size ---
-                var sizes = await _sizeService.GetAll();
-                sizes.Insert(0, new Models.Size
-                {
-                    MaSize = 0,
-                    TenSize = "Tất cả"
-                });
-                cbbSize.DataSource = sizes;
-                cbbSize.DisplayMember = "TenSize";
-                cbbSize.ValueMember = "MaSize";
+                //var sizes = await _sizeService.GetAll();
+                //sizes.Insert(0, new Models.Size
+                //{
+                //    MaSize = 0,
+                //    TenSize = "Tất cả"
+                //});
+                //cbbSize.DataSource = sizes;
+                //cbbSize.DisplayMember = "TenSize";
+                //cbbSize.ValueMember = "MaSize";
 
                 // --- Gắn sự kiện cho combobox loại ---
                 cbbLoai.SelectedIndexChanged += cbbLoai_SelectedIndexChanged;
@@ -241,24 +241,25 @@ namespace MilkTea.Client.Forms
 
                 if (selectedLoaiId == 0)
                 {
-                    // Nếu chọn “Tất cả loại” → hiển thị toàn bộ sản phẩm + “Tất cả”
+                    // Nếu chọn "Tất cả loại" → hiện tất cả sản phẩm
                     filteredProducts = new List<SanPham>(_allProducts);
-
-                    filteredProducts.Insert(0, new SanPham
-                    {
-                        MaSP = 0,
-                        TenSP = "Tất cả"
-                    });
                 }
                 else
                 {
-                    // Nếu chọn 1 loại cụ thể → chỉ hiển thị sản phẩm thật, KHÔNG thêm “Tất cả”
+                    // Nếu chọn 1 loại cụ thể → lọc sản phẩm thuộc loại đó
                     filteredProducts = _allProducts
                         .Where(sp => sp.MaLoai == selectedLoaiId)
                         .ToList();
                 }
 
-                // Cập nhật lại ComboBox sản phẩm
+                // Thêm dòng "Tất cả" ở đầu — lúc nào cũng có
+                filteredProducts.Insert(0, new SanPham
+                {
+                    MaSP = 0,
+                    TenSP = "Tất cả"
+                });
+
+                // Gắn vào combobox
                 cbbSP.DataSource = null;
                 cbbSP.DataSource = filteredProducts;
                 cbbSP.DisplayMember = "TenSP";
@@ -270,6 +271,7 @@ namespace MilkTea.Client.Forms
                 MessageBox.Show("Lỗi khi lọc sản phẩm: " + ex.Message);
             }
         }
+
 
 
         private void cbbSize_SelectedIndexChanged(object sender, EventArgs e)
@@ -319,7 +321,7 @@ namespace MilkTea.Client.Forms
                 // --- Lọc theo loại, sản phẩm, size ---
                 int selectedLoai = Convert.ToInt32(cbbLoai.SelectedValue);
                 int selectedSP = Convert.ToInt32(cbbSP.SelectedValue);
-                int selectedSize = Convert.ToInt32(cbbSize.SelectedValue);
+                //int selectedSize = Convert.ToInt32(cbbSize.SelectedValue);
 
                 if (selectedLoai != 0)
                 {
@@ -336,10 +338,10 @@ namespace MilkTea.Client.Forms
                     temp = temp.Where(x => x.MaSP == selectedSP).ToList();
                 }
 
-                if (selectedSize != 0)
-                {
-                    temp = temp.Where(x => x.MaSize == selectedSize).ToList();
-                }
+                //if (selectedSize != 0)
+                //{
+                //    temp = temp.Where(x => x.MaSize == selectedSize).ToList();
+                //}
 
                 // --- Lọc theo thời gian ---
                 temp = temp.Where(x =>
