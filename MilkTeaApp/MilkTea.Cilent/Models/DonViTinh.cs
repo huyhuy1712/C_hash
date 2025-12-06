@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MilkTea.Server.Models
+namespace MilkTea.Client.Models
 {
     public class DonViTinh
     {
