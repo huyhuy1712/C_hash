@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             panel1 = new Panel();
             pictureBox1 = new PictureBox();
@@ -38,6 +39,7 @@
             roundedTextBox_Password = new MilkTea.Client.Controls.RoundedTextBox();
             label_login = new Label();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            contextMenuStrip1 = new ContextMenuStrip(components);
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel2.SuspendLayout();
@@ -158,11 +160,19 @@
             label_login.Text = "User Login";
             label_login.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.ImageScalingSize = new Size(20, 20);
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(211, 32);
+            contextMenuStrip1.Opening += contextMenuStrip1_Opening;
+            // 
             // LoginForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(628, 245);
+            ContextMenuStrip = contextMenuStrip1;
             Controls.Add(panel1);
             Name = "LoginForm";
             Text = "LoginForm";
@@ -184,5 +194,6 @@
         private Panel panel2;
         private TableLayoutPanel tableLayoutPanel1;
         private PictureBox pictureBox1;
+        private ContextMenuStrip contextMenuStrip1;
     }
 }
