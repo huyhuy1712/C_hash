@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            nb_dongia_PN_ADD = new NumericUpDown();
+            label8 = new Label();
+            roundedButton1 = new MilkTea.Client.Controls.RoundedButton();
             label7 = new Label();
             cbo_donvitinh_add = new ComboBox();
             txt_maPN_PN_ADD = new TextBox();
@@ -58,8 +61,8 @@
             donvitinh_tb_add = new DataGridViewTextBoxColumn();
             xoa_tb_add = new DataGridViewImageColumn();
             panel5 = new Panel();
-            roundedButton1 = new MilkTea.Client.Controls.RoundedButton();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nb_dongia_PN_ADD).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nb_soLuong_PN_ADD).BeginInit();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -69,6 +72,8 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(nb_dongia_PN_ADD);
+            panel1.Controls.Add(label8);
             panel1.Controls.Add(roundedButton1);
             panel1.Controls.Add(label7);
             panel1.Controls.Add(cbo_donvitinh_add);
@@ -90,11 +95,46 @@
             panel1.Size = new Size(1053, 260);
             panel1.TabIndex = 0;
             // 
+            // nb_dongia_PN_ADD
+            // 
+            nb_dongia_PN_ADD.Location = new Point(233, 207);
+            nb_dongia_PN_ADD.Maximum = new decimal(new int[] { 1000000000, 0, 0, 0 });
+            nb_dongia_PN_ADD.Name = "nb_dongia_PN_ADD";
+            nb_dongia_PN_ADD.Size = new Size(358, 23);
+            nb_dongia_PN_ADD.TabIndex = 18;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label8.Location = new Point(55, 210);
+            label8.Name = "label8";
+            label8.Size = new Size(63, 20);
+            label8.TabIndex = 17;
+            label8.Text = "Đơn giá";
+            // 
+            // roundedButton1
+            // 
+            roundedButton1.BackColor = Color.DodgerBlue;
+            roundedButton1.BorderColor = Color.DodgerBlue;
+            roundedButton1.BorderRadius = 20;
+            roundedButton1.BorderSize = 0;
+            roundedButton1.FlatAppearance.BorderSize = 0;
+            roundedButton1.FlatStyle = FlatStyle.Flat;
+            roundedButton1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            roundedButton1.ForeColor = Color.White;
+            roundedButton1.Location = new Point(876, 204);
+            roundedButton1.Name = "roundedButton1";
+            roundedButton1.Size = new Size(114, 32);
+            roundedButton1.TabIndex = 16;
+            roundedButton1.Text = "Thêm đơn vị";
+            roundedButton1.UseVisualStyleBackColor = false;
+            // 
             // label7
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.Location = new Point(55, 210);
+            label7.Location = new Point(601, 210);
             label7.Name = "label7";
             label7.Size = new Size(54, 20);
             label7.TabIndex = 15;
@@ -104,7 +144,7 @@
             // 
             cbo_donvitinh_add.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbo_donvitinh_add.FormattingEnabled = true;
-            cbo_donvitinh_add.Location = new Point(233, 207);
+            cbo_donvitinh_add.Location = new Point(779, 207);
             cbo_donvitinh_add.Name = "cbo_donvitinh_add";
             cbo_donvitinh_add.Size = new Size(91, 28);
             cbo_donvitinh_add.TabIndex = 14;
@@ -160,6 +200,7 @@
             // 
             nb_soLuong_PN_ADD.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             nb_soLuong_PN_ADD.Location = new Point(597, 174);
+            nb_soLuong_PN_ADD.Maximum = new decimal(new int[] { 1410065408, 2, 0, 0 });
             nb_soLuong_PN_ADD.Name = "nb_soLuong_PN_ADD";
             nb_soLuong_PN_ADD.Size = new Size(69, 27);
             nb_soLuong_PN_ADD.TabIndex = 8;
@@ -173,6 +214,7 @@
             cbo_HangHoa_PN_ADD.Name = "cbo_HangHoa_PN_ADD";
             cbo_HangHoa_PN_ADD.Size = new Size(358, 28);
             cbo_HangHoa_PN_ADD.TabIndex = 7;
+            cbo_HangHoa_PN_ADD.SelectedIndexChanged += cbo_HangHoa_PN_ADD_SelectedIndexChanged;
             // 
             // txt_iPort_nguoitao
             // 
@@ -381,23 +423,6 @@
             panel5.TabIndex = 4;
             panel5.TabStop = true;
             // 
-            // roundedButton1
-            // 
-            roundedButton1.BackColor = Color.DodgerBlue;
-            roundedButton1.BorderColor = Color.DodgerBlue;
-            roundedButton1.BorderRadius = 20;
-            roundedButton1.BorderSize = 0;
-            roundedButton1.FlatAppearance.BorderSize = 0;
-            roundedButton1.FlatStyle = FlatStyle.Flat;
-            roundedButton1.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            roundedButton1.ForeColor = Color.White;
-            roundedButton1.Location = new Point(330, 204);
-            roundedButton1.Name = "roundedButton1";
-            roundedButton1.Size = new Size(114, 32);
-            roundedButton1.TabIndex = 16;
-            roundedButton1.Text = "Thêm đơn vị";
-            roundedButton1.UseVisualStyleBackColor = false;
-            // 
             // ImportForm_Add
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -416,6 +441,7 @@
             Load += ImportForm_Add_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nb_dongia_PN_ADD).EndInit();
             ((System.ComponentModel.ISupportInitialize)nb_soLuong_PN_ADD).EndInit();
             panel2.ResumeLayout(false);
             panel3.ResumeLayout(false);
@@ -457,5 +483,7 @@
         private DataGridViewTextBoxColumn donvitinh_tb_add;
         private DataGridViewImageColumn xoa_tb_add;
         private Controls.RoundedButton roundedButton1;
+        private Label label8;
+        private NumericUpDown nb_dongia_PN_ADD;
     }
 }
