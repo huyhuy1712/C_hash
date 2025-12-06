@@ -21,7 +21,7 @@ namespace MilkTea.Client.Services
         }
         public async Task<Models.CongThuc> GetCongThucByIdAsync(int maSP)
         {
-            return await _http.GetFromJsonAsync<Models.CongThuc>($"/api/congthuc/{maSP}");
+            return await _http.GetFromJsonAsync<Models.CongThuc>($"/api/congthuc/masp/{maSP}");
         }
 
 

@@ -49,6 +49,11 @@
             panel3 = new Panel();
             label1 = new Label();
             panel1 = new Panel();
+            panel13 = new Panel();
+            panel14 = new Panel();
+            textBox4 = new TextBox();
+            panel15 = new Panel();
+            label5 = new Label();
             panel12.SuspendLayout();
             panel9.SuspendLayout();
             panel7.SuspendLayout();
@@ -61,6 +66,9 @@
             panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel1.SuspendLayout();
+            panel13.SuspendLayout();
+            panel14.SuspendLayout();
+            panel15.SuspendLayout();
             SuspendLayout();
             // 
             // btnXacNhan
@@ -245,6 +253,7 @@
             // 
             // panel2
             // 
+            panel2.Controls.Add(panel13);
             panel2.Controls.Add(panel12);
             panel2.Controls.Add(panel5);
             panel2.Controls.Add(panel4);
@@ -286,6 +295,53 @@
             panel1.Size = new Size(800, 100);
             panel1.TabIndex = 2;
             // 
+            // panel13
+            // 
+            panel13.Controls.Add(panel14);
+            panel13.Controls.Add(panel15);
+            panel13.Dock = DockStyle.Top;
+            panel13.Location = new Point(0, 198);
+            panel13.Name = "panel13";
+            panel13.Size = new Size(800, 66);
+            panel13.TabIndex = 4;
+            // 
+            // panel14
+            // 
+            panel14.Controls.Add(textBox4);
+            panel14.Dock = DockStyle.Fill;
+            panel14.Location = new Point(157, 0);
+            panel14.Name = "panel14";
+            panel14.Size = new Size(643, 66);
+            panel14.TabIndex = 2;
+            // 
+            // textBox4
+            // 
+            textBox4.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBox4.Location = new Point(0, 17);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new Size(643, 33);
+            textBox4.TabIndex = 1;
+            // 
+            // panel15
+            // 
+            panel15.Controls.Add(label5);
+            panel15.Dock = DockStyle.Left;
+            panel15.Location = new Point(0, 0);
+            panel15.Name = "panel15";
+            panel15.Size = new Size(157, 66);
+            panel15.TabIndex = 1;
+            // 
+            // label5
+            // 
+            label5.Dock = DockStyle.Fill;
+            label5.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.Location = new Point(0, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(157, 66);
+            label5.TabIndex = 1;
+            label5.Text = "Đơn vị";
+            label5.TextAlign = ContentAlignment.MiddleLeft;
+            // 
             // EditIngredientForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -311,6 +367,10 @@
             panel2.ResumeLayout(false);
             panel3.ResumeLayout(false);
             panel1.ResumeLayout(false);
+            panel13.ResumeLayout(false);
+            panel14.ResumeLayout(false);
+            panel14.PerformLayout();
+            panel15.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -337,5 +397,10 @@
         private Panel panel3;
         private Label label1;
         private Panel panel1;
+        private Panel panel13;
+        private Panel panel14;
+        private TextBox textBox4;
+        private Panel panel15;
+        private Label label5;
     }
 }

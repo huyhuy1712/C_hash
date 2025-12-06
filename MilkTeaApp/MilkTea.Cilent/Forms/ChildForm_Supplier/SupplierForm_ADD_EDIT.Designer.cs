@@ -137,7 +137,7 @@
             txt_sdt_NCC_ADD.Location = new Point(233, 81);
             txt_sdt_NCC_ADD.Name = "txt_sdt_NCC_ADD";
             txt_sdt_NCC_ADD.Size = new Size(531, 27);
-            txt_sdt_NCC_ADD.TabIndex = 6;
+            txt_sdt_NCC_ADD.TabIndex = 15;
             // 
             // label2
             // 

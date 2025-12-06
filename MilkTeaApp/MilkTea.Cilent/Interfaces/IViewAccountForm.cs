@@ -6,6 +6,7 @@
         Label LblId { get; }
         Label LblTaiKhoan { get; }
         Label LblHoTen { get; }
+        Label LblSoDienThoai { get; }
         Label LblQuyen { get; }
         Label LblTrangThai { get; }
         Label LblStatus { get; }

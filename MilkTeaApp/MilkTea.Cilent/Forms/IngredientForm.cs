@@ -26,35 +26,42 @@ namespace MilkTea.Client.Forms
         private async void IngredientForm_Load(object sender, EventArgs e)
         {
             await LoadIngredientsAsync();
+
+            //Bật tắt các nút theo quyền
+            btnAddIngredient.Visible = Session.HasPermission("Thêm nguyên liệu");
+            sua_col.Visible = Session.HasPermission("Sửa nguyên liệu");
+            xoa_col.Visible = Session.HasPermission("Xóa nguyên liệu");
         }
 
         public async Task LoadIngredientsAsync()
         {
             try
             {
+                // show a simple loading row so user sees activity
+                dGV_ingredients.Rows.Clear();
+                int loadingRow = dGV_ingredients.Rows.Add();
+                if (dGV_ingredients.Columns.Contains("tenNL_col"))
+                    dGV_ingredients.Rows[loadingRow].Cells["tenNL_col"].Value = "Đang tải...";
+                dGV_ingredients.Rows[loadingRow].DefaultCellStyle.ForeColor = Color.Gray;
+                dGV_ingredients.Refresh();
+
+                // fetch raw data
                 var ingredients = await _nguyenLieuService.GetNguyenLieusAsync() ?? new List<NguyenLieu>();
 
-                var activeIngredients = (
-                    from nl in ingredients
-                    where nl.TrangThai == 1
-                    orderby nl.Ten, nl.MaNL
-                    select nl
-                ).ToList();
+                // keep original list (even if empty) so search/filter works consistently
+                _allIngredients = ingredients.Where(nl => nl != null && nl.TrangThai == 1)
+                                             .OrderBy(nl => nl.Ten ?? string.Empty)
+                                             .ThenBy(nl => nl.MaNL)
+                                             .ToList();
 
-                if (activeIngredients == null || activeIngredients.Count == 0)
-                {
-                    MessageBox.Show("Không có dữ liệu nguyên liệu để hiển thị.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    _allIngredients = new List<NguyenLieu>();
-                    DisplayIngredients(_allIngredients);
-                    return;
-                }
-
-                _allIngredients = activeIngredients;
+                // display (DisplayIngredients handles empty list UI)
                 DisplayIngredients(_allIngredients);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi tải dữ liệu nguyên liệu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _allIngredients = new List<NguyenLieu>();
+                DisplayIngredients(_allIngredients);
             }
         }
 
@@ -64,7 +71,8 @@ namespace MilkTea.Client.Forms
             if (ingredients == null || ingredients.Count == 0)
             {
                 int rowIndex = dGV_ingredients.Rows.Add();
-                dGV_ingredients.Rows[rowIndex].Cells["tenNL_col"].Value = "Không có nguyên liệu nào phù hợp.";
+                if (dGV_ingredients.Columns.Contains("tenNL_col"))
+                    dGV_ingredients.Rows[rowIndex].Cells["tenNL_col"].Value = "Không có nguyên liệu nào phù hợp.";
                 dGV_ingredients.Rows[rowIndex].DefaultCellStyle.ForeColor = Color.Gray;
                 dGV_ingredients.Rows[rowIndex].DefaultCellStyle.Font = new Font(dGV_ingredients.DefaultCellStyle.Font, FontStyle.Italic);
                 return;
@@ -73,10 +81,23 @@ namespace MilkTea.Client.Forms
             foreach (var nl in ingredients)
             {
                 int rowIndex = dGV_ingredients.Rows.Add();
-                dGV_ingredients.Rows[rowIndex].Cells["maNL_col"].Value = nl.MaNL;
-                dGV_ingredients.Rows[rowIndex].Cells["tenNL_col"].Value = nl.Ten;
-                dGV_ingredients.Rows[rowIndex].Cells["soLuong_col"].Value = $"{nl.SoLuong} (đơn vị)";
-                dGV_ingredients.Rows[rowIndex].Cells["giaBan_col"].Value = $"{nl.GiaBan:N0} VNĐ";
+
+                if (dGV_ingredients.Columns.Contains("maNL_col"))
+                    dGV_ingredients.Rows[rowIndex].Cells["maNL_col"].Value = nl.MaNL;
+
+                if (dGV_ingredients.Columns.Contains("tenNL_col"))
+                    dGV_ingredients.Rows[rowIndex].Cells["tenNL_col"].Value = nl.Ten ?? string.Empty;
+
+                if (dGV_ingredients.Columns.Contains("soLuong_col"))
+                    dGV_ingredients.Rows[rowIndex].Cells["soLuong_col"].Value = nl.SoLuong;
+
+                if (dGV_ingredients.Columns.Contains("donVi_col"))
+                    dGV_ingredients.Rows[rowIndex].Cells["donVi_col"].Value = string.IsNullOrWhiteSpace(nl.DonVi) ? "" : nl.DonVi;
+
+                // store raw decimal value and let CellFormatting format it
+                if (dGV_ingredients.Columns.Contains("giaBan_col"))
+                    dGV_ingredients.Rows[rowIndex].Cells["giaBan_col"].Value = nl.GiaBan;
+
                 dGV_ingredients.Rows[rowIndex].Tag = nl.MaNL;
             }
             dGV_ingredients.Refresh();

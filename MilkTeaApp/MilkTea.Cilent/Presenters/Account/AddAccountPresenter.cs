@@ -11,18 +11,13 @@ namespace MilkTea.Client.Presenters
     public class AddAccountPresenter
     {
         private readonly IAddAccountForm _form;
-        private readonly AccountService _service = new();
         private readonly QuyenService _quyenService = new();
         private readonly AccountService _accountService = new();
+        private readonly NhanVienService _nhanVienService = new();
 
         public AddAccountPresenter(IAddAccountForm form)
         {
             _form = form;
-        }
-        public async Task AddAccountAsync()
-        {
-            var tk = _form.GetTaiKhoanInput();
-            await _service.AddAccountsAsync(tk);
         }
 
         public async Task LoadDataAsync()
@@ -59,9 +54,15 @@ namespace MilkTea.Client.Presenters
                 tk.anh = CopyAnh(duongDanNguon);
             }
 
+            int maTK;
             try
             {
-                await _accountService.AddAccountsAsync(tk);
+                maTK = await _accountService.AddAccountsAsync(tk);
+                if (await themNhanVien(maTK))
+                {
+                    MessageBox.Show("Lỗi khi thêm nhân viên: ", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return false;
+                }
             }
             catch (Exception ex)
             {
@@ -96,6 +97,17 @@ namespace MilkTea.Client.Presenters
             return tenAnh;
         }
 
+        public async Task<bool> themNhanVien(int maTK)
+        {
+            NhanVien nv = new();
+            nv.MaTK = maTK;
+            nv.SDT = _form.TxtbSoDienThoai.Text;
+            nv.NgayLam = DateTime.Now;
+            nv.TenNV = _form.TxtbTenNhanVien.Text;
+
+            var result = await _nhanVienService.AddNhanVienAsync(nv);
+            return result.success;
+        }
         public void ChonAnh()
         {
             OpenFileDialog ofd = new OpenFileDialog();
@@ -149,6 +161,19 @@ namespace MilkTea.Client.Presenters
                 return false;
             }
 
+            if (string.IsNullOrWhiteSpace(_form.TxtbTenNhanVien.Text))
+            {
+                _form.Error.SetError(_form.TxtbTenNhanVien, "Tên nhân viên không được để trống.");
+                _form.TxtbTenNhanVien.Focus();
+                return false;
+            }
+
+            if (!Regex.IsMatch(_form.TxtbSoDienThoai.Text, phonePattern))
+            {
+                _form.Error.SetError(_form.TxtbSoDienThoai, "Số điện thoại không hợp lệ!");
+                _form.TxtbSoDienThoai.Focus();
+                return false;
+            }
 
             return true;
         }

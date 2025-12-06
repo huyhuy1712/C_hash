@@ -36,12 +36,17 @@ namespace MilkTea.Client.Services
         }
 
         // Thêm tài khoản
-        public async Task AddAccountsAsync(TaiKhoan tk)
+        public async Task<int> AddAccountsAsync(TaiKhoan tk)
         {
             var response = await _http.PostAsJsonAsync("/api/taikhoan", tk);
+
             if (!response.IsSuccessStatusCode)
                 throw new Exception("Thêm tài khoản không thành công");
+
+            var id = await response.Content.ReadFromJsonAsync<int>();
+            return id;
         }
+
 
         // Cập nhật tài khoản
         public async Task UpdateAccountsAsync(TaiKhoan tk)

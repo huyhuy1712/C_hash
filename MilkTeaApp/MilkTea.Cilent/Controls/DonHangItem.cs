@@ -39,6 +39,9 @@ namespace MilkTea.Client.Controls
         {
             InitializeComponent();
             donHang = dh;
+
+            //Bật tắt các nút theo quyền
+            pictureBox6.Visible = Session.HasPermission("Xóa hóa đơn");
         }
         // Gán dữ liệu đơn hàng vào UserControl
 
@@ -179,6 +182,8 @@ namespace MilkTea.Client.Controls
                 // Người dùng chọn Yes -> thực hiện xóa đơn hàng
                 // TODO: thêm code xóa đơn hàng ở đây
                
+                MessageBox.Show("Cập nhật đơn hàng thành công!");
+                DonHangDaXoa?.Invoke(this, EventArgs.Empty);
 
                 //nhàn
                 donHang.TrangThai = 1; // Đã hoàn thành
@@ -215,7 +220,7 @@ namespace MilkTea.Client.Controls
                         // 3. Lấy chi tiết phiếu nhập của nguyên liệu
                         var chiTietPN = await _chiTietPhieuNhapService.GetByMaNLAsync(maNL); // lấy 1 bản ghi đầu tiên
 
-                        if (chiTietPN.Count != 0 )
+                        if (chiTietPN.Count != 0)
                         {
                             var last = chiTietPN[chiTietPN.Count - 1]; // phần tử cuối
                             decimal donGiaNhap = last.DonGiaNhap;
@@ -223,7 +228,7 @@ namespace MilkTea.Client.Controls
                             // 4. Nhân DonGiaNhap * SoLuongCanDung và cộng vào tổng
                             tongChiPhi += donGiaNhap * soLuongCanDung;
                         }
-                        else tongChiPhi += 0.1m* soLuongCanDung; // nếu không có nguyên liệu trong kho thì lấy -1 làm đơn giá
+                        else tongChiPhi += 0.1m * soLuongCanDung; // nếu không có nguyên liệu trong kho thì lấy -1 làm đơn giá
                     }
 
                     var maSize = item.MaSize;
@@ -244,8 +249,8 @@ namespace MilkTea.Client.Controls
                         MaSize = maSize,
                         TongChiPhi = tongChiPhi,
                         TongDoanhThu = tongGia,
+                        MaDH = donHang.MaDH
                     };
-
                     await doanhThuService.ThemDoanhThuAsync(doanhThu);
 
                 }

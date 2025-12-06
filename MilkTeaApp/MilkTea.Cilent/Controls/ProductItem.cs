@@ -43,8 +43,8 @@ namespace MilkTea.Client.Controls
             gia_label1.Click += Product_Click;
 
             //Bật tắt các nút theo quyền
-            product_edit_btn1.Enabled = Session.HasPermission("Sửa sản phẩm");
-            product_delete_btn1.Enabled = Session.HasPermission("Xóa sản phẩm");
+            product_edit_btn1.Visible = Session.HasPermission("Sửa sản phẩm");
+            product_delete_btn1.Visible = Session.HasPermission("Xóa sản phẩm");
         }
 
         // Hàm gọi khi người dùng click vào sản phẩm
@@ -125,6 +125,10 @@ namespace MilkTea.Client.Controls
             }
         }
 
-
+        private void pictureBox_congthuc_Click(object sender, EventArgs e)
+        {
+            RecipeDetailForm recipeForm = new RecipeDetailForm(sanPham);
+            recipeForm.ShowDialog();
+        }
     }
 }

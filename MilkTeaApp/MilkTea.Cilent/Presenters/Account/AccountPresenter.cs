@@ -1,8 +1,12 @@
-﻿using MilkTea.Client.Forms.ChildForm_Account;
+﻿using Microsoft.VisualBasic.Devices;
+using MilkTea.Client.Forms.ChildForm_Account;
+using MilkTea.Client.Forms.ChildForm_Account.Account;
 using MilkTea.Client.Interfaces;
 using MilkTea.Client.Models;
 using MilkTea.Client.Services;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MilkTea.Client.Presenters
 {
@@ -11,21 +15,19 @@ namespace MilkTea.Client.Presenters
         private readonly AccountService _taiKhoanService = new();
         private readonly NhanVienService _nhanVienService = new();
         private readonly QuyenService _quyenService = new();
-        private readonly IBaseForm _form;
+        private readonly IAccountForm _form;
 
         private List<TaiKhoan> listTaiKhoan;
         private List<Quyen> listQuyen;
         private List<NhanVien> listNhanVien;
 
-        public AccountPresenter(IBaseForm form)
+        public AccountPresenter(IAccountForm form)
         {
             _form = form;
         }
         public void EditAccount(string id)
         {
-            if (string.IsNullOrEmpty(id)) return;
-
-            using (var frm = new EditQuyentForm())
+            using (var frm = new EditAccountForm(id))
             {
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
@@ -43,22 +45,101 @@ namespace MilkTea.Client.Presenters
             }
         }
 
-        public void DeleteAccount(string id)
+        public async Task LockAccount(string id)
         {
-            if (string.IsNullOrEmpty(id)) return;
-
-            if (MessageBox.Show("Bạn có thật sự muốn xóa?", "Xác nhận", MessageBoxButtons.OKCancel, MessageBoxIcon.Question)
-                == DialogResult.OK)
+            TaiKhoan tk = null;
+            try
             {
-                // TODO: Gọi API xóa
-                // await _service.DeleteAccountAsync(int.Parse(id));
+                tk = await _taiKhoanService.GetAccountsByIdAsync(Convert.ToInt32(id));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi lấy thông tin tài khoản!\n" + ex.Message);
+            }
 
-                MessageBox.Show("Đã xóa tài khoản thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                _ = LoadDataAsync();
+            if (tk != null)
+            {
+                if (tk.TrangThai == 1)
+                {
+                    tk.TrangThai = 0;
+                }
+                else
+                {
+                    tk.TrangThai = 1;
+                }
+                try
+                {
+                    await _taiKhoanService.UpdateAccountsAsync(tk);
+                    foreach (DataGridViewRow row in _form.Grid.Rows)
+                    {
+                        if (row.Cells["ID"].Value != null &&
+                            Convert.ToInt32(row.Cells["ID"].Value) == tk.MaTK)
+                        {
+                            if (tk.TrangThai == 1)
+                            {
+                                row.Cells["trangThai"].Value = "Hoạt động";
+                                row.Cells["trangThai"].Style.ForeColor = Color.Green;
+                            }
+                            else
+                            {
+                                row.Cells["trangThai"].Value = "Khóa";
+                                row.Cells["trangThai"].Style.ForeColor = Color.Red;
+                            }
+                            break;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi cập nhật trạng thái!\n" + ex.Message);
+                }
             }
         }
+
+        private class SearchOption
+        {
+            public string? Name { get; set; }
+            public string? HeaderText { get; set; }
+        }
+
+
+        private void LoadSearchColumns()
+        {
+            int count = 0;
+
+            List<SearchOption> options = new List<SearchOption>
+            {
+                new SearchOption { Name = "ID",        HeaderText = "ID" },
+                new SearchOption { Name = "taiKhoan", HeaderText = "Tài Khoản" },
+                new SearchOption { Name = "trangThai", HeaderText = "Trạng Thái" },
+                new SearchOption { Name = "quyen",    HeaderText = "Quyền" }
+            };
+            _form.CbSearchFilter.DisplayMember = "HeaderText";
+            _form.CbSearchFilter.ValueMember = "Name";
+            _form.CbSearchFilter.DataSource = options;
+            _form.CbSearchFilter.SelectedIndex = 0;                
+        }
+
+        public void Search(string column, string keyword)
+        {
+            foreach (DataGridViewRow row in _form.Grid.Rows)
+            {
+                if (row.Cells[column].Value != null &&
+                    row.Cells[column].Value.ToString().ToLower().Contains(keyword))
+                {
+                    row.Visible = true;
+                }
+                else
+                {
+                    row.Visible = false;
+                }
+            }
+        }
+
         public async Task LoadDataAsync()
         {
+            LoadSearchColumns();
+
             var grid = _form.Grid;
             var lbl = _form.LblStatus;
 

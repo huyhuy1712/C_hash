@@ -206,6 +206,7 @@
             label7.Name = "label7";
             label7.Size = new Size(118, 37);
             label7.TabIndex = 3;
+            label7.Text = "Hành động";
             label7.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label5

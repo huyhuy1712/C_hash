@@ -100,18 +100,20 @@ namespace MilkTea.Client.Presenters
             return list;
         }
 
-        public void SearchChucNangTheoTen(string keyword)
+        public void SearchChucNangTheoTen(string column, string keyword)
         {
-            List<ChucNang> filtered;
-
-            if (string.IsNullOrWhiteSpace(keyword))
-                filtered = listChucNang; // danh sách gốc
-            else
-                filtered = listChucNang
-                    .Where(q => q.TenChucNang.Contains(keyword, StringComparison.OrdinalIgnoreCase))
-                    .ToList();
-
-            load(filtered, listCurrentChucNang);
+            foreach (DataGridViewRow row in _form.Grid.Rows)
+            {
+                if (row.Cells[column].Value != null &&
+                    row.Cells[column].Value.ToString().ToLower().Contains(keyword))
+                {
+                    row.Visible = true;
+                }
+                else
+                {
+                    row.Visible = false;
+                }
+            }
         }
         public async Task<bool> UpdateRoleAsync(int id, string tenQuyen)
         {

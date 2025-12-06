@@ -1,4 +1,5 @@
-﻿using MilkTea.Client.Forms.ChildForm_Account;
+﻿using DocumentFormat.OpenXml.Office2016.Drawing.Command;
+using MilkTea.Client.Forms.ChildForm_Account;
 using MilkTea.Client.Interfaces;
 using MilkTea.Client.Models;
 using MilkTea.Client.Presenters;
@@ -14,6 +15,7 @@ namespace MilkTea.Client.Forms
 
         public DataGridView Grid => dataGridView1;
         public Label LblStatus => lblStatus;
+        public ComboBox CbSearchFilter => cbSearchFilter;
 
         public AccountForm()
         {
@@ -33,10 +35,9 @@ namespace MilkTea.Client.Forms
 
         private async void AccountForm_Load(object sender, EventArgs e)
         {
-            xoa.Visible = Session.HasPermission("Xóa tài khoản");
             sua.Visible = Session.HasPermission("Sửa tài khoản");
-            btnThemAccount.Enabled = Session.HasPermission("Thêm tài khoản");
-
+            btnThemAccount.Visible = Session.HasPermission("Thêm tài khoản");
+            chiTiet.Visible = Session.HasPermission("Xem tài khoản");
 
             await _presenter.LoadDataAsync();
         }
@@ -64,13 +65,11 @@ namespace MilkTea.Client.Forms
                 case "sua":
                     _presenter.EditAccount(id);
                     break;
-
                 case "chiTiet":
                     _presenter.ViewAccount(id);
                     break;
-
-                case "xoa":
-                    _presenter.DeleteAccount(id);
+                case "khoa":
+                    _presenter.LockAccount(id);
                     break;
             }
         }
@@ -81,5 +80,14 @@ namespace MilkTea.Client.Forms
                 frm.ShowDialog();
         }
 
+        private void Search_KeyUp(object sender, KeyEventArgs e)
+        {
+            _presenter.Search(cbSearchFilter.SelectedValue.ToString(), Search.Text.Trim().Replace("'", "''"));
+        }
+
+        private void cbSearchFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _presenter.Search(cbSearchFilter.SelectedValue.ToString(), Search.Text.Trim().Replace("'", "''"));
+        }
     }
 }
