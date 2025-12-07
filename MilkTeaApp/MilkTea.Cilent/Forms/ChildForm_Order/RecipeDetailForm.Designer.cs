@@ -36,6 +36,7 @@
             txtTenCongThuc = new MilkTea.Client.Controls.RoundedTextBox();
             header_panel = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
+            label8 = new Label();
             label3 = new Label();
             label5 = new Label();
             label12 = new Label();
@@ -45,7 +46,7 @@
             footer_panel = new Panel();
             huy_btn = new MilkTea.Client.Controls.RoundedButton();
             dataGridView1 = new DataGridView();
-            label8 = new Label();
+            XacNhan_btn = new MilkTea.Client.Controls.RoundedButton();
             panel2.SuspendLayout();
             header_panel.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -146,8 +147,8 @@
             tableLayoutPanel1.ColumnCount = 4;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.22727F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.772728F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 196F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 138F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 147F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 146F));
             tableLayoutPanel1.Controls.Add(label8, 3, 0);
             tableLayoutPanel1.Controls.Add(label3, 2, 0);
             tableLayoutPanel1.Controls.Add(label5, 1, 0);
@@ -160,14 +161,26 @@
             tableLayoutPanel1.Size = new Size(598, 39);
             tableLayoutPanel1.TabIndex = 0;
             // 
+            // label8
+            // 
+            label8.Dock = DockStyle.Fill;
+            label8.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label8.ForeColor = Color.DeepSkyBlue;
+            label8.Location = new Point(453, 1);
+            label8.Name = "label8";
+            label8.Size = new Size(141, 37);
+            label8.TabIndex = 3;
+            label8.Text = "Đơn vị";
+            label8.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // label3
             // 
             label3.Dock = DockStyle.Fill;
             label3.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = Color.DeepSkyBlue;
-            label3.Location = new Point(264, 1);
+            label3.Location = new Point(305, 1);
             label3.Name = "label3";
-            label3.Size = new Size(190, 37);
+            label3.Size = new Size(141, 37);
             label3.TabIndex = 2;
             label3.Text = "SL tồn kho";
             label3.TextAlign = ContentAlignment.MiddleCenter;
@@ -177,9 +190,9 @@
             label5.Dock = DockStyle.Fill;
             label5.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = Color.DeepSkyBlue;
-            label5.Location = new Point(135, 1);
+            label5.Location = new Point(155, 1);
             label5.Name = "label5";
-            label5.Size = new Size(122, 37);
+            label5.Size = new Size(143, 37);
             label5.TabIndex = 1;
             label5.Text = "SL cần dùng";
             label5.TextAlign = ContentAlignment.MiddleCenter;
@@ -191,7 +204,7 @@
             label12.ForeColor = Color.DeepSkyBlue;
             label12.Location = new Point(4, 1);
             label12.Name = "label12";
-            label12.Size = new Size(124, 37);
+            label12.Size = new Size(144, 37);
             label12.TabIndex = 0;
             label12.Text = "Nguyên liệu";
             label12.TextAlign = ContentAlignment.MiddleCenter;
@@ -233,6 +246,7 @@
             // 
             // footer_panel
             // 
+            footer_panel.Controls.Add(XacNhan_btn);
             footer_panel.Controls.Add(huy_btn);
             footer_panel.Dock = DockStyle.Bottom;
             footer_panel.Location = new Point(0, 512);
@@ -276,18 +290,6 @@
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(598, 271);
             dataGridView1.TabIndex = 0;
-            // 
-            // label8
-            // 
-            label8.Dock = DockStyle.Fill;
-            label8.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.ForeColor = Color.DeepSkyBlue;
-            label8.Location = new Point(461, 1);
-            label8.Name = "label8";
-            label8.Size = new Size(133, 37);
-            label8.TabIndex = 3;
-            label8.Text = "Đơn vị";
-            label8.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // RecipeDetailForm
             // 
@@ -334,5 +336,6 @@
         private Controls.RoundedButton huy_btn;
         private DataGridView dataGridView1;
         private Label label8;
+        private Controls.RoundedButton XacNhan_btn;
     }
 }

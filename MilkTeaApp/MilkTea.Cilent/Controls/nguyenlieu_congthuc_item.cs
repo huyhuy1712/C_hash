@@ -35,10 +35,9 @@ namespace MilkTea.Client.Controls
             set => lbl_ten.Text = value;
         }
 
-        public string DonViTinh
-        {
-            get => comboBox1.SelectedValue.ToString();
-            set => comboBox1.Text = value;
+        public int MaDVT { 
+            get; 
+            set; 
         }
         public nguyenlieu_congthuc_item()
         {
@@ -46,7 +45,7 @@ namespace MilkTea.Client.Controls
         }
 
 
-        public void SetData(NguyenLieu nl, List<DonViTinh> donViTinhs)
+        public void SetData(NguyenLieu nl,string name_dvt)
         {
             try
             {
@@ -60,11 +59,8 @@ namespace MilkTea.Client.Controls
                 check.Checked = false;
 
                 // Lấy đơn vị tính và gán vào combobox
-
-
-                comboBox1.DataSource = donViTinhs;
-                comboBox1.DisplayMember = "TenDVT";
-                comboBox1.ValueMember = "MaDVT";
+                lb_donvi.Text = name_dvt;
+                MaDVT = nl.maDVT;
 
             }
             catch (Exception ex)

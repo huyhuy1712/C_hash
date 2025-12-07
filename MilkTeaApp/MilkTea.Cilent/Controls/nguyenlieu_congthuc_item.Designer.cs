@@ -33,7 +33,7 @@
             check = new CheckBox();
             lbl_ten = new Label();
             txt_sl = new TextBox();
-            comboBox1 = new RoundedComboBox();
+            lb_donvi = new Label();
             panel3.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             SuspendLayout();
@@ -55,10 +55,10 @@
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanel2.Controls.Add(lb_donvi, 2, 0);
             tableLayoutPanel2.Controls.Add(check, 3, 0);
             tableLayoutPanel2.Controls.Add(lbl_ten, 0, 0);
             tableLayoutPanel2.Controls.Add(txt_sl, 1, 0);
-            tableLayoutPanel2.Controls.Add(comboBox1, 2, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(0, 0);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -100,24 +100,16 @@
             txt_sl.TabIndex = 2;
             txt_sl.TextAlign = HorizontalAlignment.Center;
             // 
-            // comboBox1
+            // lb_donvi
             // 
-            comboBox1.BackColor = Color.White;
-            comboBox1.BorderColor = Color.Gray;
-            comboBox1.BorderRadius = 15;
-            comboBox1.BorderSize = 1;
-            comboBox1.Dock = DockStyle.Fill;
-            comboBox1.DrawMode = DrawMode.OwnerDrawFixed;
-            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox1.FlatStyle = FlatStyle.Flat;
-            comboBox1.FocusBorderColor = Color.DeepSkyBlue;
-            comboBox1.Font = new Font("Segoe UI", 10F);
-            comboBox1.FormattingEnabled = true;
-            comboBox1.ItemHeight = 30;
-            comboBox1.Location = new Point(242, 4);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(112, 36);
-            comboBox1.TabIndex = 5;
+            lb_donvi.Dock = DockStyle.Fill;
+            lb_donvi.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lb_donvi.ForeColor = Color.DeepSkyBlue;
+            lb_donvi.Location = new Point(242, 1);
+            lb_donvi.Name = "lb_donvi";
+            lb_donvi.Size = new Size(112, 33);
+            lb_donvi.TabIndex = 5;
+            lb_donvi.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // nguyenlieu_congthuc_item
             // 
@@ -139,6 +131,6 @@
         private Label lbl_ten;
         private TextBox txt_sl;
         private CheckBox check;
-        private RoundedComboBox comboBox1;
+        private Label lb_donvi;
     }
 }

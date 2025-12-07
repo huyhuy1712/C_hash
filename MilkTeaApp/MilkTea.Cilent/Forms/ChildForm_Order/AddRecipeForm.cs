@@ -36,7 +36,6 @@ namespace MilkTea.Client.Forms.ChildForm_Order
 
         private async Task LoadNguyenLieu()
         {
-            List<DonViTinh> donViTinhs = await _donViTinhService.GetAllAsync();
             tenSP_lbl.Text = tenSP;
             txtTenCongThuc.Text = $"Công thức {tenSP}";
 
@@ -52,7 +51,8 @@ namespace MilkTea.Client.Forms.ChildForm_Order
                     foreach (var nl in listNguyenLieu)
                     {
                         var item = new Controls.nguyenlieu_congthuc_item();
-                        item.SetData(nl, donViTinhs);
+                        DonViTinh name_dvt = await _donViTinhService.GetByIdAsync(nl.maDVT);
+                        item.SetData(nl, name_dvt.TenDVT);
                         item.Dock = DockStyle.Top;
                         item.Margin = new Padding(0, 2, 0, 2);
 
@@ -101,8 +101,8 @@ namespace MilkTea.Client.Forms.ChildForm_Order
                             foreach (var nl in result)
                             {
                                 var nlItem = new Controls.nguyenlieu_congthuc_item();
-                                List<DonViTinh> donViTinhs = await _donViTinhService.GetAllAsync();
-                                nlItem.SetData(nl, donViTinhs);
+                                DonViTinh name_dvt = await _donViTinhService.GetByIdAsync(nl.maDVT);
+                                nlItem.SetData(nl, name_dvt.TenDVT);
                                 nlItem.Dock = DockStyle.Top;
                                 nlItem.Margin = new Padding(0, 2, 0, 2);
                                 topping_table_panel.Controls.Add(nlItem);
@@ -170,7 +170,7 @@ namespace MilkTea.Client.Forms.ChildForm_Order
                     {
                         MaNL = item.MaNL,
                         SL = soLuong,
-                        MaDVT = int.Parse(item.DonViTinh)
+                        MaDVT = item.MaDVT
                     });
                 }
             }

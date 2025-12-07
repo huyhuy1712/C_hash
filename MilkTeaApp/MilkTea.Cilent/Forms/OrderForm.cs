@@ -484,5 +484,12 @@ namespace MilkTea.Client.Forms
             }
         }
 
+        public bool CoMonDangGoi()
+        {
+            // Nếu có ít nhất 1 control trong section_table_panel
+            return section_table_panel.Controls.Count > 0;
+        }
+
+
     }
 }
