@@ -83,6 +83,13 @@ namespace MilkTea.Client.Forms.ChildForm_Order
             colTonKho.ReadOnly = true;
             dataGridView1.Columns.Add(colTonKho);
 
+            // 4. Cột đơn vị tính
+            DataGridViewTextBoxColumn colDonViTinh = new DataGridViewTextBoxColumn();
+            colDonViTinh.HeaderText = "Đơn vị tính";
+            colDonViTinh.Name = "colDonViTinh";
+            colDonViTinh.ReadOnly = true;
+            dataGridView1.Columns.Add(colDonViTinh);
+
             dataGridView1.Rows.Clear();
 
             foreach (var nl in danhSachNguyenLieu)
@@ -90,7 +97,8 @@ namespace MilkTea.Client.Forms.ChildForm_Order
                 dataGridView1.Rows.Add(
                     nl.TenNguyenLieu,    // Cột 0: ComboBox tự chọn đúng item
                     nl.SoLuongCanDung,   // Cột 1: Số Lượng
-                    nl.SoLuongTonKho     // Cột 2: SL tồn kho
+                    nl.SoLuongTonKho,    // Cột 2: SL tồn kho
+                    nl.DonViTinh        // Cột 3: Đơn vị tính
                 );
 
             }

@@ -10,5 +10,7 @@ namespace MilkTea.Client.Models
     {
         public int MaDVT { get; set; }
         public string TenDVT { get; set; } = string.Empty;
+
+
     }
 }
