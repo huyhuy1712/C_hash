@@ -83,10 +83,11 @@ public partial class ImportForm_Add : Form
 
         // Load đơn vị tính
         _donViTinhs = await _donViTinhService.GetAllAsync();
-        cbo_donvitinh_add.DataSource = _donViTinhs;
-        cbo_donvitinh_add.DisplayMember = "TenDVT";
-        cbo_donvitinh_add.ValueMember = "MaDVT";
-    }
+        cbo_donvitinh_PN_ADD.DataSource = _donViTinhs;
+        cbo_donvitinh_PN_ADD.DisplayMember = "TenDVT";
+        cbo_donvitinh_PN_ADD.ValueMember = "MaDVT";
+        cbo_donvitinh_PN_ADD.SelectedIndex = 0;
+        }
 
     private void btn_Them_PN_ADD_Click(object sender, EventArgs e)
     {
@@ -102,7 +103,7 @@ public partial class ImportForm_Add : Form
             int soLuongMoi = (int)nb_soLuong_PN_ADD.Value;
             decimal donGiaNhap = nb_dongia_PN_ADD.Value;
             int maNL = selectedNL.MaNL;
-            string donViTinh = cbo_donvitinh_add.Text;
+            string donViTinh = cbo_donvitinh_PN_ADD.Text;
 
             var existingItem = _tempChiTiets.FirstOrDefault(t => t.MaNL == maNL);
 
@@ -137,7 +138,7 @@ public partial class ImportForm_Add : Form
 
     private async void btn_Luu_Iport_add_Click(object sender, EventArgs e)
     {
-        string donViTinh = cbo_donvitinh_add.Text;
+        string donViTinh = cbo_donvitinh_PN_ADD.Text;
         if (_tempChiTiets.Count == 0)
         {
             MessageBox.Show("Không có chi tiết nào để lưu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);

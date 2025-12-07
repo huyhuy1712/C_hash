@@ -32,7 +32,6 @@
             nb_dongia_PN_ADD = new NumericUpDown();
             label8 = new Label();
             label7 = new Label();
-            cbo_donvitinh_add = new ComboBox();
             txt_maPN_PN_ADD = new TextBox();
             label6 = new Label();
             cbo_NhaCungCap_PN_ADD = new ComboBox();
@@ -60,6 +59,7 @@
             donvitinh_tb_add = new DataGridViewTextBoxColumn();
             xoa_tb_add = new DataGridViewImageColumn();
             panel5 = new Panel();
+            cbo_donvitinh_PN_ADD = new ComboBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nb_dongia_PN_ADD).BeginInit();
             ((System.ComponentModel.ISupportInitialize)nb_soLuong_PN_ADD).BeginInit();
@@ -71,10 +71,10 @@
             // 
             // panel1
             // 
+            panel1.Controls.Add(cbo_donvitinh_PN_ADD);
             panel1.Controls.Add(nb_dongia_PN_ADD);
             panel1.Controls.Add(label8);
             panel1.Controls.Add(label7);
-            panel1.Controls.Add(cbo_donvitinh_add);
             panel1.Controls.Add(txt_maPN_PN_ADD);
             panel1.Controls.Add(label6);
             panel1.Controls.Add(cbo_NhaCungCap_PN_ADD);
@@ -115,20 +115,11 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.Location = new Point(601, 210);
+            label7.Location = new Point(739, 176);
             label7.Name = "label7";
             label7.Size = new Size(54, 20);
             label7.TabIndex = 15;
             label7.Text = "Đơn vị";
-            // 
-            // cbo_donvitinh_add
-            // 
-            cbo_donvitinh_add.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cbo_donvitinh_add.FormattingEnabled = true;
-            cbo_donvitinh_add.Location = new Point(661, 202);
-            cbo_donvitinh_add.Name = "cbo_donvitinh_add";
-            cbo_donvitinh_add.Size = new Size(91, 28);
-            cbo_donvitinh_add.TabIndex = 14;
             // 
             // txt_maPN_PN_ADD
             // 
@@ -169,7 +160,7 @@
             btn_Them_PN_ADD.FlatStyle = FlatStyle.Flat;
             btn_Them_PN_ADD.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btn_Them_PN_ADD.ForeColor = Color.White;
-            btn_Them_PN_ADD.Location = new Point(876, 164);
+            btn_Them_PN_ADD.Location = new Point(876, 208);
             btn_Them_PN_ADD.Name = "btn_Them_PN_ADD";
             btn_Them_PN_ADD.Size = new Size(114, 32);
             btn_Them_PN_ADD.TabIndex = 9;
@@ -183,7 +174,7 @@
             nb_soLuong_PN_ADD.Location = new Point(597, 174);
             nb_soLuong_PN_ADD.Maximum = new decimal(new int[] { 1410065408, 2, 0, 0 });
             nb_soLuong_PN_ADD.Name = "nb_soLuong_PN_ADD";
-            nb_soLuong_PN_ADD.Size = new Size(69, 27);
+            nb_soLuong_PN_ADD.Size = new Size(136, 27);
             nb_soLuong_PN_ADD.TabIndex = 8;
             // 
             // cbo_HangHoa_PN_ADD
@@ -404,6 +395,15 @@
             panel5.TabIndex = 4;
             panel5.TabStop = true;
             // 
+            // cbo_donvitinh_PN_ADD
+            // 
+            cbo_donvitinh_PN_ADD.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cbo_donvitinh_PN_ADD.FormattingEnabled = true;
+            cbo_donvitinh_PN_ADD.Location = new Point(799, 173);
+            cbo_donvitinh_PN_ADD.Name = "cbo_donvitinh_PN_ADD";
+            cbo_donvitinh_PN_ADD.Size = new Size(191, 28);
+            cbo_donvitinh_PN_ADD.TabIndex = 19;
+            // 
             // ImportForm_Add
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -452,7 +452,6 @@
         private ComboBox cbo_NhaCungCap_PN_ADD;
         private TextBox txt_maPN_PN_ADD;
         private Label label6;
-        private ComboBox cbo_donvitinh_add;
         private Label label7;
         private Label label2;
         private DataGridViewTextBoxColumn maPhieuNhap_tb_add;
@@ -465,5 +464,6 @@
         private DataGridViewImageColumn xoa_tb_add;
         private Label label8;
         private NumericUpDown nb_dongia_PN_ADD;
+        private ComboBox cbo_donvitinh_PN_ADD;
     }
 }
