@@ -34,9 +34,6 @@
             panel4 = new Panel();
             Table = new Panel();
             dataGridView1 = new DataGridView();
-            ID = new DataGridViewTextBoxColumn();
-            chucNang = new DataGridViewTextBoxColumn();
-            chkChucNang = new DataGridViewCheckBoxColumn();
             TimKiem = new Panel();
             txtbSearch = new TextBox();
             Button = new Panel();
@@ -51,6 +48,9 @@
             Title = new Panel();
             label1 = new Label();
             errorProvider1 = new ErrorProvider(components);
+            ID = new DataGridViewTextBoxColumn();
+            chucNang = new DataGridViewTextBoxColumn();
+            chkChucNang = new DataGridViewCheckBoxColumn();
             panel1.SuspendLayout();
             panel4.SuspendLayout();
             Table.SuspendLayout();
@@ -101,10 +101,11 @@
             // dataGridView1
             // 
             dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.AllowUserToResizeColumns = false;
             dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.BackgroundColor = SystemColors.Control;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.ColumnHeadersHeight = 29;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { ID, chucNang, chkChucNang });
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(0, 0);
@@ -113,38 +114,7 @@
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(760, 451);
             dataGridView1.TabIndex = 0;
-            // 
-            // ID
-            // 
-            ID.HeaderText = "ID";
-            ID.MinimumWidth = 6;
-            ID.Name = "ID";
-            ID.ReadOnly = true;
-            ID.Width = 75;
-            // 
-            // chucNang
-            // 
-            chucNang.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            chucNang.HeaderText = "Chức Năng";
-            chucNang.MinimumWidth = 6;
-            chucNang.Name = "chucNang";
-            chucNang.ReadOnly = true;
-            chucNang.Resizable = DataGridViewTriState.False;
-            // 
-            // chkChucNang
-            // 
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.NullValue = false;
-            dataGridViewCellStyle1.Padding = new Padding(3);
-            chkChucNang.DefaultCellStyle = dataGridViewCellStyle1;
-            chkChucNang.FalseValue = "0";
-            chkChucNang.HeaderText = "";
-            chkChucNang.MinimumWidth = 6;
-            chkChucNang.Name = "chkChucNang";
-            chkChucNang.Resizable = DataGridViewTriState.True;
-            chkChucNang.SortMode = DataGridViewColumnSortMode.Automatic;
-            chkChucNang.TrueValue = "1";
-            chkChucNang.Width = 125;
+            dataGridView1.ColumnHeaderMouseClick += dataGridView1_ColumnHeaderMouseClick;
             // 
             // TimKiem
             // 
@@ -304,6 +274,38 @@
             // errorProvider1
             // 
             errorProvider1.ContainerControl = this;
+            // 
+            // ID
+            // 
+            ID.HeaderText = "ID";
+            ID.MinimumWidth = 6;
+            ID.Name = "ID";
+            ID.ReadOnly = true;
+            ID.Resizable = DataGridViewTriState.False;
+            ID.Width = 75;
+            // 
+            // chucNang
+            // 
+            chucNang.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            chucNang.HeaderText = "Chức Năng";
+            chucNang.MinimumWidth = 6;
+            chucNang.Name = "chucNang";
+            chucNang.ReadOnly = true;
+            chucNang.Resizable = DataGridViewTriState.False;
+            // 
+            // chkChucNang
+            // 
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.NullValue = false;
+            dataGridViewCellStyle1.Padding = new Padding(3);
+            chkChucNang.DefaultCellStyle = dataGridViewCellStyle1;
+            chkChucNang.FalseValue = "0";
+            chkChucNang.HeaderText = "Chọn Tất Cả";
+            chkChucNang.MinimumWidth = 6;
+            chkChucNang.Name = "chkChucNang";
+            chkChucNang.Resizable = DataGridViewTriState.False;
+            chkChucNang.TrueValue = "1";
+            chkChucNang.Width = 125;
             // 
             // AddQuyenForm
             // 
