@@ -137,6 +137,7 @@
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(760, 491);
             dataGridView1.TabIndex = 0;
+            dataGridView1.ColumnHeaderMouseClick += dataGridView1_ColumnHeaderMouseClick;
             // 
             // id
             // 
@@ -163,7 +164,7 @@
             dataGridViewCellStyle1.Padding = new Padding(3);
             chkChucNang.DefaultCellStyle = dataGridViewCellStyle1;
             chkChucNang.FalseValue = "0";
-            chkChucNang.HeaderText = "";
+            chkChucNang.HeaderText = "Chọn Tất Cả";
             chkChucNang.MinimumWidth = 6;
             chkChucNang.Name = "chkChucNang";
             chkChucNang.TrueValue = "1";
