@@ -1,4 +1,5 @@
 ﻿using MilkTea.Client.Models;
+using MilkTea.Client.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +14,7 @@ namespace MilkTea.Client.Controls
 {
     public partial class nguyenlieu_congthuc_item : UserControl
     {
+        private readonly DonViTinhService _donViTinhService = new DonViTinhService();
 
         public string SoLuong
         {
@@ -32,13 +34,19 @@ namespace MilkTea.Client.Controls
             get => lbl_ten.Text;
             set => lbl_ten.Text = value;
         }
+
+        public string DonViTinh
+        {
+            get => comboBox1.SelectedValue.ToString();
+            set => comboBox1.Text = value;
+        }
         public nguyenlieu_congthuc_item()
         {
             InitializeComponent();
         }
 
 
-        public void SetData(NguyenLieu nl)
+        public void SetData(NguyenLieu nl, List<DonViTinh> donViTinhs)
         {
             try
             {
@@ -50,6 +58,13 @@ namespace MilkTea.Client.Controls
 
                 //// Bỏ chọn checkbox mặc định
                 check.Checked = false;
+
+                // Lấy đơn vị tính và gán vào combobox
+
+
+                comboBox1.DataSource = donViTinhs;
+                comboBox1.DisplayMember = "TenDVT";
+                comboBox1.ValueMember = "MaDVT";
 
             }
             catch (Exception ex)

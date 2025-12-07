@@ -16,6 +16,7 @@ namespace MilkTea.Client.Forms.ChildForm_Order
     {
 
         private readonly NguyenLieuService _nguyenLieuService = new NguyenLieuService();
+        private readonly DonViTinhService _donViTinhService = new DonViTinhService();
         public event EventHandler RecipeSaved;
         private string tenSP;
 
@@ -35,6 +36,7 @@ namespace MilkTea.Client.Forms.ChildForm_Order
 
         private async Task LoadNguyenLieu()
         {
+            List<DonViTinh> donViTinhs = await _donViTinhService.GetAllAsync();
             tenSP_lbl.Text = tenSP;
             txtTenCongThuc.Text = $"Công thức {tenSP}";
 
@@ -50,7 +52,7 @@ namespace MilkTea.Client.Forms.ChildForm_Order
                     foreach (var nl in listNguyenLieu)
                     {
                         var item = new Controls.nguyenlieu_congthuc_item();
-                        item.SetData(nl);
+                        item.SetData(nl, donViTinhs);
                         item.Dock = DockStyle.Top;
                         item.Margin = new Padding(0, 2, 0, 2);
 
@@ -99,7 +101,8 @@ namespace MilkTea.Client.Forms.ChildForm_Order
                             foreach (var nl in result)
                             {
                                 var nlItem = new Controls.nguyenlieu_congthuc_item();
-                                nlItem.SetData(nl);
+                                List<DonViTinh> donViTinhs = await _donViTinhService.GetAllAsync();
+                                nlItem.SetData(nl, donViTinhs);
                                 nlItem.Dock = DockStyle.Top;
                                 nlItem.Margin = new Padding(0, 2, 0, 2);
                                 topping_table_panel.Controls.Add(nlItem);
@@ -166,7 +169,8 @@ namespace MilkTea.Client.Forms.ChildForm_Order
                     listCTCT.Add(new ChiTietCongThuc
                     {
                         MaNL = item.MaNL,
-                        SL = soLuong
+                        SL = soLuong,
+                        MaDVT = int.Parse(item.DonViTinh)
                     });
                 }
             }

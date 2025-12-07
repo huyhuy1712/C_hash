@@ -131,7 +131,7 @@
             roundedTextBox_TenTK.Placeholder = "Nhập tên tài khoản";
             roundedTextBox_TenTK.Size = new Size(314, 48);
             roundedTextBox_TenTK.TabIndex = 1;
-            roundedTextBox_TenTK.TextValue = "Pham Thi F";
+            roundedTextBox_TenTK.TextValue = "Nguyen Van A";
             // 
             // roundedTextBox_Password
             // 
@@ -146,7 +146,7 @@
             roundedTextBox_Password.Placeholder = " Nhập mật khẩu";
             roundedTextBox_Password.Size = new Size(314, 48);
             roundedTextBox_Password.TabIndex = 2;
-            roundedTextBox_Password.TextValue = "0901234566";
+            roundedTextBox_Password.TextValue = "0901234561";
             // 
             // label_login
             // 
@@ -164,7 +164,7 @@
             // 
             contextMenuStrip1.ImageScalingSize = new Size(20, 20);
             contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(211, 32);
+            contextMenuStrip1.Size = new Size(61, 4);
             contextMenuStrip1.Opening += contextMenuStrip1_Opening;
             // 
             // LoginForm
