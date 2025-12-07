@@ -70,6 +70,7 @@ namespace MilkTea.Client.Forms
                     dGV_phieuNhap.Rows[rowIndex].Cells["nhaCungCap_Tb_iPort"].Value = nhacungcap?.TenNCC ?? "N/A";
                     dGV_phieuNhap.Rows[rowIndex].Cells["tenNVN_Tb_iPort"].Value = nhanvien?.TenNV ?? "N/A";
                     dGV_phieuNhap.Rows[rowIndex].Cells["tongTien_Tb_iPort"].Value = pn.TongTien;
+                    dGV_phieuNhap.Rows[rowIndex].Cells["trangThaiNhap_Tb_iPort"].Value = false;
 
                     // Áp dụng bộ lọc tìm kiếm (nếu đang tìm)
                     ApplySearchFilter();
@@ -411,7 +412,7 @@ namespace MilkTea.Client.Forms
             bool isChecked = (bool)checkCell.Value;
             int maPN = Convert.ToInt32(dGV_phieuNhap.Rows[e.RowIndex].Cells["maPhieuNhap_Tb_iPort"].Value);
 
-            if (isChecked) // Chỉ xử lý khi tick (chuyển sang Đã nhập)
+            if (isChecked)
             {
                 var confirm = MessageBox.Show(
                     $"Xác nhận ĐÃ NHẬN HÀNG cho phiếu nhập mã {maPN}?\n\n" +
@@ -437,6 +438,14 @@ namespace MilkTea.Client.Forms
 
                     foreach (var ct in chiTiets)
                     {
+                        if(ct.DonViTinh == "Kg")
+                        {
+                            ct.SoLuong = ct.SoLuong * 1000;
+                        }
+                        if(ct.DonViTinh == "Lít")
+                        {
+                            ct.SoLuong = ct.SoLuong * 1000;
+                        }
                         // Cộng tồn kho
                         var congSuccess = await _nguyenLieuService.CongNguyenLieuAsync(ct.MaNguyenLieu, ct.SoLuong);
                         // Cập nhật giá bán mới nhất

@@ -95,10 +95,10 @@ namespace MilkTea.Client.Forms.ChildForm_Import
 
         private async Task LoadPhieuNhapAsync(int maPN)
         {
-            var phieuNhap = await _phieuNhapService.GetPhieuNhapByIdAsync(maPN); // Bạn cần thêm method này nếu chưa có
-            if (phieuNhap == null || phieuNhap.TrangThai != 1)
+            var phieuNhap = await _phieuNhapService.GetPhieuNhapByIdAsync(maPN);
+            if (phieuNhap == null || phieuNhap.TrangThai != 2)
             {
-                MessageBox.Show("Phiếu nhập không tồn tại hoặc đã bị xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Phiếu nhập không tồn tại hoặc đã bị xóa hoặc đã xác nhận trạng thái.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 this.Close();
                 return;
             }
