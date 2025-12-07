@@ -34,6 +34,7 @@
             avatarUser = new PictureBox();
             panelMenu = new Panel();
             layoutMenu = new TableLayoutPanel();
+            btnDangXuat = new Button();
             btnNguyenLieu = new Button();
             btnOrder = new Button();
             btnHoaDon = new Button();
@@ -42,7 +43,6 @@
             btnPhieuNhap = new Button();
             btnTaiKhoan = new Button();
             btnNhaCungCap = new Button();
-            btnDangXuat = new Button();
             panelMain.SuspendLayout();
             panelContent.SuspendLayout();
             panelFooter.SuspendLayout();
@@ -158,8 +158,6 @@
             // 
             layoutMenu.ColumnCount = 1;
             layoutMenu.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            layoutMenu.Controls.Add(btnDangXuat, 0, 8);
-            layoutMenu.Controls.Add(btnNguyenLieu, 0, 7);
             layoutMenu.Controls.Add(btnOrder, 0, 0);
             layoutMenu.Controls.Add(btnHoaDon, 0, 1);
             layoutMenu.Controls.Add(btnThongKe, 0, 2);
@@ -167,6 +165,8 @@
             layoutMenu.Controls.Add(btnPhieuNhap, 0, 4);
             layoutMenu.Controls.Add(btnTaiKhoan, 0, 5);
             layoutMenu.Controls.Add(btnNhaCungCap, 0, 6);
+            layoutMenu.Controls.Add(btnNguyenLieu, 0, 7);
+            layoutMenu.Controls.Add(btnDangXuat, 0, 8);
             layoutMenu.Dock = DockStyle.Fill;
             layoutMenu.Location = new Point(0, 0);
             layoutMenu.Name = "layoutMenu";
@@ -183,6 +183,23 @@
             layoutMenu.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             layoutMenu.Size = new Size(176, 885);
             layoutMenu.TabIndex = 0;
+            // 
+            // btnDangXuat
+            // 
+            btnDangXuat.Dock = DockStyle.Fill;
+            btnDangXuat.FlatAppearance.BorderSize = 0;
+            btnDangXuat.FlatStyle = FlatStyle.Flat;
+            btnDangXuat.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnDangXuat.ForeColor = SystemColors.ButtonHighlight;
+            btnDangXuat.Image = Properties.Resources.logout;
+            btnDangXuat.ImageAlign = ContentAlignment.MiddleLeft;
+            btnDangXuat.Location = new Point(3, 787);
+            btnDangXuat.Name = "btnDangXuat";
+            btnDangXuat.Size = new Size(170, 95);
+            btnDangXuat.TabIndex = 10;
+            btnDangXuat.Text = "   Đăng xuất";
+            btnDangXuat.UseVisualStyleBackColor = true;
+            btnDangXuat.Click += btnDangXuat_Click;
             // 
             // btnNguyenLieu
             // 
@@ -320,23 +337,6 @@
             btnNhaCungCap.TextAlign = ContentAlignment.MiddleRight;
             btnNhaCungCap.UseVisualStyleBackColor = true;
             btnNhaCungCap.Click += btnNhaCungCap_Click;
-            // 
-            // btnDangXuat
-            // 
-            btnDangXuat.Dock = DockStyle.Fill;
-            btnDangXuat.FlatAppearance.BorderSize = 0;
-            btnDangXuat.FlatStyle = FlatStyle.Flat;
-            btnDangXuat.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            btnDangXuat.ForeColor = SystemColors.ButtonHighlight;
-            btnDangXuat.Image = Properties.Resources.logout;
-            btnDangXuat.ImageAlign = ContentAlignment.MiddleLeft;
-            btnDangXuat.Location = new Point(3, 787);
-            btnDangXuat.Name = "btnDangXuat";
-            btnDangXuat.Size = new Size(170, 95);
-            btnDangXuat.TabIndex = 10;
-            btnDangXuat.Text = "   Đăng xuất";
-            btnDangXuat.UseVisualStyleBackColor = true;
-            btnDangXuat.Click += btnDangXuat_Click;
             // 
             // MainForm
             // 
