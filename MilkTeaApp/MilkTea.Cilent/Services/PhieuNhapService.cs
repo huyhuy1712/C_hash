@@ -1,19 +1,20 @@
-﻿using System;
+﻿using MilkTea.Client.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MilkTea.Client.Models;
 
 namespace MilkTea.Client.Services
 {
+    using System.Net.Http;
     using System.Net.Http.Json;
 
     internal class PhieuNhapService : ApiServiceBase
     {
         public async Task<List<PhieuNhap>> GetPhieuNhapsAsync()
         {
-            return await _http.GetFromJsonAsync<List<PhieuNhap>>("/api/phieunhap"); 
+            return await _http.GetFromJsonAsync<List<PhieuNhap>>("/api/phieunhap");
         }
         public async Task<List<PhieuNhap>> SearchAsync(string column, string value)
         {
@@ -42,5 +43,27 @@ namespace MilkTea.Client.Services
             return response.IsSuccessStatusCode;
         }
 
+        public async Task<PhieuNhap> GetPhieuNhapByIdAsync(int maPN)
+        {
+            return await _http.GetFromJsonAsync<PhieuNhap>($"/api/phieunhap/{maPN}");
+        }
+
+        public async Task<bool> UpdatePhieuNhapAsync(PhieuNhap pn)
+        {
+            var response = await _http.PutAsJsonAsync($"/api/phieunhap/{pn.MaPN}", pn);
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<HttpResponseMessage> UpdatePhieuNhapFullAsync(PhieuNhap pn)
+        {
+            return await _http.PutAsJsonAsync($"/api/phieunhap/{pn.MaPN}", pn);
+        }
+
+        public async Task<bool> CapNhatTrangThaiAsync(int maPN, int trangThai)
+        {
+            var response = await _http.PutAsJsonAsync($"/api/phieunhap/{maPN}/trangthai", new { TrangThai = trangThai });
+            return response.IsSuccessStatusCode;
+
+        }
     }
 }

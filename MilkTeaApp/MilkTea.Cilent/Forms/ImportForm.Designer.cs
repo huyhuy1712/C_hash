@@ -46,7 +46,6 @@ namespace MilkTea.Client.Forms
             panel4 = new Panel();
             label2 = new Label();
             panel5 = new Panel();
-            lblStatus_PN = new Label();
             dGV_phieuNhap = new DataGridView();
             maPhieuNhap_Tb_iPort = new DataGridViewTextBoxColumn();
             ngayNhap_Tb_iPort = new DataGridViewTextBoxColumn();
@@ -54,8 +53,11 @@ namespace MilkTea.Client.Forms
             NhaCungCap_Tb_iPort = new DataGridViewTextBoxColumn();
             tenNVN_Tb_iPort = new DataGridViewTextBoxColumn();
             tongTien_Tb_iPort = new DataGridViewTextBoxColumn();
+            trangThaiNhap_Tb_iPort = new DataGridViewCheckBoxColumn();
+            sua_Tb_iPort = new DataGridViewImageColumn();
             thongTin_Tb_iPort = new DataGridViewImageColumn();
             xoa_Tb_iPort = new DataGridViewImageColumn();
+            lblStatus_PN = new Label();
             panel1 = new Panel();
             panel2.SuspendLayout();
             panel3.SuspendLayout();
@@ -253,8 +255,8 @@ namespace MilkTea.Client.Forms
             // panel5
             // 
             panel5.BackColor = SystemColors.ActiveBorder;
-            panel5.Controls.Add(lblStatus_PN);
             panel5.Controls.Add(dGV_phieuNhap);
+            panel5.Controls.Add(lblStatus_PN);
             panel5.Dock = DockStyle.Fill;
             panel5.Location = new Point(0, 168);
             panel5.Margin = new Padding(3, 4, 3, 4);
@@ -263,16 +265,6 @@ namespace MilkTea.Client.Forms
             panel5.Size = new Size(1684, 535);
             panel5.TabIndex = 3;
             panel5.TabStop = true;
-            // 
-            // lblStatus_PN
-            // 
-            lblStatus_PN.Dock = DockStyle.Top;
-            lblStatus_PN.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblStatus_PN.Location = new Point(23, 428);
-            lblStatus_PN.Name = "lblStatus_PN";
-            lblStatus_PN.Size = new Size(1638, 23);
-            lblStatus_PN.TabIndex = 1;
-            lblStatus_PN.TextAlign = ContentAlignment.BottomLeft;
             // 
             // dGV_phieuNhap
             // 
@@ -283,23 +275,24 @@ namespace MilkTea.Client.Forms
             dGV_phieuNhap.BackgroundColor = SystemColors.ButtonFace;
             dGV_phieuNhap.CellBorderStyle = DataGridViewCellBorderStyle.Raised;
             dGV_phieuNhap.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dGV_phieuNhap.Columns.AddRange(new DataGridViewColumn[] { maPhieuNhap_Tb_iPort, ngayNhap_Tb_iPort, soLuong_Tb_iPort, NhaCungCap_Tb_iPort, tenNVN_Tb_iPort, tongTien_Tb_iPort, thongTin_Tb_iPort, xoa_Tb_iPort });
-            dGV_phieuNhap.Dock = DockStyle.Top;
+            dGV_phieuNhap.Columns.AddRange(new DataGridViewColumn[] { maPhieuNhap_Tb_iPort, ngayNhap_Tb_iPort, soLuong_Tb_iPort, NhaCungCap_Tb_iPort, tenNVN_Tb_iPort, tongTien_Tb_iPort, trangThaiNhap_Tb_iPort, sua_Tb_iPort, thongTin_Tb_iPort, xoa_Tb_iPort });
+            dGV_phieuNhap.Dock = DockStyle.Fill;
             dGV_phieuNhap.Location = new Point(23, 27);
             dGV_phieuNhap.Margin = new Padding(3, 4, 3, 4);
             dGV_phieuNhap.Name = "dGV_phieuNhap";
             dGV_phieuNhap.RowHeadersVisible = false;
             dGV_phieuNhap.RowHeadersWidth = 51;
-            dGV_phieuNhap.Size = new Size(1638, 401);
+            dGV_phieuNhap.Size = new Size(1638, 458);
             dGV_phieuNhap.TabIndex = 0;
             dGV_phieuNhap.CellClick += dGV_phieuNhap_CellClick;
+            dGV_phieuNhap.CellContentClick += dGV_phieuNhap_CellContentClick;
             // 
             // maPhieuNhap_Tb_iPort
             // 
             maPhieuNhap_Tb_iPort.HeaderText = "Mã Phiếu Nhập";
             maPhieuNhap_Tb_iPort.MinimumWidth = 6;
             maPhieuNhap_Tb_iPort.Name = "maPhieuNhap_Tb_iPort";
-            maPhieuNhap_Tb_iPort.Width = 300;
+            maPhieuNhap_Tb_iPort.Width = 120;
             // 
             // ngayNhap_Tb_iPort
             // 
@@ -336,6 +329,21 @@ namespace MilkTea.Client.Forms
             tongTien_Tb_iPort.Name = "tongTien_Tb_iPort";
             tongTien_Tb_iPort.Width = 200;
             // 
+            // trangThaiNhap_Tb_iPort
+            // 
+            trangThaiNhap_Tb_iPort.HeaderText = "Trạng thái nhập";
+            trangThaiNhap_Tb_iPort.Name = "trangThaiNhap_Tb_iPort";
+            trangThaiNhap_Tb_iPort.Width = 75;
+            // 
+            // sua_Tb_iPort
+            // 
+            sua_Tb_iPort.HeaderText = "Sửa";
+            sua_Tb_iPort.Image = Properties.Resources.edit;
+            sua_Tb_iPort.Name = "sua_Tb_iPort";
+            sua_Tb_iPort.Resizable = DataGridViewTriState.True;
+            sua_Tb_iPort.SortMode = DataGridViewColumnSortMode.Automatic;
+            sua_Tb_iPort.Width = 75;
+            // 
             // thongTin_Tb_iPort
             // 
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -364,6 +372,18 @@ namespace MilkTea.Client.Forms
             xoa_Tb_iPort.Resizable = DataGridViewTriState.True;
             xoa_Tb_iPort.SortMode = DataGridViewColumnSortMode.Automatic;
             xoa_Tb_iPort.Width = 75;
+            // 
+            // lblStatus_PN
+            // 
+            lblStatus_PN.Dock = DockStyle.Bottom;
+            lblStatus_PN.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblStatus_PN.Location = new Point(23, 485);
+            lblStatus_PN.Margin = new Padding(10);
+            lblStatus_PN.Name = "lblStatus_PN";
+            lblStatus_PN.Padding = new Padding(10);
+            lblStatus_PN.Size = new Size(1638, 23);
+            lblStatus_PN.TabIndex = 0;
+            lblStatus_PN.TextAlign = ContentAlignment.BottomLeft;
             // 
             // panel1
             // 
@@ -424,15 +444,17 @@ namespace MilkTea.Client.Forms
         private Panel panel8;
         private TextBox txt_TimkiemPN_PN;
         private Label lblStatus_PN;
+        private ComboBox comboBox1;
+        private ComboBox cbo_timkiemtheo_PN;
         private DataGridViewTextBoxColumn maPhieuNhap_Tb_iPort;
         private DataGridViewTextBoxColumn ngayNhap_Tb_iPort;
         private DataGridViewTextBoxColumn soLuong_Tb_iPort;
         private DataGridViewTextBoxColumn NhaCungCap_Tb_iPort;
         private DataGridViewTextBoxColumn tenNVN_Tb_iPort;
         private DataGridViewTextBoxColumn tongTien_Tb_iPort;
+        private DataGridViewCheckBoxColumn trangThaiNhap_Tb_iPort;
+        private DataGridViewImageColumn sua_Tb_iPort;
         private DataGridViewImageColumn thongTin_Tb_iPort;
         private DataGridViewImageColumn xoa_Tb_iPort;
-        private ComboBox comboBox1;
-        private ComboBox cbo_timkiemtheo_PN;
     }
 }
