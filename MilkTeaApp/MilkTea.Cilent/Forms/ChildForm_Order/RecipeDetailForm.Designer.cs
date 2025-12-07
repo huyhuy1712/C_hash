@@ -36,6 +36,7 @@
             txtTenCongThuc = new MilkTea.Client.Controls.RoundedTextBox();
             header_panel = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
+            label8 = new Label();
             label3 = new Label();
             label5 = new Label();
             label12 = new Label();
@@ -45,6 +46,7 @@
             footer_panel = new Panel();
             huy_btn = new MilkTea.Client.Controls.RoundedButton();
             dataGridView1 = new DataGridView();
+            XacNhan_btn = new MilkTea.Client.Controls.RoundedButton();
             panel2.SuspendLayout();
             header_panel.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
@@ -61,7 +63,7 @@
             label1.ForeColor = Color.DeepSkyBlue;
             label1.Location = new Point(0, 0);
             label1.Name = "label1";
-            label1.Size = new Size(441, 58);
+            label1.Size = new Size(598, 58);
             label1.TabIndex = 1;
             label1.Text = " Công thức";
             label1.TextAlign = ContentAlignment.MiddleCenter;
@@ -73,7 +75,7 @@
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 58);
             panel2.Name = "panel2";
-            panel2.Size = new Size(441, 33);
+            panel2.Size = new Size(598, 33);
             panel2.TabIndex = 2;
             // 
             // tenSP_lbl
@@ -110,7 +112,7 @@
             label4.Location = new Point(0, 91);
             label4.Name = "label4";
             label4.Padding = new Padding(5);
-            label4.Size = new Size(441, 41);
+            label4.Size = new Size(598, 41);
             label4.TabIndex = 3;
             label4.Text = "Tên công thức";
             // 
@@ -125,7 +127,7 @@
             txtTenCongThuc.Name = "txtTenCongThuc";
             txtTenCongThuc.Padding = new Padding(10, 5, 40, 5);
             txtTenCongThuc.Placeholder = "";
-            txtTenCongThuc.Size = new Size(441, 37);
+            txtTenCongThuc.Size = new Size(598, 37);
             txtTenCongThuc.TabIndex = 5;
             txtTenCongThuc.TextValue = "";
             // 
@@ -136,16 +138,18 @@
             header_panel.Dock = DockStyle.Top;
             header_panel.Location = new Point(0, 169);
             header_panel.Name = "header_panel";
-            header_panel.Size = new Size(441, 39);
+            header_panel.Size = new Size(598, 39);
             header_panel.TabIndex = 6;
             // 
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
-            tableLayoutPanel1.ColumnCount = 3;
+            tableLayoutPanel1.ColumnCount = 4;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.22727F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.772728F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 145F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 147F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 146F));
+            tableLayoutPanel1.Controls.Add(label8, 3, 0);
             tableLayoutPanel1.Controls.Add(label3, 2, 0);
             tableLayoutPanel1.Controls.Add(label5, 1, 0);
             tableLayoutPanel1.Controls.Add(label12, 0, 0);
@@ -154,17 +158,29 @@
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(441, 39);
+            tableLayoutPanel1.Size = new Size(598, 39);
             tableLayoutPanel1.TabIndex = 0;
+            // 
+            // label8
+            // 
+            label8.Dock = DockStyle.Fill;
+            label8.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label8.ForeColor = Color.DeepSkyBlue;
+            label8.Location = new Point(453, 1);
+            label8.Name = "label8";
+            label8.Size = new Size(141, 37);
+            label8.TabIndex = 3;
+            label8.Text = "Đơn vị";
+            label8.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label3
             // 
             label3.Dock = DockStyle.Fill;
             label3.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = Color.DeepSkyBlue;
-            label3.Location = new Point(297, 1);
+            label3.Location = new Point(305, 1);
             label3.Name = "label3";
-            label3.Size = new Size(140, 37);
+            label3.Size = new Size(141, 37);
             label3.TabIndex = 2;
             label3.Text = "SL tồn kho";
             label3.TextAlign = ContentAlignment.MiddleCenter;
@@ -174,9 +190,9 @@
             label5.Dock = DockStyle.Fill;
             label5.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = Color.DeepSkyBlue;
-            label5.Location = new Point(151, 1);
+            label5.Location = new Point(155, 1);
             label5.Name = "label5";
-            label5.Size = new Size(139, 37);
+            label5.Size = new Size(143, 37);
             label5.TabIndex = 1;
             label5.Text = "SL cần dùng";
             label5.TextAlign = ContentAlignment.MiddleCenter;
@@ -188,7 +204,7 @@
             label12.ForeColor = Color.DeepSkyBlue;
             label12.Location = new Point(4, 1);
             label12.Name = "label12";
-            label12.Size = new Size(140, 37);
+            label12.Size = new Size(144, 37);
             label12.TabIndex = 0;
             label12.Text = "Nguyên liệu";
             label12.TextAlign = ContentAlignment.MiddleCenter;
@@ -200,7 +216,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 479);
             panel1.Name = "panel1";
-            panel1.Size = new Size(441, 33);
+            panel1.Size = new Size(598, 33);
             panel1.TabIndex = 7;
             // 
             // label6
@@ -230,12 +246,13 @@
             // 
             // footer_panel
             // 
+            footer_panel.Controls.Add(XacNhan_btn);
             footer_panel.Controls.Add(huy_btn);
             footer_panel.Dock = DockStyle.Bottom;
             footer_panel.Location = new Point(0, 512);
             footer_panel.Name = "footer_panel";
             footer_panel.Padding = new Padding(10);
-            footer_panel.Size = new Size(441, 56);
+            footer_panel.Size = new Size(598, 56);
             footer_panel.TabIndex = 8;
             // 
             // huy_btn
@@ -250,7 +267,7 @@
             huy_btn.FlatStyle = FlatStyle.Flat;
             huy_btn.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             huy_btn.ForeColor = Color.White;
-            huy_btn.Location = new Point(326, 10);
+            huy_btn.Location = new Point(483, 10);
             huy_btn.Name = "huy_btn";
             huy_btn.Size = new Size(105, 36);
             huy_btn.TabIndex = 1;
@@ -271,14 +288,14 @@
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(441, 271);
+            dataGridView1.Size = new Size(598, 271);
             dataGridView1.TabIndex = 0;
             // 
             // RecipeDetailForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(441, 568);
+            ClientSize = new Size(598, 568);
             Controls.Add(footer_panel);
             Controls.Add(panel1);
             Controls.Add(dataGridView1);
@@ -318,5 +335,7 @@
         private Panel footer_panel;
         private Controls.RoundedButton huy_btn;
         private DataGridView dataGridView1;
+        private Label label8;
+        private Controls.RoundedButton XacNhan_btn;
     }
 }

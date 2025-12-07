@@ -38,6 +38,7 @@
             txtSearch_NL = new TextBox();
             header_panel = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
+            label3 = new Label();
             label7 = new Label();
             label5 = new Label();
             label12 = new Label();
@@ -62,7 +63,7 @@
             label1.ForeColor = Color.DeepSkyBlue;
             label1.Location = new Point(10, 10);
             label1.Name = "label1";
-            label1.Size = new Size(421, 58);
+            label1.Size = new Size(569, 58);
             label1.TabIndex = 0;
             label1.Text = "Thêm công thức";
             label1.TextAlign = ContentAlignment.MiddleCenter;
@@ -75,7 +76,7 @@
             footer_panel.Location = new Point(10, 502);
             footer_panel.Name = "footer_panel";
             footer_panel.Padding = new Padding(10);
-            footer_panel.Size = new Size(421, 56);
+            footer_panel.Size = new Size(569, 56);
             footer_panel.TabIndex = 4;
             // 
             // huy_btn
@@ -90,7 +91,7 @@
             huy_btn.FlatStyle = FlatStyle.Flat;
             huy_btn.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             huy_btn.ForeColor = Color.White;
-            huy_btn.Location = new Point(205, 10);
+            huy_btn.Location = new Point(353, 10);
             huy_btn.Name = "huy_btn";
             huy_btn.Size = new Size(80, 36);
             huy_btn.TabIndex = 1;
@@ -110,7 +111,7 @@
             XacNhan_btn.FlatStyle = FlatStyle.Flat;
             XacNhan_btn.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             XacNhan_btn.ForeColor = Color.White;
-            XacNhan_btn.Location = new Point(285, 10);
+            XacNhan_btn.Location = new Point(433, 10);
             XacNhan_btn.Name = "XacNhan_btn";
             XacNhan_btn.Size = new Size(126, 36);
             XacNhan_btn.TabIndex = 0;
@@ -128,7 +129,7 @@
             panel1.Location = new Point(10, 68);
             panel1.Name = "panel1";
             panel1.Padding = new Padding(5);
-            panel1.Size = new Size(421, 434);
+            panel1.Size = new Size(569, 434);
             panel1.TabIndex = 5;
             // 
             // topping_opt_panel
@@ -141,7 +142,7 @@
             topping_opt_panel.Location = new Point(5, 116);
             topping_opt_panel.Name = "topping_opt_panel";
             topping_opt_panel.Padding = new Padding(10);
-            topping_opt_panel.Size = new Size(411, 313);
+            topping_opt_panel.Size = new Size(559, 313);
             topping_opt_panel.TabIndex = 5;
             // 
             // topping_table_panel
@@ -150,7 +151,7 @@
             topping_table_panel.Dock = DockStyle.Fill;
             topping_table_panel.Location = new Point(10, 49);
             topping_table_panel.Name = "topping_table_panel";
-            topping_table_panel.Size = new Size(391, 221);
+            topping_table_panel.Size = new Size(539, 221);
             topping_table_panel.TabIndex = 3;
             // 
             // txtSearch_NL
@@ -162,7 +163,7 @@
             txtSearch_NL.Multiline = true;
             txtSearch_NL.Name = "txtSearch_NL";
             txtSearch_NL.PlaceholderText = "----Tìm kiếm----";
-            txtSearch_NL.Size = new Size(391, 33);
+            txtSearch_NL.Size = new Size(539, 33);
             txtSearch_NL.TabIndex = 2;
             txtSearch_NL.TextAlign = HorizontalAlignment.Center;
             txtSearch_NL.KeyDown += txtSearch_NL_KeyDown;
@@ -174,17 +175,18 @@
             header_panel.Dock = DockStyle.Top;
             header_panel.Location = new Point(10, 10);
             header_panel.Name = "header_panel";
-            header_panel.Size = new Size(391, 39);
+            header_panel.Size = new Size(539, 39);
             header_panel.TabIndex = 0;
             // 
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
-            tableLayoutPanel1.ColumnCount = 3;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 32.05128F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 36.1538467F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 31.7948723F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+            tableLayoutPanel1.ColumnCount = 4;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 24.1635685F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 23.6059475F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 23.7918224F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 28.0922432F));
+            tableLayoutPanel1.Controls.Add(label3, 3, 0);
             tableLayoutPanel1.Controls.Add(label7, 2, 0);
             tableLayoutPanel1.Controls.Add(label5, 1, 0);
             tableLayoutPanel1.Controls.Add(label12, 0, 0);
@@ -193,8 +195,21 @@
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(391, 39);
+            tableLayoutPanel1.Size = new Size(539, 39);
             tableLayoutPanel1.TabIndex = 0;
+            // 
+            // label3
+            // 
+            label3.AccessibleRole = AccessibleRole.None;
+            label3.Dock = DockStyle.Fill;
+            label3.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = Color.DeepSkyBlue;
+            label3.Location = new Point(389, 1);
+            label3.Name = "label3";
+            label3.Size = new Size(146, 37);
+            label3.TabIndex = 4;
+            label3.Text = "Hành động";
+            label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label7
             // 
@@ -202,11 +217,11 @@
             label7.Dock = DockStyle.Fill;
             label7.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label7.ForeColor = Color.DeepSkyBlue;
-            label7.Location = new Point(269, 1);
+            label7.Location = new Point(261, 1);
             label7.Name = "label7";
-            label7.Size = new Size(118, 37);
+            label7.Size = new Size(121, 37);
             label7.TabIndex = 3;
-            label7.Text = "Hành động";
+            label7.Text = "Đơn vị";
             label7.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label5
@@ -214,9 +229,9 @@
             label5.Dock = DockStyle.Fill;
             label5.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = Color.DeepSkyBlue;
-            label5.Location = new Point(129, 1);
+            label5.Location = new Point(134, 1);
             label5.Name = "label5";
-            label5.Size = new Size(133, 37);
+            label5.Size = new Size(120, 37);
             label5.TabIndex = 1;
             label5.Text = "Số lượng";
             label5.TextAlign = ContentAlignment.MiddleCenter;
@@ -228,7 +243,7 @@
             label12.ForeColor = Color.DeepSkyBlue;
             label12.Location = new Point(4, 1);
             label12.Name = "label12";
-            label12.Size = new Size(118, 37);
+            label12.Size = new Size(123, 37);
             label12.TabIndex = 0;
             label12.Text = "Nguyên liệu";
             label12.TextAlign = ContentAlignment.MiddleCenter;
@@ -244,7 +259,7 @@
             txtTenCongThuc.Name = "txtTenCongThuc";
             txtTenCongThuc.Padding = new Padding(10, 5, 40, 5);
             txtTenCongThuc.Placeholder = "";
-            txtTenCongThuc.Size = new Size(411, 37);
+            txtTenCongThuc.Size = new Size(559, 37);
             txtTenCongThuc.TabIndex = 4;
             txtTenCongThuc.TextValue = "";
             // 
@@ -257,7 +272,7 @@
             label4.Location = new Point(5, 38);
             label4.Name = "label4";
             label4.Padding = new Padding(5);
-            label4.Size = new Size(411, 41);
+            label4.Size = new Size(559, 41);
             label4.TabIndex = 1;
             label4.Text = "Tên công thức";
             // 
@@ -268,7 +283,7 @@
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(5, 5);
             panel2.Name = "panel2";
-            panel2.Size = new Size(411, 33);
+            panel2.Size = new Size(559, 33);
             panel2.TabIndex = 0;
             // 
             // tenSP_lbl
@@ -300,7 +315,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(441, 568);
+            ClientSize = new Size(589, 568);
             Controls.Add(panel1);
             Controls.Add(footer_panel);
             Controls.Add(label1);
@@ -337,5 +352,6 @@
         private Label label12;
         private Controls.RoundedTextBox txtTenCongThuc;
         private Panel topping_table_panel;
+        private Label label3;
     }
 }

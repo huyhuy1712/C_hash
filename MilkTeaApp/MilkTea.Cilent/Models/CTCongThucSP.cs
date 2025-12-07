@@ -9,5 +9,7 @@
         public int SoLuongCanDung { get; set; }
         public int SoLuongTonKho { get; set; }
         public decimal GiaBan { get; set; }
+        public string DonViTinh { get; set; }
+
     }
 }
