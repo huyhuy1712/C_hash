@@ -28,9 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             panel1 = new Panel();
             label1 = new Label();
             panel2 = new Panel();
+            panel13 = new Panel();
+            panel14 = new Panel();
+            textBox4 = new MilkTea.Client.Controls.RoundedComboBox();
+            panel15 = new Panel();
+            label5 = new Label();
             panel12 = new Panel();
             btnThoat = new MilkTea.Client.Controls.RoundedButton();
             btnXacNhan = new MilkTea.Client.Controls.RoundedButton();
@@ -49,13 +55,12 @@
             textBox1 = new TextBox();
             panel6 = new Panel();
             label2 = new Label();
-            panel13 = new Panel();
-            panel14 = new Panel();
-            textBox4 = new TextBox();
-            panel15 = new Panel();
-            label5 = new Label();
+            donViTinhBindingSource = new BindingSource(components);
             panel1.SuspendLayout();
             panel2.SuspendLayout();
+            panel13.SuspendLayout();
+            panel14.SuspendLayout();
+            panel15.SuspendLayout();
             panel12.SuspendLayout();
             panel5.SuspendLayout();
             panel11.SuspendLayout();
@@ -66,9 +71,7 @@
             panel3.SuspendLayout();
             panel9.SuspendLayout();
             panel6.SuspendLayout();
-            panel13.SuspendLayout();
-            panel14.SuspendLayout();
-            panel15.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)donViTinhBindingSource).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -104,6 +107,68 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(800, 350);
             panel2.TabIndex = 1;
+            // 
+            // panel13
+            // 
+            panel13.Controls.Add(panel14);
+            panel13.Controls.Add(panel15);
+            panel13.Dock = DockStyle.Top;
+            panel13.Location = new Point(0, 203);
+            panel13.Name = "panel13";
+            panel13.Size = new Size(800, 66);
+            panel13.TabIndex = 4;
+            // 
+            // panel14
+            // 
+            panel14.Controls.Add(textBox4);
+            panel14.Dock = DockStyle.Fill;
+            panel14.Location = new Point(157, 0);
+            panel14.Name = "panel14";
+            panel14.Size = new Size(643, 66);
+            panel14.TabIndex = 2;
+            // 
+            // textBox4
+            // 
+            textBox4.BackColor = Color.White;
+            textBox4.BorderColor = Color.Gray;
+            textBox4.BorderRadius = 15;
+            textBox4.BorderSize = 1;
+            textBox4.DataSource = donViTinhBindingSource;
+            textBox4.DisplayMember = "TenDVT";
+            textBox4.DrawMode = DrawMode.OwnerDrawFixed;
+            textBox4.DropDownStyle = ComboBoxStyle.DropDownList;
+            textBox4.FlatStyle = FlatStyle.Flat;
+            textBox4.FocusBorderColor = Color.DeepSkyBlue;
+            textBox4.Font = new Font("Segoe UI", 10F);
+            textBox4.FormattingEnabled = true;
+            textBox4.ItemHeight = 30;
+            textBox4.Location = new Point(-3, 15);
+            textBox4.Margin = new Padding(3, 2, 3, 2);
+            textBox4.Name = "textBox4";
+            textBox4.RightToLeft = RightToLeft.No;
+            textBox4.Size = new Size(646, 36);
+          
+            textBox4.TabIndex = 5;
+            // 
+            // panel15
+            // 
+            panel15.Controls.Add(label5);
+            panel15.Dock = DockStyle.Left;
+            panel15.Location = new Point(0, 0);
+            panel15.Name = "panel15";
+            panel15.Size = new Size(157, 66);
+            panel15.TabIndex = 1;
+            // 
+            // label5
+            // 
+            label5.Dock = DockStyle.Fill;
+            label5.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.Location = new Point(0, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(157, 66);
+            label5.TabIndex = 1;
+            label5.Text = "Đơn vị";
+            label5.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // panel12
             // 
@@ -298,52 +363,9 @@
             label2.Text = "Tên nguyên liệu";
             label2.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // panel13
+            // donViTinhBindingSource
             // 
-            panel13.Controls.Add(panel14);
-            panel13.Controls.Add(panel15);
-            panel13.Dock = DockStyle.Top;
-            panel13.Location = new Point(0, 203);
-            panel13.Name = "panel13";
-            panel13.Size = new Size(800, 66);
-            panel13.TabIndex = 4;
-            // 
-            // panel14
-            // 
-            panel14.Controls.Add(textBox4);
-            panel14.Dock = DockStyle.Fill;
-            panel14.Location = new Point(157, 0);
-            panel14.Name = "panel14";
-            panel14.Size = new Size(643, 66);
-            panel14.TabIndex = 2;
-            // 
-            // textBox4
-            // 
-            textBox4.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBox4.Location = new Point(0, 17);
-            textBox4.Name = "textBox4";
-            textBox4.Size = new Size(643, 33);
-            textBox4.TabIndex = 1;
-            // 
-            // panel15
-            // 
-            panel15.Controls.Add(label5);
-            panel15.Dock = DockStyle.Left;
-            panel15.Location = new Point(0, 0);
-            panel15.Name = "panel15";
-            panel15.Size = new Size(157, 66);
-            panel15.TabIndex = 1;
-            // 
-            // label5
-            // 
-            label5.Dock = DockStyle.Fill;
-            label5.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(0, 0);
-            label5.Name = "label5";
-            label5.Size = new Size(157, 66);
-            label5.TabIndex = 1;
-            label5.Text = "Đơn vị";
-            label5.TextAlign = ContentAlignment.MiddleLeft;
+            donViTinhBindingSource.DataSource = typeof(Models.DonViTinh);
             // 
             // AddIngredientForm
             // 
@@ -356,6 +378,9 @@
             Text = "AddIngredientForm";
             panel1.ResumeLayout(false);
             panel2.ResumeLayout(false);
+            panel13.ResumeLayout(false);
+            panel14.ResumeLayout(false);
+            panel15.ResumeLayout(false);
             panel12.ResumeLayout(false);
             panel12.PerformLayout();
             panel5.ResumeLayout(false);
@@ -370,10 +395,7 @@
             panel9.ResumeLayout(false);
             panel9.PerformLayout();
             panel6.ResumeLayout(false);
-            panel13.ResumeLayout(false);
-            panel14.ResumeLayout(false);
-            panel14.PerformLayout();
-            panel15.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)donViTinhBindingSource).EndInit();
             ResumeLayout(false);
         }
 
@@ -402,8 +424,9 @@
         private Controls.RoundedButton btnXacNhan;
         private Panel panel13;
         private Panel panel14;
-        private TextBox textBox4;
         private Panel panel15;
         private Label label5;
+        private Controls.RoundedComboBox textBox4;
+        private BindingSource donViTinhBindingSource;
     }
 }
