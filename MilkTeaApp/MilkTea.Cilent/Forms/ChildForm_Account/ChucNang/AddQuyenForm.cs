@@ -43,5 +43,32 @@ namespace MilkTea.Client.Forms.ChildForm_Account
         {
             _addQuyenPresenter.SearchChucNangTheoTen("chucNang", txtbSearch.Text.Trim());
         }
+
+        private void dataGridView1_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (dataGridView1.Columns[e.ColumnIndex].Name == "chkChucNang")
+            {
+                bool allChecked = true;
+
+                foreach (DataGridViewRow row in dataGridView1.Rows)
+                {
+                    var v = row.Cells["chkChucNang"].Value;
+                    bool isChecked = v != null && (v.ToString() == "1" || v.ToString().ToLower() == "true");
+
+                    if (!isChecked)
+                    {
+                        allChecked = false;
+                        break;
+                    }
+                }
+
+                bool newValue = !allChecked;
+
+                foreach (DataGridViewRow row in dataGridView1.Rows)
+                {
+                    row.Cells["chkChucNang"].Value = newValue ? 1 : 0;
+                }
+            }
+        }
     }
 }

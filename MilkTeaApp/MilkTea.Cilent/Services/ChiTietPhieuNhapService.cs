@@ -36,5 +36,9 @@ namespace MilkTea.Client.Services
             }
         }
 
+        public async Task DeleteByMaPNAsync(int maPN)
+        {
+            await _http.DeleteAsync($"/api/chitietphieunhap/delete-by-mapn/{maPN}");
+        }
     }
 }

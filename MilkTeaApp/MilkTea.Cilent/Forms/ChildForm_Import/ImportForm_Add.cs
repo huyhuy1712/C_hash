@@ -83,10 +83,11 @@ public partial class ImportForm_Add : Form
 
         // Load đơn vị tính
         _donViTinhs = await _donViTinhService.GetAllAsync();
-        cbo_donvitinh_add.DataSource = _donViTinhs;
-        cbo_donvitinh_add.DisplayMember = "TenDVT";
-        cbo_donvitinh_add.ValueMember = "MaDVT";
-    }
+        cbo_donvitinh_PN_ADD.DataSource = _donViTinhs;
+        cbo_donvitinh_PN_ADD.DisplayMember = "TenDVT";
+        cbo_donvitinh_PN_ADD.ValueMember = "MaDVT";
+        cbo_donvitinh_PN_ADD.SelectedIndex = 0;
+        }
 
     private void btn_Them_PN_ADD_Click(object sender, EventArgs e)
     {
@@ -102,7 +103,7 @@ public partial class ImportForm_Add : Form
             int soLuongMoi = (int)nb_soLuong_PN_ADD.Value;
             decimal donGiaNhap = nb_dongia_PN_ADD.Value;
             int maNL = selectedNL.MaNL;
-            string donViTinh = cbo_donvitinh_add.Text;
+            string donViTinh = cbo_donvitinh_PN_ADD.Text;
 
             var existingItem = _tempChiTiets.FirstOrDefault(t => t.MaNL == maNL);
 
@@ -135,23 +136,9 @@ public partial class ImportForm_Add : Form
         }
     }
 
-    private void btn_Xoa_PN_ADD_Click(object sender, EventArgs e)
-    {
-        if (dGV_HangHoa_PN_ADD.SelectedRows.Count > 0)
-        {
-            int selectedIndex = dGV_HangHoa_PN_ADD.SelectedRows[0].Index;
-            _tempChiTiets.RemoveAt(selectedIndex);
-            RefreshGrid();
-        }
-        else
-        {
-            MessageBox.Show("Vui lòng chọn dòng cần xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        }
-    }
-
     private async void btn_Luu_Iport_add_Click(object sender, EventArgs e)
     {
-        string donViTinh = cbo_donvitinh_add.Text;
+        string donViTinh = cbo_donvitinh_PN_ADD.Text;
         if (_tempChiTiets.Count == 0)
         {
             MessageBox.Show("Không có chi tiết nào để lưu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -164,7 +151,7 @@ public partial class ImportForm_Add : Form
             {
                 NgayNhap = DateTime.Parse(dt_iPort_ngaylap.Text),
                 SoLuong = _tempChiTiets.Sum(t => t.SoLuong),
-                TrangThai = 1,
+                TrangThai = 2,
                 MaNCC = (int?)cbo_NhaCungCap_PN_ADD.SelectedValue,
                 MaNV = nv.MaNV,
                 DonViTinh = donViTinh,
@@ -172,8 +159,6 @@ public partial class ImportForm_Add : Form
             };
 
             int newMaPN = await _phieuNhapService.AddPhieuNhapAsync(pn);
-
-            // Tạo object đầy đủ để trả về
             var fullPhieuNhap = new PhieuNhap
             {
                 MaPN = newMaPN,
@@ -199,8 +184,6 @@ public partial class ImportForm_Add : Form
                     DonViTinh = temp.DonVi
                 };
                 await _chiTietPhieuNhapService.AddChiTietPhieuNhapAsync(ct);
-                await _nguyenLieuService.CongNguyenLieuAsync(temp.MaNL, temp.SoLuong);
-                await _nguyenLieuService.CapNhatGiaBanMoiNhatAsync(temp.MaNL, temp.DonGiaNhap);
             }
 
             ResultPhieuNhap = fullPhieuNhap;
