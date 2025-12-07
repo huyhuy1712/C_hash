@@ -67,14 +67,31 @@ namespace MilkTea.Client.Forms
             }
 
             //Kiểm tra quyền để hiển thị button
-            btnOrder.Enabled = Session.HasPermission("Vào đặt hàng");
-            btnHoaDon.Enabled = Session.HasPermission("Vào hóa đơn");
-            btnThongKe.Enabled = Session.HasPermission("Vào thống kê");
-            btnKhuyenMai.Enabled = Session.HasPermission("Vào khuyến mãi");
-            btnPhieuNhap.Enabled = Session.HasPermission("Vào nhập hàng");
-            btnTaiKhoan.Enabled  = Session.HasPermission("Vào tài khoản");
-            btnNhaCungCap.Enabled = Session.HasPermission("Vào nhà cung cấp");
-            btnNguyenLieu.Enabled = Session.HasPermission("Vào nguyên liệu");
+            btnOrder.Visible = Session.HasPermission("Vào đặt hàng");
+            btnHoaDon.Visible = Session.HasPermission("Vào hóa đơn");
+            btnThongKe.Visible = Session.HasPermission("Vào thống kê");
+            btnKhuyenMai.Visible = Session.HasPermission("Vào khuyến mãi");
+            btnPhieuNhap.Visible = Session.HasPermission("Vào nhập hàng");
+            btnTaiKhoan.Visible  = Session.HasPermission("Vào tài khoản");
+            btnNhaCungCap.Visible = Session.HasPermission("Vào nhà cung cấp");
+            btnNguyenLieu.Visible = Session.HasPermission("Vào nguyên liệu");
+
+            Reorder1Column(layoutMenu);
+        }
+
+        private void Reorder1Column(TableLayoutPanel panel)
+        {
+            int rowIndex = 0;
+
+            panel.SuspendLayout();
+
+            foreach (Control ctrl in panel.Controls.Cast<Control>().Where(c => c.Visible))
+            {
+                panel.SetRow(ctrl, rowIndex);
+                rowIndex++;
+            }
+
+            panel.ResumeLayout();
         }
 
 
