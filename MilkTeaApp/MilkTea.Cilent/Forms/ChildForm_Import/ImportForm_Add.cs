@@ -135,20 +135,6 @@ public partial class ImportForm_Add : Form
         }
     }
 
-    private void btn_Xoa_PN_ADD_Click(object sender, EventArgs e)
-    {
-        if (dGV_HangHoa_PN_ADD.SelectedRows.Count > 0)
-        {
-            int selectedIndex = dGV_HangHoa_PN_ADD.SelectedRows[0].Index;
-            _tempChiTiets.RemoveAt(selectedIndex);
-            RefreshGrid();
-        }
-        else
-        {
-            MessageBox.Show("Vui lòng chọn dòng cần xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        }
-    }
-
     private async void btn_Luu_Iport_add_Click(object sender, EventArgs e)
     {
         string donViTinh = cbo_donvitinh_add.Text;
@@ -164,7 +150,7 @@ public partial class ImportForm_Add : Form
             {
                 NgayNhap = DateTime.Parse(dt_iPort_ngaylap.Text),
                 SoLuong = _tempChiTiets.Sum(t => t.SoLuong),
-                TrangThai = 1,
+                TrangThai = 2,
                 MaNCC = (int?)cbo_NhaCungCap_PN_ADD.SelectedValue,
                 MaNV = nv.MaNV,
                 DonViTinh = donViTinh,
@@ -172,8 +158,6 @@ public partial class ImportForm_Add : Form
             };
 
             int newMaPN = await _phieuNhapService.AddPhieuNhapAsync(pn);
-
-            // Tạo object đầy đủ để trả về
             var fullPhieuNhap = new PhieuNhap
             {
                 MaPN = newMaPN,
@@ -199,8 +183,6 @@ public partial class ImportForm_Add : Form
                     DonViTinh = temp.DonVi
                 };
                 await _chiTietPhieuNhapService.AddChiTietPhieuNhapAsync(ct);
-                await _nguyenLieuService.CongNguyenLieuAsync(temp.MaNL, temp.SoLuong);
-                await _nguyenLieuService.CapNhatGiaBanMoiNhatAsync(temp.MaNL, temp.DonGiaNhap);
             }
 
             ResultPhieuNhap = fullPhieuNhap;
