@@ -249,8 +249,8 @@ namespace MilkTea.Client.Controls
                         MaSize = maSize,
                         TongChiPhi = tongChiPhi,
                         TongDoanhThu = tongGia,
+                        MaDH = donHang.MaDH
                     };
-
                     await doanhThuService.ThemDoanhThuAsync(doanhThu);
 
                 }

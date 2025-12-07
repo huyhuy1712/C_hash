@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MilkTea.Client.Forms.ChildForm_Ingredient;
+using System.Reflection;
 
 namespace MilkTea.Client.Forms
 {
@@ -15,12 +16,16 @@ namespace MilkTea.Client.Forms
     {
         private List<NguyenLieu> _allIngredients = new List<NguyenLieu>();
         private NguyenLieuService _nguyenLieuService;
+        private DonViTinhService _donViService;
+        // map MaDVT -> TenDVT
+        private Dictionary<int, string> _donViMap = new Dictionary<int, string>();
 
         public IngredientForm()
         {
             InitializeComponent();
             this.Load += IngredientForm_Load;
             _nguyenLieuService = new NguyenLieuService();
+            _donViService = new DonViTinhService();
         }
 
         private async void IngredientForm_Load(object sender, EventArgs e)
@@ -37,29 +42,63 @@ namespace MilkTea.Client.Forms
         {
             try
             {
-                var ingredients = await _nguyenLieuService.GetNguyenLieusAsync() ?? new List<NguyenLieu>();
+                // show a simple loading row so user sees activity
+                dGV_ingredients.Rows.Clear();
+                int loadingRow = dGV_ingredients.Rows.Add();
+                if (dGV_ingredients.Columns.Contains("tenNL_col"))
+                    dGV_ingredients.Rows[loadingRow].Cells["tenNL_col"].Value = "Đang tải...";
+                dGV_ingredients.Rows[loadingRow].DefaultCellStyle.ForeColor = Color.Gray;
+                dGV_ingredients.Refresh();
 
-                var activeIngredients = (
-                    from nl in ingredients
-                    where nl.TrangThai == 1
-                    orderby nl.Ten, nl.MaNL
-                    select nl
-                ).ToList();
-
-                if (activeIngredients == null || activeIngredients.Count == 0)
+                // fetch units first and build map (robust with reflection to avoid tight coupling)
+                try
                 {
-                    MessageBox.Show("Không có dữ liệu nguyên liệu để hiển thị.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    _allIngredients = new List<NguyenLieu>();
-                    DisplayIngredients(_allIngredients);
-                    return;
+                    var units = await _donViService.GetAllAsync();
+                    var map = new Dictionary<int, string>();
+                    foreach (var u in units)
+                    {
+                        if (u == null) continue;
+                        var tu = u.GetType();
+                        // case-insensitive lookup for common property names
+                        var keyProp = tu.GetProperty("MaDVT", BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase)
+                                      ?? tu.GetProperty("Id", BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase)
+                                      ?? tu.GetProperty("Ma", BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
+                        var nameProp = tu.GetProperty("TenDVT", BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase)
+                                       ?? tu.GetProperty("Ten", BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase)
+                                       ?? tu.GetProperty("Name", BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
+                        if (keyProp == null || nameProp == null) continue;
+                        var keyObj = keyProp.GetValue(u);
+                        var nameObj = nameProp.GetValue(u);
+                        if (keyObj != null && int.TryParse(keyObj.ToString(), out int key))
+                        {
+                            map[key] = nameObj?.ToString() ?? string.Empty;
+                        }
+                    }
+                    _donViMap = map;
+                }
+                catch
+                {
+                    // ignore unit lookup errors, fallback to existing nl.DonVi
+                    _donViMap = new Dictionary<int, string>();
                 }
 
-                _allIngredients = activeIngredients;
+                // fetch raw data
+                var ingredients = await _nguyenLieuService.GetNguyenLieusAsync() ?? new List<NguyenLieu>();
+
+                // keep original list (even if empty) so search/filter works consistently
+                _allIngredients = ingredients.Where(nl => nl != null && nl.TrangThai == 1)
+                                             .OrderBy(nl => nl.Ten ?? string.Empty)
+                                             .ThenBy(nl => nl.MaNL)
+                                             .ToList();
+
+                // display (DisplayIngredients handles empty list UI)
                 DisplayIngredients(_allIngredients);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi tải dữ liệu nguyên liệu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                _allIngredients = new List<NguyenLieu>();
+                DisplayIngredients(_allIngredients);
             }
         }
 
@@ -69,7 +108,8 @@ namespace MilkTea.Client.Forms
             if (ingredients == null || ingredients.Count == 0)
             {
                 int rowIndex = dGV_ingredients.Rows.Add();
-                dGV_ingredients.Rows[rowIndex].Cells["tenNL_col"].Value = "Không có nguyên liệu nào phù hợp.";
+                if (dGV_ingredients.Columns.Contains("tenNL_col"))
+                    dGV_ingredients.Rows[rowIndex].Cells["tenNL_col"].Value = "Không có nguyên liệu nào phù hợp.";
                 dGV_ingredients.Rows[rowIndex].DefaultCellStyle.ForeColor = Color.Gray;
                 dGV_ingredients.Rows[rowIndex].DefaultCellStyle.Font = new Font(dGV_ingredients.DefaultCellStyle.Font, FontStyle.Italic);
                 return;
@@ -78,10 +118,64 @@ namespace MilkTea.Client.Forms
             foreach (var nl in ingredients)
             {
                 int rowIndex = dGV_ingredients.Rows.Add();
-                dGV_ingredients.Rows[rowIndex].Cells["maNL_col"].Value = nl.MaNL;
-                dGV_ingredients.Rows[rowIndex].Cells["tenNL_col"].Value = nl.Ten;
-                dGV_ingredients.Rows[rowIndex].Cells["soLuong_col"].Value = $"{nl.SoLuong} (đơn vị)";
-                dGV_ingredients.Rows[rowIndex].Cells["giaBan_col"].Value = $"{nl.GiaBan:N0} VNĐ";
+
+                if (dGV_ingredients.Columns.Contains("maNL_col"))
+                    dGV_ingredients.Rows[rowIndex].Cells["maNL_col"].Value = nl.MaNL;
+
+                if (dGV_ingredients.Columns.Contains("tenNL_col"))
+                    dGV_ingredients.Rows[rowIndex].Cells["tenNL_col"].Value = nl.Ten ?? string.Empty;
+
+                if (dGV_ingredients.Columns.Contains("soLuong_col"))
+                    dGV_ingredients.Rows[rowIndex].Cells["soLuong_col"].Value = nl.SoLuong;
+
+                // Determine displayed unit:
+                string displayedDonVi = string.Empty;
+
+                // 1) try to read maDVT property (case-insensitive) from model
+                var t = nl.GetType();
+                var maDvtProp = t.GetProperty("maDVT", BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase)
+                               ?? t.GetProperty("MaDVT", BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase)
+                               ?? t.GetProperty("MaDonVi", BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
+                if (maDvtProp != null)
+                {
+                    var maObj = maDvtProp.GetValue(nl);
+                    if (maObj != null && int.TryParse(maObj.ToString(), out int maDvt) && maDvt > 0)
+                    {
+                        if (_donViMap != null && _donViMap.TryGetValue(maDvt, out var tenDvt) && !string.IsNullOrWhiteSpace(tenDvt))
+                        {
+                            displayedDonVi = tenDvt;
+                        }
+                        else
+                        {
+                            // fallback to showing numeric id when no name found
+                            displayedDonVi = maDvt.ToString();
+                        }
+                    }
+                }
+
+                // 2) fallback to existing string DonVi property if no MaDVT or lookup failed
+                if (string.IsNullOrWhiteSpace(displayedDonVi))
+                {
+                    var donViProp = t.GetProperty("DonVi", BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase)
+                                   ?? t.GetProperty("DonViTinh", BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase)
+                                   ?? t.GetProperty("Unit", BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
+                    if (donViProp != null)
+                    {
+                        displayedDonVi = donViProp.GetValue(nl)?.ToString() ?? string.Empty;
+                    }
+                    else
+                    {
+                        displayedDonVi = string.Empty;
+                    }
+                }
+
+                if (dGV_ingredients.Columns.Contains("donVi_col"))
+                    dGV_ingredients.Rows[rowIndex].Cells["donVi_col"].Value = displayedDonVi;
+
+                // store raw decimal value and let CellFormatting format it
+                if (dGV_ingredients.Columns.Contains("giaBan_col"))
+                    dGV_ingredients.Rows[rowIndex].Cells["giaBan_col"].Value = nl.GiaBan;
+
                 dGV_ingredients.Rows[rowIndex].Tag = nl.MaNL;
             }
             dGV_ingredients.Refresh();
@@ -89,7 +183,7 @@ namespace MilkTea.Client.Forms
 
         private void dGV_ingredients_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (e.ColumnIndex == dGV_ingredients.Columns["giaBan_col"].Index && e.Value != null)
+            if (dGV_ingredients.Columns.Contains("giaBan_col") && e.ColumnIndex == dGV_ingredients.Columns["giaBan_col"].Index && e.Value != null)
             {
                 if (decimal.TryParse(e.Value.ToString(), out decimal giaBan))
                 {

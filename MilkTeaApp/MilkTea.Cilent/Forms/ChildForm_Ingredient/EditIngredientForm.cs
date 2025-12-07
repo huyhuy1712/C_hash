@@ -9,30 +9,41 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
+using System.Text.RegularExpressions;
+using System.Collections.Generic;
 
 namespace MilkTea.Client.Forms.ChildForm_Ingredient
 {
     public partial class EditIngredientForm : Form
     {
         private NguyenLieuService _nguyenLieuService;
+        private DonViTinhService _donViTinhService;
         private int _maNL;
+
+        // keep loaded units to map selected index / name -> MaDVT
+        private List<DonViTinh> _donViList = new List<DonViTinh>();
 
         public EditIngredientForm(int maNL)
         {
             InitializeComponent();
             _maNL = maNL;
             _nguyenLieuService = new NguyenLieuService();
+            _donViTinhService = new DonViTinhService();
             this.Load += EditIngredientForm_Load;
             btnXacNhan.Click += btnXacNhan_Click;
             btnThoat.Click += btnThoat_Click;
             textBox2.KeyPress += textBox2_KeyPress;
             textBox3.KeyPress += textBox3_KeyPress;
 
-            // Khóa ô số lượng và không cho tab vào
+            // Khóa ô số lượng và không cho tab vào (mặc định giống Add)
             textBox2.ReadOnly = true;
             textBox2.TabStop = false;
-            // Giá trị mặc định tạm thời (sẽ được ghi đè khi load dữ liệu thật)
-            textBox2.Text = "1";
+            textBox2.Text = "0";
+
+            // Khóa giá bán và đặt mặc định = 0 (giống Add)
+            textBox3.ReadOnly = true;
+            textBox3.TabStop = false;
+            textBox3.Text = "0";
         }
 
         private async void EditIngredientForm_Load(object sender, EventArgs e)
@@ -51,10 +62,55 @@ namespace MilkTea.Client.Forms.ChildForm_Ingredient
                     this.Close();
                     return;
                 }
+
+                // Load units into combo (allow typing + suggestions)
+                try
+                {
+                    var units = await _donViTinhService.GetAllAsync() ?? new List<DonViTinh>();
+                    _donViList = units;
+
+                    // Clear any previous bindings/items and add display strings so control shows names
+                    textBox4.DataSource = null;
+                    textBox4.Items.Clear();
+                    foreach (var u in units)
+                    {
+                        textBox4.Items.Add(u?.TenDVT ?? string.Empty);
+                    }
+
+                    textBox4.DropDownStyle = ComboBoxStyle.DropDown;
+                    textBox4.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+                    textBox4.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+                    var ac = new AutoCompleteStringCollection();
+                    ac.AddRange(units.Where(u => !string.IsNullOrWhiteSpace(u.TenDVT))
+                                    .Select(u => u.TenDVT.Trim())
+                                    .Distinct(StringComparer.OrdinalIgnoreCase)
+                                    .ToArray());
+                    textBox4.AutoCompleteCustomSource = ac;
+                }
+                catch
+                {
+                    _donViList = new List<DonViTinh>();
+                }
+
                 textBox1.Text = nl.Ten ?? "";
-                // Nếu dữ liệu tồn kho hợp lệ (>0) thì hiển thị, nếu không thì mặc định 1
-                textBox2.Text = nl.SoLuong > 0 ? nl.SoLuong.ToString() : "1";
+
+                // Hiển thị số lượng nếu có, ngược lại giữ mặc định 0
+                textBox2.Text = nl.SoLuong >= 0 ? nl.SoLuong.ToString() : "0";
+
+                // Hiển thị giá bán; nếu null/0 thì giữ "0.00"
                 textBox3.Text = nl.GiaBan.ToString("N2", CultureInfo.CurrentCulture);
+
+                // Hiển thị tên đơn vị nếu có; nếu không có tên thì hiển thị mã đơn vị
+                try
+                {
+                    var dvt = await _donViTinhService.GetByIdAsync(nl.maDVT);
+                    textBox4.Text = dvt?.TenDVT ?? (nl.maDVT > 0 ? nl.maDVT.ToString() : string.Empty);
+                }
+                catch
+                {
+                    textBox4.Text = nl.maDVT > 0 ? nl.maDVT.ToString() : string.Empty;
+                }
             }
             catch (Exception ex)
             {
@@ -84,26 +140,77 @@ namespace MilkTea.Client.Forms.ChildForm_Ingredient
                     return;
                 }
 
-                // Lấy số lượng từ ô (đã bị khóa, nhưng vẫn đảm bảo parse được)
-                if (!int.TryParse(textBox2.Text, out int soLuong) || soLuong <= 0)
+                // Lấy số lượng từ ô (đã bị khóa, vẫn parse được). Nếu không hợp lệ -> 0
+                if (!int.TryParse(textBox2.Text, out int soLuong) || soLuong < 0)
                 {
-                    // Trong trường hợp bất thường (không parse được), dùng mặc định 1
-                    soLuong = 1;
+                    soLuong = 0;
                 }
 
-                if (!decimal.TryParse(textBox3.Text, NumberStyles.Any, CultureInfo.CurrentCulture, out decimal giaBan) || giaBan <= 0)
+                // Giá bán là ô khoá — chấp nhận số >= 0
+                if (!decimal.TryParse(textBox3.Text, NumberStyles.Any, CultureInfo.CurrentCulture, out decimal giaBan) || giaBan < 0)
                 {
-                    MessageBox.Show("Giá bán phải là số dương hợp lệ (ví dụ: 1000 hoặc 1000,50).", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Giá bán phải là số không âm hợp lệ.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     textBox3.Focus();
                     textBox3.SelectAll();
                     return;
                 }
+
+                // Đơn vị từ textBox4 (Designer)
+                string donVi = textBox4.Text?.Trim() ?? "";
+
+                // Validate DonVi với regex (Unicode letters, digits, spaces and - / ( ) . , ; length 1..20)
+                const string DonViPattern = @"^[\p{L}0-9\s\-/().,]{1,20}$";
+                if (string.IsNullOrEmpty(donVi) || !Regex.IsMatch(donVi, DonViPattern, RegexOptions.Compiled | RegexOptions.CultureInvariant))
+                {
+                    MessageBox.Show("Đơn vị không hợp lệ. Chỉ cho phép chữ, số, khoảng trắng và ký tự - / ( ) . , (1-20 ký tự).", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    textBox4.Focus();
+                    return;
+                }
+
+                // Ensure unit exists in donvitinh table and get maDVT
+                int maDVT = 0;
+                try
+                {
+                    // 1) If user selected an existing item (SelectedIndex >= 0) map to loaded list
+                    if (textBox4.SelectedIndex >= 0 && textBox4.SelectedIndex < _donViList.Count)
+                    {
+                        maDVT = _donViList[textBox4.SelectedIndex].MaDVT;
+                    }
+                    else
+                    {
+                        // 2) Try find by name
+                        var allDvt = await _donViTinhService.GetAllAsync();
+                        var found = allDvt.FirstOrDefault(d => string.Equals(d.TenDVT?.Trim(), donVi, StringComparison.OrdinalIgnoreCase));
+                        if (found != null)
+                        {
+                            maDVT = found.MaDVT;
+                        }
+                        else
+                        {
+                            // 3) Create new DonViTinh
+                            var created = await _donViTinhService.AddAsync(new DonViTinh { TenDVT = donVi });
+                            if (created == null)
+                            {
+                                MessageBox.Show("Không thể tạo đơn vị tính. Vui lòng thử lại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                            maDVT = created.MaDVT;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi xử lý đơn vị tính: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 var nl = new NguyenLieu
                 {
                     MaNL = _maNL,
                     Ten = tenNL,
                     SoLuong = soLuong,
                     GiaBan = giaBan,
+                    maDVT = maDVT,
                     TrangThai = 1
                 };
 

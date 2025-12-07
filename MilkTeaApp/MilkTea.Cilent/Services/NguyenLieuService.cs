@@ -123,6 +123,44 @@ namespace MilkTea.Client.Services
             }
         }
 
+        public async Task<NguyenLieu?> GetByIdAsyncS(int maNL)
+        {
+            return await _http.GetFromJsonAsync<NguyenLieu>($"/api/nguyenlieu/search/byid?maNL={maNL}");
+        }
+
+        public async Task<bool> CapNhatGiaBanMoiNhatAsync(int maNL, decimal giaNhapMoi)
+        {
+            try
+            {
+                var nl = await GetByIdAsyncS(maNL);
+                if (nl == null)
+                {
+                    Console.WriteLine($"Không tìm thấy nguyên liệu MaNL = {maNL}");
+                    return false;
+                }
+
+                nl.GiaBan = giaNhapMoi;
+
+                var response = await _http.PutAsJsonAsync($"/api/nguyenlieu/{maNL}", nl);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    Console.WriteLine($"Cập nhật GiaBan thành công cho MaNL = {maNL}: {giaNhapMoi}");
+                    return true;
+                }
+                else
+                {
+                    var error = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Cập nhật GiaBan thất bại: {response.StatusCode} - {error}");
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi cập nhật GiaBan: {ex.Message}");
+                return false;
+            }
+        }
 
     }
 }

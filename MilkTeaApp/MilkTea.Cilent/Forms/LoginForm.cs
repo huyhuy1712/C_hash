@@ -20,6 +20,7 @@ namespace MilkTea.Client.Forms
     {
         private readonly AccountService _taiKhoanService;
         private readonly ChucNangService _chucNangService;
+        private readonly QuyenService _quyenService = new();
         public LoginForm()
         {
             InitializeComponent();
@@ -94,5 +95,106 @@ namespace MilkTea.Client.Forms
             return account; // Nếu không tìm thấy thì trả về null
         }
 
+        private async void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
+        {
+            contextMenuStrip1.Items.Clear();
+
+            var accounts = await _taiKhoanService.GetAccountsAsync();
+
+            if (accounts == null || accounts.Count == 0)
+            {
+                return;
+            }
+
+            // Group accounts by role id (MaQuyen)
+            var groups = accounts
+                .GroupBy(a => a.MaQuyen)
+                .OrderBy(g => g.Key);
+
+            foreach (var grp in groups)
+            {
+                // Make local copies for lambdas
+                int maQuyen = grp.Key;
+                var accountsInGroup = grp.ToList();
+
+                // Default role text
+                string roleText = $"Quyền {maQuyen}";
+
+                // Try to fetch descriptive names from chuc nang service (best-effort)
+                try
+                {
+                    // Try to get descriptive role name from QuyenService first
+                    var quyen = await _quyenService.GetQuyenByIdAsync(maQuyen);
+                    if (quyen != null && !string.IsNullOrWhiteSpace(quyen.TenQuyen))
+                    {
+                        roleText = quyen.TenQuyen;
+                    }
+                    else
+                    {
+                        // Fallback: join distinct TenChucNang values to show as the role label
+                        var chucNangs = await _chucNangService.GetChucNangsByMaQuyenAsync(maQuyen);
+                        if (chucNangs != null && chucNangs.Count > 0)
+                        {
+                            var names = chucNangs
+                                .Select(cn => cn.TenChucNang)
+                                .Where(n => !string.IsNullOrWhiteSpace(n))
+                                .Distinct()
+                                .ToList();
+
+                            if (names.Count > 0)
+                            {
+                                roleText = string.Join(", ", names);
+                            }
+                        }
+                    }
+                }
+                catch
+                {
+                    // Ignore errors fetching metadata; keep default label
+                }
+
+                var roleItem = new ToolStripMenuItem(roleText);
+
+                // Populate account list for this role when the mouse enters the role item
+                roleItem.MouseEnter += async (s, ev) =>
+                {
+                    try
+                    {
+                        // If already populated, skip
+                        if (roleItem.DropDownItems.Count > 0)
+                            return;
+
+                        roleItem.DropDownItems.Clear();
+
+                        foreach (var acc in accountsInGroup)
+                        {
+                            var accCopy = acc; // local copy for closure safety
+                            var accItem = new ToolStripMenuItem(accCopy.TenTaiKhoan);
+                            accItem.Click += (s2, ev2) =>
+                            {
+                                // Fill username and password fields
+                                try
+                                {
+                                    roundedTextBox_TenTK.TextValue = accCopy.TenTaiKhoan;
+                                    roundedTextBox_Password.TextValue = accCopy.MatKhau;
+                                    roundedTextBox_Password.Focus();
+                                }
+                                catch
+                                {
+                                    // Swallow UI errors silently
+                                }
+                            };
+                            roleItem.DropDownItems.Add(accItem);
+                        }
+                    }
+                    catch
+                    {
+                        // Ignore UI population errors to keep context menu usable
+                    }
+                };
+
+                contextMenuStrip1.Items.Add(roleItem);
+            }
+        }
     }
 }

@@ -29,6 +29,7 @@ namespace MilkTea.Client.Forms
             tenNL_col = new DataGridViewTextBoxColumn();
             soLuong_col = new DataGridViewTextBoxColumn();
             giaBan_col = new DataGridViewTextBoxColumn();
+            donVi_col = new DataGridViewTextBoxColumn();
             sua_col = new DataGridViewImageColumn();
             xoa_col = new DataGridViewImageColumn();
             panelHeader.SuspendLayout();
@@ -164,7 +165,7 @@ namespace MilkTea.Client.Forms
             dGV_ingredients.AllowUserToDeleteRows = false;
             dGV_ingredients.BackgroundColor = SystemColors.ButtonFace;
             dGV_ingredients.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dGV_ingredients.Columns.AddRange(new DataGridViewColumn[] { maNL_col, tenNL_col, soLuong_col, giaBan_col, sua_col, xoa_col });
+            dGV_ingredients.Columns.AddRange(new DataGridViewColumn[] { maNL_col, tenNL_col, soLuong_col, giaBan_col, donVi_col, sua_col, xoa_col });
             dGV_ingredients.Dock = DockStyle.Fill;
             dGV_ingredients.Location = new Point(0, 136);
             dGV_ingredients.Name = "dGV_ingredients";
@@ -195,6 +196,12 @@ namespace MilkTea.Client.Forms
             giaBan_col.HeaderText = "Giá bán (VNĐ)";
             giaBan_col.Name = "giaBan_col";
             giaBan_col.Width = 150;
+            // 
+            // donVi_col
+            // 
+            donVi_col.HeaderText = "Đơn vị";
+            donVi_col.Name = "donVi_col";
+            donVi_col.Width = 100;
             // 
             // sua_col
             // 
@@ -250,6 +257,7 @@ namespace MilkTea.Client.Forms
         private DataGridViewTextBoxColumn tenNL_col;
         private DataGridViewTextBoxColumn soLuong_col;
         private DataGridViewTextBoxColumn giaBan_col;
+        private DataGridViewTextBoxColumn donVi_col;
         private DataGridViewImageColumn sua_col;
         private DataGridViewImageColumn xoa_col;
         private Panel panelBtnAdd;

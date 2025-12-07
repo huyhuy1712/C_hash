@@ -14,6 +14,8 @@ namespace MilkTea.Client.Models
         // Giá bán nguyên liệu (có thể dùng khi xuất bán hoặc định giá sản phẩm)
         public decimal GiaBan { get; set; }
 
+        public int maDVT { get; set; }
+
         public int TrangThai { get; set; }
     }
 }
