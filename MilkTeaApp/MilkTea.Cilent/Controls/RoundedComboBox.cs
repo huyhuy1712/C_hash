@@ -32,8 +32,7 @@ namespace MilkTea.Client.Controls
             if (e.Index < 0) return;
 
             e.DrawBackground();
-            string text = this.Items[e.Index].ToString();
-
+            string text = this.GetItemText(this.Items[e.Index]);
             using (Brush br = new SolidBrush(e.ForeColor))
             {
                 e.Graphics.DrawString(text, e.Font, br, e.Bounds.X + 10, e.Bounds.Y + 5);

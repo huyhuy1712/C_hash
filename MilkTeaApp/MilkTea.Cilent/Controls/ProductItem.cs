@@ -1,4 +1,5 @@
-﻿using MilkTea.Client.Forms.ChildForm_Order;
+﻿using MilkTea.Client.Forms;
+using MilkTea.Client.Forms.ChildForm_Order;
 using MilkTea.Client.Models;
 using MilkTea.Client.Services;
 using System;
@@ -11,6 +12,8 @@ namespace MilkTea.Client.Controls
     public partial class ProductItem : UserControl
     {
         SanPhamService _sanPhamService = new SanPhamService();
+        private OrderForm _orderForm;
+
         // Biến lưu sản phẩm hiện tại để khi click có thể dùng lại
         private SanPham sanPham;
 
