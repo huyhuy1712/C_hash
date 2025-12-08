@@ -48,10 +48,14 @@ namespace MilkTea.Client.Forms.ChildForm_Account
         {
             if (dataGridView1.Columns[e.ColumnIndex].Name == "chkChucNang")
             {
+                // Consider only VISIBLE rows when deciding current checked state
                 bool allChecked = true;
 
                 foreach (DataGridViewRow row in dataGridView1.Rows)
                 {
+                    if (!row.Visible) 
+                        continue;
+
                     var v = row.Cells["chkChucNang"].Value;
                     bool isChecked = v != null && (v.ToString() == "1" || v.ToString().ToLower() == "true");
 
@@ -64,10 +68,15 @@ namespace MilkTea.Client.Forms.ChildForm_Account
 
                 bool newValue = !allChecked;
 
+                // Apply new value only to VISIBLE rows so search-filtered items are unaffected
                 foreach (DataGridViewRow row in dataGridView1.Rows)
                 {
-                    row.Cells["chkChucNang"].Value = newValue ? 1 : 0;
+                    if (row.Visible)
+                        row.Cells["chkChucNang"].Value = newValue ? 1 : 0;
                 }
+
+                // Ensure UI refresh / commit if needed
+                dataGridView1.Refresh();
             }
         }
     }
