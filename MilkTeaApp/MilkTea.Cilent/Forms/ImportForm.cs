@@ -441,10 +441,12 @@ namespace MilkTea.Client.Forms
                         if(ct.DonViTinh == "Kg")
                         {
                             ct.SoLuong = ct.SoLuong * 1000;
+                            ct.DonGiaNhap = ct.DonGiaNhap / 1000;
                         }
                         if(ct.DonViTinh == "Lít")
                         {
                             ct.SoLuong = ct.SoLuong * 1000;
+                            ct.DonGiaNhap = ct.DonGiaNhap / 1000;
                         }
                         // Cộng tồn kho
                         var congSuccess = await _nguyenLieuService.CongNguyenLieuAsync(ct.MaNguyenLieu, ct.SoLuong);
