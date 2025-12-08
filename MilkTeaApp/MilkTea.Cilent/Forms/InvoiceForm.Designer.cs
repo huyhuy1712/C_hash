@@ -106,7 +106,7 @@
             roundedComboBox2.Font = new Font("Segoe UI", 10F);
             roundedComboBox2.FormattingEnabled = true;
             roundedComboBox2.ItemHeight = 30;
-            roundedComboBox2.Location = new Point(414, 4);
+            roundedComboBox2.Location = new Point(534, 4);
             roundedComboBox2.Name = "roundedComboBox2";
             roundedComboBox2.Size = new Size(198, 36);
             roundedComboBox2.TabIndex = 4;
@@ -128,7 +128,7 @@
             roundedComboBox1.Location = new Point(254, 4);
             roundedComboBox1.Margin = new Padding(10);
             roundedComboBox1.Name = "roundedComboBox1";
-            roundedComboBox1.Size = new Size(147, 36);
+            roundedComboBox1.Size = new Size(254, 36);
             roundedComboBox1.TabIndex = 2;
             // 
             // pictureBox1

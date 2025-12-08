@@ -171,7 +171,7 @@ namespace MilkTea.Client.Controls
         {
             // Hiển thị hộp thoại xác nhận
             DialogResult result = MessageBox.Show(
-                "Bạn có muốn xác nhận đh đã hoàn thành ko?", // nội dung thông báo
+                "Bạn có muốn xác nhận đơn hàng đã hoàn thành không?", // nội dung thông báo
                 "Xác nhận",                    // tiêu đề hộp thoại
                 MessageBoxButtons.YesNo,           // nút Yes/No
                 MessageBoxIcon.Question            // biểu tượng câu hỏi
@@ -182,8 +182,6 @@ namespace MilkTea.Client.Controls
                 // Người dùng chọn Yes -> thực hiện xóa đơn hàng
                 // TODO: thêm code xóa đơn hàng ở đây
                
-                MessageBox.Show("Cập nhật đơn hàng thành công!");
-                DonHangDaXoa?.Invoke(this, EventArgs.Empty);
 
                 //nhàn
                 donHang.TrangThai = 1; // Đã hoàn thành

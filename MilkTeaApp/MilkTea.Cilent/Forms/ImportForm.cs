@@ -448,10 +448,17 @@ namespace MilkTea.Client.Forms
                             ct.SoLuong = ct.SoLuong * 1000;
                             ct.DonGiaNhap = ct.DonGiaNhap / 1000;
                         }
+
+                        var nguyenLieu = await _nguyenLieuService.GetAll();
+                        var nl = nguyenLieu.Where(x => x.MaNL == ct.MaNguyenLieu).Single();
+                        
+
+                        var giaMoi = (nl.GiaBan * nl.SoLuong + ct.DonGiaNhap * ct.SoLuong) / (nl.SoLuong + ct.SoLuong);
+
                         // Cộng tồn kho
                         var congSuccess = await _nguyenLieuService.CongNguyenLieuAsync(ct.MaNguyenLieu, ct.SoLuong);
                         // Cập nhật giá bán mới nhất
-                        var giaSuccess = await _nguyenLieuService.CapNhatGiaBanMoiNhatAsync(ct.MaNguyenLieu, ct.DonGiaNhap);
+                        var giaSuccess = await _nguyenLieuService.CapNhatGiaBanMoiNhatAsync(ct.MaNguyenLieu, giaMoi);
 
                         if (!congSuccess || !giaSuccess)
                             allSuccess = false;
