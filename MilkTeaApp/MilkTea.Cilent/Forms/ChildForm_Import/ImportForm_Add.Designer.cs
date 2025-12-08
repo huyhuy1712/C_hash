@@ -343,12 +343,12 @@
             dGV_HangHoa_PN_ADD.BackgroundColor = SystemColors.ButtonFace;
             dGV_HangHoa_PN_ADD.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dGV_HangHoa_PN_ADD.Columns.AddRange(new DataGridViewColumn[] { maPhieuNhap_tb_add, ngayNhap_tb_add, tenNL_tb_add, soLuong_tb_add, tenNVN_tb_add, tongTien_tb_add, donvitinh_tb_add, xoa_tb_add });
-            dGV_HangHoa_PN_ADD.Dock = DockStyle.Top;
+            dGV_HangHoa_PN_ADD.Dock = DockStyle.Fill;
             dGV_HangHoa_PN_ADD.Location = new Point(23, 27);
             dGV_HangHoa_PN_ADD.Margin = new Padding(3, 4, 3, 4);
             dGV_HangHoa_PN_ADD.Name = "dGV_HangHoa_PN_ADD";
             dGV_HangHoa_PN_ADD.RowHeadersWidth = 51;
-            dGV_HangHoa_PN_ADD.Size = new Size(1157, 445);
+            dGV_HangHoa_PN_ADD.Size = new Size(1157, 161);
             dGV_HangHoa_PN_ADD.TabIndex = 0;
             dGV_HangHoa_PN_ADD.CellClick += dGV_HangHoa_PN_ADD_CellClick;
             // 
@@ -418,7 +418,7 @@
             panel5.Margin = new Padding(3, 4, 3, 4);
             panel5.Name = "panel5";
             panel5.Padding = new Padding(23, 27, 23, 27);
-            panel5.Size = new Size(1203, 295);
+            panel5.Size = new Size(1203, 215);
             panel5.TabIndex = 4;
             panel5.TabStop = true;
             // 
@@ -427,8 +427,8 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1203, 749);
-            Controls.Add(panel3);
             Controls.Add(panel5);
+            Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Margin = new Padding(3, 4, 3, 4);

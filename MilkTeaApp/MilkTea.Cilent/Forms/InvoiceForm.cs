@@ -28,7 +28,7 @@ namespace MilkTea.Client.Forms
                 { "Mã đơn hàng", "MaDH" },
                 { "Mã nhân viên", "MaNV" },
                 { "Mã Buzzer", "MaBuzzer" },
-                { "pttt", "PhuongThucThanhToan" }
+                { "Phương thức thanh toán", "PhuongThucThanhToan" }
             };
 
             roundedComboBox1.Items.AddRange(columnMapping.Keys.ToArray());
@@ -148,6 +148,10 @@ namespace MilkTea.Client.Forms
                 await item.SetData(dh);
                 item.Size = new System.Drawing.Size(210, 140);
                 item.Margin = new Padding(10);
+                item.DonHangDaXoa += async (s, e) =>
+                {
+                    await FilterAllAsync();
+                };
                 flowLayoutPanel1.Controls.Add(item);
             }
         }
